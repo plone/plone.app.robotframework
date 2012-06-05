@@ -1,17 +1,22 @@
 *** Settings ***
+Library  plone.act.Zope2ServerLibrary
+Library  plone.act.PloneLibrary
 Library  Selenium2Library  run_on_failure=Capture Page Screenshot
 
 *** Variables ***
 
-${PORT} =  5000 
+${PORT} =  5000
 ${ZOPE_URL} =  http://localhost:${PORT}
-${PLONE_URL} =  ${ZOPE_URL}/Plone
+${PLONE_URL} =  ${ZOPE_URL}/plone
 ${BROWSER} =  Firefox
 
 *** Keywords ***
 
 Start browser and wake plone up
-
+    [Arguments]  ${ZOPE_LAYER_DOTTED_NAME}
+    
+    Start Zope Server  ${ZOPE_LAYER_DOTTED_NAME}
+    Zodb setup
     Set Selenium timeout  10s
     Set Selenium implicit wait  0.2s
     
@@ -19,8 +24,15 @@ Start browser and wake plone up
     Wait until keyword succeeds  2min  3s  Access plone
     Register keyword to run on failure  ${previous}
 
-    Wait until keyword succeeds  30s  1s  Log in  admin  admin
+
+    Wait until keyword succeeds  30s  1s  Log in as site owner
     Log out
+    Zodb teardown
+
+Log in as site owner
+    ${name} =  Get site owner name
+    ${password} =  Get site owner password
+    Log in  ${name}  ${password}
 
 Access plone
     Open browser  ${ZOPE_URL}  ${BROWSER}
@@ -29,10 +41,11 @@ Access plone
 
 Close browser and selenium server
     Close browser
+    Stop Zope Server
 
 Goto homepage
     Go to   ${PLONE_URL}
-    Page should contain  Dr Jekyll Diagnosis
+    Page should contain  Powered by Plone & Python
 
 Log out
     Go to  ${PLONE_URL}/logout
@@ -45,6 +58,7 @@ Log in
     Input text  __ac_name  ${userid}
     Input text  __ac_password  ${password}
     Click Button  Log in
+    Page should contain element  css=#user-name 
     Go to  ${PLONE_URL}
     [Return]  True
 
