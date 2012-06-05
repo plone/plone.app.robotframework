@@ -6,6 +6,7 @@ before_install:
   - make download-cache
 install:
   - make bin/pybot
+  - make var/supervisord.pid
 before_script:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
