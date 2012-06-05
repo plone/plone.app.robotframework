@@ -1,0 +1,52 @@
+*** Settings ***
+Resource  plone/act/plone.txt
+
+Suite Setup  Log in as site owner
+
+Test setup  Zodb setup
+Test teardown  Zodb teardown
+
+*** Test cases ***
+
+Create Folder
+    [Tags]  edit
+    Create folder  Create folder
+
+Create Document
+    [Tags]  edit
+    Create document  Create document
+
+Edit document view
+    [Tags]  edit  current
+    Create document  Edit document view
+    Element should be visible  css=li#contentview-edit a
+    Click Link  css=li#contentview-edit a
+    Element Should Be Visible  css=input#title
+    Element Should Be Visible  css=fieldset#fieldset-default
+    Element Should Not Be Visible  css=textarea#subject_keywords
+    Element Should Not Be Visible  css=fieldset#fieldset-dates
+    Element Should Not Be Visible  css=fieldset#fieldset-categorization
+
+Select categorization tab
+    [Tags]  edit  current
+    Create document  Select categorization tab
+    Element should be visible  css=li#contentview-edit a
+    Click Link  css=li#contentview-edit a
+    Element should be visible  css=a#fieldsetlegend-categorization
+    Click link  css=a#fieldsetlegend-categorization
+    Element Should Not Be Visible  css=fieldset#fieldset-default
+    Element Should Be Visible  css=textarea#subject_keywords
+    Element Should Not Be Visible  css=fieldset#fieldset-dates
+    Element Should Be Visible  css=fieldset#fieldset-categorization
+
+Select settings tab
+    [Tags]  edit  current
+    Create document  Select settings tab
+    Element should be visible  css=li#contentview-edit a
+    Click Link  css=li#contentview-edit a
+    Element should be visible  css=a#fieldsetlegend-settings
+    Click link  css=a#fieldsetlegend-settings
+    Element Should Not Be Visible  css=fieldset#fieldset-default
+    Element Should Not Be Visible  css=textarea#subject_keywords
+    Element Should Not Be Visible  css=fieldset#fieldset-dates
+    Element Should Be Visible  css=fieldset#fieldset-settings

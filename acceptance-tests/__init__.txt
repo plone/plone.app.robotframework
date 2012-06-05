@@ -1,0 +1,5 @@
+*** Settings ***
+Resource  plone/act/plone.txt
+
+Suite Setup  Start browser and wake Plone up  plone.app.testing.PLONE_ZSERVER
+Suite Teardown  Close browser and selenium server
