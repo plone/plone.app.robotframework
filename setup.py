@@ -13,6 +13,11 @@ long_description = (
     open('CHANGES.txt').read()
     + '\n')
 
+
+console_scripts = ["act_server = plone.act.server:server"]
+
+entry_points = dict(console_scripts=console_scripts)
+
 setup(name='plone.act',
       version=version,
       description="Acceptance testing for Plone",
@@ -35,7 +40,5 @@ setup(name='plone.act',
           'plone.app.testing',
           'robotframework-selenium2library',
       ],
-      entry_points="""
-      # -*- Entry points: -*-
-      """,
+      entry_points=entry_points,
       )
