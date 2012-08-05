@@ -17,8 +17,8 @@ Start browser and wake plone up
     
     Start Zope Server  ${ZOPE_LAYER_DOTTED_NAME}
     Zodb setup
-    Set Selenium timeout  10s
-    Set Selenium implicit wait  0.2s
+    Set Selenium timeout  15s
+    Set Selenium implicit wait  1s
     
     ${previous}  Register keyword to run on failure  Close Browser
     Wait until keyword succeeds  2min  3s  Access plone
