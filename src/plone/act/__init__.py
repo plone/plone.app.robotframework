@@ -13,6 +13,9 @@ class PloneLibrary(object):
 
 class Zope2ServerLibrary(object):
 
+    def __init__(self):
+        self.zope_layer = None
+
     def _import_layer(self, layer_dotted_name):
         parts = layer_dotted_name.split('.')
         if len(parts) < 2:
@@ -24,36 +27,42 @@ class Zope2ServerLibrary(object):
         layer = getattr(module, layer_name)
         return layer
 
+    def _get_layer(self):
+        return self.zope_layer
+
     def start_zope_server(self, layer_dotted_name):
-        global zope_layer
+        #global zope_layer
         new_layer = self._import_layer(layer_dotted_name)
-        if zope_layer and zope_layer is not new_layer:
+        if self.zope_layer and self.zope_layer is not new_layer:
             self.stop_zope_server()
         setup_layer(new_layer)
-        zope_layer = new_layer
+        self.zope_layer = new_layer
 
     def stop_zope_server(self):
         tear_down()
-        global zope_layer
-        zope_layer = None
+        #global zope_layer
+        self.zope_layer = None
 
     def zodb_setup(self):
         from zope.testing.testrunner.runner import order_by_bases
-        layers = order_by_bases([zope_layer])
+        layers = order_by_bases([self.zope_layer])
         for layer in layers:
             if hasattr(layer, 'testSetUp'):
                 layer.testSetUp()
 
     def zodb_teardown(self):
         from zope.testing.testrunner.runner import order_by_bases
-        layers = order_by_bases([zope_layer])
+        layers = order_by_bases([self.zope_layer])
         layers.reverse()
         for layer in layers:
             if hasattr(layer, 'testTearDown'):
                 layer.testTearDown()
 
+    def apply_profile(self, profile_name):
+        from plone.app.testing import applyProfile
+        applyProfile(self.zope_layer['portal'],profile_name)
 
-zope_layer = None
+#zope_layer = None
 setup_layers = {}
 
 
