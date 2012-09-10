@@ -15,6 +15,15 @@ endif
 
 ifdef IS_TRAVIS
 
+buildout-cache:
+	mkdir $@
+
+buildout-cache/downloads: buildout-cache
+	mkdir $@
+
+buildout-cache/eggs: buildout-cache
+	mkdir $@
+
 # use specific buildout that depends on cache
 buildout.cfg: travis.cfg
 	cp travis.cfg buildout.cfg

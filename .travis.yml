@@ -3,6 +3,8 @@ python:
   - 2.6
 before_install:
   - sudo apt-get install libpcre3-dev
+  - make buildout-cache/downloads
+  - make buildout-cache/eggs
 install:
   - make bin/pybot
   - make var/supervisord.pid
