@@ -2,7 +2,7 @@
 #
 pybot_options =
 
-.PHONY: instance cleanall test robot stop
+.PHONY: instance cleanall test robot stop cached-eggs
 
 BUILDOUT_COMMAND = ./bin/buildout -Nt 5
 BUILDOUT_FILES = buildout.cfg pybot.cfg setup.py bin/buildout
@@ -32,6 +32,10 @@ buildout.cfg: travis.cfg
 bin/buildout: bootstrap.py buildout.cfg
 	python bootstrap.py
 	touch $@
+
+cached-eggs: bin/buildout buildout-cache/downloads buildout-cache/eggs
+	bin/buildout install download
+	bin/buildout install install
 
 else
 

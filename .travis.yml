@@ -6,6 +6,7 @@ before_install:
   - make buildout-cache/downloads
   - make buildout-cache/eggs
 install:
+  - make cached-eggs
   - make bin/pybot
   - make var/supervisord.pid
 before_script:
