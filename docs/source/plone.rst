@@ -1,56 +1,128 @@
 Plone Keywords
 ==============
 
+Browser
+-------
 
-Start browser and wake plone up
-    [Arguments]  ${ZOPE_LAYER_DOTTED_NAME}
+Start browser and wake plone up::
 
-    Start Zope Server  ${ZOPE_LAYER_DOTTED_NAME}
-    Zodb setup
-    Set Selenium timeout  15s
-    Set Selenium implicit wait  1s
+    Start browser and wake plone up
 
-    ${previous}  Register keyword to run on failure  Close Browser
-    Wait until keyword succeeds  2min  3s  Access plone
-    Register keyword to run on failure  ${previous}
+        [Arguments]  ${ZOPE_LAYER_DOTTED_NAME}
+
+        Start Zope Server  ${ZOPE_LAYER_DOTTED_NAME}
+        Zodb setup
+        Set Selenium timeout  15s
+        Set Selenium implicit wait  1s
+
+        ${previous}  Register keyword to run on failure  Close Browser
+        Wait until keyword succeeds  2min  3s  Access plone
+        Register keyword to run on failure  ${previous}
 
 
-    Wait until keyword succeeds  30s  1s  Log in as site owner
+        Wait until keyword succeeds  30s  1s  Log in as site owner
+        Log out
+        Zodb teardown
+
+Close browser and selenium server::
+
+    Close browser and selenium server
+        Close browser
+        Stop Zope Server
+
+
+Login/Logout
+------------
+
+Log in::
+
+    Log in
+        [Arguments]  ${userid}  ${password}
+        Go to  ${PLONE_URL}/login_form
+        Page should contain element  __ac_name
+        Input text  __ac_name  ${userid}
+        Input text  __ac_password  ${password}
+        Click Button  Log in
+        Page should contain element  css=#user-name
+        Go to  ${PLONE_URL}
+        [Return]  True
+
+Log out::
+
     Log out
-    Zodb teardown
+        Go to  ${PLONE_URL}/logout
+        Page should contain  logged out
 
-Log in as site owner
-    ${name} =  Get site owner name
-    ${password} =  Get site owner password
-    Log in  ${name}  ${password}
+Log in as site owner::
 
-Access plone
-    Open browser  ${ZOPE_URL}  ${BROWSER}
+    Log in as site owner
+        ${name} =  Get site owner name
+        ${password} =  Get site owner password
+        Log in  ${name}  ${password}
+
+Access plone::
+
+    Access plone
+        Open browser  ${ZOPE_URL}  ${BROWSER}
+        Goto homepage
+        [Return]  True
+
+
+Create content
+--------------
+
+Create folder::
+
+    Create folder
+        [arguments]  ${title}
+
+        Goto homepage
+        Open Add New Menu
+        Click Link  css=#plone-contentmenu-factories a#folder
+        Element should be visible  css=#archetypes-fieldname-title input
+        Input Text  title  ${title}
+        Click Button  Save
+        Page should contain  ${title}
+        Element should contain  css=#parent-fieldname-title  ${title}
+
+Create document::
+
+    Create document
+        [arguments]  ${title}
+
+        Create folder  Folder for ${title}
+        Open Add New Menu
+        Click Link  css=#plone-contentmenu-factories a#document
+        Element should be visible  css=#archetypes-fieldname-title input
+        Input Text  title  ${title}
+        Click Button  Save
+        Page should contain  ${title}
+        Element should contain  css=#parent-fieldname-title  ${title}
+
+Add page::
+
+    Add Page
+        [arguments]  ${title}
+
+        Open Add New Menu
+        Click Link  link=Page
+        Input Text  title  ${title}
+        Click button  name=form.button.save
+        Page Should Contain  Changes saved.
+
+
+Open Resources
+--------------
+
+Goto homepage::
+
     Goto homepage
-    [Return]  True
+        Go to   ${PLONE_URL}
+        Page should contain  Powered by Plone & Python
 
-Close browser and selenium server
-    Close browser
-    Stop Zope Server
 
-Goto homepage
-    Go to   ${PLONE_URL}
-    Page should contain  Powered by Plone & Python
-
-Log out
-    Go to  ${PLONE_URL}/logout
-    Page should contain  logged out
-
-Log in
-    [Arguments]  ${userid}  ${password}
-    Go to  ${PLONE_URL}/login_form
-    Page should contain element  __ac_name
-    Input text  __ac_name  ${userid}
-    Input text  __ac_password  ${password}
-    Click Button  Log in
-    Page should contain element  css=#user-name
-    Go to  ${PLONE_URL}
-    [Return]  True
+Misc
+----
 
 Click Overlay Link
     [Arguments]  ${element}
@@ -108,15 +180,6 @@ Click Delete Action
 Click Rename Action
     Click Actions Rename
 
-Add Page
-    [arguments]  ${title}
-
-    Open Add New Menu
-    Click Link  link=Page
-    Input Text  title  ${title}
-    Click button  name=form.button.save
-    Page Should Contain  Changes saved.
-
 Remove Content
     [arguments]  ${id}
 
@@ -136,29 +199,3 @@ Rename Content Title
     Wait Until Page Contains Element  css=input#${id}_id
     Input Text  css=input#${id}_title  ${new_title}
     Click Button  Rename All
-
-
-Create folder
-    [arguments]  ${title}
-
-    Goto homepage
-    Open Add New Menu
-    Click Link  css=#plone-contentmenu-factories a#folder
-    Element should be visible  css=#archetypes-fieldname-title input
-    Input Text  title  ${title}
-    Click Button  Save
-    Page should contain  ${title}
-    Element should contain  css=#parent-fieldname-title  ${title}
-
-Create document
-    [arguments]  ${title}
-
-    Create folder  Folder for ${title}
-    Open Add New Menu
-    Click Link  css=#plone-contentmenu-factories a#document
-    Element should be visible  css=#archetypes-fieldname-title input
-    Input Text  title  ${title}
-    Click Button  Save
-    Page should contain  ${title}
-    Element should contain  css=#parent-fieldname-title  ${title}
-
