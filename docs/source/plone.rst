@@ -1,5 +1,5 @@
-Keywords
-========
+Plone Keywords
+==============
 
 
 Start browser and wake plone up

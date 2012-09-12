@@ -11,7 +11,7 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   keywords.rst
+   plone.rst
 
 
 Indices and tables
