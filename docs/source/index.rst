@@ -21,7 +21,7 @@ Todo-List:
 - Describe and document the two possible test runner approaches (asko's and godfroid's)
 - Describe/investigate different ways of writing higher-level Plone keywords (standard robot vs. BDD, given-when-then)
 - Write documentation for selenium2library keywords (tisto).
-- Write documentation for Plone keywords.
+- Write documentation for Plone keywords. (Should we use robot framework tools to do this and then simply reference them? Ed)
 
 
 Contents:
