@@ -4,7 +4,6 @@
     http://ploneact.readthedocs.org/en/latest/index.html so you have working
     references and proper formatting.
 
-
 *******************************
 Plone Acceptance Tests
 *******************************
@@ -21,8 +20,8 @@ Todo-List:
 
 - Describe and document the two possible test runner approaches (asko's and godfroid's)
 - Describe/investigate different ways of writing higher-level Plone keywords (standard robot vs. BDD, given-when-then)
-- Write documentation for selenium2library keywords.
-- Write documentation for Plone keywords. (Should we use robot framework tools to do this and then simply reference them? Ed)
+- Write documentation for selenium2library keywords (tisto).
+- Write documentation for Plone keywords.
 
 
 Contents:
@@ -30,8 +29,8 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   keywords.rst
    plone.rst
+   keywords.rst
 
 
 Indices and tables
