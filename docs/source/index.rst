@@ -40,6 +40,7 @@ Contents:
 
    plone.rst
    keywords.rst
+   robotsuite.rst
 
 Indices and tables
 ==================
