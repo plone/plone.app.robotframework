@@ -507,4 +507,4 @@ Resources
 ---------
 
 * `Selenium2Library keywords <http://rtomac.github.com/robotframework-selenium2library/doc/Selenium2Library.html>`_
-* `Robot Framework built-in keywords <http://robotframework.googlecode.com/hg/doc/libraries/BuiltIn.html?r=2.7.3`_
+* `Robot Framework built-in keywords <http://robotframework.googlecode.com/hg/doc/libraries/BuiltIn.html?r=2.7.3>`_
