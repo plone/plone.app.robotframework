@@ -3,10 +3,20 @@ import sys
 
 class PloneLibrary(object):
     def get_site_owner_name(self):
+        """*DEPRECATED* Instead use Robot Framework's variable files
+        to directly pull in p.a.testing.interfaces.
+        See plone.act/acceptance-tests/rf_variable_file.txt and
+        http://robotframework.googlecode.com/hg/doc/userguide/RobotFrameworkUserGuide.html?r=2.7.1#resource-and-variable-files
+        """
         import plone.app.testing
         return plone.app.testing.interfaces.SITE_OWNER_NAME
 
     def get_site_owner_password(self):
+        """*DEPRECATED* Instead use Robot Framework's variable files
+        to directly pull in p.a.testing.interfaces.
+        See plone.act/acceptance-tests/rf_variable_file.txt and
+        http://robotframework.googlecode.com/hg/doc/userguide/RobotFrameworkUserGuide.html?r=2.7.1#resource-and-variable-files
+        """
         import plone.app.testing
         return plone.app.testing.interfaces.SITE_OWNER_PASSWORD
 
