@@ -41,7 +41,7 @@ else
 
 # make a virtualenv
 bin/python:
-	virtualenv-2.6 --no-site-packages .
+	virtualenv-2.7 --no-site-packages .
 	touch $@
 
 buildout.cfg: dev.cfg
