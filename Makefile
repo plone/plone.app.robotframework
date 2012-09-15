@@ -2,10 +2,10 @@
 #
 pybot_options =
 
-.PHONY: instance cleanall test robot stop cached-eggs
+.PHONY: instance cleanall test robot robotsuite stop cached-eggs
 
 BUILDOUT_COMMAND = ./bin/buildout -Nt 5
-BUILDOUT_FILES = buildout.cfg pybot.cfg setup.py bin/buildout
+BUILDOUT_FILES = buildout.cfg pybot.cfg robotsuite.cfg setup.py bin/buildout
 
 all: instance
 
@@ -77,11 +77,15 @@ cleanall:
 	if [ -f var/supervisord.pid ]; then bin/supervisorctl shutdown; sleep 5; fi
 	rm -fr bin develop-eggs downloads eggs parts .installed.cfg
 
-test: bin/test	
+test: bin/test
 	./bin/test
 
 bin/pybot: $(BUILDOUT_FILES)
 	$(BUILDOUT_COMMAND) install robot
+	touch $@
+
+bin/zope-testrunner: $(BUILDOUT_FILES)
+	$(BUILDOUT_COMMAND) -c robotsuite.cfg
 	touch $@
 
 bin/supervisord: $(BUILDOUT_FILES)
@@ -96,7 +100,11 @@ var/supervisord.pid: bin/supervisord bin/supervisorctl
 	bin/supervisord --pidfile=$@
 
 robot: bin/pybot var/supervisord.pid
-	bin/pybot $(pybot_options) -d robot-output acceptance-tests 
+	bin/pybot $(pybot_options) -d robot-output acceptance-tests
 
-stop: 
+robotsuite: bin/zope-testrunner
+	mkdir -p robotsuite-output
+	cd robotsuite-output && ../bin/zope-testrunner --path=../
+
+stop:
 	bin/supervisorctl shutdown
