@@ -65,7 +65,7 @@ parts/instance: $(BUILDOUT_FILES)
 bin/instance: parts/instance
 	if [ -f var/plonesite ]; then rm var/plonesite; fi
 	touch $@
-	
+
 var/plonesite:  bin/instance
 	$(BUILDOUT_COMMAND) install plonesite
 	touch $@
