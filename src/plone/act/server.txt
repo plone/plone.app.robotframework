@@ -24,16 +24,12 @@ Start browser and wake plone up
     Wait until keyword succeeds  2min  3s  Access plone
     Register keyword to run on failure  ${previous}
 
-
-    Wait until keyword succeeds  30s  1s  Log in as site owner
-    Log out
-    Zodb teardown
-
 Access plone
     Open browser  ${ZOPE_URL}  ${BROWSER}
     Goto homepage
     [Return]  True
 
-Close browser and selenium server
+Close browser, teardown zodb, and stop selenium server
     Close browser
+    Zodb teardown
     Stop Zope Server
