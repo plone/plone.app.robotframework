@@ -10,6 +10,11 @@ class PloneLibrary(object):
         import plone.app.testing
         return plone.app.testing.interfaces.SITE_OWNER_PASSWORD
 
+    def stop_for_debugging(self):
+        for attr in ('stdin', 'stdout', 'stderr'):
+            setattr(sys, attr, getattr(sys, '__%s__' % attr))
+        import pdb; pdb.set_trace()
+
 
 class Zope2ServerLibrary(object):
 
