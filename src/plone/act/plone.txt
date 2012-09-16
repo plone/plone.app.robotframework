@@ -31,11 +31,14 @@ Log in
     [Arguments]  ${userid}  ${password}
     Go to  ${PLONE_URL}/login_form
     Page should contain element  __ac_name
+    Page should contain element  __ac_password
+    Page should contain button  Log in
     Input text  __ac_name  ${userid}
     Input text  __ac_password  ${password}
     Click Button  Log in
-    Page should contain element  css=#user-name
+    Page should not contain button  Log in
     Go to  ${PLONE_URL}
+    Page should contain element  css=#user-name
     [Return]  True
 
 Log in as site owner
