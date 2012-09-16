@@ -12,14 +12,18 @@ ${BROWSER} =  Firefox
 
 *** Keywords ***
 
+# ----------------------------------------------------------------------------
+# Misc
+# ----------------------------------------------------------------------------
+
 Start browser and wake plone up
     [Arguments]  ${ZOPE_LAYER_DOTTED_NAME}
-    
+
     Start Zope Server  ${ZOPE_LAYER_DOTTED_NAME}
     Zodb setup
     Set Selenium timeout  15s
     Set Selenium implicit wait  1s
-    
+
     ${previous}  Register keyword to run on failure  Close Browser
     Wait until keyword succeeds  2min  3s  Access plone
     Register keyword to run on failure  ${previous}
@@ -28,11 +32,6 @@ Start browser and wake plone up
     Wait until keyword succeeds  30s  1s  Log in as site owner
     Log out
     Zodb teardown
-
-Log in as site owner
-    ${name} =  Get site owner name
-    ${password} =  Get site owner password
-    Log in  ${name}  ${password}
 
 Access plone
     Open browser  ${ZOPE_URL}  ${BROWSER}
@@ -47,9 +46,10 @@ Goto homepage
     Go to   ${PLONE_URL}
     Page should contain  Powered by Plone & Python
 
-Log out
-    Go to  ${PLONE_URL}/logout
-    Page should contain  logged out
+
+# ----------------------------------------------------------------------------
+# Login/Logout
+# ----------------------------------------------------------------------------
 
 Log in
     [Arguments]  ${userid}  ${password}
@@ -58,9 +58,23 @@ Log in
     Input text  __ac_name  ${userid}
     Input text  __ac_password  ${password}
     Click Button  Log in
-    Page should contain element  css=#user-name 
+    Page should contain element  css=#user-name
     Go to  ${PLONE_URL}
     [Return]  True
+
+Log in as site owner
+    ${name} =  Get site owner name
+    ${password} =  Get site owner password
+    Log in  ${name}  ${password}
+
+Log out
+    Go to  ${PLONE_URL}/logout
+    Page should contain  logged out
+
+
+# ----------------------------------------------------------------------------
+# Overlays
+# ----------------------------------------------------------------------------
 
 Click Overlay Link
     [Arguments]  ${element}
@@ -73,6 +87,11 @@ Should be above
     ${locator1-position} =  Get vertical position  ${locator1}
     ${locator2-position} =  Get vertical position  ${locator2}
     Should be true  ${locator1-position} < ${locator2-position}
+
+
+# ----------------------------------------------------------------------------
+# Menu / Edit Bar
+# ----------------------------------------------------------------------------
 
 Open Menu
     [Arguments]  ${elementId}
@@ -118,6 +137,11 @@ Click Delete Action
 Click Rename Action
     Click Actions Rename
 
+
+# ----------------------------------------------------------------------------
+# Create Content
+# ----------------------------------------------------------------------------
+
 Add Page
     [arguments]  ${title}
 
@@ -126,27 +150,6 @@ Add Page
     Input Text  title  ${title}
     Click button  name=form.button.save
     Page Should Contain  Changes saved.
-
-Remove Content
-    [arguments]  ${id}
-
-    Go to  ${PLONE_URL}/${id}
-    Page Should Contain Element  css=body.section-${id}
-    Click Delete Action
-    Wait Until Page Contains Element  css=input.destructive
-    Click Button  css=input.destructive
-    Page Should Contain  Plone site
-
-Rename Content Title
-    [arguments]  ${id}  ${new_title}
-
-    Go to  ${PLONE_URL}/${id}
-    Page Should Contain Element  css=body.section-${id}
-    Click Rename Action
-    Wait Until Page Contains Element  css=input#${id}_id
-    Input Text  css=input#${id}_title  ${new_title}
-    Click Button  Rename All
-
 
 Create folder
     [arguments]  ${title}
@@ -172,3 +175,27 @@ Create document
     Page should contain  ${title}
     Element should contain  css=#parent-fieldname-title  ${title}
 
+
+# ----------------------------------------------------------------------------
+# Content Actions
+# ----------------------------------------------------------------------------
+
+Remove Content
+    [arguments]  ${id}
+
+    Go to  ${PLONE_URL}/${id}
+    Page Should Contain Element  css=body.section-${id}
+    Click Delete Action
+    Wait Until Page Contains Element  css=input.destructive
+    Click Button  css=input.destructive
+    Page Should Contain  Plone site
+
+Rename Content Title
+    [arguments]  ${id}  ${new_title}
+
+    Go to  ${PLONE_URL}/${id}
+    Page Should Contain Element  css=body.section-${id}
+    Click Rename Action
+    Wait Until Page Contains Element  css=input#${id}_id
+    Input Text  css=input#${id}_title  ${new_title}
+    Click Button  Rename All
