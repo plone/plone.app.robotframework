@@ -25,6 +25,9 @@ class PloneLibrary(object):
             setattr(sys, attr, getattr(sys, '__%s__' % attr))
         import pdb; pdb.set_trace()
 
+    def apply_profile(self, profile_name):
+        from plone.app.testing import applyProfile
+        applyProfile(self.zope_layer['portal'],profile_name)
 
 class Zope2ServerLibrary(object):
 
@@ -72,10 +75,6 @@ class Zope2ServerLibrary(object):
         for layer in layers:
             if hasattr(layer, 'testTearDown'):
                 layer.testTearDown()
-
-    def apply_profile(self, profile_name):
-        from plone.app.testing import applyProfile
-        applyProfile(self.zope_layer['portal'],profile_name)
 
 #zope_layer = None
 setup_layers = {}
