@@ -1,0 +1,12 @@
+==============================================================================
+Behavior-driven development
+==============================================================================
+
+Robot Framework allows to write test cases in behavior-driven development
+style.
+
+http://robotframework.googlecode.com/hg/doc/userguide/RobotFrameworkUserGuide.html?r=2.7.1#behavior-driven-style
+
+http://robotframework.googlecode.com/hg/doc/userguide/RobotFrameworkUserGuide.html?r=2.7.1#behavior-driven-development-example
+
+http://robotframework.googlecode.com/hg/doc/userguide/RobotFrameworkUserGuide.html?r=2.7.1#ignoring-given-when-then-and-prefixes
