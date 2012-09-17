@@ -38,7 +38,7 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   plone.rst
+   plone-keywords/index.rst
    keywords.rst
    robotsuite.rst
 
