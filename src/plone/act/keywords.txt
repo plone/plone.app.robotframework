@@ -9,7 +9,6 @@ ${PORT} =  5000
 ${ZOPE_URL} =  http://localhost:${PORT}
 ${PLONE_URL} =  ${ZOPE_URL}/plone
 ${BROWSER} =  Firefox
-${TEST_FOLDER} = ${PLONE_URL}/acceptance-test-folder
 
 
 *** Keywords ***
@@ -154,7 +153,7 @@ Add Page
 Create folder
     [arguments]  ${title}
 
-    Go to  ${TEST_FOLDER}
+    Go to  ${PLONE_URL}/acceptance-test-folder
     Open Add New Menu
     Click Link  css=#plone-contentmenu-factories a#folder
     Element should be visible  css=#archetypes-fieldname-title input
@@ -166,7 +165,7 @@ Create folder
 Create document
     [arguments]  ${title}
 
-    Go to  ${TEST_FOLDER}
+    Go to  ${PLONE_URL}/acceptance-test-folder
     Open Add New Menu
     Click Link  css=#plone-contentmenu-factories a#document
     Element should be visible  css=#archetypes-fieldname-title input
@@ -174,6 +173,12 @@ Create document
     Click Button  Save
     Page should contain  ${title}
     Element should contain  css=#parent-fieldname-title  ${title}
+
+Create news item
+    [Arguments]  ${title}
+    Go to  ${test-folder}/createObject?type_name=News+Item
+    Input text  title  ${title}
+    Click Button  Save
 
 
 # ----------------------------------------------------------------------------
