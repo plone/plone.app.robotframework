@@ -9,6 +9,7 @@ Plone Keywords
    content.rst
    browser.rst
    login.rst
+   editbar.rst
 
 
 Misc
@@ -35,74 +36,6 @@ Should be above::
         ${locator1-position} =  Get vertical position  ${locator1}
         ${locator2-position} =  Get vertical position  ${locator2}
         Should be true  ${locator1-position} < ${locator2-position}
-
-Open Menu::
-
-    Open Menu
-        [Arguments]  ${elementId}
-
-        Element Should Be Visible  css=dl#${elementId} span
-        Element Should Not Be Visible  css=dl#${elementId} dd.actionMenuContent
-        Click link  css=dl#${elementId} dt.actionMenuHeader a
-        Wait until keyword succeeds  1  5  Element Should Be Visible  css=dl#${elementId} dd.actionMenuContent
-
-Open User Menu::
-
-    Open User Menu
-        Open Menu  portal-personaltools
-
-Open Add New Menu::
-
-    Open Add New Menu
-        Open Menu  plone-contentmenu-factories
-
-Open Display Menu::
-
-    Open Display Menu
-        Open Menu  plone-contentmenu-display
-
-Open Action Menu::
-
-    Open Action Menu
-        Open Menu  plone-contentmenu-actions
-
-Open Workflow Menu::
-
-    Open Workflow Menu
-        Open Menu  plone-contentmenu-workflow
-
-Click ${name} In Edit Bar::
-
-    Click ${name} In Edit Bar
-        Element Should Contain  css=div#edit-bar ul#content-views  ${name}
-        Click Link  ${name}
-
-Click Actions ${name}::
-
-    Click Actions ${name}
-        Open Action Menu
-        Element Should Contain  css=dl#plone-contentmenu-actions dd.actionMenuContent  ${name}
-        Click Link  ${name}
-
-Click Cut Action::
-
-    Click Cut Action
-        Click Actions Cut
-
-Click Copy Action::
-
-    Click Copy Action
-        Click Actions Copy
-
-Click Delete Action::
-
-    Click Delete Action
-        Click Actions Delete
-
-Click Rename Action::
-
-    Click Rename Action
-        Click Actions Rename
 
 Remove Content::
 
