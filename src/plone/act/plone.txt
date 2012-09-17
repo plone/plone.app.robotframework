@@ -11,6 +11,8 @@ ${PORT} =  5000
 ${ZOPE_URL} =  http://localhost:${PORT}
 ${PLONE_URL} =  ${ZOPE_URL}/plone
 ${BROWSER} =  Firefox
+${TEST_FOLDER} = ${PLONE_URL}/acceptance-test-folder
+
 
 *** Keywords ***
 
@@ -154,7 +156,7 @@ Add Page
 Create folder
     [arguments]  ${title}
 
-    Goto homepage
+    Go to  ${TEST_FOLDER}
     Open Add New Menu
     Click Link  css=#plone-contentmenu-factories a#folder
     Element should be visible  css=#archetypes-fieldname-title input
@@ -166,7 +168,7 @@ Create folder
 Create document
     [arguments]  ${title}
 
-    Create folder  Folder for ${title}
+    Go to  ${TEST_FOLDER}
     Open Add New Menu
     Click Link  css=#plone-contentmenu-factories a#document
     Element should be visible  css=#archetypes-fieldname-title input
