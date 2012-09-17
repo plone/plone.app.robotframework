@@ -2,7 +2,10 @@
 Plone Login/Logout Keywords
 ==============================================================================
 
-Log in::
+Login
+-----
+
+Log in (with username and password)::
 
     Log in
         [Arguments]  ${userid}  ${password}
@@ -15,12 +18,6 @@ Log in::
         Go to  ${PLONE_URL}
         [Return]  True
 
-Log out::
-
-    Log out
-        Go to  ${PLONE_URL}/logout
-        Page should contain  logged out
-
 Log in as site owner::
 
     Log in as site owner
@@ -28,9 +25,25 @@ Log in as site owner::
         ${password} =  Get site owner password
         Log in  ${name}  ${password}
 
-Access plone::
+Log in as ${username} with role(s) ${roles}::
 
-    Access plone
-        Open browser  ${ZOPE_URL}  ${BROWSER}
-        Goto homepage
-        [Return]  True
+    Log in as ${username} with role(s) ${roles}
+
+        [Arguments]  ${userid}  ${roles}
+        XXX: We need a generic way to login with a user that has one or more roles.
+
+.. warning::
+
+    - Do we need to be able to assign multiple roles at once?
+
+    - Do we need to assign roles to arbitray users or is it sufficient if we
+      always assign those roles to the test user?
+
+Logout
+------
+
+Log out::
+
+    Log out
+        Go to  ${PLONE_URL}/logout
+        Page should contain  logged out
