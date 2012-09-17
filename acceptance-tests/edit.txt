@@ -1,5 +1,5 @@
 *** Settings ***
-Resource  plone/act/keywords.txt
+Resource  plone/act/plone.txt
 
 Suite Setup  Log in as site owner
 
