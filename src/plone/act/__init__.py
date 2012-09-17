@@ -3,10 +3,20 @@ import sys
 
 class PloneLibrary(object):
     def get_site_owner_name(self):
+        """*DEPRECATED* Instead use Robot Framework's variable files
+        to directly pull in p.a.testing.interfaces.
+        See plone.act/acceptance-tests/rf_variable_file.txt and
+        http://robotframework.googlecode.com/hg/doc/userguide/RobotFrameworkUserGuide.html?r=2.7.1#resource-and-variable-files
+        """
         import plone.app.testing
         return plone.app.testing.interfaces.SITE_OWNER_NAME
 
     def get_site_owner_password(self):
+        """*DEPRECATED* Instead use Robot Framework's variable files
+        to directly pull in p.a.testing.interfaces.
+        See plone.act/acceptance-tests/rf_variable_file.txt and
+        http://robotframework.googlecode.com/hg/doc/userguide/RobotFrameworkUserGuide.html?r=2.7.1#resource-and-variable-files
+        """
         import plone.app.testing
         return plone.app.testing.interfaces.SITE_OWNER_PASSWORD
 
@@ -15,8 +25,14 @@ class PloneLibrary(object):
             setattr(sys, attr, getattr(sys, '__%s__' % attr))
         import pdb; pdb.set_trace()
 
+    def apply_profile(self, profile_name):
+        from plone.app.testing import applyProfile
+        applyProfile(self.zope_layer['portal'],profile_name)
 
 class Zope2ServerLibrary(object):
+
+    def __init__(self):
+        self.zope_layer = None
 
     def _import_layer(self, layer_dotted_name):
         parts = layer_dotted_name.split('.')
@@ -29,36 +45,38 @@ class Zope2ServerLibrary(object):
         layer = getattr(module, layer_name)
         return layer
 
+    def _get_layer(self):
+        return self.zope_layer
+
     def start_zope_server(self, layer_dotted_name):
-        global zope_layer
+        #global zope_layer
         new_layer = self._import_layer(layer_dotted_name)
-        if zope_layer and zope_layer is not new_layer:
+        if self.zope_layer and self.zope_layer is not new_layer:
             self.stop_zope_server()
         setup_layer(new_layer)
-        zope_layer = new_layer
+        self.zope_layer = new_layer
 
     def stop_zope_server(self):
         tear_down()
-        global zope_layer
-        zope_layer = None
+        #global zope_layer
+        self.zope_layer = None
 
     def zodb_setup(self):
         from zope.testing.testrunner.runner import order_by_bases
-        layers = order_by_bases([zope_layer])
+        layers = order_by_bases([self.zope_layer])
         for layer in layers:
             if hasattr(layer, 'testSetUp'):
                 layer.testSetUp()
 
     def zodb_teardown(self):
         from zope.testing.testrunner.runner import order_by_bases
-        layers = order_by_bases([zope_layer])
+        layers = order_by_bases([self.zope_layer])
         layers.reverse()
         for layer in layers:
             if hasattr(layer, 'testTearDown'):
                 layer.testTearDown()
 
-
-zope_layer = None
+#zope_layer = None
 setup_layers = {}
 
 
