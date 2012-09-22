@@ -38,14 +38,13 @@ Log in
     Click Button  Log in
 
 Log in as test user
-    ${name} =  Get test user name
-    ${password} =  Get test user password
-    Log in  ${name}  ${password}
+    Log in  ${TEST_USER_ID}  ${TEST_USER_PASSWORD}
 
 Log in as site owner
-    ${name} =  Get site owner name
-    ${password} =  Get site owner password
-    Log in  ${name}  ${password}
+    Log in  ${SITE_OWNER_NAME}  ${SITE_OWNER_PASSWORD}
+
+Log in as test user with role
+    [Argument] ${role}
 
 Log out
     Go to  ${PLONE_URL}/logout
