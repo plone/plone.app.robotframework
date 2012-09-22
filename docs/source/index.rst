@@ -38,6 +38,11 @@ Todo-List:
     test things.  This way failures will be pointing to functionality and not
     be across multiple tests.
 
+Wish List:
+
+- Add support for jQuery like selectors in selenium (http://code.google.com/p/robotframework-seleniumlibrary/wiki/jQueryElementSelectors 
+https://github.com/rtomac/robotframework-selenium2library/issues/77)
+
 Contents:
 
 .. toctree::
