@@ -18,7 +18,7 @@ all the keywords that are necessary to write acceptance test in Plone.
 Using plone.app.testing variables
 ---------------------------------
 
-You can use existing plone.app.testing variables defined in plone/app/testing/interfaces.py in your acceptance tests::
+You can use existing plone.app.testing variables defined in `plone/app/testing/interfaces.py <https://github.com/plone/plone.app.testing/blob/master/plone/app/testing/interfaces.py>`_. in your acceptance tests::
 
     *** Settings ***
 
