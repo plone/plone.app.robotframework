@@ -36,7 +36,6 @@ Log in
     Input text  __ac_name  ${userid}
     Input text  __ac_password  ${password}
     Click Button  Log in
-    Go to  ${PLONE_URL}
 
 Log in as test user
     ${name} =  Get test user name
