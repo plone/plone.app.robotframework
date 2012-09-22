@@ -36,10 +36,7 @@ Log in
     Input text  __ac_name  ${userid}
     Input text  __ac_password  ${password}
     Click Button  Log in
-    Page should not contain button  Log in
     Go to  ${PLONE_URL}
-    Page should contain element  css=#user-name
-    [Return]  True
 
 Log in as test user
     ${name} =  Get test user name

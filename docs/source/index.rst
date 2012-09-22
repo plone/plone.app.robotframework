@@ -32,6 +32,11 @@ Todo-List:
 - Describe/investigate different ways of writing higher-level Plone keywords (standard robot vs. BDD, given-when-then)
 - Write documentation for selenium2library keywords (tisto).
 - Write documentation for Plone keywords. (Should we use robot framework tools to do this and then simply reference them? Ed)
+- Write documentation about separating Keywords and Tests
+  - What is the difference between a keyword and a test
+  - Keywords should be for test setup or running, but should not themselves
+    test things.  This way failures will be pointing to functionality and not
+    be across multiple tests.
 
 Contents:
 
