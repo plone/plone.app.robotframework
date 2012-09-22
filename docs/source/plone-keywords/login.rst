@@ -7,7 +7,9 @@ Login
 
 Log in (with username and password)::
 
-    Log in to the site as <username> and return to the site root.
+    Log in to the site as <username>.  There is no guarantee of where in the
+    site you are once this is done. (You are responsible for knowing where
+    you are and where you want to be)
 
 Log in as site owner::
 
