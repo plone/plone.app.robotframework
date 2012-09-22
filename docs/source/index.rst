@@ -40,7 +40,7 @@ Todo-List:
 
 Wish List:
 
-- Add support for jQuery like selectors in selenium (http://code.google.com/p/robotframework-seleniumlibrary/wiki/jQueryElementSelectors 
+- Add support for jQuery like selectors in selenium (http://code.google.com/p/robotframework-seleniumlibrary/wiki/jQueryElementSelectors
 https://github.com/rtomac/robotframework-selenium2library/issues/77)
 
 Contents:

@@ -2,6 +2,9 @@
 Plone Keywords
 ==============================================================================
 
+plone.act provides high-level keywords to test Plone. Idealy it should provide
+all the keywords that are necessary to write acceptance test in Plone.
+
 
 .. toctree::
    :maxdepth: 1
@@ -12,6 +15,34 @@ Plone Keywords
    editbar.rst
 
 
+Using plone.app.testing variables
+---------------------------------
+
+You can use existing plone.app.testing variables defined in plone/app/testing/interfaces.py in your acceptance tests::
+
+    *** Settings ***
+
+    Library  plone.act.PloneLibrary
+    Library  Selenium2Library  run_on_failure=Capture Page Screenshot
+    Variables  plone/app/testing/interfaces.py
+
+
+    *** Test cases ***
+
+    Test variable file
+        Should Be Equal  ${PLONE_SITE_ID}     plone
+        Should Be Equal  ${PLONE_SITE_TITLE}  Plone site
+        Should Be Equal  ${DEFAULT_LANGUAGE}  en
+
+        Should Be Equal  ${TEST_USER_NAME}  test-user
+        Should Be Equal  ${TEST_USER_ID}    test_user_1_
+        Should Be Equal  ${TEST_USER_PASSWORD}  secret
+        #Should Be Equal  ${TEST_USER_ROLES}  ['Member',]
+
+        Should Be Equal  ${SITE_OWNER_NAME}      admin
+        Should Be Equal  ${SITE_OWNER_PASSWORD}  secret
+
+
 Misc
 ----
 
@@ -20,6 +51,12 @@ Goto homepage::
     Goto homepage
         Go to   ${PLONE_URL}
         Page should contain  Powered by Plone & Python
+
+..note::
+
+    I think we should deprecate that keyword because it is too close to the
+    existing "Go to" selenium2library keyword.
+
 
 Click Overlay Link::
 
