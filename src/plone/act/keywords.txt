@@ -5,14 +5,25 @@ Library  Selenium2Library  run_on_failure=Capture Page Screenshot
 
 *** Variables ***
 
-${PORT} =  5000
+${PORT} =  55001
 ${ZOPE_URL} =  http://localhost:${PORT}
 ${PLONE_URL} =  ${ZOPE_URL}/plone
 ${BROWSER} =  Firefox
+${REMOTE_URL} =   
+${DESIRED_CAPABILITIES} =   
 ${TEST_FOLDER} =  ${PLONE_URL}/acceptance-test-folder
 
 
 *** Keywords ***
+
+# ----------------------------------------------------------------------------
+# Setup
+# ----------------------------------------------------------------------------
+
+Open Plone Root
+
+    Open browser  ${PLONE_URL}  ${BROWSER}  remote_url=${REMOTE_URL}  desired_capabilities=${DESIRED_CAPABILITIES}
+
 
 # ----------------------------------------------------------------------------
 # Access Resources
