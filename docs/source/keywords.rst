@@ -36,7 +36,7 @@ Test Plone Search::
     Test Plone Search
         Go to  http://localhost:55001/plone/
 
-        Input Text  SearchableText  Plone
+        Input Text  SearchableText  batman
         Click Button  Search
 
         Page should contain  Search results
