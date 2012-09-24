@@ -29,6 +29,11 @@ class PloneLibrary(object):
         from plone.app.testing import applyProfile
         applyProfile(self.zope_layer['portal'],profile_name)
 
+    def get_offset_difference(self, source_offset, dest_offset, padding):
+        """helper function for positional calculations.  """
+        # self.stop_for_debugging()
+        return (int(dest_offset) - int(source_offset)) + int(padding)
+
 class Zope2ServerLibrary(object):
 
     def __init__(self):
