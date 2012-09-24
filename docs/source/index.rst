@@ -43,6 +43,11 @@ Wish List:
 - Add support for jQuery like selectors in selenium (http://code.google.com/p/robotframework-seleniumlibrary/wiki/jQueryElementSelectors
 https://github.com/rtomac/robotframework-selenium2library/issues/77)
 
+Run single robot tests::
+
+  $ bin/test -s plone.app.deco -t Robot_Testcase_you_want_to_run
+
+
 Contents:
 
 .. toctree::
