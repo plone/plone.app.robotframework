@@ -158,6 +158,7 @@ Add Page
 
     Open Add New Menu
     Click Link  link=Page
+    Wait Until Page Contains Element  title
     Input Text  title  ${title}
     Click button  name=form.button.save
     Page Should Contain  Changes saved.
@@ -168,7 +169,7 @@ Create folder
     Go to  ${TEST_FOLDER}
     Open Add New Menu
     Click Link  css=#plone-contentmenu-factories a#folder
-    Element should be visible  css=#archetypes-fieldname-title input
+    Wait Until Page Contains Element  css=#archetypes-fieldname-title input
     Input Text  title  ${title}
     Click Button  Save
     Page should contain  ${title}
@@ -180,7 +181,7 @@ Create document
     Go to  ${TEST_FOLDER}
     Open Add New Menu
     Click Link  css=#plone-contentmenu-factories a#document
-    Element should be visible  css=#archetypes-fieldname-title input
+    Wait Until Page Contains Element  css=#archetypes-fieldname-title input
     Input Text  title  ${title}
     Click Button  Save
     Page should contain  ${title}
@@ -189,6 +190,7 @@ Create document
 Create news item
     [Arguments]  ${title}
     Go to  ${TEST_FOLDER}/createObject?type_name=News+Item
+    Wait Until Page Contains Element  title
     Input text  title  ${title}
     Click Button  Save
 
