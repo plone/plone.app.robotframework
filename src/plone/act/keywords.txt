@@ -111,22 +111,22 @@ Click ${name} In Edit Bar
     Element Should Contain  css=div#edit-bar ul#content-views  ${name}
     Click Link  ${name}
 
-Click Actions ${name}
+Click Action by id ${name}
     Open Action Menu
-    Element Should Contain  css=dl#plone-contentmenu-actions dd.actionMenuContent  ${name}
-    Click Link  ${name}
+    Element Should be visible  css=dl#plone-contentmenu-actions dd.actionMenuContent  #${name}
+    Click Link  id=${name}
 
 Click Cut Action
-    Click Actions Cut
+    Click Action by id cut
 
 Click Copy Action
-    Click Actions Copy
+    Click Action by id copy
 
 Click Delete Action
-    Click Actions Delete
+    Click Action by id delete
 
 Click Rename Action
-    Click Actions Rename
+    Click Action by id rename
 
 
 # ----------------------------------------------------------------------------
@@ -167,7 +167,6 @@ Add Page
 Create folder
     [arguments]  ${title}
 
-    Go to  ${TEST_FOLDER}
     Open Add New Menu
     Click Link  css=#plone-contentmenu-factories a#folder
     Wait Until Page Contains Element  css=#archetypes-fieldname-title input
