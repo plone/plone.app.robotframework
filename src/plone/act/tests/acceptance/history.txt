@@ -2,8 +2,6 @@
 
 Resource  plone/act/keywords.txt
 
-Suite Teardown  Close All Browsers
-
 *** Test cases ***
 
 Open history popup
