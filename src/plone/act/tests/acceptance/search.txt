@@ -20,13 +20,15 @@ Simple Search
     Search for  Welcome
     Livesearch results contain  Welcome to Plone
 
+Livesearch for pages
+    Count livesearch items for  livesearch test page  4
+
 *** Keywords ***
 
 Start browser
     Open browser  http://localhost:55001/plone/
 
 Create test content
-    Set Selenium Timeout  15
     Log in as site owner
     Goto homepage
     Add Page  Welcome to Plone
@@ -46,15 +48,23 @@ Start browser and create some content
 
 Search for
     [Arguments]  ${searchtext}
-    Input text   searchGadget  ${searchtext}
-    Focus  searchGadget
+    Input text  css=input#searchGadget  ${searchtext}
+    Focus  css=input#searchGadget
 
 Livesearch results contain
     [Arguments]  ${text}
-    Element should contain  css=#LSResult .LSRow a  ${text}
+    Wait until keyword succeeds  5s  1s  Element should contain  css=#LSResult .LSRow a  ${text}
     
+Count livesearch items For
+    [Arguments]  ${string}  ${count}
+    Search for  ${string}
+    Wait until keyword succeeds  5s  1s  Element Should Be Visible  css=div#LSResult
+    Wait until keyword succeeds  5s  1s  Xpath Should Match X Times  //div[@id = 'LSResult']/descendant::li  ${count}
+    Focus  css=input#searchbox_currentfolder_only
+    Wait until keyword succeeds  5s  1s  Element Should Not Be Visible  css=div#LSResult
+
 Clean up
-    Remove test content
+#    Remove test content
     Close all browsers
 
 Remove test content
