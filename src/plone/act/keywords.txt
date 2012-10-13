@@ -10,8 +10,8 @@ ${PORT} =  55001
 ${ZOPE_URL} =  http://localhost:${PORT}
 ${PLONE_URL} =  ${ZOPE_URL}/plone
 ${BROWSER} =  Firefox
-${REMOTE_URL} =   
-${DESIRED_CAPABILITIES} =   
+${REMOTE_URL} =
+${DESIRED_CAPABILITIES} =
 ${TEST_FOLDER} =  ${PLONE_URL}/acceptance-test-folder
 
 
@@ -70,7 +70,8 @@ Log out
 Click Overlay Link
     [Arguments]  ${element}
     Click Link  ${element}
-    Wait Until Page Contains Element  css=div.pb-ajax div *
+    Wait Until Page Contains Element  css=.pb-ajax
+    Element Should Be Visible  css=.pb-ajax
 
 Should be above
     [Arguments]  ${locator1}  ${locator2}
@@ -219,3 +220,11 @@ Rename Content Title
     Wait Until Page Contains Element  css=input#${id}_id
     Input Text  css=input#${id}_title  ${new_title}
     Click Button  Rename All
+
+
+# ----------------------------------------------------------------------------
+# Content Management Views
+# ----------------------------------------------------------------------------
+
+Open history popup
+    Click Overlay Link  History
