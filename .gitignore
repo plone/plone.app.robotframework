@@ -27,4 +27,4 @@ docs/Makefile
 docs/make.bat
 docs/doctrees
 docs/html
-
+/robotsuite-output/
