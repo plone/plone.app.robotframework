@@ -20,38 +20,38 @@ ${PLONE_URL} =  ${ZOPE_URL}/plone
 
 
 Test adding the login portlet
-    Given I go to the Manage portlets view on Plone
+    Given I go to the manage portlets view
     When I add the portlet Login to the left column
     I should see the portlet Log in in the left column
 
 
 Test adding and removing the calendar portlet
-    Given I go to the Manage portlets view on Plone
+    Given I go to the manage portlets view
     When I add the portlet Calendar portlet to the right column
     And I go to the plone root
     Then I should see the calendar portlet in the right column
 
-    When I go to the Manage portlets view on Plone
+    When I go to the manage portlets view
     And I delete the portlet Calendar from the right column
     And I go to the plone root
     Then I should not see the calendar portlet in the right column
 
 
 Test adding and removing the search portlet
-    Given I go to the Manage portlets view on Plone
+    Given I go to the manage portlets view
     When I add the portlet Search to the left column
     And Click Button  Save
     And I go to the plone root
     Then I should see the portlet Search in the left column
 
-    When I go to the Manage portlets view on Plone
+    When I go to the manage portlets view
     And I delete the portlet Search from the left column
     And I go to the plone root
     Then I should not see the portlet Search in the left column
 
 
 Test adding and removing the static text portlet
-    Given I go to the Manage portlets view on Plone
+    Given I go to the manage portlets view
     When I add the portlet Static text portlet to the right column
     And Click Link  Edit without visual editor
     And Input text  form.header  foo
@@ -60,7 +60,7 @@ Test adding and removing the static text portlet
     And I go to the plone root
     Then I should see the portlet foo in the right column
 
-    When I go to the Manage portlets view on Plone
+    When I go to the manage portlets view
     And I delete the portlet foo from the right column
     And I go to the plone root
     Then I should not see the portlet foo in the right column
@@ -72,7 +72,7 @@ Setup
     Open browser  ${PLONE_URL}
     Log in  ${SITE_OWNER_NAME}  ${SITE_OWNER_PASSWORD}
 
-I go to the Manage portlets view on Plone
+I go to the manage portlets view
     Go To  ${PLONE_URL}/@@manage-portlets
 
 I go to the plone root
