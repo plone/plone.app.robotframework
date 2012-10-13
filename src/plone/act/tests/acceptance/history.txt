@@ -7,7 +7,6 @@ Suite Teardown  Close All Browsers
 *** Test cases ***
 
 Open history popup
-    Open Plone Root
     Log in as site owner
     Go to homepage
     Add Page  History testing page

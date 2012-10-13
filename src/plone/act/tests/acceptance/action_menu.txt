@@ -1,15 +1,8 @@
 *** Settings ***
 
-Library  Selenium2Library  run_on_failure=Capture Page Screenshot
-Library  plone.act.PloneLibrary
-Variables  plone/app/testing/interfaces.py
 Resource  plone/act/keywords.txt
 
-Suite Setup  Start browser
-Suite Teardown  Close All Browsers
-
 Test Setup  Setup
-Test Teardown  Teardown
 
 *** Test cases ***
 
@@ -90,20 +83,11 @@ Cut Document and Paste to Folder
 
 *** Keywords ***
 
-
 Setup
+    Open Plone Root
     Log in as site owner
     Goto homepage
     Add Page  An actionsmenu page
     Goto homepage
     Create folder  An actionsmenu folder
     Goto homepage
-
-Teardown
-    Run Keyword And Ignore Error  Remove Content  an-actionsmenu-page
-    Run Keyword And Ignore Error  Remove Content  an-actionsmenu-folder
-    Log out
-
-Start browser
-    Open browser  ${PLONE_URL}
-
