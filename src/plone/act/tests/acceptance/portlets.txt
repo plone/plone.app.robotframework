@@ -66,6 +66,18 @@ Test adding and removing the static text portlet
     Then I should not see the portlet foo in the right column
 
 
+Test adding and removing the classic portlet
+    Given I go to the manage portlets view
+    When I add the portlet Classic portlet to the right column
+    And Input text  form.template  classical
+    And Click Button  Save
+    Then I should see the portlet classical in the right column
+
+    When I go to the manage portlets view
+    And I delete the portlet classical from the right column
+    Then I should not see the portlet classical in the right column
+
+
 *** Keywords ***
 
 Setup
