@@ -16,15 +16,15 @@ Test Teardown  Teardown
 No Op
     Element Should Be Visible  css=h1
 
-#Content Menu
-#    [Tags]  action-menu
-#    Click Link  An actionsmenu page
-#    Element Should Not Be Visible  css=a#delete
-#    Click Link  css=dl#plone-contentmenu-actions dt.actionMenuHeader a  don't wait
-#    Element Should Be Visible  css=a#delete
-#    Click Link  css=dl#plone-contentmenu-actions dt.actionMenuHeader a  don't wait
-#    Element Should Not Be Visible  css=a#delete
-#
+Content Menu
+#   [Tags]  action-menu
+    Click Link  An actionsmenu page
+    Element Should Not Be Visible  css=a#delete
+    Click Link  css=dl#plone-contentmenu-actions dt.actionMenuHeader a
+    Element Should Be Visible  css=a#delete
+    Click Link  css=dl#plone-contentmenu-actions dt.actionMenuHeader a
+    Element Should Not Be Visible  css=a#delete
+
 #Switching Actions Menu
 #    [Tags]  action-menu
 #    Click Link  An actionsmenu page
