@@ -84,7 +84,7 @@ bin/pybot: $(BUILDOUT_FILES)
 	$(BUILDOUT_COMMAND) install robot
 	touch $@
 
-bin/zope-testrunner: $(BUILDOUT_FILES)
+bin/test-robotsuite: $(BUILDOUT_FILES)
 	$(BUILDOUT_COMMAND) -c robotsuite.cfg
 	touch $@
 
@@ -102,9 +102,8 @@ var/supervisord.pid: bin/supervisord bin/supervisorctl
 robot: bin/pybot var/supervisord.pid
 	bin/pybot $(pybot_options) -d robot-output acceptance-tests
 
-robotsuite: bin/zope-testrunner
-	mkdir -p robotsuite-output
-	cd robotsuite-output && ../bin/zope-testrunner --path=../
+robotsuite: bin/test-robotsuite
+	bin/test-robotsuite
 
 stop:
 	bin/supervisorctl shutdown
