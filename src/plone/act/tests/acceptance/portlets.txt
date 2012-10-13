@@ -45,7 +45,7 @@ I add the portlet ${portlet} to the right column
 
 I delete the portlet ${portlet} from the right column
     Click Link  xpath=//div[@id="portal-column-two"]//div[@class="portletHeader" and contains(.,"${portlet}")]//a[@class="delete"]
-    Wait until keyword succeeds  1s  10s  Page Should Not Contain Element  xpath=//div[@id="portal-column-two"]//div[@class="portletHeader" and contains(.,"${portlet}")]
+    Wait until keyword succeeds  5s  0.5s  Page Should Not Contain Element  xpath=//div[@id="portal-column-two"]//div[@class="portletHeader" and contains(.,"${portlet}")]
 
 I should see ${text} in the left column
     Element should contain  portal-column-one  ${text}
