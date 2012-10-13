@@ -78,6 +78,21 @@ Test adding and removing the classic portlet
     Then I should not see the portlet classical in the right column
 
 
+Test adding and removing a collection portlet
+    Given I have a collection with name collection for portlet testing
+    And I go to the manage portlets view
+    When I add the portlet Collection portlet to the right column
+    And Input text  form.header  collect my stuff
+    And Select Radio Button  form.target_collection  /collection-for-portlet-testing
+    And Click Button  Save
+    Then I should see the portlet collect my stuff in the right column
+
+    When I go to the manage portlets view
+    And I delete the portlet collect my stuff from the right column
+    Then I should not see the portlet collect my stuff in the right column
+
+
+
 *** Keywords ***
 
 Setup
@@ -108,12 +123,6 @@ I should not see the portlet ${title} in the left column
 I should not see the portlet ${title} in the right column
     Page Should Not Contain Element  xpath=//div[@id="portal-column-two"]//*[@class="portletHeader" and (*[contains(., "${title}")] or contains(., "${title}"))]
 
-I should see the calendar portlet in the right column
-    Element should contain  portal-column-two  Mo Tu We Th Fr Sa Su
-
-I should not see the calendar portlet in the right column
-    Page Should Not Contain Element  xpath=//div[@id="portal-column-two" and contains(.,"Mo Tu We Th Fr Sa Su")]
-
 I delete the portlet ${portlet} from the right column
     Click Link  xpath=//div[@id="portal-column-two"]//div[@class="portletHeader" and contains(.,"${portlet}")]//a[@class="delete"]
     Wait until keyword succeeds  5s  0.5s  Page Should Not Contain Element  xpath=//div[@id="portal-column-two"]//div[@class="portletHeader" and contains(.,"${portlet}")]
@@ -121,3 +130,20 @@ I delete the portlet ${portlet} from the right column
 I delete the portlet ${portlet} from the left column
     Click Link  xpath=//div[@id="portal-column-one"]//div[@class="portletHeader" and contains(.,"${portlet}")]//a[@class="delete"]
     Wait until keyword succeeds  5s  0.5s  Page Should Not Contain Element  xpath=//div[@id="portal-column-one"]//div[@class="portletHeader" and contains(.,"${portlet}")]
+
+
+# Calendar portlet
+I should see the calendar portlet in the right column
+    Element should contain  portal-column-two  Mo Tu We Th Fr Sa Su
+
+I should not see the calendar portlet in the right column
+    Page Should Not Contain Element  xpath=//div[@id="portal-column-two" and contains(.,"Mo Tu We Th Fr Sa Su")]
+
+
+# Collection portlet
+I have a collection with name ${title}
+    I go to the plone root
+    Click Link  xpath=//*[@id="plone-contentmenu-factories"]/dt/a
+    Click Link  xpath=//*[@id="collection"]
+    Input text  title  ${title}
+    Click Button  Save
