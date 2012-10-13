@@ -1,0 +1,51 @@
+*** Settings ***
+
+Library  Selenium2Library  
+# run_on_failure=Capture Page Screenshot
+Library  plone.act.PloneLibrary
+Variables  plone/app/testing/interfaces.py
+Resource  plone/act/keywords.txt
+
+Suite Setup  Start browser
+Suite Teardown  Close All Browsers
+
+*** Variables ***
+
+${PORT} =  55001
+${ZOPE_URL} =  http://localhost:${PORT}
+${PLONE_URL} =  ${ZOPE_URL}/plone
+
+
+*** Test cases ***
+
+Test Folder Contents 
+    Set Selenium Speed  0.5 seconds
+    Given a login form
+    When I enter valid credentials
+    Then I am logged in
+    Given a Folder Contents view
+    Then I see folderlisting main template 
+
+
+*** Keywords ***
+
+Start browser
+    Open browser  ${PLONE_URL}
+
+a login form
+    Go to  ${PLONE_URL}/login_form
+
+I enter valid credentials
+    Input text  __ac_name  ${TEST_USER_NAME}
+    Input text  __ac_password  ${TEST_USER_PASSWORD}
+    Click Button  Log in
+
+I am logged in
+    Page should contain  logged in
+
+a Folder Contents view
+    Go to  ${PLONE_URL}/folder_listing
+
+I see folderlisting main template
+    Capture Page Screenshot
+    Page should contain element css=.documentFirstHeading
