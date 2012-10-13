@@ -1,0 +1,25 @@
+*** Settings ***
+
+Library  Selenium2Library  run_on_failure=Capture Page Screenshot
+Library  plone.act.PloneLibrary
+Variables  plone/app/testing/interfaces.py
+Resource  plone/act/keywords.txt
+
+Suite setup  Setup
+
+
+*** Variables ***
+
+${PORT} =  55001
+${ZOPE_URL} =  http://localhost:${PORT}
+${PLONE_URL} =  ${ZOPE_URL}/plone
+
+
+*** Test cases ***
+
+
+*** Keywords ***
+
+Setup
+    Open browser  ${PLONE_URL}
+    Log in  ${SITE_OWNER_NAME}  ${SITE_OWNER_PASSWORD}
