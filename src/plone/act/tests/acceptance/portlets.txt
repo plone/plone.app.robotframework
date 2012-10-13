@@ -45,6 +45,22 @@ Test Add And Remove Search Portlet
     and I go to the plone root
     then I should not see Search in the left column
 
+Test Add And Remove Static Text Portlet
+    Given I go to the Manage portlets view on Plone
+    When I add the portlet Static text portlet to the right column
+    And Click Link  Edit without visual editor
+    And Input text  form.header  foo
+    And Input text  form.text  bar
+    And Click Button  Save
+    Then I should see foo in the right column
+    When I go to the plone root
+    Then I should see foo in the right column
+    And I should see bar in the right column
+    When I go to the Manage portlets view on Plone
+    And I delete the portlet foo from the right column
+    and I go to the plone root
+    Then I should not see foo in the right column
+
 *** Keywords ***
 I go to the Manage portlets view on Plone
     Go To  ${PLONE_URL}/@@manage-portlets
