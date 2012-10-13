@@ -1,0 +1,5 @@
+*** Settings ***
+Resource  plone/act/keywords.txt
+
+Suite Setup  Open Plone Root
+Suite Teardown  Close All Browsers
