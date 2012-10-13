@@ -103,8 +103,7 @@ robot: bin/pybot var/supervisord.pid
 	bin/pybot $(pybot_options) -d robot-output acceptance-tests
 
 robotsuite: bin/zope-testrunner
-	mkdir -p robotsuite-output
-	cd robotsuite-output && ../bin/zope-testrunner --path=../
+	bin/zope-testrunner
 
 stop:
 	bin/supervisorctl shutdown
