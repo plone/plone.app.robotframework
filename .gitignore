@@ -6,6 +6,9 @@ parts/
 var/
 *.pyc
 *.swp
+/.settings
+/.project
+/.pydevproject
 src/*.egg-info
 buildout.cfg
 .mr.developer.cfg
