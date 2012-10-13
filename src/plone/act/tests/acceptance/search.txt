@@ -1,0 +1,67 @@
+*** Settings ***
+
+Library  Selenium2Library  run_on_failure=Capture Page Screenshot
+Variables  plone/app/testing/interfaces.py
+Resource  plone/act/plone.txt
+
+Suite Setup  Start browser and create some content
+Suite Teardown  Clean up
+
+*** Variables ***
+
+${PORT} =  55001
+${ZOPE_URL} =  http://localhost:${PORT}
+${PLONE_URL} =  ${ZOPE_URL}/plone
+
+
+*** Test cases ***
+
+Simple Search
+    Search for  Welcome
+    Livesearch results contain  Welcome to Plone
+
+*** Keywords ***
+
+Start browser
+    Open browser  http://localhost:55001/plone/
+
+Create test content
+    Set Selenium Timeout  15
+    Log in as site owner
+    Goto homepage
+    Add Page  Welcome to Plone
+    Goto homepage
+    Add Page  A livesearch test page
+    Goto homepage
+    Create folder  A livesearch test folder
+    Add Page  A livesearch test page 1
+    Go to  ${PLONE_URL}/a-livesearch-test-folder
+    Add Page  A livesearch test page 2
+    Log out
+    Goto homepage
+
+Start browser and create some content
+    Start browser
+    Create test content
+
+Search for
+    [Arguments]  ${searchtext}
+    Input text   searchGadget  ${searchtext}
+    Focus  searchGadget
+
+Livesearch results contain
+    [Arguments]  ${text}
+    Element should contain  css=#LSResult .LSRow a  ${text}
+    
+Clean up
+    Remove test content
+    Close all browsers
+
+Remove test content
+    Log in as site owner
+    Remove Content  welcome-to-plone
+    Remove Content  a-livesearch-test-page
+    Remove Content  a-livesearch-test-page-1
+    Remove Content  a-livesearch-test-page-2
+    Log out
+    Goto homepage
