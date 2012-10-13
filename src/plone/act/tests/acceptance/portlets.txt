@@ -6,6 +6,7 @@ Variables  plone/app/testing/interfaces.py
 Resource  plone/act/keywords.txt
 
 Suite setup  Setup
+Suite Teardown  Close All Browsers
 
 
 *** Variables ***
@@ -16,9 +17,47 @@ ${PLONE_URL} =  ${ZOPE_URL}/plone
 
 
 *** Test cases ***
+Test Add Login Portlet
+    Given I go to the Manage portlets view on Plone
+    when I add the portlet Login to the left column
+    then I should see Login in the left column
 
+Test Add And Remove Calendar Portlet
+    Given I go to the Manage portlets view on Plone
+    when I add the portlet Calendar portlet to the right column
+    then I should see Calendar portlet in the right column
+    when I go to the plone root
+    then I should see Mo Tu We Th Fr Sa Su in the right column
+    when I go to the Manage portlets view on Plone
+    and I delete the portlet Calendar from the right column
+    and I go to the plone root
+    then I should not see Mo Tu We Th Fr Sa Su in the right column
 
 *** Keywords ***
+I go to the Manage portlets view on Plone
+    Go To  ${PLONE_URL}/@@manage-portlets
+
+I add the portlet ${portlet} to the left column
+    Select from list  xpath=//div[@id="portletmanager-plone-leftcolumn"]//select  ${portlet}
+
+I add the portlet ${portlet} to the right column
+    Select from list  xpath=//div[@id="portletmanager-plone-rightcolumn"]//select  ${portlet}
+
+I delete the portlet ${portlet} from the right column
+    Click Link  xpath=//div[@id="portal-column-two"]//div[@class="portletHeader" and contains(.,"${portlet}")]//a[@class="delete"]
+    Wait until keyword succeeds  1s  10s  Page Should Not Contain Element  xpath=//div[@id="portal-column-two"]//div[@class="portletHeader" and contains(.,"${portlet}")]
+
+I should see ${text} in the left column
+    Element should contain  portal-column-one  ${text}
+
+I should see ${text} in the right column
+    Element should contain  portal-column-two  ${text}
+
+I should not see ${text} in the right column
+    Page Should Not Contain Element  xpath=//div[@id="portal-column-two" and contains(.,"${text}")]
+
+I go to the plone root
+    Go To  ${PLONE_URL}
 
 Setup
     Open browser  ${PLONE_URL}
