@@ -70,7 +70,7 @@ Log out
 Click Overlay Link
     [Arguments]  ${element}
     Click Link  ${element}
-    Wait Until Page Contains Element  css=div.pb-ajax div#content-core
+    Wait Until Page Contains Element  css=div.pb-ajax div *
 
 Should be above
     [Arguments]  ${locator1}  ${locator2}
