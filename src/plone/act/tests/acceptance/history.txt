@@ -1,0 +1,14 @@
+*** Settings ***
+
+Resource  plone/act/keywords.txt
+
+Suite Teardown  Close All Browsers
+
+*** Test cases ***
+
+Open history popup
+    Log in as site owner
+    Go to homepage
+    Add Page  History testing page
+    Open history popup
+    Element Should Be Visible  css=.pb-ajax #content-history
