@@ -23,6 +23,14 @@ Simple Search
 Livesearch for pages
     Count livesearch items for  livesearch test page  4
 
+Livesearch for folder
+    Count livesearch items for  livesearch test folder  2
+
+Livesearch within folder
+    Click Link  link=A livesearch test folder
+    Select Checkbox  css=input#searchbox_currentfolder_only
+    Count livesearch items for  livesearch test page  3
+
 *** Keywords ***
 
 Start browser
