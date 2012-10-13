@@ -17,59 +17,90 @@ ${PLONE_URL} =  ${ZOPE_URL}/plone
 
 
 *** Test cases ***
-Test Add Login Portlet
-    Given I go to the Manage portlets view on Plone
-    when I add the portlet Login to the left column
-    then I should see Login in the left column
 
-Test Add And Remove Calendar Portlet
-    Given I go to the Manage portlets view on Plone
-    when I add the portlet Calendar portlet to the right column
-    then I should see Calendar portlet in the right column
-    when I go to the plone root
-    then I should see Mo Tu We Th Fr Sa Su in the right column
-    when I go to the Manage portlets view on Plone
-    and I delete the portlet Calendar from the right column
-    and I go to the plone root
-    then I should not see Mo Tu We Th Fr Sa Su in the right column
 
-Test Add And Remove Search Portlet
+Test adding the login portlet
     Given I go to the Manage portlets view on Plone
-    when I add the portlet Search to the left column
-    and Click Button  Save
-    then I should see Search in the left column
-    when I go to the plone root
-    then I should see Search in the left column
-    when I go to the Manage portlets view on Plone
-    and I delete the portlet Search from the left column
-    and I go to the plone root
-    then I should not see Search in the left column
+    When I add the portlet Login to the left column
+    I should see the portlet Log in in the left column
 
-Test Add And Remove Static Text Portlet
+
+Test adding and removing the calendar portlet
+    Given I go to the Manage portlets view on Plone
+    When I add the portlet Calendar portlet to the right column
+    And I go to the plone root
+    Then I should see the calendar portlet in the right column
+
+    When I go to the Manage portlets view on Plone
+    And I delete the portlet Calendar from the right column
+    And I go to the plone root
+    Then I should not see the calendar portlet in the right column
+
+
+Test adding and removing the search portlet
+    Given I go to the Manage portlets view on Plone
+    When I add the portlet Search to the left column
+    And Click Button  Save
+    And I go to the plone root
+    Then I should see the portlet Search in the left column
+
+    When I go to the Manage portlets view on Plone
+    And I delete the portlet Search from the left column
+    And I go to the plone root
+    Then I should not see the portlet Search in the left column
+
+
+Test adding and removing the static text portlet
     Given I go to the Manage portlets view on Plone
     When I add the portlet Static text portlet to the right column
     And Click Link  Edit without visual editor
     And Input text  form.header  foo
     And Input text  form.text  bar
     And Click Button  Save
-    Then I should see foo in the right column
-    When I go to the plone root
-    Then I should see foo in the right column
-    And I should see bar in the right column
+    And I go to the plone root
+    Then I should see the portlet foo in the right column
+
     When I go to the Manage portlets view on Plone
     And I delete the portlet foo from the right column
-    and I go to the plone root
-    Then I should not see foo in the right column
+    And I go to the plone root
+    Then I should not see the portlet foo in the right column
+
 
 *** Keywords ***
+
+Setup
+    Open browser  ${PLONE_URL}
+    Log in  ${SITE_OWNER_NAME}  ${SITE_OWNER_PASSWORD}
+
 I go to the Manage portlets view on Plone
     Go To  ${PLONE_URL}/@@manage-portlets
+
+I go to the plone root
+    Go To  ${PLONE_URL}
 
 I add the portlet ${portlet} to the left column
     Select from list  xpath=//div[@id="portletmanager-plone-leftcolumn"]//select  ${portlet}
 
 I add the portlet ${portlet} to the right column
     Select from list  xpath=//div[@id="portletmanager-plone-rightcolumn"]//select  ${portlet}
+
+I should see the portlet ${title} in the left column
+    Page Should Contain Element  xpath=//div[@id="portal-column-one"]//*[@class="portletHeader" and (*[contains(., "${title}")] or contains(., "${title}"))]
+
+I should see the portlet ${title} in the right column
+    Page Should Contain Element  xpath=//div[@id="portal-column-two"]//*[@class="portletHeader" and (*[contains(., "${title}")] or contains(., "${title}"))]
+
+I should not see the portlet ${title} in the left column
+    Page Should Not Contain Element  xpath=//div[@id="portal-column-one"]//*[@class="portletHeader" and (*[contains(., "${title}")] or contains(., "${title}"))]
+
+I should not see the portlet ${title} in the right column
+    Page Should Not Contain Element  xpath=//div[@id="portal-column-two"]//*[@class="portletHeader" and (*[contains(., "${title}")] or contains(., "${title}"))]
+
+I should see the calendar portlet in the right column
+    Element should contain  portal-column-two  Mo Tu We Th Fr Sa Su
+
+I should not see the calendar portlet in the right column
+    Page Should Not Contain Element  xpath=//div[@id="portal-column-two" and contains(.,"Mo Tu We Th Fr Sa Su")]
 
 I delete the portlet ${portlet} from the right column
     Click Link  xpath=//div[@id="portal-column-two"]//div[@class="portletHeader" and contains(.,"${portlet}")]//a[@class="delete"]
@@ -78,22 +109,3 @@ I delete the portlet ${portlet} from the right column
 I delete the portlet ${portlet} from the left column
     Click Link  xpath=//div[@id="portal-column-one"]//div[@class="portletHeader" and contains(.,"${portlet}")]//a[@class="delete"]
     Wait until keyword succeeds  5s  0.5s  Page Should Not Contain Element  xpath=//div[@id="portal-column-one"]//div[@class="portletHeader" and contains(.,"${portlet}")]
-
-I should see ${text} in the left column
-    Element should contain  portal-column-one  ${text}
-
-I should see ${text} in the right column
-    Element should contain  portal-column-two  ${text}
-
-I should not see ${text} in the right column
-    Page Should Not Contain Element  xpath=//div[@id="portal-column-two" and contains(.,"${text}")]
-
-I should not see ${text} in the left column
-    Page Should Not Contain Element  xpath=//div[@id="portal-column-one" and contains(.,"${text}")]
-
-I go to the plone root
-    Go To  ${PLONE_URL}
-
-Setup
-    Open browser  ${PLONE_URL}
-    Log in  ${SITE_OWNER_NAME}  ${SITE_OWNER_PASSWORD}
