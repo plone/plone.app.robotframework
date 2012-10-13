@@ -1,19 +1,5 @@
 *** Settings ***
-
-Library  Selenium2Library  run_on_failure=Capture Page Screenshot
-Library  plone.act.PloneLibrary
-Variables  plone/app/testing/interfaces.py
 Resource  plone/act/keywords.txt
-
-Suite Setup  Start browser
-Suite Teardown  Close All Browsers
-
-*** Variables ***
-
-${PORT} =  55001
-${ZOPE_URL} =  http://localhost:${PORT}
-${PLONE_URL} =  ${ZOPE_URL}/plone
-
 
 *** Test cases ***
 
@@ -30,11 +16,7 @@ Test Invalid Login
 
 *** Keywords ***
 
-Start browser
-    Open browser  ${PLONE_URL}
-
 the overlay login form
-    Go to  ${PLONE_URL}
     Click Overlay Link  Log in
 
 I enter valid credentials
