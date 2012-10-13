@@ -13,8 +13,7 @@ Test Teardown  Teardown
 
 *** Test cases ***
 
-No Op
-    Element Should Be Visible  css=h1
+
 
 Content Menu
 #   [Tags]  action-menu
@@ -40,52 +39,69 @@ Switching Actions Menu
     Element Should Not Be Visible  css=a#delete
     Element Should Not Be Visible  css=a#advanced
 
-#Clicking outside of Actions Menu
+Clicking outside of Actions Menu hides Action Menu
 #    [Tags]  action-menu
-#    Click Link  An actionsmenu page
-#    Element Should Not Be Visible  css=a#delete
-#    Element Should Not Be Visible  css=a#advanced
-#    Click Link  css=dl#plone-contentmenu-actions dt.actionMenuHeader a  don't wait
-#    Element Should Be Visible  css=a#delete
-#    Element Should Not Be Visible  css=a#advanced
-#    Mouse Down  css=h1
-#    Wait until keyword succeeds  10s  1s  Element Should Not Be Visible  css=a#delete
-#    Element Should Not Be Visible  css=a#advanced
-#
-#Publish Document
-#    Click Link  An actionsmenu page
-#    Page Should Contain Element  css=dl#plone-contentmenu-workflow dt.actionMenuHeader a span.state-private
-#    Click Link  Publish
-#    Page Should Contain Element  css=dl#plone-contentmenu-workflow dt.actionMenuHeader a span.state-published
-#    Click Link  Send back
-#    Page Should Contain Element  css=dl#plone-contentmenu-workflow dt.actionMenuHeader a span.state-private
-#
-#Copy Document
-#    Click Link  An actionsmenu page
-#    Click Link  Copy  don't wait
-#    Wait until keyword succeeds  10s  1s  Page Should Contain  An actionsmenu page copied.
-#    Click Link  An actionsmenu folder
-#    Click Link  Paste  don't wait
-#    Wait until keyword succeeds  10s  1s  Page Should Contain  Item(s) pasted.
-#    Click Link  Contents
-#    Xpath Should Match X Times  //table[@id = 'listing-table']/tbody/tr  1
-#    Click Button  Paste
-#    Xpath Should Match X Times  //table[@id = 'listing-table']/tbody/tr  2
+    Click Link  An actionsmenu page
+    Element Should Not Be Visible  css=a#delete
+    Element Should Not Be Visible  css=a#advanced
+    Click Link  css=dl#plone-contentmenu-actions dt.actionMenuHeader a
+    Element Should Be Visible  css=a#delete
+    Element Should Not Be Visible  css=a#advanced
+    Mouse Down  css=h1
+    Wait until keyword succeeds  10s  1s  Element Should Not Be Visible  css=a#delete
+    Element Should Not Be Visible  css=a#advanced
+
+Copy Document to Folder Two Different Ways
+    Click Link  An actionsmenu page
+    Click Action by id  copy
+    Wait until keyword succeeds  10s  1s  Page Should Contain  An actionsmenu page copied.
+    Click Link  An actionsmenu folder
+    Click Action by id  paste
+    Wait until keyword succeeds  10s  1s  Page Should Contain  Item(s) pasted.
+    # TODO: Exercising the Folder buttons (copy, Cut, Rename, ... ) should be in separate suite
+    Click Link  Contents
+    Xpath Should Match X Times  //table[@id = 'listing-table']/tbody/tr  1
+    Click Button  Paste
+    Xpath Should Match X Times  //table[@id = 'listing-table']/tbody/tr  2
+
+Delete Page
+    Click Link  An actionsmenu page
+    Click Action by id  delete
+    Wait until keyword succeeds  10s  1s  Click Button  Delete
+    Wait until keyword succeeds  10s  1s  Page Should Not Contain  An actionsmenu page
+
+Rename Page
+    Click Link  An actionsmenu page
+    Click Action by id  rename
+    Wait until keyword succeeds  10s  1s  Input text  new_ids:list  I_AM_RENAMED
+    Wait until keyword succeeds  10s  1s  Click Button  Rename All
+    Wait until keyword succeeds  10s  1s  Page Should Contain  I_AM_RENAMED
+
+Cut Document and Paste to Folder
+    Click Link  An actionsmenu page
+    Click Action by id  cut
+    Wait until keyword succeeds  10s  1s  Page Should Contain  An actionsmenu page cut.
+    Click Link  An actionsmenu folder
+    Click Action by id  paste
+    Wait until keyword succeeds  10s  1s  Page Should Contain  Item(s) pasted.
+    Click Link  Contents
+    Xpath Should Match X Times  //table[@id = 'listing-table']/tbody/tr  1
 
 
 *** Keywords ***
 
 
-Setup  
+Setup
     Log in as site owner
     Goto homepage
     Add Page  An actionsmenu page
     Goto homepage
     Create folder  An actionsmenu folder
+    Goto homepage
 
 Teardown
-    Remove Content  an-actionsmenu-page
-    Remove Content  an-actionsmenu-folder
+    Run Keyword And Ignore Error  Remove Content  an-actionsmenu-page
+    Run Keyword And Ignore Error  Remove Content  an-actionsmenu-folder
     Log out
 
 Start browser
