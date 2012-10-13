@@ -33,6 +33,18 @@ Test Add And Remove Calendar Portlet
     and I go to the plone root
     then I should not see Mo Tu We Th Fr Sa Su in the right column
 
+Test Add And Remove Search Portlet
+    Given I go to the Manage portlets view on Plone
+    when I add the portlet Search to the left column
+    and Click Button  Save
+    then I should see Search in the left column
+    when I go to the plone root
+    then I should see Search in the left column
+    when I go to the Manage portlets view on Plone
+    and I delete the portlet Search from the left column
+    and I go to the plone root
+    then I should not see Search in the left column
+
 *** Keywords ***
 I go to the Manage portlets view on Plone
     Go To  ${PLONE_URL}/@@manage-portlets
@@ -47,6 +59,10 @@ I delete the portlet ${portlet} from the right column
     Click Link  xpath=//div[@id="portal-column-two"]//div[@class="portletHeader" and contains(.,"${portlet}")]//a[@class="delete"]
     Wait until keyword succeeds  5s  0.5s  Page Should Not Contain Element  xpath=//div[@id="portal-column-two"]//div[@class="portletHeader" and contains(.,"${portlet}")]
 
+I delete the portlet ${portlet} from the left column
+    Click Link  xpath=//div[@id="portal-column-one"]//div[@class="portletHeader" and contains(.,"${portlet}")]//a[@class="delete"]
+    Wait until keyword succeeds  5s  0.5s  Page Should Not Contain Element  xpath=//div[@id="portal-column-one"]//div[@class="portletHeader" and contains(.,"${portlet}")]
+
 I should see ${text} in the left column
     Element should contain  portal-column-one  ${text}
 
@@ -55,6 +71,9 @@ I should see ${text} in the right column
 
 I should not see ${text} in the right column
     Page Should Not Contain Element  xpath=//div[@id="portal-column-two" and contains(.,"${text}")]
+
+I should not see ${text} in the left column
+    Page Should Not Contain Element  xpath=//div[@id="portal-column-one" and contains(.,"${text}")]
 
 I go to the plone root
     Go To  ${PLONE_URL}
