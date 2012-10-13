@@ -50,7 +50,7 @@ Log in
     Click Button  Log in
 
 Log in as test user
-    Log in  ${TEST_USER_ID}  ${TEST_USER_PASSWORD}
+    Log in  ${TEST_USER_NAME}  ${TEST_USER_PASSWORD}
 
 Log in as site owner
     Log in  ${SITE_OWNER_NAME}  ${SITE_OWNER_PASSWORD}
