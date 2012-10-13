@@ -111,22 +111,24 @@ Click ${name} In Edit Bar
     Element Should Contain  css=div#edit-bar ul#content-views  ${name}
     Click Link  ${name}
 
-Click Action by id ${name}
+Click Action by id
+    [arguments]  ${name}
+
     Open Action Menu
     Element Should be visible  css=dl#plone-contentmenu-actions dd.actionMenuContent  #${name}
     Click Link  id=${name}
 
 Click Cut Action
-    Click Action by id cut
+    Click Action by id  cut
 
 Click Copy Action
-    Click Action by id copy
+    Click Action by id  copy
 
 Click Delete Action
-    Click Action by id delete
+    Click Action by id  delete
 
 Click Rename Action
-    Click Action by id rename
+    Click Action by id  rename
 
 
 # ----------------------------------------------------------------------------
