@@ -5,7 +5,6 @@ Resource  plone/act/keywords.txt
 *** Test cases ***
 
 Open history popup
-    Open Plone Root
     Log in as site owner
     Go to homepage
     Add Page  History testing page
