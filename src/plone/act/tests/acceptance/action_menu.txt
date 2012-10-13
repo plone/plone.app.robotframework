@@ -25,24 +25,21 @@ Content Menu
     Click Link  css=dl#plone-contentmenu-actions dt.actionMenuHeader a
     Element Should Not Be Visible  css=a#delete
 
-#Switching Actions Menu
+Switching Actions Menu
 #    [Tags]  action-menu
-#    Click Link  An actionsmenu page
-#    Element Should Not Be Visible  css=a#delete
-#    Element Should Not Be Visible  css=a#advanced
-#    Click Link  css=dl#plone-contentmenu-actions dt.actionMenuHeader a  don't wait
-#    Element Should Be Visible  css=a#delete
-#    Element Should Not Be Visible  css=a#advanced
-#    Mouse Over  css=dl#plone-contentmenu-workflow dt.actionMenuHeader a
-#    Element Should Not Be Visible  css=a#delete
-#    Element Should Be Visible  css=a#advanced
-#    Mouse Over  css=dl#plone-contentmenu-actions dt.actionMenuHeader a
-#    Element Should Be Visible  css=a#delete
-#    Element Should Not Be Visible  css=a#advanced
-#    Click Link  css=dl#plone-contentmenu-actions dt.actionMenuHeader a  don't wait
-#    Element Should Not Be Visible  css=a#delete
-#    Element Should Not Be Visible  css=a#advanced
-#
+    Click Link  An actionsmenu page
+    Element Should Not Be Visible  css=a#delete
+    Element Should Not Be Visible  css=a#advanced
+    Click Link  css=dl#plone-contentmenu-actions dt.actionMenuHeader a
+    Element Should Be Visible  css=a#delete
+    Element Should Not Be Visible  css=a#advanced
+    Mouse Over  css=dl#plone-contentmenu-actions dt.actionMenuHeader a
+    Element Should Be Visible  css=a#delete
+    Element Should Not Be Visible  css=a#advanced
+    Click Link  css=dl#plone-contentmenu-actions dt.actionMenuHeader a
+    Element Should Not Be Visible  css=a#delete
+    Element Should Not Be Visible  css=a#advanced
+
 #Clicking outside of Actions Menu
 #    [Tags]  action-menu
 #    Click Link  An actionsmenu page

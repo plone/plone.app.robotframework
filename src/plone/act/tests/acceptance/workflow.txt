@@ -1,0 +1,4 @@
+    # No workflow is installed in our Plone so skip for now
+    #Mouse Over  css=dl#plone-contentmenu-workflow dt.actionMenuHeader a
+    #Element Should Not Be Visible  css=a#delete
+    #Element Should Be Visible  css=a#advanced
