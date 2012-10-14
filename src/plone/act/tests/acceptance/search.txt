@@ -17,8 +17,10 @@ ${PLONE_URL} =  ${ZOPE_URL}/plone
 *** Test cases ***
 
 Simple Search
-    Search for  Welcome
+    Enter searchterm  Welcome
     Livesearch results contain  Welcome to Plone
+    Click search button
+    Search results contain  Welcome to Plone
 
 Livesearch for pages
     Count livesearch items for  livesearch test page  4
@@ -54,15 +56,22 @@ Start browser and create some content
     Start browser
     Create test content
 
-Search for
+Enter searchterm
     [Arguments]  ${searchtext}
     Input text  css=input#searchGadget  ${searchtext}
     Focus  css=input#searchGadget
 
+Click search button
+    Click Button  css=.LSBox .searchButton
+
 Livesearch results contain
     [Arguments]  ${text}
     Wait until keyword succeeds  5s  1s  Element should contain  css=#LSResult .LSRow a  ${text}
-    
+
+Search results contain
+    [Arguments]  ${text}
+    Wait until keyword succeeds  5s  1s  Element should contain  css=.searchResults dt a  ${text}
+
 Count livesearch items For
     [Arguments]  ${string}  ${count}
     Search for  ${string}
