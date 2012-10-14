@@ -15,5 +15,13 @@ before_script:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
 script:
-  - make robot
+#  - make robot
   - make robotsuite
+# Why "make robot" is commented? Because
+# 1) tests were moved under src/plone/act/tests/acceptance and that has not
+# been fixed for "make robot" yet
+# 2) tests under sr/plone/act/tests/acceptance don't include PloneLibrary layer
+# keywords yet (so they don't work without robotsuite yet)
+# 3) src/plone/act/tests/test_acceptance.py doesn't neutralize PloneLibrary
+# layer keywords yet (see ./tests.py for more)
+#
