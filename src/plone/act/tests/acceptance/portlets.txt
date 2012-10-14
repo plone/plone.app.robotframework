@@ -1,19 +1,7 @@
 *** Settings ***
-
-Library  Selenium2Library  run_on_failure=Capture Page Screenshot
-Library  plone.act.PloneLibrary
-Variables  plone/app/testing/interfaces.py
 Resource  plone/act/keywords.txt
 
-Suite setup  Setup
-Suite Teardown  Close All Browsers
-
-
-*** Variables ***
-
-${PORT} =  55001
-${ZOPE_URL} =  http://localhost:${PORT}
-${PLONE_URL} =  ${ZOPE_URL}/plone
+Test Setup  Setup
 
 
 *** Test cases ***
@@ -54,12 +42,12 @@ Test adding the login portlet
 Test adding and removing the calendar portlet
     Given I go to the manage portlets view
     When I add the portlet Calendar portlet to the right column
-    And I go to the plone root
+    And Goto homepage
     Then I should see the calendar portlet in the right column
 
     When I go to the manage portlets view
     And I delete the portlet Calendar from the right column
-    And I go to the plone root
+    And Goto homepage
     Then I should not see the calendar portlet in the right column
 
 
@@ -67,12 +55,12 @@ Test adding and removing the search portlet
     Given I go to the manage portlets view
     When I add the portlet Search to the left column
     And Click Button  Save
-    And I go to the plone root
+    And Goto homepage
     Then I should see the portlet Search in the left column
 
     When I go to the manage portlets view
     And I delete the portlet Search from the left column
-    And I go to the plone root
+    And Goto homepage
     Then I should not see the portlet Search in the left column
 
 
@@ -83,12 +71,12 @@ Test adding and removing the static text portlet
     And Input text  form.header  foo
     And Input text  form.text  bar
     And Click Button  Save
-    And I go to the plone root
+    And Goto homepage
     Then I should see the portlet foo in the right column
 
     When I go to the manage portlets view
     And I delete the portlet foo from the right column
-    And I go to the plone root
+    And Goto homepage
     Then I should not see the portlet foo in the right column
 
 
@@ -154,14 +142,11 @@ Test adding and removing a recent items portlet
 *** Keywords ***
 
 Setup
-    Open browser  ${PLONE_URL}
-    Log in  ${SITE_OWNER_NAME}  ${SITE_OWNER_PASSWORD}
+    Open Plone Root
+    Log in as site owner
 
 I go to the manage portlets view
     Go To  ${PLONE_URL}/@@manage-portlets
-
-I go to the plone root
-    Go To  ${PLONE_URL}
 
 there is a portlet ${portlet} in the right column
     I go to the manage portlets view
@@ -233,7 +218,7 @@ I should not see the calendar portlet in the right column
 
 # Collection portlet
 I have a collection with name ${title}
-    I go to the plone root
+    Goto homepage
     Click Link  xpath=//*[@id="plone-contentmenu-factories"]/dt/a
     Click Link  xpath=//*[@id="collection"]
     Input text  title  ${title}
