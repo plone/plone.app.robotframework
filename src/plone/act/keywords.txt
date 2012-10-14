@@ -16,7 +16,7 @@ Open Plone Root
 
 
 Configure Selenium Library
-    Set Selenium implicit wait  1s
+    Set Selenium implicit wait  ${SELENIUM_IMPLICIT_WAIT}
 
 # ----------------------------------------------------------------------------
 # Access Resources
