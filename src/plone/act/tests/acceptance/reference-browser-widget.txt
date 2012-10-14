@@ -16,9 +16,10 @@ the edit wizard form categorization step
     Go to homepage
     Add Page  test reference browser widget
     Go to homepage
+    Add Folder  test folder
     Add Page  test reference browser widget related
     Go to  ${PLONE_URL}/test-reference-browser-widget/edit
     Open wizard tab  Categorization
 
 Then I am able to select any particular content item as 'related'
-    Set Reference Browser Field Value  relatedItems  test-reference-browser-widget-related
+    Set Reference Browser Field Value  relatedItems  test folder  test reference browser widget related

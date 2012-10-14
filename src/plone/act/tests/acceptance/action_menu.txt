@@ -89,5 +89,5 @@ Setup
     Goto homepage
     Add Page  An actionsmenu page
     Goto homepage
-    Create folder  An actionsmenu folder
+    Add folder  An actionsmenu folder
     Goto homepage

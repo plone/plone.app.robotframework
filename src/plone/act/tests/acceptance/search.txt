@@ -43,7 +43,7 @@ Create test content
     Goto homepage
     Add Page  A livesearch test page
     Goto homepage
-    Create folder  A livesearch test folder
+    Add folder  A livesearch test folder
     Add Page  A livesearch test page 1
     Go to  ${PLONE_URL}/a-livesearch-test-folder
     Add Page  A livesearch test page 2
@@ -62,7 +62,7 @@ Search for
 Livesearch results contain
     [Arguments]  ${text}
     Wait until keyword succeeds  5s  1s  Element should contain  css=#LSResult .LSRow a  ${text}
-    
+
 Count livesearch items For
     [Arguments]  ${string}  ${count}
     Search for  ${string}

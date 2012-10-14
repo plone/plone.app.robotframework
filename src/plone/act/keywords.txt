@@ -166,7 +166,7 @@ Add Page
     Click button  name=form.button.save
     Page Should Contain  Changes saved.
 
-Create folder
+Add folder
     [arguments]  ${title}
 
     Open Add New Menu
@@ -177,7 +177,7 @@ Create folder
     Page should contain  ${title}
     Element should contain  css=#parent-fieldname-title  ${title}
 
-Create document
+Add document
     [arguments]  ${title}
 
     Go to  ${TEST_FOLDER}
@@ -189,7 +189,7 @@ Create document
     Page should contain  ${title}
     Element should contain  css=#parent-fieldname-title  ${title}
 
-Create news item
+Add news item
     [Arguments]  ${title}
     Go to  ${TEST_FOLDER}/createObject?type_name=News+Item
     Wait Until Page Contains Element  title
@@ -244,11 +244,14 @@ Open wizard tab
 # ----------------------------------------------------------------------------
 
 Set Reference Browser Field Value
-    [arguments]  ${fieldName}  ${path}
+    [arguments]  ${fieldName}  @{path}
     Click Overlay Button  css=#archetypes-fieldname-${fieldName} input[type=button]
-    :FOR  ${part}  IN  ${path}
-    \   Checkbox Select ${part}
+    ${len}=  Get Length  ${path}
+    :FOR  ${i}  IN RANGE  ${len}
+    \   Run Keyword If  ${i}!=${len}-1  Click Link  xpath=//table[contains(@class, 'group')]//a[contains(., "@{path}[${i}]")]
+    \   Run Keyword If  ${i}==${len}-1  Checkbox Select  @{path}[${i}]
 
 Checkbox Select
     [arguments]  ${title}
-    ${label} Get Element Attribute  css=table.group label[text=${title}]
+    ${for}=  Get Element Attribute  xpath=//table[contains(@class, 'group')]//label[contains(., "${title}")]@for
+    Select Checkbox  id=${for}
