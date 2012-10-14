@@ -11,8 +11,11 @@ all the keywords that are necessary to write acceptance test in Plone.
 
    content.rst
    browser.rst
-   login.rst
    editbar.rst
+   login.rst
+   history.rst
+   edit-wizard-tabs.rst
+   reference-browser-widget.rst
 
 
 Using plone.app.testing variables
