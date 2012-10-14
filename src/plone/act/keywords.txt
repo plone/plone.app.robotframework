@@ -65,6 +65,12 @@ Click Overlay Link
     Page Should Contain Element  css=.pb-ajax > div
     Element Should Be Visible  css=.pb-ajax > div
 
+Click Overlay Button
+    [Arguments]  ${element}
+    Click Button  ${element}
+    Page Should Contain Element  css=.pb-ajax > div
+    Element Should Be Visible  css=.pb-ajax > div
+
 Should be above
     [Arguments]  ${locator1}  ${locator2}
 
@@ -230,3 +236,18 @@ Open history popup
 Open wizard tab
     [arguments]  ${title}
     Click link  link=${title}
+
+
+# ----------------------------------------------------------------------------
+# Widgets
+# ----------------------------------------------------------------------------
+
+Set Reference Browser Field Value
+    [arguments]  ${fieldName}  ${path}
+    Click Overlay Button  css=#archetypes-fieldname-${fieldName} input[type=button]
+    :FOR  ${part}  IN  ${path}
+    \   Checkbox Select ${part}
+
+Checkbox Select
+    [arguments]  ${title}
+    ${label} Get Element Attribute  css=table.group label[text=${title}]

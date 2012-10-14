@@ -15,7 +15,6 @@ Test edit wizard tabs navigation
 *** Keywords ***
 
 the edit wizard form
-    Open Plone Root
     Log in as site owner
     Go to homepage
     Add Page  test edit wizard
