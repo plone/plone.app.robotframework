@@ -2,7 +2,10 @@ import os
 
 from plone.app.testing.interfaces import PLONE_SITE_ID
 
-PORT = os.environ["ZSERVER_PORT"]
+PORT = 55001
+if 'ZSERVER_PORT' in os.environ:
+    PORT = os.environ["ZSERVER_PORT"]
+
 ZOPE_URL = "http://localhost:%s" % PORT
 PLONE_URL = "%s/%s" % (ZOPE_URL, PLONE_SITE_ID)
 BROWSER = "Firefox"
