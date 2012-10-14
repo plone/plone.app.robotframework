@@ -3,17 +3,7 @@ Library  plone.act.Zope2ServerLibrary
 Library  plone.act.PloneLibrary
 Library  Selenium2Library  run_on_failure=Capture Page Screenshot
 Variables  plone/app/testing/interfaces.py
-
-*** Variables ***
-
-${PORT} =  55001
-${ZOPE_URL} =  http://localhost:${PORT}
-${PLONE_URL} =  ${ZOPE_URL}/plone
-${BROWSER} =  Firefox
-${REMOTE_URL} =   
-${DESIRED_CAPABILITIES} =   
-${TEST_FOLDER} =  ${PLONE_URL}/acceptance-test-folder
-
+Variables  plone/act/variables.py
 
 *** Keywords ***
 
@@ -22,9 +12,11 @@ ${TEST_FOLDER} =  ${PLONE_URL}/acceptance-test-folder
 # ----------------------------------------------------------------------------
 
 Open Plone Root
-
     Open browser  ${PLONE_URL}  ${BROWSER}  remote_url=${REMOTE_URL}  desired_capabilities=${DESIRED_CAPABILITIES}
 
+
+Configure Selenium Library
+    Set Selenium implicit wait  ${SELENIUM_IMPLICIT_WAIT}
 
 # ----------------------------------------------------------------------------
 # Access Resources
@@ -70,7 +62,8 @@ Log out
 Click Overlay Link
     [Arguments]  ${element}
     Click Link  ${element}
-    Wait Until Page Contains Element  css=div.pb-ajax div *
+    Page Should Contain Element  css=.pb-ajax > div
+    Element Should Be Visible  css=.pb-ajax > div
 
 Should be above
     [Arguments]  ${locator1}  ${locator2}
@@ -111,22 +104,24 @@ Click ${name} In Edit Bar
     Element Should Contain  css=div#edit-bar ul#content-views  ${name}
     Click Link  ${name}
 
-Click Actions ${name}
+Click Action by id
+    [arguments]  ${name}
+
     Open Action Menu
-    Element Should Contain  css=dl#plone-contentmenu-actions dd.actionMenuContent  ${name}
-    Click Link  ${name}
+    Element Should be visible  css=dl#plone-contentmenu-actions dd.actionMenuContent  #${name}
+    Click Link  id=${name}
 
 Click Cut Action
-    Click Actions Cut
+    Click Action by id  cut
 
 Click Copy Action
-    Click Actions Copy
+    Click Action by id  copy
 
 Click Delete Action
-    Click Actions Delete
+    Click Action by id  delete
 
 Click Rename Action
-    Click Actions Rename
+    Click Action by id  rename
 
 
 # ----------------------------------------------------------------------------
@@ -167,7 +162,6 @@ Add Page
 Create folder
     [arguments]  ${title}
 
-    Go to  ${TEST_FOLDER}
     Open Add New Menu
     Click Link  css=#plone-contentmenu-factories a#folder
     Wait Until Page Contains Element  css=#archetypes-fieldname-title input
@@ -219,3 +213,20 @@ Rename Content Title
     Wait Until Page Contains Element  css=input#${id}_id
     Input Text  css=input#${id}_title  ${new_title}
     Click Button  Rename All
+
+
+# ----------------------------------------------------------------------------
+# Content Management Views
+# ----------------------------------------------------------------------------
+
+Open history popup
+    Click Overlay Link  History
+
+
+# ----------------------------------------------------------------------------
+# Content Management Views
+# ----------------------------------------------------------------------------
+
+Open wizard tab
+    [arguments]  ${title}
+    Click link  link=${title}

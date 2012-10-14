@@ -6,6 +6,9 @@ parts/
 var/
 *.pyc
 *.swp
+/.settings
+/.project
+/.pydevproject
 src/*.egg-info
 buildout.cfg
 .mr.developer.cfg
@@ -24,4 +27,4 @@ docs/Makefile
 docs/make.bat
 docs/doctrees
 docs/html
-
+/robotsuite-output/
