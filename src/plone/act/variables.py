@@ -2,7 +2,7 @@ import os
 
 from plone.app.testing.interfaces import PLONE_SITE_ID
 
-PORT = 550011
+PORT = 55001
 if 'ZSERVER_PORT' in os.environ:
     PORT = os.environ["ZSERVER_PORT"]
 
