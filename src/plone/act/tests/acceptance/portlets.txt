@@ -18,6 +18,7 @@ ${PLONE_URL} =  ${ZOPE_URL}/plone
 
 *** Test cases ***
 
+# XXX remove reloading when timeouts work
 Test toggling the visiblity of a portlet
     Given there is a portlet Login in the right column
     When I go to the manage portlets view
@@ -28,6 +29,20 @@ Test toggling the visiblity of a portlet
     When I toggle the visiblity of the Log in portlet in the right column
     And I go to the manage portlets view
     Then the Log in portlet should be visible in the right column
+
+# XXX remove reloading when timeouts work
+Test reordering portlets
+    Given two portlets in the right column
+    And the first one is Log in
+    And the second one is Calendar
+    When I move the first portlet down
+    And I go to the manage portlets view
+    Then the first one is Calendar
+    And the second one is Log in
+    When I move the second portlet up
+    And I go to the manage portlets view
+    Then the first one is Log in
+    And the second one is Calendar
 
 
 Test adding the login portlet
@@ -186,6 +201,26 @@ I delete the portlet ${portlet} from the left column
 
 I toggle the visiblity of the ${portlet} portlet in the right column
     Click Link  xpath=//div[@id="portal-column-two"]//div[@class="portletHeader" and contains(.,"${portlet}")]//a[@class="toggle-visibility"]
+
+
+# Reordering portlets
+two portlets in the right column
+    I go to the manage portlets view
+    I add the portlet Login to the right column
+    I add the portlet Calendar portlet to the right column
+
+the first one is ${title}
+    Page Should Contain Element  xpath=//div[@id="portal-column-two"]//div[contains(concat(' ', normalize-space(@class), ' '), ' portlet ')][1]//*[@class="portletHeader" and (*[contains(., "${title}")] or contains(., "${title}"))]
+
+the second one is ${title}
+    Page Should Contain Element  xpath=//div[@id="portal-column-two"]//div[contains(concat(' ', normalize-space(@class), ' '), ' portlet ')][2]//*[@class="portletHeader" and (*[contains(., "${title}")] or contains(., "${title}"))]
+
+I move the first portlet down
+    Click Link  xpath=//div[@id="portal-column-two"]//div[contains(concat(' ', normalize-space(@class), ' '), ' portlet ')][1]//*[@class="portletHeader"]//a[@class="down"]
+
+I move the second portlet up
+    Click Link  xpath=//div[@id="portal-column-two"]//div[contains(concat(' ', normalize-space(@class), ' '), ' portlet ')][2]//*[@class="portletHeader"]//a[@class="up"]
+
 
 
 # Calendar portlet
