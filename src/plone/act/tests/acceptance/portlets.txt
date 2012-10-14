@@ -92,6 +92,17 @@ Test adding and removing a collection portlet
     Then I should not see the portlet collect my stuff in the right column
 
 
+Test adding and removing an event portlet
+    Given I go to the manage portlets view
+    When I add the portlet Events to the right column
+    And Click Button  Save
+    Then I should see the portlet Events in the right column
+
+    When I go to the manage portlets view
+    And I delete the portlet Events from the right column
+    Then I should not see the portlet Events in the right column
+
+
 
 *** Keywords ***
 
