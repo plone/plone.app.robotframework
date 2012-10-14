@@ -6,29 +6,24 @@ Test Setup  Setup
 
 *** Test cases ***
 
-# XXX remove reloading when timeouts work
 Test toggling the visiblity of a portlet
     Given there is a portlet Login in the right column
     When I go to the manage portlets view
     Then the Log in portlet should be visible in the right column
     When I toggle the visiblity of the Log in portlet in the right column
-    And I go to the manage portlets view
     Then the Log in portlet should not be visible in the right column
     When I toggle the visiblity of the Log in portlet in the right column
-    And I go to the manage portlets view
     Then the Log in portlet should be visible in the right column
 
-# XXX remove reloading when timeouts work
+
 Test reordering portlets
     Given two portlets in the right column
     And the first one is Log in
     And the second one is Calendar
     When I move the first portlet down
-    And I go to the manage portlets view
     Then the first one is Calendar
     And the second one is Log in
     When I move the second portlet up
-    And I go to the manage portlets view
     Then the first one is Log in
     And the second one is Calendar
 
