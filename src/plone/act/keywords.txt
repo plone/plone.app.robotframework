@@ -12,9 +12,11 @@ Variables  plone/act/variables.py
 # ----------------------------------------------------------------------------
 
 Open Plone Root
-
     Open browser  ${PLONE_URL}  ${BROWSER}  remote_url=${REMOTE_URL}  desired_capabilities=${DESIRED_CAPABILITIES}
 
+
+Configure Selenium Library
+    Set Selenium implicit wait  1s
 
 # ----------------------------------------------------------------------------
 # Access Resources
@@ -60,8 +62,8 @@ Log out
 Click Overlay Link
     [Arguments]  ${element}
     Click Link  ${element}
-    Wait Until Page Contains Element  css=.pb-ajax
-    Element Should Be Visible  css=.pb-ajax
+    Page Should Contain Element  css=.pb-ajax > div
+    Element Should Be Visible  css=.pb-ajax > div
 
 Should be above
     [Arguments]  ${locator1}  ${locator2}
