@@ -1,8 +1,7 @@
 import unittest
 
 from plone.testing import layered
-from plone.app.testing import PLONE_ZSERVER
-from plone.act.tests.layer import POPULATED_PLONEZSERVER
+from plone.act.tests.layer import LIVESEARCH_ZSERVER
 
 import robotsuite
 
@@ -11,6 +10,6 @@ def test_suite():
     suite = unittest.TestSuite()
     suite.addTests([
         layered(robotsuite.RobotTestSuite("acceptance"),
-                layer=POPULATED_PLONEZSERVER),
+                layer=LIVESEARCH_ZSERVER),
     ])
     return suite
