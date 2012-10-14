@@ -18,6 +18,17 @@ ${PLONE_URL} =  ${ZOPE_URL}/plone
 
 *** Test cases ***
 
+Test toggling the visiblity of a portlet
+    Given there is a portlet Login in the right column
+    When I go to the manage portlets view
+    Then the Log in portlet should be visible in the right column
+    When I toggle the visiblity of the Log in portlet in the right column
+    And I go to the manage portlets view
+    Then the Log in portlet should not be visible in the right column
+    When I toggle the visiblity of the Log in portlet in the right column
+    And I go to the manage portlets view
+    Then the Log in portlet should be visible in the right column
+
 
 Test adding the login portlet
     Given I go to the manage portlets view
@@ -137,6 +148,10 @@ I go to the manage portlets view
 I go to the plone root
     Go To  ${PLONE_URL}
 
+there is a portlet ${portlet} in the right column
+    I go to the manage portlets view
+    I add the portlet ${portlet} to the right column
+
 I add the portlet ${portlet} to the left column
     Select from list  xpath=//div[@id="portletmanager-plone-leftcolumn"]//select  ${portlet}
 
@@ -148,6 +163,12 @@ I should see the portlet ${title} in the left column
 
 I should see the portlet ${title} in the right column
     Page Should Contain Element  xpath=//div[@id="portal-column-two"]//*[@class="portletHeader" and (*[contains(., "${title}")] or contains(., "${title}"))]
+
+the ${title} portlet should be visible in the right column
+    Page Should Not Contain Element  xpath=//div[@id="portal-column-two"]//div[contains(concat(' ', normalize-space(@class), ' '), ' blockedPortlet ')]//*[@class="portletHeader" and (*[contains(., "${title}")] or contains(., "${title}"))]
+
+the ${title} portlet should not be visible in the right column
+    Page Should Contain Element  xpath=//div[@id="portal-column-two"]//div[contains(concat(' ', normalize-space(@class), ' '), ' blockedPortlet ')]//*[@class="portletHeader" and (*[contains(., "${title}")] or contains(., "${title}"))]
 
 I should not see the portlet ${title} in the left column
     Page Should Not Contain Element  xpath=//div[@id="portal-column-one"]//*[@class="portletHeader" and (*[contains(., "${title}")] or contains(., "${title}"))]
@@ -162,6 +183,9 @@ I delete the portlet ${portlet} from the right column
 I delete the portlet ${portlet} from the left column
     Click Link  xpath=//div[@id="portal-column-one"]//div[@class="portletHeader" and contains(.,"${portlet}")]//a[@class="delete"]
     Wait until keyword succeeds  5s  0.5s  Page Should Not Contain Element  xpath=//div[@id="portal-column-one"]//div[@class="portletHeader" and contains(.,"${portlet}")]
+
+I toggle the visiblity of the ${portlet} portlet in the right column
+    Click Link  xpath=//div[@id="portal-column-two"]//div[@class="portletHeader" and contains(.,"${portlet}")]//a[@class="toggle-visibility"]
 
 
 # Calendar portlet
