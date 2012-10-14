@@ -101,6 +101,7 @@ Open Workflow Menu
     Open Menu  plone-contentmenu-workflow
 
 Click ${name} In Edit Bar
+    Page Should Contain Element  id=edit-bar  Edit bar is not available : edit permission missing ?
     Element Should Contain  css=div#edit-bar ul#content-views  ${name}
     Click Link  ${name}
 
