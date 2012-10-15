@@ -1,6 +1,6 @@
 *** Settings ***
 
-Resource  plone/act/plone.txt
+Resource  plone/act/keywords.txt
 
 *** Test cases ***
 
