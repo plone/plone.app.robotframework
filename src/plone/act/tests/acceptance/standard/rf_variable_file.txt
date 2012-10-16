@@ -1,4 +1,5 @@
 *** Settings ***
+Resource  plone/act/keywords.txt
 Library  plone.act.PloneLibrary
 Library  Selenium2Library  run_on_failure=Capture Page Screenshot
 Variables  plone/app/testing/interfaces.py
