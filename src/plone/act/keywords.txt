@@ -180,7 +180,7 @@ Add folder
 Add document
     [arguments]  ${title}
 
-    Go to  ${TEST_FOLDER}
+    Goto homepage
     Open Add New Menu
     Click Link  css=#plone-contentmenu-factories a#document
     Wait Until Page Contains Element  css=#archetypes-fieldname-title input
@@ -191,7 +191,7 @@ Add document
 
 Add news item
     [Arguments]  ${title}
-    Go to  ${TEST_FOLDER}/createObject?type_name=News+Item
+    Go to  ${PLONE_URL}/createObject?type_name=News+Item
     Wait Until Page Contains Element  title
     Input text  title  ${title}
     Click Button  Save
