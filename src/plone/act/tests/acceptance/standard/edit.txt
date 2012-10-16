@@ -1,21 +1,27 @@
 *** Settings ***
-Resource  plone/act/plone.txt
 
-Test Setup  Log in as site owner
+Resource  plone/act/keywords.txt
+
+Test Setup  Run keywords  Open Plone Root  Log in as site owner  Goto homepage
+
+*** Keywords ***
+
+Start browser
+    Open browser  ${PLONE_URL}
 
 *** Test cases ***
 
 Create Folder
     [Tags]  edit
-    Create folder  Create folder
+    Add folder  Create folder
 
 Create Document
     [Tags]  edit
-    Create document  Create document
+    Add document  Create document
 
 Edit document view
     [Tags]  edit  current
-    Create document  Edit document view
+    Add document  Edit document view
     Element should be visible  css=li#contentview-edit a
     Click Link  css=li#contentview-edit a
     Element Should Be Visible  css=input#title
@@ -26,7 +32,7 @@ Edit document view
 
 Select categorization tab
     [Tags]  edit  current
-    Create document  Select categorization tab
+    Add document  Select categorization tab
     Element should be visible  css=li#contentview-edit a
     Click Link  css=li#contentview-edit a
     Element should be visible  css=a#fieldsetlegend-categorization
@@ -38,7 +44,7 @@ Select categorization tab
 
 Select settings tab
     [Tags]  edit  current
-    Create document  Select settings tab
+    Add document  Select settings tab
     Element should be visible  css=li#contentview-edit a
     Click Link  css=li#contentview-edit a
     Element should be visible  css=a#fieldsetlegend-settings
