@@ -1,27 +1,11 @@
 language: python
-python:
-  - 2.7
-before_install:
-  - pip install http://effbot.org/downloads/Imaging-1.1.6.tar.gz
-  - sudo apt-get install libpcre3-dev
-  - make buildout-cache/downloads
-  - make buildout-cache/eggs
+python: "2.7"
 install:
-  - make cached-eggs
-  - make bin/pybot
-  - make bin/zope-testrunner
-  - make var/supervisord.pid
+  - mkdir -p buildout-cache/eggs
+  - mkdir -p buildout-cache/downloads
+  - python bootstrap.py -c travis.cfg
+  - bin/buildout -N -t 3 -c travis.cfg
 before_script:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
-script:
-#  - make robot
-  - make robotsuite
-# Why "make robot" is commented? Because
-# 1) tests were moved under src/plone/act/tests/acceptance and that has not
-# been fixed for "make robot" yet
-# 2) tests under sr/plone/act/tests/acceptance don't include PloneLibrary layer
-# keywords yet (so they don't work without robotsuite yet)
-# 3) src/plone/act/tests/test_acceptance.py doesn't neutralize PloneLibrary
-# layer keywords yet (see ./tests.py for more)
-#
+script: bin/test
