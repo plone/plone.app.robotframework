@@ -1,1 +1,12 @@
 - Godefroid Chapelle, Original Author
+- Jonas Baumann
+- Johan Beyers
+- Anatoly Bubenkov
+- Chris Ewing
+- Roman Kozlovskyi
+- Ed Manlove
+- Chris Shenton
+- Asko Soukka
+- Timo Stollenwerk
+- zotya
+
