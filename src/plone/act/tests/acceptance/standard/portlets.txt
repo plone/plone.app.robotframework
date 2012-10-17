@@ -160,7 +160,7 @@ I should see the portlet ${title} in the right column
     Page Should Contain Element  xpath=//div[@id="portal-column-two"]//*[@class="portletHeader" and (*[contains(., "${title}")] or contains(., "${title}"))]
 
 the ${title} portlet should be visible in the right column
-    Page Should Not Contain Element  xpath=//div[@id="portal-column-two"]//div[contains(concat(' ', normalize-space(@class), ' '), ' blockedPortlet ')]//*[@class="portletHeader" and (*[contains(., "${title}")] or contains(., "${title}"))]
+    Wait until keyword succeeds  5s  0.5s  Page Should Not Contain Element  xpath=//div[@id="portal-column-two"]//div[contains(concat(' ', normalize-space(@class), ' '), ' blockedPortlet ')]//*[@class="portletHeader" and (*[contains(., "${title}")] or contains(., "${title}"))]
 
 the ${title} portlet should not be visible in the right column
     Page Should Contain Element  xpath=//div[@id="portal-column-two"]//div[contains(concat(' ', normalize-space(@class), ' '), ' blockedPortlet ')]//*[@class="portletHeader" and (*[contains(., "${title}")] or contains(., "${title}"))]
