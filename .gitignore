@@ -6,6 +6,7 @@ buildout-cache
 parts
 dist
 var
+etc
 
 *.pyc
 *.mo
