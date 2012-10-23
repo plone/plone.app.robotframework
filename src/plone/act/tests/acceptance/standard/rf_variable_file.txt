@@ -1,8 +1,5 @@
 *** Settings ***
 Resource  plone/act/keywords.txt
-Library  plone.act.PloneLibrary
-Library  Selenium2Library  run_on_failure=Capture Page Screenshot
-Variables  plone/app/testing/interfaces.py
 
 *** Test cases ***
 
@@ -14,13 +11,6 @@ Test variable file
     Should Be Equal  ${TEST_USER_NAME}  test-user
     Should Be Equal  ${TEST_USER_ID}    test_user_1_
     Should Be Equal  ${TEST_USER_PASSWORD}  secret
-    #Should Be Equal  ${TEST_USER_ROLES}  ['Member',]
 
     Should Be Equal  ${SITE_OWNER_NAME}      admin
     Should Be Equal  ${SITE_OWNER_PASSWORD}  secret
-
-Test PloneLibrary vs variable file
-    ${PLONE_LIBRARY_SITE_OWNER_NAME}=      Get Site Owner Name
-    ${PLONE_LIBRARY_SITE_OWNER_PASSWORD}=  Get Site Owner Password
-    Should Be Equal  ${PLONE_LIBRARY_SITE_OWNER_NAME}      ${SITE_OWNER_NAME}
-    Should Be Equal  ${PLONE_LIBRARY_SITE_OWNER_PASSWORD}  ${SITE_OWNER_PASSWORD}
