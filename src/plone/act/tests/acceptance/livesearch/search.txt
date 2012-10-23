@@ -24,9 +24,6 @@ Livesearch within folder
 
 *** Keywords ***
 
-Start browser
-    Open browser  http://localhost:55001/plone/
-
 Enter searchterm
     [Arguments]  ${searchtext}
     Input text  css=input#searchGadget  ${searchtext}
