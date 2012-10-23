@@ -1,6 +1,9 @@
 syntax: glob
 
 bin
+lib
+include
+devel
 develop-eggs
 buildout-cache
 parts
@@ -13,3 +16,4 @@ etc
 *.egg-info
 
 .installed.cfg
+.mr.developer.cfg
