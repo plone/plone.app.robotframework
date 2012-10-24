@@ -21,6 +21,16 @@ class PloneLibrary(object):
         return plone.app.testing.interfaces.SITE_OWNER_PASSWORD
 
     def stop_for_debugging(self):
+        """*DEPRECATED* Instead use the new keyword: Stop.
+        """
+        for attr in ('stdin', 'stdout', 'stderr'):
+            setattr(sys, attr, getattr(sys, '__%s__' % attr))
+        import pdb; pdb.set_trace()
+
+    def stop(self):
+        """Pauses the test runner and drops it into Python debugger.
+        Enter "c" into debugger to continue.
+        """
         for attr in ('stdin', 'stdout', 'stderr'):
             setattr(sys, attr, getattr(sys, '__%s__' % attr))
         import pdb; pdb.set_trace()
