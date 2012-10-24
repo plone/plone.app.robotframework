@@ -35,10 +35,6 @@ class PloneLibrary(object):
             setattr(sys, attr, getattr(sys, '__%s__' % attr))
         import pdb; pdb.set_trace()
 
-    def apply_profile(self, profile_name):
-        from plone.app.testing import applyProfile
-        applyProfile(self.zope_layer['portal'],profile_name)
-
     def get_offset_difference(self, source_offset, dest_offset, padding):
         """helper function for positional calculations.  """
         # self.stop_for_debugging()
