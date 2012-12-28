@@ -151,20 +151,42 @@ Click Rename Action
 # ----------------------------------------------------------------------------
 
 Publish Object
-    Click Element  xpath=//span[@class='state-private']
-    Wait Until Page Contains  Publish
-    Click Element  xpath=//span[text()="Publish"]
-    Wait Until Page Contains  Published
+    [Documentation]  *DEPRECATED* Use keyword `Workflow Publish` instead.
 
-# XXX: We need a generic way to trigger workflow transitions.
-#Do Action For
-#    [arguments]  ${transition}
-#
-#    Click Element  xpath=//dl[@id='plone-contentmenu-workflow']/dt/a
-#    Wait Until Page Contains Element  xpath=//dd[@class='actionMenuContent']
-#    Page should contain Element  css=#workflow-transition-${transition}
-#    Click Element  xpath=//span[text()='${transition}']
-#    Wait Until Page Contains  Published
+    Workflow Publish
+
+# XXX: Check Status Message could be moved to a different section
+
+Check Status Message
+    [Arguments]  ${message}
+
+    Page Should Contain Element  css=dl.portalMessage dt  Info
+    Page Should Contain Element  css=dl.portalMessage dd  ${message}
+
+Trigger Workflow Transition
+    [Arguments]  ${transitionId}
+
+    Open Workflow Menu
+    Click Link  workflow-transition-${transitionId}
+    Check Status Message  Item state changed.
+
+Workflow Submit
+    Trigger Workflow Transition  submit
+
+Workflow Retract
+    Trigger Workflow Transition  retract
+
+Workflow Reject
+    Trigger Workflow Transition  reject
+
+Workflow Publish
+    Trigger Workflow Transition  publish
+
+Workflow Make Private
+    Trigger Workflow Transition  hide
+
+Workflow Promote to Draft
+    Trigger Workflow Transition  show
 
 
 # ----------------------------------------------------------------------------
