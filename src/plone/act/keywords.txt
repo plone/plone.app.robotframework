@@ -150,6 +150,11 @@ Click Rename Action
 # Workflow
 # ----------------------------------------------------------------------------
 
+Publish Object
+    [Documentation]  *DEPRECATED* Use keyword `Workflow Publish` instead.
+
+    Workflow Publish
+
 # XXX: Check Status Message could be moved to a different section
 
 Check Status Message
