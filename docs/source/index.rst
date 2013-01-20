@@ -11,20 +11,38 @@
 Plone Acceptance Tests
 ======================
 
-So, you are building a brand new add-on for `Plone <http://www.plone.org/>`_
-and would like to write some tests for it. Or, maybe you'd like to do it right
-(tm) and write the sketch some tests before writing any code.
+``plone.act`` and this documentation gives you everything to get started in
+writing and executing acceptance tests for you add-on or for Plone core.
 
-Welcome! ``plone.act`` holds all your need to test Plone or our add-on for it
-using `Robot Framework <http://code.google.com/p/robotframework/>`_.
+Different developers may have different meanings for accectance tests but within
+the Plone community when we talk about acceptance testing we are meaning tests
+which check out the user interface or through the web testing.
+
+``plone.act`` peforms acceptance testing by using two testing frameworks:
+`Robot Framework <http://code.google.com/p/robotframework/>`_ and `Selenium <http://seleniumhq.org/>`_.
 
 Robot Framework is a generic test automation framework for acceptance testing
 and acceptance test-driven development (ATDD), even for behavior driven
 development (BDD). It has easy-to-use plain text test syntax and utilizes the
-keyword-driven testing approach.
+keyword-driven testing approach. Selenium is a web browser automation framework that
+exercises the browser as if the user was interacting with the browser.
 
-``plone.act`` and this documentation gives you everything to get started in
-writing and executing acceptance tests for you add-on.
+Let's get started by seeing an example of how to add acceptance tests to your add-on. 
+If you are developing for Plone core and want information about acceptance tests for
+Plone core skip to ADD-LINK-HERE.
+
+Contents:
+
+.. toctree::
+   :maxdepth: 2
+
+   robotsuite.rst
+   plone-keywords/index.rst
+   keywords.rst
+
+Run single robot tests::
+
+  $ bin/test -s plone.app.deco -t Robot_Testcase_you_want_to_run
 
 Todo-List:
 
@@ -42,20 +60,6 @@ Wish List:
 
 - Add support for jQuery like selectors in selenium (http://code.google.com/p/robotframework-seleniumlibrary/wiki/jQueryElementSelectors
 https://github.com/rtomac/robotframework-selenium2library/issues/77)
-
-Run single robot tests::
-
-  $ bin/test -s plone.app.deco -t Robot_Testcase_you_want_to_run
-
-
-Contents:
-
-.. toctree::
-   :maxdepth: 2
-
-   plone-keywords/index.rst
-   keywords.rst
-   robotsuite.rst
 
 Indices and tables
 ==================
