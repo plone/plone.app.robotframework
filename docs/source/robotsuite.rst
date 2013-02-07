@@ -502,6 +502,18 @@ your I/O at first, and only then let your debugger in::
         setattr(sys, attr, getattr(sys, '__%s__' % attr))
     import pdb; pdb.set_trace()
 
+Note, you need to put this into the Plone Python code. Robot Framework does not 
+understand Python.
+
+To better follow the Webdriver carrie out your test you can slow it down::
+
+    Set Selenium Speed  0.5 seconds
+
+You can pause Webdriver and inspect your step::
+    
+    Set Selenium Timeout  600 seconds
+    Wait For Condition  true
+
 
 Resources
 ---------
