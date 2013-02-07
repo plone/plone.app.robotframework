@@ -1,14 +1,14 @@
-- Godefroid Chapelle, Original Author
-- Jonas Baumann
-- Johan Beyers
 - Anatoly Bubenkov
-- Chris Ewing
-- Roman Kozlovskyi
-- Ed Manlove
-- Chris Shenton
 - Asko Soukka
+- Chris Ewing
+- Chris Shenton
+- Ed Manlove
+- Godefroid Chapelle, Original Author
+- Hector Velarde
+- Johan Beyers
+- Jonas Baumann
+- Leo Rochael
+- Roman Kozlovskyi
+- Steffen Lindner
 - Timo Stollenwerk
 - zotya
-- Hector Velarde
-- Leo Rochael
-- Steffen Lindner
