@@ -5,18 +5,27 @@ Library  Selenium2Library  run_on_failure=Capture Page Screenshot
 Variables  plone/app/testing/interfaces.py
 Variables  plone/act/variables.py
 
+*** Variables ***
+
+${LAYER} =  plone.app.testing.PLONE_ZSERVER
+
 *** Keywords ***
 
 # ----------------------------------------------------------------------------
 # Setup
 # ----------------------------------------------------------------------------
 
+Configure Selenium Library
+    Set Selenium implicit wait  ${SELENIUM_IMPLICIT_WAIT}
+
+Start Plone
+    Run keyword if  ${IS_PYBOT}  Start Zope Server  ${LAYER}
+
 Open Plone Root
     Open browser  ${PLONE_URL}  ${BROWSER}  remote_url=${REMOTE_URL}  desired_capabilities=${DESIRED_CAPABILITIES}
 
-
-Configure Selenium Library
-    Set Selenium implicit wait  ${SELENIUM_IMPLICIT_WAIT}
+Stop Plone
+    Run keyword if  ${IS_PYBOT}  Stop Zope Server
 
 # ----------------------------------------------------------------------------
 # Access Resources
