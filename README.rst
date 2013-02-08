@@ -1,14 +1,18 @@
+.. warning::
+
+   It's the testing sprint and we are currently in work of refactoring
+   this documentation.
+
+   http://www.coactivate.org/projects/barcelona-sprint/
+
+
 ``plone.act`` holds
 `Robot Framework <http://code.google.com/p/robotframework/>`_
-resources for acceptance testing Plone CMS.
+resources for writing acceptance tests (functional Selenium tests)
+for Plone CMS and add-ons.
 
 Please read the full documentation at
 `ReadTheDocs <http://readthedocs.org/docs/ploneact/en/latest/index.html>`_.
-
-.. warning::
-
-    This package is still under heavy development. Do not use it yet unless you
-    are completely sure what you are doing.
 
 .. image:: https://secure.travis-ci.org/plone/plone.act.png
      :target: http://travis-ci.org/plone/plone.act
