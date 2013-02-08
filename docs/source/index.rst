@@ -37,3 +37,10 @@ add-on. <tutorial.rst>`
 .. Run single robot tests::
 ..
 ..   $ bin/test -s plone.app.deco -t Robot_Testcase_you_want_to_run
+
+External resources
+------------------
+
+* `Selenium2Library keywords <http://rtomac.github.com/robotframework-selenium2library/doc/Selenium2Library.html>`_
+* `How to write good test cases <http://code.google.com/p/robotframework/wiki/HowToWriteGoodTestCases>`_
+* `Robot Framework built-in keywords <http://robotframework.googlecode.com/hg/doc/libraries/BuiltIn.html?r=2.7.6>`_
