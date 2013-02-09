@@ -264,9 +264,9 @@ The run will fail, because the test describes an unimplemented feature::
     1 critical test, 0 passed, 1 failed
     1 test total, 0 passed, 1 failed
     ==============================================================================
-    Output:  /.../my.product/parts/test/robot_hello_world/Hello World/output.xml
-    Log:     /.../my.product/parts/test/robot_hello_world/Hello World/log.html
-    Report:  /.../my.product/parts/test/robot_hello_world/Hello World/report.html
+    Output:  /.../my.product/parts/test/robot_hello_world/Hello_World/output.xml
+    Log:     /.../my.product/parts/test/robot_hello_world/Hello_World/log.html
+    Report:  /.../my.product/parts/test/robot_hello_world/Hello_World/report.html
 
 
 
@@ -274,7 +274,7 @@ The run will fail, because the test describes an unimplemented feature::
     Traceback (most recent call last):
       File "/.../unittest2-0.5.1-py2.7.egg/unittest2/case.py", line 340, in run
         testMethod()
-      File "/.../eggs/robotsuite-1.0.1-py2.7.egg/robotsuite/__init__.py", line 312, in runTest
+      File "/.../eggs/robotsuite-1.0.2-py2.7.egg/robotsuite/__init__.py", line 317, in runTest
         assert last_status == 'PASS', last_message
     AssertionError: Page should have contained text 'Hello World!' but did not
 
