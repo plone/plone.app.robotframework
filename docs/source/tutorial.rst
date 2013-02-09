@@ -1,5 +1,5 @@
-How to write a robot test for a Plone add-on
-============================================
+Write a robot test for a Plone add-on
+=====================================
 
 This is a minimal tutorial to get started with writing functional Selenium
 tests for Plone with Robot Framework.

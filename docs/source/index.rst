@@ -18,7 +18,7 @@ that exercises the browser as if the user was interacting with the browser.
 Start here
 ----------
 
-* :doc:`How to write a robot test for a Plone add-on<tutorial>`
+* :doc:`Write a robot test for a Plone add-on<tutorial>`
 
 .. If you are developing for Plone core and want information about
 .. acceptance tests for Plone core skip to ADD-LINK-HERE.
