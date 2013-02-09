@@ -2,7 +2,7 @@ import os.path
 import unittest
 
 import robotsuite
-from plone.act.testing import LIVESEARCH_ZSERVER
+from plone.act.testing import LIVESEARCH_FUNCTIONAL_TESTING
 from plone.app.testing import PLONE_ZSERVER
 from plone.testing import layered
 
@@ -15,6 +15,6 @@ def test_suite():
             layer=PLONE_ZSERVER),
         layered(robotsuite.RobotTestSuite(
             os.path.join("acceptance", "livesearch")),
-            layer=LIVESEARCH_ZSERVER),
+            layer=LIVESEARCH_FUNCTIONAL_TESTING),
     ])
     return suite

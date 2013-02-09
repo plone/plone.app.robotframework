@@ -1,12 +1,32 @@
+from plone.app.testing import (
+    PloneSandboxLayer,
+    applyProfile,
+    PLONE_FIXTURE,
+    FunctionalTesting
+)
 from plone.testing import z2
-from plone.app.testing import PloneWithPackageLayer
-from plone.app.testing import FunctionalTesting
+from zope.configuration import xmlconfig
 
-import plone.act
 
-LIVESEARCH = PloneWithPackageLayer(zcml_package=plone.act,
-        zcml_filename='profiles.zcml', gs_profile_id='plone.act:content',
-        name="LIVESEARCH")
+class LiveSearchLayer(PloneSandboxLayer):
 
-LIVESEARCH_ZSERVER = FunctionalTesting(bases=(LIVESEARCH, z2.ZSERVER_FIXTURE),
-        name='LIVESEARCH_ZSERVER')
+    defaultBases = (PLONE_FIXTURE,)
+
+    def setUpZope(self, app, configurationContext):
+        # Load ZCML
+        import plone.act
+        xmlconfig.file(
+            'profiles.zcml',
+            plone.act,
+            context=configurationContext
+        )
+
+    def setUpPloneSite(self, portal):
+        applyProfile(portal, 'plone.act:content')
+
+LIVESEARCH_FIXTURE = LiveSearchLayer()
+
+LIVESEARCH_FUNCTIONAL_TESTING = FunctionalTesting(
+    bases=(LIVESEARCH_FIXTURE, z2.ZSERVER_FIXTURE),
+    name="LiveSearch:Functional"
+)
