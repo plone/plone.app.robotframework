@@ -45,9 +45,8 @@ Leave the virtualenv active for the next step.
 Create a new product
 --------------------
 
-Once we have Templer installed, we can create a Plone add-on product by
-entering command ``templer plone_basic`` and answering for the upcoming
-questions::
+Once we have Templer installed, we create a Plone add-on product by entering
+``templer plone_basic`` and answering for the upcoming questions::
 
     $templer plone_basic
 
@@ -80,7 +79,7 @@ questions::
     Replace 1019 bytes with 1364 bytes (2/43 lines changed; 8 lines added)
     Replace 42 bytes with 119 bytes (1/1 lines changed; 4 lines added)
 
-Once we have answered for all the questions. Our add-on template is ready.
+Once we have answered for all the questions, our add-on template is ready.
 
 If we installed Templer into its own virtualenv, we can deactivate it now
 with::
@@ -91,7 +90,11 @@ with::
 Update requirements
 -------------------
 
-``my.product/setup.py``::
+Currently, we have to add a few more packages into ``setup.py`` generated
+by Templer to get all the dependencies required for functional Selenium tests
+with Robot Framework.
+
+Update ``my.product/setup.py`` with::
 
       extras_require={'test': ['plone.app.testing',
                                'robotsuite',
@@ -103,7 +106,8 @@ Update requirements
 Bootstrap and run buildout
 --------------------------
 
-::
+Before we continue, now is be a good time to run bootstrap and buildout to
+get the development environmet ready::
 
     $ python bootstrap.py --distribute
     $ bin/buildout
@@ -113,8 +117,18 @@ Bootstrap and run buildout
 Define functional test fixture
 ------------------------------
 
+Functional Selenium tests require a fully functional Plone-environment.
 
-``my.product/src/my/product/testing.py``::
+Luckily, with
+`plone.app.testing <http://pypi.python.org/pypi/plone.app.testing/>`_
+we can easily define a custom test fixture with Plone and our own add-on
+installed.
+
+With Templer, the base fixture has already been created and we only need to
+define a functional testing fixture, which adds a fully functional ZServer to
+serve a Plone sandbox with our add-on for Selenium.
+
+Update ``my.product/src/my/product/testing.py`` with::
 
     from plone.app.testing import FunctionalTesting
 
@@ -128,6 +142,13 @@ Define functional test fixture
 Create robot test suite
 -----------------------
 
+Robot tests are written as text files, which are called test suites.
+
+It's good practice, with Plone, to prefix all robot test suite files with
+``robot_``. This makes it easier to both exclude the robot tests (which are
+usually very time consuming) from test runs or run only the robot tests.
+
+Write a simple robot tests suite
 ``my.product/src/my/product/tests/robot_hello.txt``::
 
     *** Settings ***
@@ -153,6 +174,15 @@ Create robot test suite
 Register the suite for zope.testrunner
 --------------------------------------
 
+To be able to run Robot Framework test suite with
+`zope.testrunner <http://pypi.python.org/pypi/zope.testrunner/>`_
+and on top of our add-ons functional test fixture, we need to
+
+1. wrap the test suite into properly named Python unittest test suite
+
+2. assign our functional test layer for all the test cases.
+
+We do this all by simply writing
 ``my.product/src/my/product/tests/test_robot.py``::
 
     from my.product.testing import MY_PRODUCT_FUNCTIONAL_TESTING
@@ -169,11 +199,15 @@ Register the suite for zope.testrunner
         ])
         return suite
 
+Note that ``test_``-prefix in the filename is required for  **zope.testunner**
+to find the test suite.
+
 
 List and filter tests
 ---------------------
 
-::
+Run ``bin/test`` (**zope.testrunner**) with ``--list-tests``-argument to
+see that our test is registered correctly::
 
     $ bin/test --list-tests
     Listing my.product.testing.MyproductLayer:Functional tests:
@@ -181,19 +215,20 @@ List and filter tests
     Listing my.product.testing.MyproductLayer:Integration tests:
       test_success (my.product.tests.test_example.TestExample)
 
-::
+Experiment with ``-t``-argument to filter testrunner to find only our
+robot test::
 
     $ bin/test -t robot_ --list-tests
     Listing my.product.testing.MyproductLayer:Functional tests:
       Hello_World (robot_hello_world.txt) #hello
 
-::
+or everything else::
 
     $ bin/test -t \!robot_ --list-tests
     Listing my.product.testing.MyproductLayer:Integration tests:
       test_success (my.product.tests.test_example.TestExample)
 
-::
+We can also filter robot tests with tags::
 
     $ bin/test -t \#hello --list-tests
     Listing my.product.testing.MyproductLayer:Functional tests:
@@ -203,7 +238,10 @@ List and filter tests
 Run (failing) test
 ------------------
 
-::
+After the test has been written and registered, it can be run normally
+with ``bin/test``.
+
+The run will fail, because the test describes an unimplemented feature::
 
     $ bin/test -t robot_
 
@@ -254,7 +292,7 @@ Run (failing) test
 Create an example view
 ----------------------
 
-
+Create view described in the test by registering a template into
 ``my.product/src/my/product/configure.zcml``::
 
     <configure
@@ -278,8 +316,7 @@ Create an example view
 
     </configure>
 
-
-``my.product/src/my/product/hello_world.pt``::
+And writing the template into ``my.product/src/my/product/hello_world.pt``::
 
     <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
           xmlns:tal="http://xml.zope.org/namespaces/tal"
@@ -303,7 +340,7 @@ Create an example view
 Run (passing) test
 ------------------
 
-::
+Re-run the test to see it passing::
 
     $ bin/test -t robot_
     Running my.product.testing.MyproductLayer:Functional tests:
