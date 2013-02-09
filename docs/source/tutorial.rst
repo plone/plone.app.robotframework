@@ -5,50 +5,52 @@ This is a minimal tutorial to get started with writing functional Selenium
 tests for Plone with Robot Framework.
 
 
-Setup Templer
--------------
+Install Templer
+---------------
 
 At first, we should have an add-on to test with. For creating a new add-on, we
 use `Templer <http://templer-manual.readthedocs.org/en/latest/>`_.
 
-1. Create a new
-`Python virtualen <http://www.virtualenv.org/>`_
-for Templer installation::
+1. Create a directory for a Templer-buildout and move there::
 
-    $ virtualenv -p /usr/bin/python2.7 templerenv
-    Running virtualenv with interpreter /usr/bin/python2.7
-    New python executable in templerenv/bin/python
-    Installing setuptools............done.
-    Installing pip...............done.
+    $ mkdir templer-buildout
+    $ cd templer-buildout
 
-2. Activate the new virtualenv::
+2. Create a file `buildout.cfg` for Templer-installation with::
 
-    $ source templerenv/bin/activate
+    [buildout]
+    parts = templer
 
-3. Install Templer on it::
+    [templer]
+    recipe = zc.recipe.egg
+    eggs =
+        templer.core
+        templer.plone
 
-    $ pip install templer.core
-    Downloading/unpacking templer.core
-    ...
-    Cleaning up...
+3. Download a bootstrap for running the buildout::
 
-4. And install Plone-templates for Templer on it::
+    $ curl -O http://python-distribute.org/bootstrap.py
 
-    $ pip install templer.plone
-    Downloading/unpacking templer.plone
-    ...
-    Cleaning up...
+4. Bootstrap and run the buildout::
 
-Leave the virtualenv active for the next step.
+    $ python bootstrap.py --distribute
+    $ bin/buildout
+    Installing templer.
+    Generated script '/.../templer-buildout/bin/templer'.
+
+5. Return back to the parent directory::
+
+    $ cd ..
 
 
 Create a new product
 --------------------
 
 Once we have Templer installed, we create a Plone add-on product by entering
-``templer plone_basic`` and answering for the upcoming questions::
+``templer-buildout/bin/templer plone_basic`` and answering for the upcoming
+questions::
 
-    $templer plone_basic
+    $ templer-buildout/bin/templer plone_basic
 
     plone_basic: A package for Plone add-ons
 
@@ -80,11 +82,6 @@ Once we have Templer installed, we create a Plone add-on product by entering
     Replace 42 bytes with 119 bytes (1/1 lines changed; 4 lines added)
 
 Once we have answered for all the questions, our add-on template is ready.
-
-If we installed Templer into its own virtualenv, we can deactivate it now
-with::
-
-    $ deactivate
 
 
 Update requirements
