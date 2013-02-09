@@ -39,7 +39,7 @@ Start here
 External resources
 ------------------
 
-**How to write good Robot Frameowrk test cases
+**How to write good Robot Frameowrk test cases**
     http://code.google.com/p/robotframework/wiki/HowToWriteGoodTestCases
 **Robot Framework built-in library documentation**
     http://robotframework.googlecode.com/hg/doc/libraries/BuiltIn.html?r=2.7.6
