@@ -1,7 +1,7 @@
 Plone ACT -- acceptance tests for Plone made easy
 =================================================
 
-``plone.act`` and this documentation gives you everything to get started in
+**plone.act** and this documentation gives you everything to get started in
 writing and executing acceptance tests (funtional Selenium tests) for you
 add-on or for Plone core.
 
@@ -9,7 +9,7 @@ Different developers may have different meanings for accectance tests but
 within the Plone community when we talk about acceptance testing we are meaning
 tests which check out the user interface or through the web testing.
 
-``plone.act`` peforms acceptance testing by using two testing frameworks:
+**plone.act** peforms acceptance testing by using two testing frameworks:
 `Robot Framework <http://code.google.com/p/robotframework/>`_ and
 `Selenium <http://seleniumhq.org/>`_.
 
@@ -19,8 +19,8 @@ development (BDD). It has easy-to-use plain text test syntax and utilizes the
 keyword-driven testing approach. Selenium is a web browser automation framework
 that exercises the browser as if the user was interacting with the browser.
 
-Next: :doc:`Get started by seeing an example of how to add acceptance tests to your
-add-on. <tutorial.rst>`
+:doc:`Get started by seeing an example of how to add acceptance tests to your
+add-on. <tutorial>`
 
 .. If you are developing for Plone core and want information about
 .. acceptance tests for Plone core skip to ADD-LINK-HERE.
@@ -41,6 +41,6 @@ add-on. <tutorial.rst>`
 External resources
 ------------------
 
-* `Selenium2Library keywords <http://rtomac.github.com/robotframework-selenium2library/doc/Selenium2Library.html>`_
 * `How to write good test cases <http://code.google.com/p/robotframework/wiki/HowToWriteGoodTestCases>`_
 * `Robot Framework built-in keywords <http://robotframework.googlecode.com/hg/doc/libraries/BuiltIn.html?r=2.7.6>`_
+* `Selenium2Library keywords <http://rtomac.github.com/robotframework-selenium2library/doc/Selenium2Library.html>`_

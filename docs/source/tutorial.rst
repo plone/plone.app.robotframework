@@ -1,6 +1,9 @@
 Get started with Robot Framework and plone.app.testing
 ======================================================
 
+Hi! This is a minimal tutorial to get you started with writing
+functional Selenium tests for Plone with Robot Framework.
+
 Setup Templer
 -------------
 
