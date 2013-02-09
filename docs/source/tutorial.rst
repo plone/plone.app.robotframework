@@ -12,7 +12,7 @@ At first, we should have an add-on to test with. For creating a new add-on, we
 use `Templer <http://templer-manual.readthedocs.org/en/latest/>`_.
 
 1. Create a new
-`Python virtualen <http://www.virtualenv.org/en/latest/`_
+`Python virtualen <http://www.virtualenv.org/>`_
 for Templer installation::
 
     $ virtualenv -p /usr/bin/python2.7 templerenv
