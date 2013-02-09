@@ -1,15 +1,11 @@
-Plone ACT -- acceptance tests for Plone made easy
+Plone ACT -- functional tests for Plone made easy
 =================================================
 
-**plone.act** and this documentation gives you everything to get started in
-writing and executing acceptance tests (funtional Selenium tests) for you
-add-on or for Plone core.
+**plone.act** and its documentation gives you everything to get started in
+writing and executing functional Selenium tests (including acceptance tests)
+for you Plone add-on.
 
-Different developers may have different meanings for accectance tests but
-within the Plone community when we talk about acceptance testing we are meaning
-tests which check out the user interface or through the web testing.
-
-**plone.act** peforms acceptance testing by using two testing frameworks:
+**plone.act** peforms functional testing by using two testing frameworks:
 `Robot Framework <http://code.google.com/p/robotframework/>`_ and
 `Selenium <http://seleniumhq.org/>`_.
 
@@ -19,8 +15,10 @@ development (BDD). It has easy-to-use plain text test syntax and utilizes the
 keyword-driven testing approach. Selenium is a web browser automation framework
 that exercises the browser as if the user was interacting with the browser.
 
-:doc:`Get started by seeing an example of how to add acceptance tests to your
-add-on. <tutorial>`
+Start here
+----------
+
+* :doc:`How to write a robot test for a Plone add-on<tutorial>`
 
 .. If you are developing for Plone core and want information about
 .. acceptance tests for Plone core skip to ADD-LINK-HERE.
@@ -41,6 +39,9 @@ add-on. <tutorial>`
 External resources
 ------------------
 
-* `How to write good test cases <http://code.google.com/p/robotframework/wiki/HowToWriteGoodTestCases>`_
-* `Robot Framework built-in keywords <http://robotframework.googlecode.com/hg/doc/libraries/BuiltIn.html?r=2.7.6>`_
-* `Selenium2Library keywords <http://rtomac.github.com/robotframework-selenium2library/doc/Selenium2Library.html>`_
+**How to write good Robot Frameowrk test cases
+    http://code.google.com/p/robotframework/wiki/HowToWriteGoodTestCases
+**Robot Framework built-in library documentation**
+    http://robotframework.googlecode.com/hg/doc/libraries/BuiltIn.html?r=2.7.6
+**Robot Framework Selenium2Library documentation**
+    http://rtomac.github.com/robotframework-selenium2library/doc/Selenium2Library.html
