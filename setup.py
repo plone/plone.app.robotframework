@@ -37,11 +37,7 @@ setup(name='plone.act',
       zip_safe=False,
       install_requires=[
           'setuptools',
-          'plone.app.testing',
-          'robotframework-selenium2library'
+          'plone.app.testing[robot]>=4.2.2',
       ],
-      extras_require={'test': [
-          'robotsuite',
-      ]},
       entry_points=entry_points,
       )
