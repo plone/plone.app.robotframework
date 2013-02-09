@@ -16,7 +16,8 @@ use `Templer <http://templer-manual.readthedocs.org/en/latest/>`_.
     $ mkdir templer-buildout
     $ cd templer-buildout
 
-2. Create a file `buildout.cfg` for Templer-installation with::
+2. Create a file ``templer-buildout/buildout.cfg`` for Templer-installation
+   with::
 
     [buildout]
     parts = templer
