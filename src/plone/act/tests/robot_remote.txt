@@ -1,0 +1,22 @@
+*** Settings ***
+
+Resource  plone/act/keywords.txt
+Library  Remote  ${PLONE_URL}/RobotRemoteLibrary
+
+Test Setup  Open Plone Root
+Test Teardown  Close All Browsers
+
+*** Test cases ***
+
+Something is installed
+    Given 'plone.app.jquery' has not been activated
+      and 'plone.app.discussion' has not been activated
+
+*** Keywords ***
+
+'${product}' has been activated
+    Product has been activated  ${product}
+
+'${product}' has not been activated
+    Run keyword and expect error  *  Product has been activated  ${product}
+

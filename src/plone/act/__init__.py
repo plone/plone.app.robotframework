@@ -1,5 +1,9 @@
 import sys
 
+from plone.act.remote import RemoteLibrary
+
+RemoteLibrary  # pyflakes
+
 
 class PloneLibrary(object):
     def get_site_owner_name(self):
@@ -25,7 +29,8 @@ class PloneLibrary(object):
         """
         for attr in ('stdin', 'stdout', 'stderr'):
             setattr(sys, attr, getattr(sys, '__%s__' % attr))
-        import pdb; pdb.set_trace()
+        import pdb
+        pdb.set_trace()
 
     def stop(self):
         """Pauses the test runner and drops it into Python debugger.
@@ -33,12 +38,14 @@ class PloneLibrary(object):
         """
         for attr in ('stdin', 'stdout', 'stderr'):
             setattr(sys, attr, getattr(sys, '__%s__' % attr))
-        import pdb; pdb.set_trace()
+        import pdb
+        pdb.set_trace()
 
     def get_offset_difference(self, source_offset, dest_offset, padding):
         """helper function for positional calculations.  """
         # self.stop_for_debugging()
         return (int(dest_offset) - int(source_offset)) + int(padding)
+
 
 class Zope2ServerLibrary(object):
 
