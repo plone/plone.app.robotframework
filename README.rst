@@ -5,14 +5,13 @@
 
    http://www.coactivate.org/projects/barcelona-sprint/
 
-
 **plone.act** hold experimental
 `Robot Framework <http://code.google.com/p/robotframework/>`_
 resources for writing functional Selenium (including acceptance
 tests) for Plone CMS and add-ons.
 
-**This is an exprimental** developer package. Mature parts of this package
-will be copied into
+**This is an exprimental developer package.**
+Mature parts of this package will be copied into
 `plone.app.testing <http://pypi.python.org/pypi/plone.app.testing/>`_.
 Plone core-packages should not depend on this package.
 
