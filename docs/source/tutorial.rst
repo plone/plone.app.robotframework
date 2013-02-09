@@ -96,11 +96,24 @@ with Robot Framework.
 
 Update ``my.product/setup.py`` with::
 
-      extras_require={'test': ['plone.app.testing',
-                               'robotsuite',
-                               'robotframework-selenium2library',
-                               'decorator',
-                               'selenium']},
+    extras_require={'test': ['plone.app.testing[robot]]},
+
+.. note::
+
+    When testing with Plone version less than 4.3, we must pin
+    the version of **plone.app.testing** into ``buildout.cfg``.
+
+    Update ``my.product/buildout.cfg`` with::
+
+        [buildout]
+        extends =
+            http://svn.plone.org/svn/collective/buildout/plonetest/test-4.x.cfg
+            versions.cfg
+
+    And create ``my.product/versions.cfg`` with::
+
+        [versions]
+        plone.app.versions = 4.2.2
 
 
 Bootstrap and run buildout
