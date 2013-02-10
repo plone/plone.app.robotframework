@@ -1,7 +1,7 @@
 *** Settings ***
 
 Resource  plone/act/keywords.txt
-Library  Remote  ${PLONE_URL}/RobotRemoteLibrary
+Library  Remote  ${PLONE_URL}/RemoteKeywordsLibrary
 
 Test Setup  Open Plone Root
 Test Teardown  Close All Browsers

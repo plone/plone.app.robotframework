@@ -1,7 +1,8 @@
 *** Settings ***
-Library  plone.act.Zope2ServerLibrary
-Library  plone.act.PloneLibrary
+
 Library  Selenium2Library  run_on_failure=Capture Page Screenshot
+Library  plone.act.KeywordsLibrary
+
 Variables  plone/app/testing/interfaces.py
 Variables  plone/act/variables.py
 

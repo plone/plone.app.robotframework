@@ -2,7 +2,7 @@
 from OFS.SimpleItem import SimpleItem
 
 
-class RemoteLibrary(SimpleItem):
+class RemoteKeywordsLibrary(SimpleItem):
     """Robot Framework Remote Library Tool for Plone
 
     See also: http://robotframework.googlecode.com/hg/doc/userguide/RobotFrameworkUserGuide.html?r=2.7.65#remote-library-interface

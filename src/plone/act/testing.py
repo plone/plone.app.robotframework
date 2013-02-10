@@ -6,7 +6,7 @@ from plone.app.testing import (
 )
 from plone.testing import z2
 from zope.configuration import xmlconfig
-from plone.act import RemoteLibrary
+from plone.act import RemoteKeywordsLibrary
 
 
 class LiveSearchLayer(PloneSandboxLayer):
@@ -33,24 +33,24 @@ LIVESEARCH_FUNCTIONAL_TESTING = FunctionalTesting(
 )
 
 
-class RemoteLibraryLayer(PloneSandboxLayer):
+class RemoteKeywordsLibraryLayer(PloneSandboxLayer):
 
     defaultBases = (PLONE_FIXTURE,)
 
     def setUpPloneSite(self, portal):
         remote_keywords = RemoteKeywords(portal)
-        remote_library = RemoteLibrary(remote_keywords)
-        portal._setObject("RobotRemoteLibrary", remote_library)
+        remote_library = RemoteKeywordsLibrary(remote_keywords)
+        portal._setObject("RemoteKeywordsLibrary", remote_library)
 
     def tearDownPloneSite(self, portal):
-        portal._delObject("RobotRemoteLibrary")
+        portal._delObject("RemoteKeywordsLibrary")
 
 
-REMOTE_LIBRARY_FIXTURE = RemoteLibraryLayer()
+REMOTE_LIBRARY_FIXTURE = RemoteKeywordsLibraryLayer()
 
 REMOTE_LIBRARY_FUNCTIONAL_TESTING = FunctionalTesting(
     bases=(REMOTE_LIBRARY_FIXTURE, z2.ZSERVER_FIXTURE),
-    name="RemoteLibrary:Functional"
+    name="RemoteKeywordsLibrary:Functional"
 )
 
 
