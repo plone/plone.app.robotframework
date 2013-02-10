@@ -55,6 +55,5 @@ Print these
 When you already know, what you are doing
 -----------------------------------------
 
-* :doc:`Speed-up your test writing with ACT-server<server>`
-
-.. * :doc:`Execute your BDD give-clauses via a remote library<remote>`
+* :doc:`Speed up your test writing with ACT-server<server>`
+* :doc:`Speed up your BDD Given-clauses with a remote library<remote>`

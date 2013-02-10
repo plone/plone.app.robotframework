@@ -1,4 +1,4 @@
-Speed-up your test writing with ACT-server
+Speed up your test writing with ACT-server
 ==========================================
 
 **plone.act** comes with a special console script ``act_server``, which starts
