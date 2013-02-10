@@ -42,8 +42,8 @@ class PloneLibrary(object):
         pdb.set_trace()
 
     def get_offset_difference(self, source_offset, dest_offset, padding):
-        """helper function for positional calculations.  """
-        # self.stop_for_debugging()
+        """Return dest_offset - source_offset + padding
+        """
         return (int(dest_offset) - int(source_offset)) + int(padding)
 
 
@@ -67,7 +67,6 @@ class Zope2ServerLibrary(object):
         return self.zope_layer
 
     def start_zope_server(self, layer_dotted_name):
-        #global zope_layer
         new_layer = self._import_layer(layer_dotted_name)
         if self.zope_layer and self.zope_layer is not new_layer:
             self.stop_zope_server()
@@ -76,7 +75,6 @@ class Zope2ServerLibrary(object):
 
     def stop_zope_server(self):
         tear_down()
-        #global zope_layer
         self.zope_layer = None
 
     def zodb_setup(self):
@@ -94,7 +92,7 @@ class Zope2ServerLibrary(object):
             if hasattr(layer, 'testTearDown'):
                 layer.testTearDown()
 
-#zope_layer = None
+
 setup_layers = {}
 
 
