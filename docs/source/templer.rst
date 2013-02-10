@@ -1,7 +1,7 @@
 Write a robot test for a new Plone add-on
 =========================================
 
-This is a minimal tutorial to get started with writing functional Selenium
+This is a minimal tutorial for getting started with writing functional Selenium
 tests for a new Plone add-on with Robot Framework.
 
 
@@ -48,7 +48,7 @@ Create a new product
 --------------------
 
 Once we have Templer installed, we create a Plone add-on product by entering
-``templer-buildout/bin/templer plone_basic`` and answer to the upcoming
+``templer-buildout/bin/templer plone_basic`` and answering to the upcoming
 questions.
 
 We must make sure to answer ``True`` for the question::
@@ -93,8 +93,8 @@ Once we have answered for all the questions, our add-on template is ready::
 Bootstrap and run buildout
 --------------------------
 
-Before we continue, now is be a good time to run bootstrap and buildout to
-get the development environmet ready::
+Before we continue, now is a good time to run bootstrap and buildout to
+get the development environment ready::
 
     $ python bootstrap.py --distribute
     $ bin/buildout
@@ -147,7 +147,8 @@ we can easily define a custom test fixture with Plone and our own add-on
 installed.
 
 With Templer, both the base fixture and the functional test fixtures have
-already been defined in ``my.product/src/my/product/testing.py`` with lines::
+already been defined in ``my.product/src/my/product/testing.py``. The latter
+with::
 
     from plone.app.testing import FunctionalTesting
 
@@ -180,7 +181,7 @@ Write an another robot tests suite
 
     *** Variables ***
 
-    ${BROWSER} =  firefox
+    ${BROWSER} =  Firefox
 
     *** Test Cases ***
 
@@ -399,7 +400,7 @@ Test reports
 ------------
 
 Robot Framework generates high quality test reports with screenshots of
-failing tests:
+failing tests as:
 
 ``my.product/parts/tests/robot_report.html``
     Overview of the test results.

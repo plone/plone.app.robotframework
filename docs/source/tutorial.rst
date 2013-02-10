@@ -1,17 +1,17 @@
 Write a robot test for an existing Plone add-on
 ===============================================
 
-This is a tutorial to get started with writing functional Selenium
-tests for an existing Plone add-on with Robot Framework.
+This is a tutorial for getting started with writing functional Selenium tests
+for an existing Plone add-on with Robot Framework.
 
-Let's assumpt that we have an add on called **my.product**.
+Let's assumpt that we have an add-on **my.product**.
 
 
 Update requirements
 -------------------
 
-At first, we need to fix our product to required all the necessary dependencies
-for running Robot Framework tests. For that, we update
+At first, we need to fix our product to require all the necessary dependencies
+for running Robot Framework tests.
 
 To fix our dependencies, we update ``my.product/setup.py`` with::
 
@@ -26,7 +26,7 @@ To fix our dependencies, we update ``my.product/setup.py`` with::
 
         [buildout]
         extends =
-            http://svn.plone.org/svn/collective/buildout/plonetest/test-4.x.cfg
+            ...
             versions.cfg
 
     And create ``my.product/versions.cfg`` with::
@@ -38,12 +38,11 @@ To fix our dependencies, we update ``my.product/setup.py`` with::
 Bootstrap and run buildout
 --------------------------
 
-Before we continue, now is be a good time to run bootstrap and buildout to
-get the development environmet ready::
+Before we continue, now is a good time to run bootstrap and buildout to get the
+development environment ready::
 
     $ python bootstrap.py --distribute
     $ bin/buildout
-
 
 
 Define functional test fixture
@@ -58,9 +57,8 @@ installed.
 
 After the base fixture has been created (by following
 `plone.app.testing <http://pypi.python.org/pypi/plone.app.testing/>`_
-documentation)
-and we only need to define a functional testing fixture, which adds a fully
-functional ZServer to serve a Plone sandbox with our add-on for Selenium.
+documentation) we only need to define a functional testing fixture, which adds
+a fully functional ZServer to serve a Plone sandbox with our add-on.
 
 Update ``my.product/src/my/product/testing.py`` with::
 
@@ -73,8 +71,8 @@ Update ``my.product/src/my/product/testing.py`` with::
     )
 
 
-Create robot test suite
------------------------
+Create a robot test suite
+-------------------------
 
 Robot tests are written as text files, which are called test suites.
 
@@ -94,7 +92,7 @@ Write a simple robot tests suite
 
     *** Variables ***
 
-    ${BROWSER} =  firefox
+    ${BROWSER} =  Firefox
 
     *** Test Cases ***
 
@@ -246,7 +244,7 @@ Create view described in the test by registering a template into
         xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
         i18n_domain="my.product">
 
-      <five:registerPackage package="." initialize=".initialize" />
+      ...
 
       <browser:page
           name="hello-world"
@@ -255,7 +253,7 @@ Create view described in the test by registering a template into
           permission="zope2.View"
           />
 
-      <!-- -*- extra stuff goes here -*- -->
+      ...
 
     </configure>
 
@@ -309,7 +307,7 @@ Test reports
 ------------
 
 Robot Framework generates high quality test reports with screenshots of
-failing tests:
+failing tests as:
 
 ``my.product/parts/tests/robot_report.html``
     Overview of the test results.
