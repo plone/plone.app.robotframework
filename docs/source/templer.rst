@@ -1,38 +1,93 @@
-Write a robot test for an existing Plone add-on
-===============================================
+Write a robot test for a new Plone add-on
+=========================================
 
-This is a tutorial to get started with writing functional Selenium
-tests for an existing Plone add-on with Robot Framework.
-
-Let's assumpt that we have an add on called **my.product**.
+This is a minimal tutorial to get started with writing functional Selenium
+tests for a new Plone add-on with Robot Framework.
 
 
-Update requirements
--------------------
+Install Templer
+---------------
 
-At first, we need to fix our product to required all the necessary dependencies
-for running Robot Framework tests. For that, we update
+At first, we should have an add-on to test with. For creating a new add-on, we
+use `Templer <http://templer-manual.readthedocs.org/en/latest/>`_.
 
-To fix our dependencies, we update ``my.product/setup.py`` with::
+1. Create a directory for a Templer-buildout and move there::
 
-    extras_require={'test': ['plone.app.testing[robot]]},
+    $ mkdir templer-buildout
+    $ cd templer-buildout
 
-.. note::
+2. Create a file ``templer-buildout/buildout.cfg`` for Templer-installation
+   with::
 
-    When testing with Plone version less than 4.3, we must pin
-    the version of **plone.app.testing** into ``buildout.cfg``.
+    [buildout]
+    parts = templer
 
-    Update ``my.product/buildout.cfg`` with::
+    [templer]
+    recipe = zc.recipe.egg
+    eggs =
+        templer.core
+        templer.plone
 
-        [buildout]
-        extends =
-            http://svn.plone.org/svn/collective/buildout/plonetest/test-4.x.cfg
-            versions.cfg
+3. Download a bootstrap for running the buildout::
 
-    And create ``my.product/versions.cfg`` with::
+    $ curl -O http://python-distribute.org/bootstrap.py
 
-        [versions]
-        plone.app.versions = 4.2.2
+4. Bootstrap and run the buildout::
+
+    $ python bootstrap.py --distribute
+    $ bin/buildout
+    Installing templer.
+    Generated script '/.../templer-buildout/bin/templer'.
+
+5. Return back to the parent directory::
+
+    $ cd ..
+
+
+Create a new product
+--------------------
+
+Once we have Templer installed, we create a Plone add-on product by entering
+``templer-buildout/bin/templer plone_basic`` and answer to the upcoming
+questions.
+
+We must make sure to answer ``True`` for the question::
+
+    Robot Tests (Should the default robot test be included) [False]: True
+
+Once we have answered for all the questions, our add-on template is ready::
+
+    $ templer/bin/templer plone_basic
+
+    plone_basic: A package for Plone add-ons
+
+    This template creates a package for a basic Plone add-on project with
+    a single namespace (like Products.PloneFormGen).
+
+    To create a Plone project with a name like 'collective.geo.bundle'
+    (2 dots, a 'nested namespace'), use the 'plone_nested' template.
+
+    If you are trying to create a Plone *site* then the best place to
+    start is with one of the Plone installers.  If you want to build
+    your own Plone buildout, use one of the plone'N'_buildout templates
+
+
+    This template expects a project name with 1 dot in it (a 'basic
+    namespace', like 'foo.bar').
+
+    Enter project name (or q to quit): my.product
+
+    If at any point, you need additional help for a question, you can enter
+    '?' and press RETURN.
+
+    Expert Mode? (What question mode would you like? (easy/expert/all)?) ['easy']:
+    Version (Version number for project) ['1.0']:
+    Description (One-line description of the project) ['']:
+    Register Profile (Should this package register a GS Profile) [False]:
+    Robot Tests (Should the default robot test be included) [False]: True
+    Creating directory ./my.product
+    Replace 1019 bytes with 1378 bytes (2/43 lines changed; 8 lines added)
+    Replace 42 bytes with 119 bytes (1/1 lines changed; 4 lines added)
 
 
 Bootstrap and run buildout
@@ -45,9 +100,44 @@ get the development environmet ready::
     $ bin/buildout
 
 
+Run the default tests
+---------------------
 
-Define functional test fixture
-------------------------------
+Templer does create a couple of example tests for us -- one of them being
+a robot test.
+
+We can list the available tests with::
+
+    $ bin/test --list-tests
+    Listing my.product.testing.MyproductLayer:Functional tests:
+      Plone site (robot_test.txt) #start
+    Listing my.product.testing.MyproductLayer:Integration tests:
+      test_success (my.product.tests.test_example.TestExample)
+
+And run the example robot test with::
+
+    $ bin/test -t robot_
+    Running my.product.testing.MyproductLayer:Functional tests:
+      Set up plone.testing.zca.LayerCleanup in 0.000 seconds.
+      Set up plone.testing.z2.Startup in 0.237 seconds.
+      Set up plone.app.testing.layers.PloneFixture in 8.093 seconds.
+      Set up my.product.testing.MyproductLayer in 0.178 seconds.
+      Set up plone.testing.z2.ZServer in 0.503 seconds.
+      Set up my.product.testing.MyproductLayer:Functional in 0.000 seconds.
+      Running:
+
+      Ran 1 tests with 0 failures and 0 errors in 2.588 seconds.
+    Tearing down left over layers:
+      Tear down my.product.testing.MyproductLayer:Functional in 0.000 seconds.
+      Tear down plone.testing.z2.ZServer in 5.251 seconds.
+      Tear down my.product.testing.MyproductLayer in 0.004 seconds.
+      Tear down plone.app.testing.layers.PloneFixture in 0.087 seconds.
+      Tear down plone.testing.z2.Startup in 0.006 seconds.
+      Tear down plone.testing.zca.LayerCleanup in 0.005 seconds.
+
+
+About functional test fixture
+-----------------------------
 
 Functional Selenium tests require a fully functional Plone-environment.
 
@@ -56,16 +146,12 @@ Luckily, with
 we can easily define a custom test fixture with Plone and our own add-on
 installed.
 
-After the base fixture has been created (by following
-`plone.app.testing <http://pypi.python.org/pypi/plone.app.testing/>`_
-documentation)
-and we only need to define a functional testing fixture, which adds a fully
-functional ZServer to serve a Plone sandbox with our add-on for Selenium.
-
-Update ``my.product/src/my/product/testing.py`` with::
+With Templer, both the base fixture and the functional test fixtures have
+already been defined in ``my.product/src/my/product/testing.py`` with lines::
 
     from plone.app.testing import FunctionalTesting
 
+    ...
 
     MY_PRODUCT_FUNCTIONAL_TESTING = FunctionalTesting(
         bases=(MY_PRODUCT_FIXTURE, z2.ZSERVER_FIXTURE),
@@ -73,8 +159,8 @@ Update ``my.product/src/my/product/testing.py`` with::
     )
 
 
-Create robot test suite
------------------------
+Create a new robot test suite
+-----------------------------
 
 Robot tests are written as text files, which are called test suites.
 
@@ -82,7 +168,7 @@ It's good practice, with Plone, to prefix all robot test suite files with
 ``robot_``. This makes it easier to both exclude the robot tests (which are
 usually very time consuming) from test runs or run only the robot tests.
 
-Write a simple robot tests suite
+Write an another robot tests suite
 ``my.product/src/my/product/tests/robot_hello.txt``::
 
     *** Settings ***
@@ -125,7 +211,7 @@ and on top of our add-ons functional test fixture, we need to
 
 2. assign our functional test layer for all the test cases.
 
-We do this all by simply writing
+We do this all by simply adding our new robot test suite into
 ``my.product/src/my/product/tests/test_robot.py``::
 
     from my.product.testing import MY_PRODUCT_FUNCTIONAL_TESTING
@@ -137,6 +223,8 @@ We do this all by simply writing
     def test_suite():
         suite = unittest.TestSuite()
         suite.addTests([
+            layered(robotsuite.RobotTestSuite("robot_test.txt"),
+                    layer=MY_PRODUCT_FUNCTIONAL_TESTING),
             layered(robotsuite.RobotTestSuite("robot_hello_world.txt"),
                     layer=MY_PRODUCT_FUNCTIONAL_TESTING)
         ])
@@ -154,22 +242,24 @@ see that our test is registered correctly::
 
     $ bin/test --list-tests
     Listing my.product.testing.MyproductLayer:Functional tests:
+      Plone site (robot_test.txt) #start
       Hello_World (robot_hello_world.txt) #hello
     Listing my.product.testing.MyproductLayer:Integration tests:
-      ...
+      test_success (my.product.tests.test_example.TestExample)
 
 Experiment with ``-t``-argument to filter testrunner to find only our
 robot test::
 
     $ bin/test -t robot_ --list-tests
     Listing my.product.testing.MyproductLayer:Functional tests:
+      Plone site (robot_test.txt) #start
       Hello_World (robot_hello_world.txt) #hello
 
 or everything else::
 
     $ bin/test -t \!robot_ --list-tests
     Listing my.product.testing.MyproductLayer:Integration tests:
-      ...
+      test_success (my.product.tests.test_example.TestExample)
 
 We can also filter robot tests with tags::
 
@@ -186,7 +276,7 @@ with ``bin/test``.
 
 The run will fail, because the test describes an unimplemented feature::
 
-    $ bin/test -t robot_
+    $ bin/test -t \#hello
 
     Running my.product.testing.MyproductLayer:Functional tests:
       Set up plone.testing.zca.LayerCleanup in 0.000 seconds.
@@ -285,7 +375,7 @@ Run (passing) test
 
 Re-run the test to see it passing::
 
-    $ bin/test -t robot_
+    $ bin/test -t \#hello
     Running my.product.testing.MyproductLayer:Functional tests:
       Set up plone.testing.zca.LayerCleanup in 0.000 seconds.
       Set up plone.testing.z2.Startup in 0.220 seconds.
