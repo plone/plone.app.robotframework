@@ -15,9 +15,11 @@ Debugging robot tests
    to drop the Zope server into debugger.
 
    There's one catch in debugging your code while running Robot Framework
-   tests. It eats your standard input and output, which prevents you to just
-   ``import pdb; pdb.set_trace()``. Instead, you have to add a few more lines
-   to reclaim your I/O at first, and only then let your debugger in::
+   tests. Robot eats your standard input and output, which prevents you to just
+   ``import pdb; pdb.set_trace()``.
+
+   Instead, you have to add a few more lines to reclaim your I/O at first, and
+   only then let your debugger in::
 
       import sys
       import pdb

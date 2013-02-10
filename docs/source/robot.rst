@@ -27,7 +27,7 @@ usually ending with ``.txt``.
 .. note::
 
    Advanced robot users may learn from the
-   `User Guide <http://code.google.com/p/robotframework/wiki/UserGuideRobot>`_
+   `Robot Framework User Guide <http://code.google.com/p/robotframework/wiki/UserGuideRobot>`_
    how to make hierarchical test suites.
 
 Here's an example test suite::
@@ -71,3 +71,23 @@ Each test suite may contain one to three different parts::
 
 **Keywords**
     Define new user keywords.
+
+
+BDD-style tests
+---------------
+
+Robot support Gherkin-style tests by removing exact words ``given``,
+``when``, ``then`` and ``and`` from the beginning of keyword to find
+a matching keyword.
+
+For example, a clause::
+
+    Given I'm logged in as an admin
+
+will match to a keyword::
+
+    I'm logged in as an admin
+
+There's a little bit more of BDD-style tests in
+`Robot Framework User Guide
+<http://robotframework.googlecode.com/hg/doc/userguide/RobotFrameworkUserGuide.html?r=2.7.6#behavior-driven-stylep>`_.
