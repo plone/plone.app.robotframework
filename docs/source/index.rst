@@ -20,6 +20,7 @@ Start here
 
 * :doc:`Write a robot test for a new Plone add-on<templer>` or
 * :doc:`Write a robot test for an existing Plone add-on<tutorial>`
+* :doc:`Learn more robot<robot>`
 
 .. If you are developing for Plone core and want information about
 .. acceptance tests for Plone core skip to ADD-LINK-HERE.
