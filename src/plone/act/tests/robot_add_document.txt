@@ -1,0 +1,12 @@
+*** Settings ***
+
+Resource  plone/act/keywords.txt
+
+Test Setup  Open Plone Root
+Test Teardown  Close All Browsers
+
+*** Test cases ***
+
+Add document
+    Login as site owner
+    Add document  Test document
