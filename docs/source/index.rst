@@ -15,6 +15,7 @@ development (BDD). It has easy-to-use plain text test syntax and utilizes the
 keyword-driven testing approach. Selenium is a web browser automation framework
 that exercises the browser as if the user was interacting with the browser.
 
+
 Start here
 ----------
 
@@ -39,6 +40,7 @@ Start here
 ..
 ..   $ bin/test -s plone.app.deco -t Robot_Testcase_you_want_to_run
 
+
 External resources
 ------------------
 
@@ -48,3 +50,11 @@ External resources
     http://robotframework.googlecode.com/hg/doc/libraries/BuiltIn.html?r=2.7.6
 **Robot Framework Selenium2Library documentation**
     http://rtomac.github.com/robotframework-selenium2library/doc/Selenium2Library.html
+
+
+Experimental stuff
+------------------
+
+* :doc:`Speed-up your test writing with ACT-server<server>`
+
+.. * :doc:`Execute your BDD give-clauses via a remote library<remote>`
