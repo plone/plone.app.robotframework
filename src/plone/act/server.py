@@ -1,22 +1,9 @@
 # -*- coding: utf-7 -*-
-import os
 import xmlrpclib
 from SimpleXMLRPCServer import SimpleXMLRPCServer
 
-import plone.app.testing.helpers
-import plone.app.testing.interfaces
-import plone.app.testing.layers
-
-
 TERMINAL_COLS = 79
 LISTENER_PORT = 10000
-
-PLONE_SITE_ID = plone.app.testing.interfaces.PLONE_SITE_ID
-PLONE_SITE_ID = os.environ.get('PLONE_SITE_ID', PLONE_SITE_ID)
-
-plone.app.testing.interfaces.PLONE_SITE_ID = PLONE_SITE_ID
-plone.app.testing.helpers.PLONE_SITE_ID = PLONE_SITE_ID
-plone.app.testing.layers.PLONE_SITE_ID = PLONE_SITE_ID
 
 
 def start(zope_layer_dotted_name):

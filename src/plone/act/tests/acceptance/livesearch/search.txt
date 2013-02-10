@@ -2,13 +2,6 @@
 
 Resource  plone/act/keywords.txt
 
-Suite Setup  Start Plone
-Suite Teardown  Stop Plone
-
-*** Variables ***
-
-${LAYER} =  plone.act.tests.layer.LIVESEARCH_ZSERVER
-
 *** Test cases ***
 
 Simple Search
