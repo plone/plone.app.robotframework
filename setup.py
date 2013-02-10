@@ -14,7 +14,11 @@ long_description = (
     + '\n')
 
 
-console_scripts = ["act_server = plone.act.server:server"]
+console_scripts = [
+    "act_server = plone.act.server:server",
+    "pybot = plone.act.robotentrypoints:pybot",
+    "rebot = plone.act.robotentrypoints:rebot",
+]
 
 entry_points = dict(console_scripts=console_scripts)
 
