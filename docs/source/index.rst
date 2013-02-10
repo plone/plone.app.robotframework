@@ -41,8 +41,8 @@ Start here
 ..   $ bin/test -s plone.app.deco -t Robot_Testcase_you_want_to_run
 
 
-External resources
-------------------
+Print these
+-----------
 
 **How to write good Robot Frameowrk test cases**
     http://code.google.com/p/robotframework/wiki/HowToWriteGoodTestCases
@@ -52,8 +52,8 @@ External resources
     http://rtomac.github.com/robotframework-selenium2library/doc/Selenium2Library.html
 
 
-Experimental stuff
-------------------
+When you already know, what you are doing
+-----------------------------------------
 
 * :doc:`Speed-up your test writing with ACT-server<server>`
 
