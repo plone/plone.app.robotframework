@@ -12,6 +12,16 @@ Some default product has been activated
     Given 'plone.app.jquery' has been activated
       and 'plone.app.discussion' has not been activated
 
+Site Administrator can access control panel
+    Given I'm logged in as a 'Site Administrator'
+     When I open the personal menu
+     Then I see the Site Setup -link
+
+Contributor cannot access control panel
+    Given I'm logged in as a 'Contributor'
+     When I open the personal menu
+     Then I cannot see the Site Setup -link
+
 *** Keywords ***
 
 '${product}' has been activated
@@ -19,3 +29,16 @@ Some default product has been activated
 
 '${product}' has not been activated
     Run keyword and expect error  *  Product has been activated  ${product}
+
+I'm logged in as a '${ROLE}'
+    Autologin as  ${ROLE}
+    Go to  ${PLONE_URL}
+
+I open the personal menu
+    Click link  css=#user-name
+
+I see the Site Setup -link
+    Element should be visible  css=#personaltools-plone_setup
+
+I cannot see the Site Setup -link
+    Element should not be visible  css=#personaltools-plone_setup
