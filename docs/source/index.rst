@@ -58,7 +58,7 @@ Print these
 Read more
 ---------
 
-**How to write good Robot Framwork test cases**
+**How to write good Robot Framework test cases**
     http://code.google.com/p/robotframework/wiki/HowToWriteGoodTestCases
 
 
