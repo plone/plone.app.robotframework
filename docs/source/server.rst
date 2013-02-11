@@ -14,12 +14,17 @@ Install ``act_server`` with support for the developed product with a buildout
 part::
     [buildout]
     ...
+    versions = versions
+
     extensions = mr.developer
     sources = sources
     auto-checkout = plone.act
 
     [sources]
     plone.act = git git://github.com/plone/plone.act
+
+    [versions]
+    plone.app.testing = 4.2.2
 
     [act_server]
     recipe = zc.recipe.egg
