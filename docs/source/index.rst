@@ -57,8 +57,8 @@ Print these
     http://rtomac.github.com/robotframework-selenium2library/doc/Selenium2Library.html
 
 
-And you already know, what you are doing
-----------------------------------------
+Become master
+-------------
 
 .. toctree::
    :maxdepth: 1
