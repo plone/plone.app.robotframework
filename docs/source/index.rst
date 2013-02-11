@@ -49,12 +49,17 @@ Start here
 Print these
 -----------
 
-**How to write good Robot Frameowrk test cases**
-    http://code.google.com/p/robotframework/wiki/HowToWriteGoodTestCases
 **Robot Framework built-in library documentation**
     http://robotframework.googlecode.com/hg/doc/libraries/BuiltIn.html?r=2.7.6
 **Robot Framework Selenium2Library documentation**
     http://rtomac.github.com/robotframework-selenium2library/doc/Selenium2Library.html
+
+
+Read more
+---------
+
+**How to write good Robot Framwork test cases**
+    http://code.google.com/p/robotframework/wiki/HowToWriteGoodTestCases
 
 
 Become master
