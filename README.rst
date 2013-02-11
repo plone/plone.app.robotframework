@@ -1,10 +1,3 @@
-.. warning::
-
-   It's the testing sprint and we are currently in work of refactoring
-   this documentation.
-
-   http://www.coactivate.org/projects/barcelona-sprint/
-
 **plone.act** hold experimental
 `Robot Framework <http://code.google.com/p/robotframework/>`_
 resources for writing functional Selenium (including acceptance
