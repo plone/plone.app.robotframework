@@ -19,10 +19,15 @@ that exercises the browser as if the user was interacting with the browser.
 Start here
 ----------
 
-* :doc:`Write a robot test for a new Plone add-on<templer>` or
-* :doc:`Write a robot test for an existing Plone add-on<tutorial>`
-* :doc:`Learn more robot<robot>`
-* :doc:`Debug robot tests<debugging>`
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+
+   Write a robot test for a new Plone add-on <templer>
+   Write a robot test for an existing Plone add-on <tutorial>
+   Learn more robot ... <robot>
+   ... also by reading some good examples <https://github.com/plone/Products.CMFPlone/blob/master/Products/CMFPlone/tests/robot/robot_livesearch.txt>
+   Debug robot tests <debugging>
 
 .. If you are developing for Plone core and want information about
 .. acceptance tests for Plone core skip to ADD-LINK-HERE.
@@ -55,5 +60,9 @@ Print these
 And you already know, what you are doing
 ----------------------------------------
 
-* :doc:`Speed up your test writing with ACT-server<server>`
-* :doc:`Speed up your BDD Given-clauses with a remote library<remote>`
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+
+   Speed up your test writing with ACT-server <server>
+   Speed up your BDD Given-clauses with a remote library <remote>
