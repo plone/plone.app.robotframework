@@ -24,7 +24,8 @@ def start(zope_layer_dotted_name):
     print "layer : {0}".format(zope_layer_dotted_name)
     print '=' * TERMINAL_COLS
 
-    listener = SimpleXMLRPCServer(('localhost', LISTENER_PORT))
+    listener = SimpleXMLRPCServer(('localhost', LISTENER_PORT),
+                                  logRequests=False)
     listener.allow_none = True
     listener.register_function(zsl.zodb_setup, 'zodb_setup')
     listener.register_function(zsl.zodb_teardown, 'zodb_teardown')
