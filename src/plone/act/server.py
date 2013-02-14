@@ -1,5 +1,6 @@
 # -*- coding: utf-7 -*-
 import sys
+import logging
 import xmlrpclib
 from SimpleXMLRPCServer import SimpleXMLRPCServer
 
@@ -41,6 +42,7 @@ def start(zope_layer_dotted_name):
 
 
 def server():
+    logging.basicConfig(level=logging.ERROR)
     try:
         start(sys.argv[1])
     except KeyboardInterrupt:
