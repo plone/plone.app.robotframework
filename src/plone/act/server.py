@@ -8,21 +8,26 @@ from SimpleXMLRPCServer import SimpleXMLRPCServer
 TERMINAL_COLS = 79
 LISTENER_PORT = 10000
 
+INFO = lambda s: '\033[34m%s\033[0m' % s
+PASS = lambda s: '\033[32m%s\033[0m' % s
+WARN = lambda s: '\033[33m%s\033[0m' % s
+FAIL = lambda s: '\033[31m%s\033[0m' % s
+
 
 def start(zope_layer_dotted_name):
 
-    print '=' * TERMINAL_COLS
-    print "Starting Zope 2 server"
-
-    print "layer : {0}".format(zope_layer_dotted_name)
-    print '=' * TERMINAL_COLS
+    print ('=' * TERMINAL_COLS)
+    print WARN("Starting Zope 2 server")
+    print WARN("layer : {0}".format(zope_layer_dotted_name))
+    print ('=' * TERMINAL_COLS)
 
     zsl = Zope2ServerLibrary()
     zsl.start_zope_server(zope_layer_dotted_name)
-    print '=' * TERMINAL_COLS
-    print "Zope 2 server started"
-    print "layer : {0}".format(zope_layer_dotted_name)
-    print '=' * TERMINAL_COLS
+
+    print ('=' * TERMINAL_COLS)
+    print PASS("Zope 2 server started")
+    print PASS("layer : {0}".format(zope_layer_dotted_name))
+    print ('=' * TERMINAL_COLS)
 
     listener = SimpleXMLRPCServer(('localhost', LISTENER_PORT),
                                   logRequests=False)
@@ -34,12 +39,15 @@ def start(zope_layer_dotted_name):
         listener.serve_forever()
     finally:
         print
-        print "Stopping Zope 2 server"
-        print '=' * TERMINAL_COLS
+        print ('=' * TERMINAL_COLS)
+        print WARN("Stopping Zope 2 server")
+        print ('=' * TERMINAL_COLS)
+
         zsl.stop_zope_server()
-        print '=' * TERMINAL_COLS
-        print "Zope 2 server stopped"
-        print '=' * TERMINAL_COLS
+
+        print ('=' * TERMINAL_COLS)
+        print PASS("Zope 2 server stopped")
+        print ('=' * TERMINAL_COLS)
 
 
 def server():
