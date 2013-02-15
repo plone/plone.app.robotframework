@@ -61,7 +61,7 @@ class RemoteKeywordsLibrary(SimpleItem):
                 self.acl_users, "robot_login")
             activatePluginInterfaces(self, "robot_login")
         self.acl_users.robot_login.manage_addMapping(
-            match_type="equals", match_string="localhost", roles=args)
+            match_type="regex", match_string=".*", roles=args)
 
     def logout_autologin(self):
         """Clears DomainAuthHelper's map to effectively 'logout' user

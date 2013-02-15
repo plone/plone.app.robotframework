@@ -32,7 +32,6 @@ Contributor cannot access control panel
 
 I'm logged in as a '${ROLE}'
     Autologin as  ${ROLE}
-    Sleep  1 s
     Go to  ${PLONE_URL}
 
 I open the personal menu
