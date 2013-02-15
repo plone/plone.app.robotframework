@@ -34,7 +34,7 @@ class RemoteKeywordsLibrary(SimpleItem):
             result['return'] = retval
         return result
 
-    def product_has_been_activated(self, product_name):
+    def product_is_activated(self, product_name):
         """Asserts that given product_name is activated in
         portal_quickinstaller.
 
@@ -44,7 +44,7 @@ class RemoteKeywordsLibrary(SimpleItem):
         assert quickinstaller.isProductInstalled(product_name),\
             "Product '%s' was not installed." % product_name
 
-    def autologin_as(self, *args):
+    def enable_autologin_as(self, *args):
         """Adds and configures DomainAuthHelper PAS-plugin to login
         all anonymous users from localhost as a special *Remote User* with
         one or more given roles. Examples of use::
@@ -63,7 +63,7 @@ class RemoteKeywordsLibrary(SimpleItem):
         self.acl_users.robot_login.manage_addMapping(
             match_type="regex", match_string=".*", roles=args)
 
-    def logout_autologin(self):
+    def disable_autologin(self):
         """Clears DomainAuthHelper's map to effectively 'logout' user
         after 'autologin_as'.
         """

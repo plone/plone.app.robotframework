@@ -8,9 +8,9 @@ Test Teardown  Close All Browsers
 
 *** Test cases ***
 
-Some default product has been activated
-    Given 'plone.app.jquery' has been activated
-      and 'plone.app.discussion' has not been activated
+Some default product is activated
+    Given 'plone.app.jquery' is activated
+      and 'plone.app.discussion' is not activated
 
 Site Administrator can access control panel
     Given I'm logged in as a 'Site Administrator'
@@ -24,14 +24,14 @@ Contributor cannot access control panel
 
 *** Keywords ***
 
-'${product}' has been activated
-    Product has been activated  ${product}
+'${product}' is activated
+    Product is activated  ${product}
 
-'${product}' has not been activated
-    Run keyword and expect error  *  Product has been activated  ${product}
+'${product}' is not activated
+    Run keyword and expect error  *  Product is activated  ${product}
 
 I'm logged in as a '${ROLE}'
-    Autologin as  ${ROLE}
+    Enable autologin as  ${ROLE}
     Go to  ${PLONE_URL}
 
 I open the personal menu
