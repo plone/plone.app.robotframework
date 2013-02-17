@@ -41,7 +41,11 @@ setup(name='plone.act',
       zip_safe=False,
       install_requires=[
           'setuptools',
+          'argparse',
           'plone.app.testing[robot]>=4.2.2',
       ],
+      extras_require={'reload': [
+          'watchdog'
+      ]},
       entry_points=entry_points,
       )
