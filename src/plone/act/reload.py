@@ -194,7 +194,7 @@ class ForkLoop(object):
         else:
             # Ok, we already have sent the SIGINT the child, but asking for new
             # child
-            print WAIT("Fork loop scheduling new fork.")
+            print WAIT("Fork loop scheduling a new fork")
             self._scheduleFork()
 
         self.killed_child = True
