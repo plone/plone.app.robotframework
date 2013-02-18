@@ -57,7 +57,7 @@ We must make sure to answer ``True`` for the question::
 
 Once we have answered for all the questions, our add-on template is ready::
 
-    $ templer/bin/templer plone_basic
+    $ templer-buildout/bin/templer plone_basic
 
     plone_basic: A package for Plone add-ons
 
