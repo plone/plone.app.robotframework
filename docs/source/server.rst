@@ -14,6 +14,7 @@ Install ``act_server`` with support for the developed product with a buildout
 part::
     [buildout]
     ...
+    parts += act_server
     versions = versions
 
     extensions = mr.developer
