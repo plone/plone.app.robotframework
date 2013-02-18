@@ -1,33 +1,44 @@
 # -*- coding: utf-8 -*-
-import sys
+import argparse
 import logging
+import select
+import os
+import sys
+import time
 import xmlrpclib
 from SimpleXMLRPCServer import SimpleXMLRPCServer
 
+import pkg_resources
 
-TERMINAL_COLS = 79
+
+try:
+    pkg_resources.get_distribution('watchdog')
+except pkg_resources.DistributionNotFound:
+    HAS_RELOAD = False
+else:
+    from plone.act.reload import ForkLoop
+    from plone.act.reload import Watcher
+    HAS_RELOAD = True
+
+
+HAS_VERBOSE_CONSOLE = False
+
 LISTENER_PORT = 10000
 
-INFO = lambda s: '\033[34m%s\033[0m' % s
-PASS = lambda s: '\033[32m%s\033[0m' % s
-WARN = lambda s: '\033[33m%s\033[0m' % s
-FAIL = lambda s: '\033[31m%s\033[0m' % s
+TIME = lambda: time.strftime('%H:%M:%S')
+WAIT = lambda msg:  '{0} [\033[33m wait \033[0m] {1}'.format(TIME(), msg)
+ERROR = lambda msg: '{0} [\033[31m error \033[0m] {1}'.format(TIME(), msg)
+READY = lambda msg: '{0} [\033[32m ready \033[0m] {1}'.format(TIME(), msg)
 
 
 def start(zope_layer_dotted_name):
 
-    print ('=' * TERMINAL_COLS)
-    print WARN("Starting Zope 2 server")
-    print WARN("layer : {0}".format(zope_layer_dotted_name))
-    print ('=' * TERMINAL_COLS)
+    print WAIT("Starting Zope 2 server")
 
     zsl = Zope2ServerLibrary()
     zsl.start_zope_server(zope_layer_dotted_name)
 
-    print ('=' * TERMINAL_COLS)
-    print PASS("Zope 2 server started")
-    print PASS("layer : {0}".format(zope_layer_dotted_name))
-    print ('=' * TERMINAL_COLS)
+    print READY("Started Zope 2 server")
 
     listener = SimpleXMLRPCServer(('localhost', LISTENER_PORT),
                                   logRequests=False)
@@ -39,23 +50,85 @@ def start(zope_layer_dotted_name):
         listener.serve_forever()
     finally:
         print
-        print ('=' * TERMINAL_COLS)
-        print WARN("Stopping Zope 2 server")
-        print ('=' * TERMINAL_COLS)
+        print WAIT("Stopping Zope 2 server")
 
         zsl.stop_zope_server()
 
-        print ('=' * TERMINAL_COLS)
-        print PASS("Zope 2 server stopped")
-        print ('=' * TERMINAL_COLS)
+        print READY("Zope 2 server stopped")
+
+
+def start_reload(zope_layer_dotted_name, reload_paths=('src',),
+                 fork_point_layer='plone.app.testing.PLONE_FIXTURE'):
+
+    print WAIT("Starting Zope 2 server")
+
+    zsl = Zope2ServerLibrary()
+    zsl.start_zope_server(fork_point_layer)
+
+    forkloop = ForkLoop()
+    Watcher(reload_paths, forkloop).start()
+    forkloop.start()
+
+    if forkloop.exit:
+        print WAIT("Stopping Zope 2 server")
+        zsl.stop_zope_server()
+        print READY("Zope 2 server stopped")
+        return
+
+    hostname = os.environ.get('ZSERVER_HOST', 'localhost')
+
+    # XXX: For unknown reason call to socket.gethostbyaddr may cause malloc
+    # error in fork child when called from medusa http_server:
+    import socket
+    gethostbyaddr = socket.gethostbyaddr
+    socket.gethostbyaddr = lambda x: (hostname,)
+
+    # Setting smaller asyncore poll timeout will speed up restart a bit
+    import plone.testing.z2
+    plone.testing.z2.ZServer.timeout = 0.5
+    zsl.amend_zope_server(zope_layer_dotted_name)
+
+    socket.gethostbyaddr = gethostbyaddr
+
+    print READY("Zope 2 server started")
+
+    listener = SimpleXMLRPCServer((hostname, LISTENER_PORT),
+                                  logRequests=False)
+    listener.allow_none = True
+    listener.register_function(zsl.zodb_setup, 'zodb_setup')
+    listener.register_function(zsl.zodb_teardown, 'zodb_teardown')
+
+    try:
+        listener.serve_forever()
+    except select.error:  # Interrupted system call
+        pass
+    finally:
+        print WAIT("Pruning Zope 2 server")
+        zsl.prune_zope_server()
 
 
 def server():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('layer')
+    parser.add_argument('--verbose', '-v', action='count')
+    if HAS_RELOAD:
+        parser.add_argument('--no-reload', '-n', dest='reload',
+                            action='store_false')
+        parser.add_argument('--reload-path', '-p', dest='reload_paths',
+                            action='append')
+    args = parser.parse_args()
+    if args.verbose:
+        global HAS_VERBOSE_CONSOLE
+        HAS_VERBOSE_CONSOLE = True
     logging.basicConfig(level=logging.ERROR)
-    try:
-        start(sys.argv[1])
-    except KeyboardInterrupt:
-        pass
+
+    if not HAS_RELOAD or args.reload is False:
+        try:
+            start(args.layer)
+        except KeyboardInterrupt:
+            pass
+    else:
+        start_reload(args.layer, args.reload_paths or ['src'])
 
 
 class ZODB(object):
@@ -77,6 +150,7 @@ class Zope2ServerLibrary(object):
 
     def __init__(self):
         self.zope_layer = None
+        self.extra_layers = {}
 
     def _import_layer(self, layer_dotted_name):
         parts = layer_dotted_name.split('.')
@@ -89,15 +163,30 @@ class Zope2ServerLibrary(object):
         layer = getattr(module, layer_name)
         return layer
 
-    def _get_layer(self):
-        return self.zope_layer
-
     def start_zope_server(self, layer_dotted_name):
         new_layer = self._import_layer(layer_dotted_name)
         if self.zope_layer and self.zope_layer is not new_layer:
             self.stop_zope_server()
         setup_layer(new_layer)
         self.zope_layer = new_layer
+
+    def amend_zope_server(self, layer_dotted_name):
+        """Set up extra layers up to given layer_dotted_name
+        """
+        old_layers = setup_layers.copy()
+        new_layer = self._import_layer(layer_dotted_name)
+        setup_layer(new_layer)
+        for key in setup_layers.keys():
+            if key not in old_layers:
+                self.extra_layers[key] = 1
+        self.zope_layer = new_layer
+
+    def prune_zope_server(self):
+        """Tear down the last set of layers set up with amend_zope_server
+        """
+        tear_down(self.extra_layers)
+        self.extra_layers = {}
+        self.zope_layer = None
 
     def stop_zope_server(self):
         tear_down()
@@ -129,6 +218,9 @@ def setup_layer(layer, setup_layers=setup_layers):
             if base is not object:
                 setup_layer(base, setup_layers)
         if hasattr(layer, 'setUp'):
+            if HAS_VERBOSE_CONSOLE:
+                print WAIT("Set up {0}.{1}".format(layer.__module__,
+                                                   layer.__name__))
             layer.setUp()
         setup_layers[layer] = 1
 
@@ -144,6 +236,9 @@ def tear_down(setup_layers=setup_layers):
         try:
             try:
                 if hasattr(l, 'tearDown'):
+                    if HAS_VERBOSE_CONSOLE:
+                        print WAIT("Tear down {0}.{1}".format(l.__module__,
+                                                              l.__name__))
                     l.tearDown()
             except NotImplementedError:
                 pass

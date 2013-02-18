@@ -3,11 +3,13 @@
 - Chris Ewing
 - Chris Shenton
 - Ed Manlove
+- Esa-Matti Suuronen
 - Godefroid Chapelle, Original Author
 - Hector Velarde
 - Johan Beyers
 - Jonas Baumann
 - Leo Rochael
+- Mikko Ohtamaa
 - Roman Kozlovskyi
 - Steffen Lindner
 - Timo Stollenwerk
