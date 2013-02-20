@@ -221,6 +221,8 @@ class ForkLoop(object):
                            "process %d to terminate" % self.child_pid)
                 self._killChild()
                 time.sleep(2)
+            else:
+                break
 
     def _waitChildToDieAndScheduleNew(self, signal=None, frame=None):
         """STEP 2 (parent): Child told us via SIGCHLD that we can spawn new

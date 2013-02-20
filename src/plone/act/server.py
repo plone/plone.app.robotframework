@@ -27,7 +27,7 @@ LISTENER_PORT = 10000
 
 TIME = lambda: time.strftime('%H:%M:%S')
 WAIT = lambda msg:  '{0} [\033[33m wait \033[0m] {1}'.format(TIME(), msg)
-ERROR = lambda msg: '{0} [\033[31m error \033[0m] {1}'.format(TIME(), msg)
+ERROR = lambda msg: '{0} [\033[31m ERROR \033[0m] {1}'.format(TIME(), msg)
 READY = lambda msg: '{0} [\033[32m ready \033[0m] {1}'.format(TIME(), msg)
 
 
@@ -86,6 +86,7 @@ def start_reload(zope_layer_dotted_name, reload_paths=('src',),
     # Setting smaller asyncore poll timeout will speed up restart a bit
     import plone.testing.z2
     plone.testing.z2.ZServer.timeout = 0.5
+
     zsl.amend_zope_server(zope_layer_dotted_name)
 
     socket.gethostbyaddr = gethostbyaddr
