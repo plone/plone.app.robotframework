@@ -229,10 +229,17 @@ class ForkLoop(object):
         child
 
         """
-        try:
+        if self.isChild():
+            # Ignore grandchildren
+            return
 
+        try:
             # Acknowledge dead child
             pid, exit_status = os.wait()
+
+            if pid != self.child_pid:
+                # Ignore unknown children
+                return
 
             exit_flags = []
             if os.WCOREDUMP(exit_status):

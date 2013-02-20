@@ -58,12 +58,12 @@ def start(zope_layer_dotted_name):
 
 
 def start_reload(zope_layer_dotted_name, reload_paths=('src',),
-                 fork_point_layer='plone.app.testing.PLONE_FIXTURE'):
+                 preload_layer_dotted_name='plone.app.testing.PLONE_FIXTURE'):
 
     print WAIT("Starting Zope 2 server")
 
     zsl = Zope2ServerLibrary()
-    zsl.start_zope_server(fork_point_layer)
+    zsl.start_zope_server(preload_layer_dotted_name)
 
     forkloop = ForkLoop()
     Watcher(reload_paths, forkloop).start()
@@ -113,10 +113,11 @@ def server():
     parser.add_argument('layer')
     parser.add_argument('--verbose', '-v', action='count')
     if HAS_RELOAD:
-        parser.add_argument('--no-reload', '-n', dest='reload',
-                            action='store_false')
         parser.add_argument('--reload-path', '-p', dest='reload_paths',
                             action='append')
+        parser.add_argument('--preload-layer', '-l', dest='preload_layer')
+        parser.add_argument('--no-reload', '-n', dest='reload',
+                            action='store_false')
     args = parser.parse_args()
     if args.verbose:
         global HAS_VERBOSE_CONSOLE
@@ -129,7 +130,8 @@ def server():
         except KeyboardInterrupt:
             pass
     else:
-        start_reload(args.layer, args.reload_paths or ['src'])
+        start_reload(args.layer, args.reload_paths or ['src'],
+                     args.preload_layer or 'plone.app.testing.PLONE_FIXTURE')
 
 
 class ZODB(object):
