@@ -196,7 +196,7 @@ class ForkLoop(object):
 
         self.pause = False
 
-        if not self.killed_child or self.isChild():
+        if self.isChildAlive() or self.isChild():
             self._killChild()
         else:
             # Ok, we already have sent the SIGINT the child, but asking for new
