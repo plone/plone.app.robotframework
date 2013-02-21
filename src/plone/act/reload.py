@@ -58,8 +58,15 @@ class Watcher(FileSystemEventHandler):
             event_type = event.event_type
             event_path = event.src_path
 
+            event_relpath = event_path
+            for path in self.paths:
+                abspath = os.path.abspath(path)
+                if event_relpath.startswith(abspath):
+                    event_relpath = os.path.relpath(event_relpath, abspath)
+                    break
+
             print WAIT("Watchdog got %s event on %s"
-                       % (event_type, event_path))
+                       % (event_type, event_relpath))
 
             try:
                 self.forkloop.forkNewChild()
