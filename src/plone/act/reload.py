@@ -216,20 +216,17 @@ class ForkLoop(object):
             os.kill(self.child_pid, signal.SIGINT)
 
     def _parentExitHandler(self, signum=None, frame=None):
-        if self.isChild():
+        if self.isChild() or self.exit:
             return
 
         self.exit = True
 
-        while True:
-            if self.isChildAlive():
-                # XXX: Somehow this may get stuck if we don't print before kill
-                print WAIT("Fork loop is waiting for the forked child "
-                           "process %d to terminate" % self.child_pid)
-                self._killChild()
-                time.sleep(2)
-            else:
-                break
+        while self.isChildAlive():
+            # XXX: Somehow this may get stuck if we don't print before kill
+            print WAIT("Fork loop is terminating its child process %s" %
+                       self.child_pid)
+            self._killChild()
+            time.sleep(2)
 
     def _waitChildToDieAndScheduleNew(self, signal=None, frame=None):
         """STEP 2 (parent): Child told us via SIGCHLD that we can spawn new
