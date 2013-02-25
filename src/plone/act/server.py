@@ -93,8 +93,15 @@ def start_reload(zope_layer_dotted_name, reload_paths=('src',),
 
     print READY("Zope 2 server started")
 
-    listener = SimpleXMLRPCServer((hostname, LISTENER_PORT),
-                                  logRequests=False)
+    try:
+        listener = SimpleXMLRPCServer((hostname, LISTENER_PORT),
+                                      logRequests=False)
+    except socket.error as e:
+        print ERROR(str(e))
+        print WAIT("Pruning Zope 2 server")
+        zsl.prune_zope_server()
+        return
+
     listener.allow_none = True
     listener.register_function(zsl.zodb_setup, 'zodb_setup')
     listener.register_function(zsl.zodb_teardown, 'zodb_teardown')
