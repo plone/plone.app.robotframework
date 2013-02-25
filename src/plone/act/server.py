@@ -23,7 +23,7 @@ else:
 
 HAS_VERBOSE_CONSOLE = False
 
-LISTENER_PORT = 10000
+LISTENER_PORT = int(os.getenv("LISTENER_PORT", 10001))
 
 TIME = lambda: time.strftime('%H:%M:%S')
 WAIT = lambda msg:  '{0} [\033[33m wait \033[0m] {1}'.format(TIME(), msg)
