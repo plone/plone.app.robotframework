@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
-from OFS.SimpleItem import SimpleItem
+import uuid
 
-from Products.PluggableAuthService.plugins import DomainAuthHelper
+from OFS.SimpleItem import SimpleItem
 from Products.PlonePAS.Extensions.Install import activatePluginInterfaces
+from Products.PluggableAuthService.plugins import DomainAuthHelper
 
 
 class RemoteKeywordsLibrary(SimpleItem):
