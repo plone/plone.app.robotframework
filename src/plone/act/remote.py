@@ -35,7 +35,7 @@ class RemoteKeywordsLibrary(SimpleItem):
         return result
 
     def product_is_activated(self, product_name):
-        """Asserts that given product_name is activated in
+        """Assert that given product_name is activated in
         portal_quickinstaller.
 
         """
@@ -45,13 +45,13 @@ class RemoteKeywordsLibrary(SimpleItem):
             "Product '%s' was not installed." % product_name
 
     def enable_autologin_as(self, *args):
-        """Adds and configures DomainAuthHelper PAS-plugin to login
+        """Add and configure DomainAuthHelper PAS-plugin to login
         all anonymous users from localhost as a special *Remote User* with
         one or more given roles. Examples of use::
 
-            Autologin as  Manager
-            Autologin as  Site Administrator
-            Autologin as  Member  Contributor
+            Enable autologin as  Manager
+            Enable autologin as  Site Administrator
+            Enable autologin as  Member  Contributor
 
         """
         if "robot_login" in self.acl_users.objectIds():
@@ -60,12 +60,16 @@ class RemoteKeywordsLibrary(SimpleItem):
             DomainAuthHelper.manage_addDomainAuthHelper(
                 self.acl_users, "robot_login")
             activatePluginInterfaces(self, "robot_login")
+        user = str(uuid.uuid4())  # random user avoids permission lookup caches
         self.acl_users.robot_login.manage_addMapping(
-            match_type="regex", match_string=".*", roles=args)
+            match_type="regex", match_string=".*", roles=args, username=user)
 
     def disable_autologin(self):
-        """Clears DomainAuthHelper's map to effectively 'logout' user
-        after 'autologin_as'.
+        """Clear DomainAuthHelper's map to effectively 'logout' user
+        after 'autologin_as'. Example of use::
+
+            Disable autologin
+
         """
         if "robot_login" in self.acl_users.objectIds():
             self.acl_users.robot_login._domain_map.clear()
