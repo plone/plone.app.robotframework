@@ -3,9 +3,9 @@ Plone ACT -- functional tests for Plone made easy
 
 **plone.act** and its documentation gives you everything to get started in
 writing and executing functional Selenium tests (including acceptance tests)
-for you Plone add-on.
+for your Plone add-on.
 
-**plone.act** peforms functional testing by using two testing frameworks:
+**plone.act** performs functional testing by using two testing frameworks:
 `Robot Framework <http://code.google.com/p/robotframework/>`_ and
 `Selenium <http://seleniumhq.org/>`_.
 
