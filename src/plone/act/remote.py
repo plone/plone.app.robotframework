@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-import uuid
-
 from OFS.SimpleItem import SimpleItem
 from Products.PlonePAS.Extensions.Install import activatePluginInterfaces
 from Products.PluggableAuthService.plugins import DomainAuthHelper
@@ -61,7 +59,7 @@ class RemoteKeywordsLibrary(SimpleItem):
             DomainAuthHelper.manage_addDomainAuthHelper(
                 self.acl_users, "robot_login")
             activatePluginInterfaces(self, "robot_login")
-        user = str(uuid.uuid4())  # random user avoids permission lookup caches
+        user = ", ".join(sorted(args))
         self.acl_users.robot_login.manage_addMapping(
             match_type="regex", match_string=".*", roles=args, username=user)
 
