@@ -102,12 +102,14 @@ def start_reload(zope_layer_dotted_name, reload_paths=('src',),
         zsl.prune_zope_server()
         return
 
+    listener.timeout = 0.5
     listener.allow_none = True
     listener.register_function(zsl.zodb_setup, 'zodb_setup')
     listener.register_function(zsl.zodb_teardown, 'zodb_teardown')
 
     try:
-        listener.serve_forever()
+        while not forkloop.exit:
+            listener.handle_request()
     except select.error:  # Interrupted system call
         pass
     finally:

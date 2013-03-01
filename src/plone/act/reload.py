@@ -216,10 +216,13 @@ class ForkLoop(object):
             os.kill(self.child_pid, signal.SIGINT)
 
     def _parentExitHandler(self, signum=None, frame=None):
-        if self.isChild() or self.exit:
+        if self.exit:
             return
 
         self.exit = True
+
+        if self.isChild():
+            return
 
         while self.isChildAlive():
             # XXX: Somehow this may get stuck if we don't print before kill
