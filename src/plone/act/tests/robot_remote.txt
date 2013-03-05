@@ -25,59 +25,21 @@ Contributor cannot access control panel
 Contributor can create a folder
     Given I'm logged in as a 'Contributor'
      When I go to the front page
-     Then I can add a folder
+     Then I can add a new folder
 
 Owner can add a sub-folder under her own folder
     Given I've created a test folder
-      And I'm logged in as 'Authenticated'
+      And I'm logged in again as an 'Authenticated'
      When I go to my test folder
      Then I can add a sub-folder
 
-Authenticated cannot add a sub-folder under other's folder
-    Given Someone has created a test folder
-      And I'm logged in as 'Authenticated'
+Authenticated cannot add a sub-folder under a folder by someone else
+    Given Someone else has created a test folder
+      And I'm logged in as an 'Authenticated'
      When I go to the test folder
-     Then I get Insufficient Privileges error
+     Then I get insufficient privileges error
 
 *** Keywords ***
-
-I go to the front page
-    Go to  ${PLONE_URL}
-
-I can add a folder
-    Add folder  Test folder
-
-I've created a test folder
-    Enable autologin as  Contributor
-    Set autologin username  Authenticated
-    Go to  ${PLONE_URL}
-    Add folder  Test folder
-    Go to  ${PLONE_URL}/test-folder
-    Page should contain  Test folder
-    Element should contain  css=.documentAuthor  Authenticated
-
-I'm logged in as 'Authenticated'
-    Enable autologin as  Authenticated
-
-I go to my test folder
-    Go to  ${PLONE_URL}/test-folder
-
-I can add a sub-folder
-    Add folder  Sub folder
-    Go to  ${PLONE_URL}/test-folder/sub-folder
-    Page should contain  Sub folder
-    Element should contain  css=.documentAuthor  Authenticated
-
-Someone has created a test folder
-    Enable autologin as  Contributor
-    Go to  ${PLONE_URL}
-    Add folder  Test folder
-
-I go to the test folder
-    Go to  ${PLONE_URL}/test-folder
-
-I get Insufficient Privileges error
-    Page should contain  Insufficient Privileges
 
 '${product}' is activated
     Product is activated  ${product}
@@ -98,6 +60,47 @@ I see the Site Setup -link
 I cannot see the Site Setup -link
     Element should not be visible  css=#personaltools-plone_setup
 
-I pause for debugging
-    Set Selenium Timeout  600 seconds
-    Wait For Condition  true
+I go to the front page
+    Go to  ${PLONE_URL}
+
+I can add a new folder
+    Add folder  New folder
+    Go to  ${PLONE_URL}/new-folder
+    Page should contain  New folder
+    Element should contain  css=.documentAuthor  Contributor
+
+I've created a test folder
+    Enable autologin as  Contributor
+    Set autologin username  Authenticated
+    Go to  ${PLONE_URL}
+    Add folder  Test folder
+    Go to  ${PLONE_URL}/test-folder
+    Page should contain  Test folder
+    Element should contain  css=.documentAuthor  Authenticated
+
+I'm logged in as an 'Authenticated'
+    Enable autologin as  Authenticated
+
+I'm logged in again as an 'Authenticated'
+    Enable autologin as  Authenticated
+
+I go to my test folder
+    Go to  ${PLONE_URL}/test-folder
+
+I can add a sub-folder
+    Add folder  Sub folder
+    Go to  ${PLONE_URL}/test-folder/sub-folder
+    Page should contain  Sub folder
+    Element should contain  css=.documentAuthor  Authenticated
+
+Someone else has created a test folder
+    Enable autologin as  Contributor
+    Go to  ${PLONE_URL}
+    Add folder  Test folder
+
+I go to the test folder
+    Go to  ${PLONE_URL}/test-folder
+
+I get insufficient privileges error
+    Page should contain  Insufficient Privileges
+
