@@ -39,7 +39,6 @@ Authenticated cannot add a sub-folder under other's folder
      When I go to the test folder
      Then I get Insufficient Privileges error
 
-
 *** Keywords ***
 
 I go to the front page
@@ -67,6 +66,7 @@ I can add a sub-folder
     Add folder  Sub folder
     Go to  ${PLONE_URL}/test-folder/sub-folder
     Page should contain  Sub folder
+    Element should contain  css=.documentAuthor  Authenticated
 
 Someone has created a test folder
     Enable autologin as  Contributor
