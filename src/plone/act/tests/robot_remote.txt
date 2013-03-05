@@ -39,6 +39,11 @@ Authenticated cannot add a sub-folder under a folder by someone else
      When I go to the test folder
      Then I get insufficient privileges error
 
+Contributors cannot edit each other's pages
+    Given Contributor A has created a new page
+     When Contributor B tries to edit that page
+     Then she gets insufficient privileges error
+
 *** Keywords ***
 
 '${product}' is activated
@@ -104,3 +109,16 @@ I go to the test folder
 I get insufficient privileges error
     Page should contain  Insufficient Privileges
 
+Contributor A has created a new page
+    Enable autologin as  Contributor
+    Set autologin username   Contributor A
+    Go to  ${PLONE_URL}
+    Add document  New page
+
+Contributor B tries to edit that page
+    Enable autologin as  Contributor
+    Set autologin username   Contributor B
+    Go to  ${PLONE_URL}/new-page/edit
+
+She gets insufficient privileges error
+    Page should contain  Insufficient Privileges
