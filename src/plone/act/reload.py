@@ -27,11 +27,13 @@ class Watcher(FileSystemEventHandler):
         'zcml',
     )))
 
-    def __init__(self, paths, forkloop):
+    def __init__(self, paths, forkloop, minimum_wait=2.0):
         FileSystemEventHandler.__init__(self)
         self.forkloop = forkloop
         self.observers = []
         self.paths = paths
+        self.minimum_wait = minimum_wait
+        self.last_event = time.time()
 
     def start(self):
         """Start file monitoring thread
@@ -65,13 +67,17 @@ class Watcher(FileSystemEventHandler):
                     event_relpath = os.path.relpath(event_relpath, abspath)
                     break
 
-            print WAIT("Watchdog got %s event on %s"
-                       % (event_type, event_relpath))
-
-            try:
-                self.forkloop.forkNewChild()
-            except Exception as e:
-                print ERROR(str(e))
+            if self.last_event + self.minimum_wait < time.time():
+                print WAIT("Watchdog got %s event on %s"
+                           % (event_type, event_relpath))
+                try:
+                    self.forkloop.forkNewChild()
+                    self.last_event = time.time()
+                except Exception as e:
+                    print ERROR(str(e))
+            else:
+                print WAIT("Watchdog skipped %s event on %s"
+                           % (event_type, event_relpath))
 
 
 class ForkLoop(object):
