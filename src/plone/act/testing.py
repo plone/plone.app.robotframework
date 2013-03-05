@@ -40,6 +40,10 @@ class RemoteKeywordsLibraryLayer(PloneSandboxLayer):
 
     def setUpPloneSite(self, portal):
         portal._setObject("RemoteKeywordsLibrary", RemoteKeywordsLibrary())
+        # Define default workflow (because PLONE_FIXTURE doesn't set it); This
+        # is not required by RemoteKeywordsLibary but is required for our tests
+        # for the library.
+        portal.portal_workflow.setDefaultChain("simple_publication_workflow")
 
     def tearDownPloneSite(self, portal):
         portal._delObject("RemoteKeywordsLibrary")

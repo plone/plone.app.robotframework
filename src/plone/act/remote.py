@@ -63,6 +63,18 @@ class RemoteKeywordsLibrary(SimpleItem):
         self.acl_users.robot_login.manage_addMapping(
             match_type="regex", match_string=".*", roles=args, username=user)
 
+    def set_autologin_username(self, login):
+        """Update autologin mapping with the given username
+        """
+        if "robot_login" not in self.acl_users.objectIds():
+            raise Exception(u"Autologin is not enabled")
+        if len(self.acl_users.robot_login._domain_map) == 0:
+            raise Exception(u"Autologin is not enabled")
+        domain_map_key = self.acl_users.robot_login._domain_map.keys()[0]
+        domain_map = self.acl_users.robot_login._domain_map[domain_map_key]
+        domain_map[0]["username"] = login
+        self.acl_users.robot_login._domain_map[domain_map_key] = domain_map
+
     def disable_autologin(self):
         """Clear DomainAuthHelper's map to effectively 'logout' user
         after 'autologin_as'. Example of use::
