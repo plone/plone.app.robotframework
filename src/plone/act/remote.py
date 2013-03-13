@@ -31,6 +31,7 @@ class RemoteKeywordsLibrary(SimpleItem):
         else:
             result['status'] = 'PASS'
             result['return'] = retval
+            result['output'] = retval
         return result
 
     def product_is_activated(self, product_name):
