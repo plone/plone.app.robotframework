@@ -3,9 +3,13 @@ from plone.app.testing import (
     PloneSandboxLayer,
     applyProfile,
     PLONE_FIXTURE,
-    FunctionalTesting
+    FunctionalTesting,
+    ploneSite
 )
-from plone.testing import z2
+from plone.testing import (
+    z2,
+    Layer
+)
 from zope.configuration import xmlconfig
 from plone.act import RemoteKeywordsLibrary
 
@@ -34,20 +38,22 @@ LIVESEARCH_FUNCTIONAL_TESTING = FunctionalTesting(
 )
 
 
-class RemoteKeywordsLibraryLayer(PloneSandboxLayer):
+class RemoteKeywordsLibraryLayer(Layer):
 
     defaultBases = (PLONE_FIXTURE,)
 
-    def setUpPloneSite(self, portal):
-        portal._setObject("RemoteKeywordsLibrary", RemoteKeywordsLibrary())
-        # Define default workflow (because PLONE_FIXTURE doesn't set it); This
-        # is not required by RemoteKeywordsLibary but is required for our tests
-        # for the library.
-        portal.portal_workflow.setDefaultChain("simple_publication_workflow")
+    def setUp(self):
+        with ploneSite() as portal:
+            portal._setObject("RemoteKeywordsLibrary", RemoteKeywordsLibrary())
 
-    def tearDownPloneSite(self, portal):
-        portal._delObject("RemoteKeywordsLibrary")
+            # Define default workflow (because PLONE_FIXTURE doesn't set it);
+            # This is not required by RemoteKeywordsLibary but is required for
+            # our tests for the library.
+            portal.portal_workflow.setDefaultChain("simple_publication_workflow")
 
+    def tearDown(self):
+        with ploneSite() as portal:
+            portal._delObject("RemoteKeywordsLibrary")
 
 REMOTE_LIBRARY_FIXTURE = RemoteKeywordsLibraryLayer()
 
