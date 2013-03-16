@@ -1,6 +1,7 @@
-from setuptools import setup, find_packages
+from setuptools import setup
+from setuptools import find_packages
 
-version = '0.1'
+version = '0.1.0'
 
 long_description = (
     open('README.rst').read()
@@ -15,16 +16,16 @@ long_description = (
 
 
 console_scripts = [
-    "act_server = plone.act.server:server",
-    "pybot = plone.act.robotentrypoints:pybot",
-    "rebot = plone.act.robotentrypoints:rebot",
+    "act_server = plone.app.robotframework.server:server",
+    "pybot = plone.app.robotframework.robotentrypoints:pybot",
+    "rebot = plone.app.robotframework.robotentrypoints:rebot",
 ]
 
 entry_points = dict(console_scripts=console_scripts)
 
-setup(name='plone.act',
+setup(name='plone.app.robotframework',
       version=version,
-      description="Acceptance testing for Plone",
+      description="Robot Framework testing for Plone",
       long_description=long_description,
       classifiers=[
           "Programming Language :: Python",
@@ -32,17 +33,18 @@ setup(name='plone.act',
       keywords='',
       author='',
       author_email='',
-      url='http://svn.plone.org/svn/collective/',
+      url='https://github.com/plone/plone.act/',
       license='gpl',
       packages=find_packages('src'),
       package_dir={'': 'src'},
-      namespace_packages=['plone'],
+      namespace_packages=['plone', 'plone.app'],
       include_package_data=True,
       zip_safe=False,
       install_requires=[
           'setuptools',
           'argparse',
           'plone.app.testing[robot]>=4.2.2',
+          'zope.deprecation',
       ],
       extras_require={'reload': [
           'watchdog'

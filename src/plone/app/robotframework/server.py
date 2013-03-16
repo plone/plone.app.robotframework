@@ -16,8 +16,8 @@ try:
 except pkg_resources.DistributionNotFound:
     HAS_RELOAD = False
 else:
-    from plone.act.reload import ForkLoop
-    from plone.act.reload import Watcher
+    from plone.app.robotframework.reload import ForkLoop
+    from plone.app.robotframework.reload import Watcher
     HAS_RELOAD = True
 
 

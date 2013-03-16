@@ -1,11 +1,11 @@
 *** Settings ***
 
 Library  Selenium2Library  run_on_failure=Capture Page Screenshot
-Library  plone.act.KeywordsLibrary
-Library  plone.act.Zope2ServerLibrary
+Library  plone.app.robotframework.KeywordsLibrary
+Library  plone.app.robotframework.Zope2ServerLibrary
 
 Variables  plone/app/testing/interfaces.py
-Variables  plone/act/variables.py
+Variables  plone/app/robotframework/variables.py
 
 *** Variables ***
 

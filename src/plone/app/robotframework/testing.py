@@ -11,7 +11,7 @@ from plone.testing import (
     Layer
 )
 from zope.configuration import xmlconfig
-from plone.act import RemoteKeywordsLibrary
+from plone.app.robotframework import RemoteKeywordsLibrary
 
 
 class LiveSearchLayer(PloneSandboxLayer):
@@ -20,15 +20,15 @@ class LiveSearchLayer(PloneSandboxLayer):
 
     def setUpZope(self, app, configurationContext):
         # Load ZCML
-        import plone.act
+        import plone.app.robotframework
         xmlconfig.file(
             'profiles.zcml',
-            plone.act,
+            plone.app.robotframework,
             context=configurationContext
         )
 
     def setUpPloneSite(self, portal):
-        applyProfile(portal, 'plone.act:content')
+        applyProfile(portal, 'plone.app.robotframework:content')
 
 LIVESEARCH_FIXTURE = LiveSearchLayer()
 

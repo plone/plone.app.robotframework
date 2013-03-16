@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from plone.act.keywords import KeywordsLibrary
-from plone.act.remote import RemoteKeywordsLibrary
-from plone.act.server import Zope2ServerLibrary
+from plone.app.robotframework.keywords import KeywordsLibrary
+from plone.app.robotframework.remote import RemoteKeywordsLibrary
+from plone.app.robotframework.server import Zope2ServerLibrary
 
-from plone.act.keywords import KeywordsLibrary as PloneLibrary  # BBB
+from plone.app.robotframework.keywords import KeywordsLibrary as PloneLibrary  # BBB

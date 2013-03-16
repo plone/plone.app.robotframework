@@ -7,7 +7,7 @@ def setupContent(context):
     # flag to check that we actually meant for this import step to be run.
     # The file is found in profiles/default.
 
-    if context.readDataFile('plone-act-content.txt') is None:
+    if context.readDataFile('plone-app-robotframework-content.txt') is None:
         return
     setup_tool = context.getSetupTool()
     portal = getToolByName(setup_tool, 'portal_url').getPortalObject()

@@ -2,7 +2,7 @@ import os.path
 import unittest
 
 import robotsuite
-from plone.act.testing import LIVESEARCH_FUNCTIONAL_TESTING
+from plone.app.robotframework.testing import LIVESEARCH_FUNCTIONAL_TESTING
 from plone.app.testing import PLONE_ZSERVER
 from plone.testing import layered
 

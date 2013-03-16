@@ -1,6 +1,6 @@
 *** Settings ***
 
-Resource  plone/act/keywords.txt
+Resource  plone/app/robotframework/keywords.txt
 Library  Remote  ${PLONE_URL}/RemoteKeywordsLibrary
 
 Test Setup  Open Plone Root
