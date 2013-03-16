@@ -78,10 +78,14 @@ def start_reload(zope_layer_dotted_name, reload_paths=('src',),
     hostname = os.environ.get('ZSERVER_HOST', 'localhost')
 
     # XXX: For unknown reason call to socket.gethostbyaddr may cause malloc
-    # error in fork child when called from medusa http_server:
+    # errors on OSX in forked child when called from medusa http_server, but
+    # proper sleep seem to fix it:
+    import time
     import socket
-    gethostbyaddr = socket.gethostbyaddr
-    socket.gethostbyaddr = lambda x: (hostname,)
+    import platform
+    if 'Darwin' in platform.uname():
+        gethostbyaddr = socket.gethostbyaddr
+        socket.gethostbyaddr = lambda x: time.sleep(0.5) or (hostname,)
 
     # Setting smaller asyncore poll timeout will speed up restart a bit
     import plone.testing.z2
@@ -89,7 +93,8 @@ def start_reload(zope_layer_dotted_name, reload_paths=('src',),
 
     zsl.amend_zope_server(zope_layer_dotted_name)
 
-    socket.gethostbyaddr = gethostbyaddr
+    if 'Darwin' in platform.uname():
+        socket.gethostbyaddr = gethostbyaddr
 
     print READY("Zope 2 server started")
 
