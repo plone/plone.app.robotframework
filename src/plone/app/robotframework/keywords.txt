@@ -6,6 +6,12 @@ Library  plone.app.robotframework.KeywordsLibrary
 Variables  plone/app/testing/interfaces.py
 Variables  plone/app/robotframework/variables.py
 
+*** Variables ***
+
+${BUILD_NUMBER} =  manual
+${DESIRED_CAPABILITIES} =  platform:Linux
+${SESSION_ID} =
+
 *** Keywords ***
 
 # ----------------------------------------------------------------------------
@@ -16,7 +22,11 @@ Configure Selenium Library
     Set Selenium implicit wait  ${SELENIUM_IMPLICIT_WAIT}
 
 Open Plone Root
-    Open browser  ${PLONE_URL}  ${BROWSER}  remote_url=${REMOTE_URL}  desired_capabilities=${DESIRED_CAPABILITIES}
+    ${BUILD_INFO} =  Set variable
+    ...           build:${BUILD_NUMBER},name:${SUITE_NAME} | ${TEST_NAME}
+    Open browser  ${PLONE_URL}  ${BROWSER}
+    ...           remote_url=${REMOTE_URL}
+    ...           desired_capabilities=${DESIRED_CAPABILITIES},${BUILD_INFO}
 
 # ----------------------------------------------------------------------------
 # Access Resources
