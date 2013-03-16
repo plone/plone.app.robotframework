@@ -25,7 +25,7 @@ entry_points = dict(console_scripts=console_scripts)
 
 setup(name='plone.app.robotframework',
       version=version,
-      description="Robot Framework testing for Plone",
+      description="Robot Framework testing resources for Plone",
       long_description=long_description,
       classifiers=[
           "Programming Language :: Python",
