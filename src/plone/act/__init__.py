@@ -1,6 +1,7 @@
-# -*- coding: utf-8 -*-
-from plone.act.keywords import KeywordsLibrary
-from plone.act.remote import RemoteKeywordsLibrary
-from plone.act.server import Zope2ServerLibrary
-
-from plone.act.keywords import KeywordsLibrary as PloneLibrary  # BBB
+import sys
+import zope.deprecation
+import plone.app.robotframework
+sys.modules['plone.act'] = zope.deprecation.deprecation.deprecated(
+    plone.app.robotframework,
+    'A module called plone.act is now plone.app.robotframework.'
+)
