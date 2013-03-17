@@ -2,15 +2,15 @@
 language: python
 python: '2.7'
 install:
+- curl -O http://saucelabs.com/downloads/Sauce-Connect-latest.zip
+- unzip Sauce-Connect-latest.zip
+- java -jar Sauce-Connect.jar $SAUCE_USERNAME $SAUCE_ACCESS_KEY -i $TRAVIS_JOB_ID
+  -f CONNECTED 1>/dev/null &
+- JAVA_PID=$!
 - mkdir -p buildout-cache/eggs
 - mkdir -p buildout-cache/downloads
 - python bootstrap.py -c travis.cfg
 - bin/buildout -N -t 3 -c travis.cfg
-- curl -O http://saucelabs.com/downloads/Sauce-Connect-latest.zip
-- unzip Sauce-Connect-latest.zip
-- java -jar Sauce-Connect.jar $SAUCE_USERNAME $SAUCE_ACCESS_KEY -i $TRAVIS_JOB_ID
-  -f CONNECTED &
-- JAVA_PID=$!
 before_script:
 - bash -c "while [ ! -f CONNECTED ]; do sleep 2; done"
 script: bin/test
