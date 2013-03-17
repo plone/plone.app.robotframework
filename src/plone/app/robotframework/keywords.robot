@@ -226,10 +226,9 @@ Add folder
 
 Add document
     [arguments]  ${title}
-
-    Goto homepage
-    Open Add New Menu
-    Click Link  css=#plone-contentmenu-factories a#document
+    Go to  ${PLONE_URL}
+    Open add new menu
+    Click link  id=document
     Wait Until Page Contains Element  css=#archetypes-fieldname-title input
     Input Text  title  ${title}
     Click Button  Save
