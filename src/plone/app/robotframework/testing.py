@@ -1,63 +1,31 @@
 # -*- coding: utf-8 -*-
-from plone.app.testing import (
-    PloneSandboxLayer,
-    applyProfile,
-    PLONE_FIXTURE,
-    FunctionalTesting,
-    ploneSite
-)
-from plone.testing import (
-    z2,
-    Layer
-)
-from zope.configuration import xmlconfig
 from plone.app.robotframework import RemoteKeywordsLibrary
+from plone.app.testing import ploneSite
+from plone.testing import Layer
 
 
-class LiveSearchLayer(PloneSandboxLayer):
+class SimplePublicationLayer(Layer):
 
-    defaultBases = (PLONE_FIXTURE,)
+    def setUp(self):
+        with ploneSite() as portal:
+            portal.portal_workflow.setDefaultChain(
+                'simple_publication_workflow')
 
-    def setUpZope(self, app, configurationContext):
-        # Load ZCML
-        import plone.app.robotframework
-        xmlconfig.file(
-            'profiles.zcml',
-            plone.app.robotframework,
-            context=configurationContext
-        )
+    def tearDown(self):
+        with ploneSite() as portal:
+            portal.portal_workflow.setDefaultChain('')
 
-    def setUpPloneSite(self, portal):
-        applyProfile(portal, 'plone.app.robotframework:content')
-
-LIVESEARCH_FIXTURE = LiveSearchLayer()
-
-LIVESEARCH_FUNCTIONAL_TESTING = FunctionalTesting(
-    bases=(LIVESEARCH_FIXTURE, z2.ZSERVER_FIXTURE),
-    name="LiveSearch:Functional"
-)
+SIMPLE_PUBLICATION_FIXTURE = SimplePublicationLayer()
 
 
 class RemoteKeywordsLibraryLayer(Layer):
 
-    defaultBases = (PLONE_FIXTURE,)
-
     def setUp(self):
         with ploneSite() as portal:
-            portal._setObject("RemoteKeywordsLibrary", RemoteKeywordsLibrary())
-
-            # Define default workflow (because PLONE_FIXTURE doesn't set it);
-            # This is not required by RemoteKeywordsLibary but is required for
-            # our tests for the library.
-            portal.portal_workflow.setDefaultChain("simple_publication_workflow")
+            portal._setObject('RemoteKeywordsLibrary', RemoteKeywordsLibrary())
 
     def tearDown(self):
         with ploneSite() as portal:
-            portal._delObject("RemoteKeywordsLibrary")
+            portal._delObject('RemoteKeywordsLibrary')
 
 REMOTE_LIBRARY_FIXTURE = RemoteKeywordsLibraryLayer()
-
-REMOTE_LIBRARY_FUNCTIONAL_TESTING = FunctionalTesting(
-    bases=(REMOTE_LIBRARY_FIXTURE, z2.ZSERVER_FIXTURE),
-    name="RemoteKeywordsLibrary:Functional"
-)

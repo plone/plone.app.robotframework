@@ -13,3 +13,6 @@ Please read the full documentation at
 
 .. image:: https://secure.travis-ci.org/plone/plone.act.png
      :target: http://travis-ci.org/plone/plone.act
+
+.. image:: https://saucelabs.com/buildstatus/parobotframework
+       :target: https://saucelabs.com/u/parobotframework

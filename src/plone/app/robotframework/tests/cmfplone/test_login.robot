@@ -1,5 +1,12 @@
 *** Settings ***
-Resource  plone/app/robotframework/keywords.txt
+
+Resource  plone/app/robotframework/keywords.robot
+Resource  plone/app/robotframework/saucelabs.robot
+
+Suite Setup  Setup Selenium library
+
+Test Setup  Open SauceLabs test browser
+Test Teardown  Run keywords  Report test status  Close all browsers
 
 *** Test cases ***
 
@@ -12,7 +19,6 @@ Test Invalid Login
     Given the overlay login form
     When I enter invalid credentials
     Then I am not logged in
-
 
 *** Keywords ***
 

@@ -1,10 +1,11 @@
 *** Settings ***
 
-Resource  plone/app/robotframework/keywords.txt
+Resource  plone/app/robotframework/keywords.robot
+Resource  plone/app/robotframework/saucelabs.robot
 Library  Remote  ${PLONE_URL}/RemoteKeywordsLibrary
 
-Test Setup  Open Plone Root
-Test Teardown  Close All Browsers
+Test Setup  Open SauceLabs test browser
+Test Teardown  Run keywords  Report test status  Close all browsers
 
 *** Test cases ***
 

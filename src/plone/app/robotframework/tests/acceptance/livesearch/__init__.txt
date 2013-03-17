@@ -1,7 +1,0 @@
-*** Settings ***
-Resource  plone/app/robotframework/keywords.txt
-
-Test Setup  Open Plone Root
-Test Teardown  Close All Browsers
-
-Suite Setup  Configure Selenium Library
