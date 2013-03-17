@@ -18,7 +18,7 @@ def test_suite():
                 os.path.join("cmfplone", "test_login.robot")),
                 layer=PLONE_ZSERVER),
         layered(robotsuite.RobotTestSuite(
-                os.path.join("cmfplone", "test_action_menu.robot")),
+                os.path.join("cmfplone", "test_actions_menu.robot")),
                 layer=PLONE_ZSERVER),
         layered(robotsuite.RobotTestSuite(
                 os.path.join("cmfplone", "test_search.robot")),
