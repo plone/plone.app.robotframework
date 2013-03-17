@@ -11,7 +11,7 @@ Test Teardown  Run keywords  Report test status  Close all browsers
 *** Test cases ***
 
 Content Menu
-#   [Tags]  action-menu
+    [Tags]  action-menu
     Click Link  An actionsmenu page
     Element Should Not Be Visible  css=a#plone-contentmenu-actions-delete
     Click Link  css=dl#plone-contentmenu-actions dt.actionMenuHeader a
@@ -20,14 +20,11 @@ Content Menu
     Element Should Not Be Visible  css=a#plone-contentmenu-actions-delete
 
 Switching Actions Menu
-#    [Tags]  action-menu
+    [Tags]  action-menu
     Click Link  An actionsmenu page
     Element Should Not Be Visible  css=a#plone-contentmenu-actions-delete
     Element Should Not Be Visible  css=a#advanced
     Click Link  css=dl#plone-contentmenu-actions dt.actionMenuHeader a
-    Element Should Be Visible  css=a#plone-contentmenu-actions-delete
-    Element Should Not Be Visible  css=a#advanced
-    Mouse Over  css=dl#plone-contentmenu-actions dt.actionMenuHeader a
     Element Should Be Visible  css=a#plone-contentmenu-actions-delete
     Element Should Not Be Visible  css=a#advanced
     Click Link  css=dl#plone-contentmenu-actions dt.actionMenuHeader a
@@ -35,14 +32,14 @@ Switching Actions Menu
     Element Should Not Be Visible  css=a#advanced
 
 Clicking outside of Actions Menu hides Action Menu
-#    [Tags]  action-menu
+    [Tags]  action-menu
     Click Link  An actionsmenu page
     Element Should Not Be Visible  css=a#plone-contentmenu-actions-delete
     Element Should Not Be Visible  css=a#advanced
     Click Link  css=dl#plone-contentmenu-actions dt.actionMenuHeader a
     Element Should Be Visible  css=a#plone-contentmenu-actions-delete
     Element Should Not Be Visible  css=a#advanced
-    Mouse Down  css=h1
+    Click element  css=h1
     Wait until keyword succeeds  10s  1s  Element Should Not Be Visible  css=a#plone-contentmenu-actions-delete
     Element Should Not Be Visible  css=a#advanced
 
