@@ -15,7 +15,8 @@ from plone.testing import z2
 from zope.configuration import xmlconfig
 from plone.app.robotframework.testing import (
     SIMPLE_PUBLICATION_FIXTURE,
-    REMOTE_LIBRARY_FIXTURE
+    REMOTE_LIBRARY_FIXTURE,
+    AUTOLOGIN_LIBRARY_FIXTURE,
 )
 
 
@@ -42,7 +43,9 @@ LIVESEARCH_FUNCTIONAL_TESTING = FunctionalTesting(
 )
 
 REMOTE_LIBRARY_FUNCTIONAL_TESTING = FunctionalTesting(
-    bases=(PLONE_FIXTURE, SIMPLE_PUBLICATION_FIXTURE,
-           REMOTE_LIBRARY_FIXTURE, z2.ZSERVER_FIXTURE),
+    bases=(SIMPLE_PUBLICATION_FIXTURE,
+           REMOTE_LIBRARY_FIXTURE,
+           AUTOLOGIN_LIBRARY_FIXTURE,
+           z2.ZSERVER_FIXTURE),
     name="RemoteKeywordsLibrary:Functional"
 )

@@ -2,7 +2,8 @@
 
 Resource  plone/app/robotframework/keywords.robot
 Resource  plone/app/robotframework/saucelabs.robot
-Library  Remote  ${PLONE_URL}/RemoteKeywordsLibrary
+Library  Remote  ${PLONE_URL}/RemoteKeywordsLibrary  WITH NAME  RemoteKeywords
+Library  Remote  ${PLONE_URL}/AutoLoginLibrary  WITH NAME  AutoLogin
 
 Test Setup  Open SauceLabs test browser
 Test Teardown  Run keywords  Report test status  Close all browsers

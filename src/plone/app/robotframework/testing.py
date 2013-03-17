@@ -1,10 +1,18 @@
 # -*- coding: utf-8 -*-
-from plone.app.robotframework import RemoteKeywordsLibrary
-from plone.app.testing import ploneSite
+from plone.app.robotframework import (
+    RemoteKeywordsLibrary,
+    AutoLoginLibrary
+)
+from plone.app.testing import (
+    PLONE_FIXTURE,
+    ploneSite
+)
 from plone.testing import Layer
 
 
 class SimplePublicationLayer(Layer):
+
+    defaultBases = (PLONE_FIXTURE,)
 
     def setUp(self):
         with ploneSite() as portal:
@@ -20,6 +28,8 @@ SIMPLE_PUBLICATION_FIXTURE = SimplePublicationLayer()
 
 class RemoteKeywordsLibraryLayer(Layer):
 
+    defaultBases = (PLONE_FIXTURE,)
+
     def setUp(self):
         with ploneSite() as portal:
             portal._setObject('RemoteKeywordsLibrary', RemoteKeywordsLibrary())
@@ -29,3 +39,18 @@ class RemoteKeywordsLibraryLayer(Layer):
             portal._delObject('RemoteKeywordsLibrary')
 
 REMOTE_LIBRARY_FIXTURE = RemoteKeywordsLibraryLayer()
+
+
+class AutoLoginLibraryLayer(Layer):
+
+    defaultBases = (PLONE_FIXTURE,)
+
+    def setUp(self):
+        with ploneSite() as portal:
+            portal._setObject('AutoLoginLibrary', AutoLoginLibrary())
+
+    def tearDown(self):
+        with ploneSite() as portal:
+            portal._delObject('AutoLoginLibrary')
+
+AUTOLOGIN_LIBRARY_FIXTURE = AutoLoginLibraryLayer()
