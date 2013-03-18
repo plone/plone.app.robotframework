@@ -17,7 +17,7 @@ long_description = (
 
 console_scripts = [
     "act_server = plone.app.robotframework.server:server",  # BBB
-    "dev-server = plone.app.robotframework.server:server",
+    "robot-server = plone.app.robotframework.server:server",
     "pybot = plone.app.robotframework.robotentrypoints:pybot",
     "rebot = plone.app.robotframework.robotentrypoints:rebot",
 ]
