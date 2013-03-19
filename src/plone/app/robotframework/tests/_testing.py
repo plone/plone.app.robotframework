@@ -18,8 +18,8 @@ from plone.testing import (
 )
 from zope.configuration import xmlconfig
 from plone.app.robotframework import (
-    QuickInstallerLibrary,
-    AutoLoginLibrary,
+    QuickInstallerRemoteLibrary,
+    AutoLoginRemoteLibrary,
     RemoteLibraryLayer
 )
 
@@ -63,7 +63,7 @@ LIVESEARCH_FUNCTIONAL_TESTING = FunctionalTesting(
 )
 
 REMOTE_LIBRARY_FIXTURE = RemoteLibraryLayer(
-    AutoLoginLibrary, QuickInstallerLibrary)
+    AutoLoginRemoteLibrary, QuickInstallerRemoteLibrary)
 
 REMOTE_LIBRARY_FUNCTIONAL_TESTING = FunctionalTesting(
     bases=(SIMPLE_PUBLICATION_FIXTURE,

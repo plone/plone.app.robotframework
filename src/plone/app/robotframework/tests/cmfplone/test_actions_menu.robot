@@ -3,8 +3,6 @@
 Resource  plone/app/robotframework/keywords.robot
 Resource  plone/app/robotframework/saucelabs.robot
 
-Suite Setup  Setup Selenium library
-
 Test Setup  Run keywords  Open SauceLabs test browser  Setup
 Test Teardown  Run keywords  Report test status  Close all browsers
 

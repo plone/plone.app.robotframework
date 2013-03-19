@@ -4,7 +4,7 @@ from Products.PluggableAuthService.plugins import DomainAuthHelper
 from plone.app.robotframework.remote import RemoteLibrary
 
 
-class AutoLoginLibrary(RemoteLibrary):
+class AutoLoginRemoteLibrary(RemoteLibrary):
 
     def enable_autologin_as(self, *args):
         """Add and configure DomainAuthHelper PAS-plugin to login

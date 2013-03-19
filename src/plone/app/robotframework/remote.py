@@ -58,17 +58,21 @@ class RemoteLibrary(SimpleItem):
 class RemoteLibraryLayer(Layer):
 
     defaultBases = (PLONE_FIXTURE,)
+    libraryBases = ()
 
     def __init__(self, *args, **kwargs):
         kwargs['name'] = kwargs.get('name', 'RobotRemoteLibrary')
         super(RemoteLibraryLayer, self).__init__(**kwargs)
-        globals()[self.__name__] = type(
-            self.__name__, (RemoteLibrary,) + args, {})
+        self.libraryBases = (RemoteLibrary,) + args
 
     def setUp(self):
+        assert self.__name__ not in globals(),\
+            "Conflicting remote library name: %s" % self.__name__
+        globals()[self.__name__] = type(self.__name__, self.libraryBases, {})
         with ploneSite() as portal:
             portal._setObject(self.__name__, globals()[self.__name__]())
 
     def tearDown(self):
         with ploneSite() as portal:
             portal._delObject(self.__name__)
+        del globals()[self.__name__]

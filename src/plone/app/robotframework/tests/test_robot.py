@@ -24,7 +24,10 @@ def test_suite():
                 os.path.join("cmfplone", "test_search.robot")),
                 layer=LIVESEARCH_FUNCTIONAL_TESTING),
         layered(robotsuite.RobotTestSuite(
-                "test_remote_library.robot"),
+                "test_quickinstaller_library.robot"),
+                layer=REMOTE_LIBRARY_FUNCTIONAL_TESTING),
+        layered(robotsuite.RobotTestSuite(
+                "test_autologin_library.robot"),
                 layer=REMOTE_LIBRARY_FUNCTIONAL_TESTING),
         layered(robotsuite.RobotTestSuite(
                 "test_add_document.robot"),

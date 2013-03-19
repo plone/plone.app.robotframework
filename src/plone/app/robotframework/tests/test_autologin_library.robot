@@ -1,17 +1,15 @@
 *** Settings ***
 
+Resource  plone/app/robotframework/selenium.robot
 Resource  plone/app/robotframework/keywords.robot
 Resource  plone/app/robotframework/saucelabs.robot
+
 Library  Remote  ${PLONE_URL}/RobotRemoteLibrary
 
 Test Setup  Open SauceLabs test browser
 Test Teardown  Run keywords  Report test status  Close all browsers
 
 *** Test cases ***
-
-Some default product is activated
-    Given 'plone.app.jquery' is activated
-      and 'plone.app.discussion' is not activated
 
 Site Administrator can access control panel
     Given I'm logged in as a 'Site Administrator'
@@ -46,12 +44,6 @@ Contributors cannot edit each other's pages
      Then she gets insufficient privileges error
 
 *** Keywords ***
-
-'${product}' is activated
-    Product is activated  ${product}
-
-'${product}' is not activated
-    Run keyword and expect error  *  Product is activated  ${product}
 
 I'm logged in as a '${ROLE}'
     Enable autologin as  ${ROLE}

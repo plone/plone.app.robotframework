@@ -2,10 +2,10 @@
 from plone.app.robotframework.remote import RemoteLibrary
 
 
-class QuickInstallerLibrary(RemoteLibrary):
+class QuickInstallerRemoteLibrary(RemoteLibrary):
 
     def product_is_activated(self, product_name):
-        """Assert that given product_name is activated in
+        """Assert that given product_name is activated (installed) in
         portal_quickinstaller.
 
         """
@@ -13,3 +13,5 @@ class QuickInstallerLibrary(RemoteLibrary):
         quickinstaller = getToolByName(self, 'portal_quickinstaller')
         assert quickinstaller.isProductInstalled(product_name),\
             u"Product '%s' was not installed." % product_name
+
+    product_is_installed = product_is_activated
