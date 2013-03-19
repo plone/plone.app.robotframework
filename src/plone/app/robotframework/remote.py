@@ -74,5 +74,6 @@ class RemoteLibraryLayer(Layer):
 
     def tearDown(self):
         with ploneSite() as portal:
-            portal._delObject(self.__name__)
+            if self.__name__ in portal.objectIds():
+                portal._delObject(self.__name__)
         del globals()[self.__name__]
