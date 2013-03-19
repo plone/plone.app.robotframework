@@ -62,18 +62,19 @@ class RemoteLibraryLayer(Layer):
 
     def __init__(self, *args, **kwargs):
         kwargs['name'] = kwargs.get('name', 'RobotRemoteLibrary')
-        super(RemoteLibraryLayer, self).__init__(**kwargs)
-        self.libraryBases = (RemoteLibrary,) + args
+        self.libraryBases = (RemoteLibrary,) + kwargs.pop('libraries', ())
+        super(RemoteLibraryLayer, self).__init__(*args, **kwargs)
 
     def setUp(self):
-        assert self.__name__ not in globals(),\
-            "Conflicting remote library name: %s" % self.__name__
-        globals()[self.__name__] = type(self.__name__, self.libraryBases, {})
+        id_ = self.__name__.split(':')[-1]
+        assert id_ not in globals(), "Conflicting remote library id: %s" % id_
+        globals()[id_] = type(id_, self.libraryBases, {})
         with ploneSite() as portal:
-            portal._setObject(self.__name__, globals()[self.__name__]())
+            portal._setObject(id_, globals()[id_]())
 
     def tearDown(self):
+        id_ = self.__name__.split(':')[-1]
         with ploneSite() as portal:
-            if self.__name__ in portal.objectIds():
-                portal._delObject(self.__name__)
-        del globals()[self.__name__]
+            if id_ in portal.objectIds():
+                portal._delObject(id_)
+        del globals()[id_]

@@ -63,11 +63,12 @@ LIVESEARCH_FUNCTIONAL_TESTING = FunctionalTesting(
 )
 
 REMOTE_LIBRARY_FIXTURE = RemoteLibraryLayer(
-    AutoLoginRemoteLibrary, QuickInstallerRemoteLibrary)
+    bases=(SIMPLE_PUBLICATION_FIXTURE,),
+    libraries=(AutoLoginRemoteLibrary, QuickInstallerRemoteLibrary),
+    name="RobotRemoteLibrary"
+)
 
 REMOTE_LIBRARY_FUNCTIONAL_TESTING = FunctionalTesting(
-    bases=(SIMPLE_PUBLICATION_FIXTURE,
-           REMOTE_LIBRARY_FIXTURE,
-           z2.ZSERVER_FIXTURE),
+    bases=(REMOTE_LIBRARY_FIXTURE, z2.ZSERVER_FIXTURE),
     name="RemoteKeywordsLibrary:Functional"
 )
