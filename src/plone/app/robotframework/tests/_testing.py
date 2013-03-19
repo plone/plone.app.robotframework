@@ -62,10 +62,8 @@ LIVESEARCH_FUNCTIONAL_TESTING = FunctionalTesting(
     name="LiveSearch:Functional"
 )
 
-RemoteLibrary = type(
-    "RemoteLibrary", (AutoLoginLibrary, QuickInstallerLibrary), {})
-
-REMOTE_LIBRARY_FIXTURE = RemoteLibraryLayer(library=RemoteLibrary)
+REMOTE_LIBRARY_FIXTURE = RemoteLibraryLayer(
+    AutoLoginLibrary, QuickInstallerLibrary)
 
 REMOTE_LIBRARY_FUNCTIONAL_TESTING = FunctionalTesting(
     bases=(SIMPLE_PUBLICATION_FIXTURE,

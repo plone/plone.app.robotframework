@@ -61,12 +61,13 @@ class RemoteLibraryLayer(Layer):
 
     def __init__(self, *args, **kwargs):
         kwargs['name'] = kwargs.get('name', 'RobotRemoteLibrary')
-        self.klass = kwargs.pop('library', RemoteLibrary())
-        super(RemoteLibraryLayer, self).__init__(*args, **kwargs)
+        super(RemoteLibraryLayer, self).__init__(**kwargs)
+        globals()[self.__name__] = type(
+            self.__name__, (RemoteLibrary,) + args, {})
 
     def setUp(self):
         with ploneSite() as portal:
-            portal._setObject(self.__name__, self.klass())
+            portal._setObject(self.__name__, globals()[self.__name__]())
 
     def tearDown(self):
         with ploneSite() as portal:
