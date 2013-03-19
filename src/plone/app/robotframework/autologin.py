@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 from Products.PlonePAS.Extensions.Install import activatePluginInterfaces
 from Products.PluggableAuthService.plugins import DomainAuthHelper
+from plone.app.robotframework.remote import RemoteLibrary
 
-from plone.app.robotframework.remote import RemoteKeywordsLibraryBase
 
-
-class AutoLoginLibrary(RemoteKeywordsLibraryBase):
+class AutoLoginLibrary(RemoteLibrary):
 
     def enable_autologin_as(self, *args):
         """Add and configure DomainAuthHelper PAS-plugin to login

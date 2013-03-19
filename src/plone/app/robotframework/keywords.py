@@ -2,7 +2,7 @@
 import sys
 
 
-class KeywordsLibrary:
+class MathLibrary:
 
     def get_offset_difference(self, source_offset, dest_offset, padding):
         """Return dest_offset - source_offset + padding

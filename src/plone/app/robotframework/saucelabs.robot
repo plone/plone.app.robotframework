@@ -1,6 +1,7 @@
 *** Settings ***
 
-Library  Selenium2Library
+Resource  selenium.robot
+
 Library  plone.app.robotframework.SauceLabsLibrary
 
 *** Variables ***

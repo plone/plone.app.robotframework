@@ -10,14 +10,34 @@ from plone.app.testing import (
     applyProfile,
     PLONE_FIXTURE,
     FunctionalTesting,
+    ploneSite
 )
-from plone.testing import z2
+from plone.testing import (
+    z2,
+    Layer
+)
 from zope.configuration import xmlconfig
-from plone.app.robotframework.testing import (
-    SIMPLE_PUBLICATION_FIXTURE,
-    REMOTE_LIBRARY_FIXTURE,
-    AUTOLOGIN_LIBRARY_FIXTURE,
+from plone.app.robotframework import (
+    QuickInstallerLibrary,
+    AutoLoginLibrary,
+    RemoteLibraryLayer
 )
+
+
+class SimplePublicationLayer(Layer):
+
+    defaultBases = (PLONE_FIXTURE,)
+
+    def setUp(self):
+        with ploneSite() as portal:
+            portal.portal_workflow.setDefaultChain(
+                'simple_publication_workflow')
+
+    def tearDown(self):
+        with ploneSite() as portal:
+            portal.portal_workflow.setDefaultChain('')
+
+SIMPLE_PUBLICATION_FIXTURE = SimplePublicationLayer()
 
 
 class LiveSearchLayer(PloneSandboxLayer):
@@ -42,10 +62,14 @@ LIVESEARCH_FUNCTIONAL_TESTING = FunctionalTesting(
     name="LiveSearch:Functional"
 )
 
+RemoteLibrary = type(
+    "RemoteLibrary", (AutoLoginLibrary, QuickInstallerLibrary), {})
+
+REMOTE_LIBRARY_FIXTURE = RemoteLibraryLayer(library=RemoteLibrary)
+
 REMOTE_LIBRARY_FUNCTIONAL_TESTING = FunctionalTesting(
     bases=(SIMPLE_PUBLICATION_FIXTURE,
            REMOTE_LIBRARY_FIXTURE,
-           AUTOLOGIN_LIBRARY_FIXTURE,
            z2.ZSERVER_FIXTURE),
     name="RemoteKeywordsLibrary:Functional"
 )

@@ -1,32 +1,8 @@
 *** Settings ***
 
-Library  Selenium2Library
-Library  plone.app.robotframework.KeywordsLibrary
-
-Variables  plone/app/testing/interfaces.py
-Variables  plone/app/robotframework/variables.py
+Resource  selenium.robot
 
 *** Keywords ***
-
-# ----------------------------------------------------------------------------
-# Setup
-# ----------------------------------------------------------------------------
-
-Configure Selenium Library
-    Set Selenium implicit wait  ${SELENIUM_IMPLICIT_WAIT}
-
-Setup Selenium library
-    Set Selenium implicit wait  ${SELENIUM_IMPLICIT_WAIT}
-
-Open Plone Root
-    Open browser  ${PLONE_URL}  ${BROWSER}
-    ...    remote_url=${REMOTE_URL}
-    ...    desired_capabilities=${DESIRED_CAPABILITIES}
-
-Open test browser
-    Open browser  ${PLONE_URL}  ${BROWSER}
-    ...    remote_url=${REMOTE_URL}
-    ...    desired_capabilities=${DESIRED_CAPABILITIES}
 
 # ----------------------------------------------------------------------------
 # Access Resources
