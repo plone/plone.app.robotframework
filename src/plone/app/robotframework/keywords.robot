@@ -5,13 +5,47 @@ Resource  selenium.robot
 *** Keywords ***
 
 # ----------------------------------------------------------------------------
+# Meta
+# ----------------------------------------------------------------------------
+
+Input text for sure
+    [Documentation]  Locate input element by ${locator} and enter the given
+    ...              ${text}. Validate that the text has been entered.
+    ...              Retry until the set Selenium timeout. (The purpose of
+    ...              this keyword is to fix random input issues on slow test
+    ...              machines.)
+    [Arguments]  ${locator}  ${text}
+    ${TIMEOUT} =  Get Selenium timeout
+    ${IMPLICIT_WAIT} =  Get Selenium implicit wait
+    Wait until keyword succeeds  ${TIMEOUT}  ${IMPLICIT_WAIT}
+    ...                          Input text and validate  ${locator}  ${text}
+
+Input text and validate
+    [Documentation]  Locate input element by ${locator} and enter the given
+    ...              ${text}. Validate that the text has been entered.
+    [Arguments]  ${locator}  ${text}
+    Input text  ${locator}  ${text}
+    ${value} =  Get value  ${locator}
+    Should be equal  ${text}  ${value}
+
+# ----------------------------------------------------------------------------
 # Access Resources
 # ----------------------------------------------------------------------------
 
 Goto homepage
     Go to   ${PLONE_URL}
-    Page should contain  Powered by Plone & Python
+    Wait until location is  ${PLONE_URL}
 
+Go to homepage
+    Go to   ${PLONE_URL}
+    Wait until location is  ${PLONE_URL}
+
+Wait until location is
+    [Arguments]  ${expected_url}
+    ${TIMEOUT} =  Get Selenium timeout
+    ${IMPLICIT_WAIT} =  Get Selenium implicit wait
+    Wait until keyword succeeds  ${TIMEOUT}  ${IMPLICIT_WAIT}
+    ...                          Location should be  ${expected_url}
 
 # ----------------------------------------------------------------------------
 # Login/Logout
@@ -23,13 +57,12 @@ Log in
     ...              done. (You are responsible for knowing where you are and
     ...              where you want to be)
     [Arguments]  ${userid}  ${password}
-
     Go to  ${PLONE_URL}/login_form
     Page should contain element  __ac_name
     Page should contain element  __ac_password
     Page should contain button  Log in
-    Input text  __ac_name  ${userid}
-    Input text  __ac_password  ${password}
+    Input text for sure  __ac_name  ${userid}
+    Input text for sure  __ac_password  ${password}
     Click Button  Log in
 
 Log in as test user

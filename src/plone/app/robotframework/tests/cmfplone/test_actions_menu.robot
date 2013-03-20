@@ -3,6 +3,8 @@
 Resource  plone/app/robotframework/keywords.robot
 Resource  plone/app/robotframework/saucelabs.robot
 
+Library  Remote  ${PLONE_URL}/RobotRemoteLibrary
+
 Test Setup  Run keywords  Open SauceLabs test browser  Setup
 Test Teardown  Run keywords  Report test status  Close all browsers
 
@@ -80,9 +82,9 @@ Cut Document and Paste to Folder
 *** Keywords ***
 
 Setup
-    Log in as site owner
-    Goto homepage
+    Enable autologin as  Contributor  Editor
+    Go to homepage
     Add Page  An actionsmenu page
-    Goto homepage
+    Go to homepage
     Add folder  An actionsmenu folder
-    Goto homepage
+    Go to homepage

@@ -57,18 +57,30 @@ class LiveSearchLayer(PloneSandboxLayer):
 
 LIVESEARCH_FIXTURE = LiveSearchLayer()
 
-LIVESEARCH_FUNCTIONAL_TESTING = FunctionalTesting(
+LIVESEARCH_ROBOT_TESTING = FunctionalTesting(
     bases=(LIVESEARCH_FIXTURE, z2.ZSERVER_FIXTURE),
-    name="LiveSearch:Functional"
+    name="LiveSearch:Robot"
 )
 
 REMOTE_LIBRARY_FIXTURE = RemoteLibraryLayer(
     bases=(SIMPLE_PUBLICATION_FIXTURE,),
-    libraries=(AutoLoginRemoteLibrary, QuickInstallerRemoteLibrary),
+    libraries=(AutoLoginRemoteLibrary,
+               QuickInstallerRemoteLibrary),
     name="RobotRemoteLibrary"
 )
 
-REMOTE_LIBRARY_FUNCTIONAL_TESTING = FunctionalTesting(
+REMOTE_LIBRARY_ROBOT_TESTING = FunctionalTesting(
     bases=(REMOTE_LIBRARY_FIXTURE, z2.ZSERVER_FIXTURE),
-    name="RemoteKeywordsLibrary:Functional"
+    name="RemoteLibrary:Robot"
+)
+
+AUTOLOGIN_LIBRARY_FIXTURE = RemoteLibraryLayer(
+    bases=(PLONE_FIXTURE,),
+    libraries=(AutoLoginRemoteLibrary,),
+    name="RobotRemoteLibrary"
+)
+
+AUTOLOGIN_ROBOT_TESTING = FunctionalTesting(
+    bases=(AUTOLOGIN_LIBRARY_FIXTURE, z2.ZSERVER_FIXTURE),
+    name="AutoLogin:Robot"
 )
