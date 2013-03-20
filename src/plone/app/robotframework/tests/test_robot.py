@@ -4,7 +4,6 @@ import unittest
 
 import robotsuite
 from plone.app.robotframework.testing import (
-    LIVESEARCH_ROBOT_TESTING,
     REMOTE_LIBRARY_ROBOT_TESTING,
     AUTOLOGIN_ROBOT_TESTING,
     SIMPLE_PUBLICATION_ROBOT_TESTING,
@@ -43,8 +42,8 @@ def test_suite():
                 layer=AUTOLOGIN_ROBOT_TESTING),
 
         layered(robotsuite.RobotTestSuite(
-                os.path.join("cmfplone", "test_search.robot")),
-                layer=LIVESEARCH_ROBOT_TESTING),
+                os.path.join("cmfplone", "test_livesearch.robot")),
+                layer=AUTOLOGIN_ROBOT_TESTING),
 
         layered(robotsuite.RobotTestSuite(
                 "test_quickinstaller_library.robot"),
