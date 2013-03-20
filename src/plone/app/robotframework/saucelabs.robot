@@ -2,6 +2,7 @@
 
 Resource  selenium.robot
 
+Library  String
 Library  plone.app.robotframework.SauceLabsLibrary
 
 *** Variables ***
@@ -13,8 +14,9 @@ ${SESSION_ID} =
 *** Keywords ***
 
 Open SauceLabs test browser
+    ${SAFE_TEST_NAME} =  Replace string  ${TEST_NAME}  :  ${EMPTY}
     ${BUILD_INFO} =  Set variable
-    ...           build:${BUILD_NUMBER},name:${SUITE_NAME} | ${TEST_NAME}
+    ...           build:${BUILD_NUMBER},name:${SUITE_NAME} | ${SAFE_TEST_NAME}
     Open browser  ${PLONE_URL}  ${BROWSER}
     ...           remote_url=${REMOTE_URL}
     ...           desired_capabilities=${DESIRED_CAPABILITIES},${BUILD_INFO}
