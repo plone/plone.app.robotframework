@@ -5,7 +5,7 @@ Resource  plone/app/robotframework/saucelabs.robot
 
 Library  Remote  ${PLONE_URL}/RobotRemoteLibrary
 
-Test Setup  Open SauceLabs test browser
+Test Setup  Run keywords  Open SauceLabs test browser  Background
 Test Teardown  Run keywords  Report test status  Close all browsers
 
 *** Variables ***
@@ -20,23 +20,17 @@ ${PAGE_ID} =  an-actionsmenu-page
 # ---
 
 Scenario: Actions Menu rendered collapsed
-    Given a site owner
-      and a test document
-      and an actionsmenu page
+    Given an actionsmenu page
      Then delete link exists
       and delete link should not be visible
 
 Scenario: Clicking expands action menu
-    Given a site owner
-      and a test document
-      and an actionsmenu page
+    Given an actionsmenu page
      When menu link is clicked
      Then actions menu should be visible
 
 Scenario: Clicking again collapses action menu
-    Given a site owner
-      and a test document
-      and an actionsmenu page
+    Given an actionsmenu page
      When menu link is clicked
       and menu link is clicked
 
@@ -45,9 +39,7 @@ Scenario: Clicking again collapses action menu
 # ---
 
 Scenario: Hovering mouse from expanded menu on other menu shows that menu
-    Given a site owner
-      and a test document
-      and an actionsmenu page
+    Given an actionsmenu page
      When first menu link is clicked
       and mouse moves to second menu
      Then second menu should be visible
@@ -58,9 +50,7 @@ Scenario: Hovering mouse from expanded menu on other menu shows that menu
 # ---
 
 Scenario: Clicking outside of Contentactions menu
-    Given a site owner
-      and a test document
-      and an actionsmenu page
+    Given an actionsmenu page
      When first menu link is clicked
       and i click outside of menu
      Then first menu should not be visible
@@ -70,9 +60,7 @@ Scenario: Clicking outside of Contentactions menu
 # ---
 
 Scenario: Do a workflow change
-    Given a site owner
-      and a test document
-      and an actionsmenu page
+    Given an actionsmenu page
      When workflow link is clicked
      Then state should have changed
 
@@ -81,14 +69,16 @@ Scenario: Do a workflow change
 # ---
 
 Scenario:
-    Given a site owner
-      and a test document
-      and an actionsmenu page
+    Given an actionsmenu page
      When i copy the page
       and i paste
      Then i should see 'Item(s) pasted.' in the page
 
 *** Keywords ***
+
+Background
+    Given a site owner
+      and a test document
 
 a site owner
     Enable autologin as  Site Administrator
