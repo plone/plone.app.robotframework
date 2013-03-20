@@ -32,10 +32,6 @@ Input text and validate
 # Access Resources
 # ----------------------------------------------------------------------------
 
-Goto homepage
-    Go to   ${PLONE_URL}
-    Wait until location is  ${PLONE_URL}
-
 Go to homepage
     Go to   ${PLONE_URL}
     Wait until location is  ${PLONE_URL}
