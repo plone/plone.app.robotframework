@@ -1,8 +1,12 @@
 *** Settings ***
-Resource  plone/app/robotframework/keywords.txt
 
-Test Setup  Setup
+Resource  plone/app/robotframework/keywords.robot
+Resource  plone/app/robotframework/saucelabs.robot
 
+Library  Remote  ${PLONE_URL}/RobotRemoteLibrary
+
+Test Setup  Run keywords  Open SauceLabs test browser  Background
+Test Teardown  Run keywords  Report test status  Close all browsers
 
 *** Test cases ***
 
@@ -136,9 +140,9 @@ Test adding and removing a recent items portlet
 
 *** Keywords ***
 
-Setup
-    Open Plone Root
-    Log in as site owner
+Background
+    Enable autologin as  Site Administrator
+    Go to homepage
 
 I go to the manage portlets view
     Go To  ${PLONE_URL}/@@manage-portlets

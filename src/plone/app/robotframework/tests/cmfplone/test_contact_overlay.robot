@@ -1,10 +1,15 @@
 *** Settings ***
-Resource  plone/app/robotframework/keywords.txt
+
+Resource  plone/app/robotframework/keywords.robot
+Resource  plone/app/robotframework/saucelabs.robot
+
+Test Setup  Open SauceLabs test browse
+Test Teardown  Run keywords  Report test status  Close all browsers
 
 *** Test cases ***
 
 Check close on click off form
-    Goto homepage
+    Go to homepage
     Click Link  Contact
     Overlay should open
     Page should contain  Contact form
@@ -21,7 +26,6 @@ Check close on click close
     Overlay should close on same page
     Page should not contain  Contact form
 
-
 *** Keywords ***
 
 Overlay should open
@@ -32,10 +36,3 @@ Overlay should open
 Overlay should close on same page
     Wait until keyword succeeds  1  5  Element Should Not Be Visible  id=exposeMask
     Wait until keyword succeeds  1  5  Page should not contain element  css=div.overlay
-
-Confirm not logged in
-    Page should not contain  id=user-name
-
-Confirm logged in
-    Page should contain element  id=user-name
-

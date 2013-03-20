@@ -1,13 +1,18 @@
 *** Settings ***
 
-Resource  plone/app/robotframework/keywords.txt
+Resource  plone/app/robotframework/keywords.robot
+Resource  plone/app/robotframework/saucelabs.robot
 
-Test Setup  Run keywords  Open Plone Root  Log in as site owner  Goto homepage
+Library  Remote  ${PLONE_URL}/RobotRemoteLibrary
+
+Test Setup  Run keywords  Open SauceLabs test browser  Background
+Test Teardown  Run keywords  Report test status  Close all browsers
 
 *** Keywords ***
 
-Start browser
-    Open browser  ${PLONE_URL}
+Background
+    Enable autologin as  Contributor  Editor
+    Go to homepage
 
 *** Test cases ***
 
@@ -32,6 +37,7 @@ Edit document view
 
 Select categorization tab
     [Tags]  edit  current
+    Enable autologin as  Site Administrator
     Add document  Select categorization tab
     Element should be visible  css=li#contentview-edit a
     Click Link  css=li#contentview-edit a
