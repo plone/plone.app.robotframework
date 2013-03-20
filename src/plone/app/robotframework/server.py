@@ -148,7 +148,7 @@ def server():
                      args.preload_layer or 'plone.app.testing.PLONE_FIXTURE')
 
 
-class ZODB(object):
+class RobotListener(object):
 
     ROBOT_LISTENER_API_VERSION = 2
 
@@ -161,6 +161,8 @@ class ZODB(object):
 
     def end_test(self, name, attrs):
         self.server.zodb_teardown()
+
+ZODB = RobotListener  # BBB
 
 
 class Zope2ServerLibrary(object):

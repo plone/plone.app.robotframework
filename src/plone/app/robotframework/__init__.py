@@ -11,3 +11,6 @@ from plone.app.robotframework.autologin import AutoLoginRemoteLibrary
 
 # Generic remote Python library layer
 from plone.app.robotframework.remote import RemoteLibraryLayer
+
+# Pybot listener for calling Robot Server from pybot
+from plone.app.robotframework.server import RobotListener

@@ -16,10 +16,11 @@ long_description = (
 
 
 console_scripts = [
-    "act_server = plone.app.robotframework.server:server",  # BBB
     "robot-server = plone.app.robotframework.server:server",
+    "robot = plone.app.robotframework.robotentrypoints:robot",
     "pybot = plone.app.robotframework.robotentrypoints:pybot",
     "rebot = plone.app.robotframework.robotentrypoints:rebot",
+    "act_server = plone.app.robotframework.server:server",  # BBB
 ]
 
 entry_points = dict(console_scripts=console_scripts)
