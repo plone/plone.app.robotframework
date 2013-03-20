@@ -5,25 +5,24 @@ Resource  plone/app/robotframework/saucelabs.robot
 
 Library  Remote  ${PLONE_URL}/RobotRemoteLibrary
 
-Test Setup  Run keywords  Open SauceLabs test browser  Background
+Test Setup  Open SauceLabs test browser
 Test Teardown  Run keywords  Report test status  Close all browsers
 
 *** Test cases ***
 
 Scenario: Add Login Portlet
-    Given a manage portlets view
+    Given a site owner
+      and a manage portlets view
      When I add a 'Login' portlet to the left column
      Then I should see a 'Login' portlet in the left column
 
 Scenario: Add Calendar Portlet
-    Given a manage portlets view
+    Given a site owner
+      and a manage portlets view
      When I add a 'Calendar' portlet to the left column
      Then I should see a 'Calendar' portlet in the left column
 
 *** Keywords ***
-
-Background
-    Given a site owner
 
 a site owner
     Enable autologin as  Site Administrator

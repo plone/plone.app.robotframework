@@ -5,86 +5,161 @@ Resource  plone/app/robotframework/saucelabs.robot
 
 Library  Remote  ${PLONE_URL}/RobotRemoteLibrary
 
-Test Setup  Run keywords  Open SauceLabs test browser  Setup
+Test Setup  Open SauceLabs test browser
 Test Teardown  Run keywords  Report test status  Close all browsers
+
+*** Variables ***
+
+${TITLE} =  An actionsmenu page
+${PAGE_ID} =  an-actionsmenu-page
 
 *** Test cases ***
 
-Content Menu
-    [Tags]  action-menu
-    Click Link  An actionsmenu page
-    Element Should Not Be Visible  css=a#plone-contentmenu-actions-delete
-    Click Link  css=dl#plone-contentmenu-actions dt.actionMenuHeader a
-    Element Should Be Visible  css=a#plone-contentmenu-actions-delete
-    Click Link  css=dl#plone-contentmenu-actions dt.actionMenuHeader a
-    Element Should Not Be Visible  css=a#plone-contentmenu-actions-delete
+# ---
+# Basic Contentactions menu
+# ---
 
-Switching Actions Menu
-    [Tags]  action-menu
-    Click Link  An actionsmenu page
-    Element Should Not Be Visible  css=a#plone-contentmenu-actions-delete
-    Element Should Not Be Visible  css=a#advanced
-    Click Link  css=dl#plone-contentmenu-actions dt.actionMenuHeader a
-    Element Should Be Visible  css=a#plone-contentmenu-actions-delete
-    Element Should Not Be Visible  css=a#advanced
-    Click Link  css=dl#plone-contentmenu-actions dt.actionMenuHeader a
-    Element Should Not Be Visible  css=a#plone-contentmenu-actions-delete
-    Element Should Not Be Visible  css=a#advanced
+Scenario: Actions Menu rendered collapsed
+    Given a site owner
+      and a test document
+      and an actionsmenu page
+     Then delete link exists
+      and delete link should not be visible
 
-Clicking outside of Actions Menu hides Action Menu
-    [Tags]  action-menu
-    Click Link  An actionsmenu page
-    Element Should Not Be Visible  css=a#plone-contentmenu-actions-delete
-    Element Should Not Be Visible  css=a#advanced
-    Click Link  css=dl#plone-contentmenu-actions dt.actionMenuHeader a
-    Element Should Be Visible  css=a#plone-contentmenu-actions-delete
-    Element Should Not Be Visible  css=a#advanced
-    Click element  css=h1
-    Wait until keyword succeeds  10s  1s  Element Should Not Be Visible  css=a#plone-contentmenu-actions-delete
-    Element Should Not Be Visible  css=a#advanced
+Scenario: Clicking expands action menu
+    Given a site owner
+      and a test document
+      and an actionsmenu page
+     When menu link is clicked
+     Then actions menu should be visible
 
-Copy Document to Folder Two Different Ways
-    Click Link  An actionsmenu page
-    Click Action by id  plone-contentmenu-actions-copy
-    Wait until keyword succeeds  10s  1s  Page Should Contain  An actionsmenu page copied.
-    Click Link  An actionsmenu folder
-    Click Action by id  plone-contentmenu-actions-paste
-    Wait until keyword succeeds  10s  1s  Page Should Contain  Item(s) pasted.
-    # TODO: Exercising the Folder buttons (copy, Cut, Rename, ... ) should be in separate suite
-    Click Link  Contents
-    Xpath Should Match X Times  //table[@id = 'listing-table']/tbody/tr  1
-    Click Button  Paste
-    Xpath Should Match X Times  //table[@id = 'listing-table']/tbody/tr  2
+Scenario: Clicking again collapses action menu
+    Given a site owner
+      and a test document
+      and an actionsmenu page
+     When menu link is clicked
+      and menu link is clicked
 
-Delete Page
-    Click Link  An actionsmenu page
-    Click Action by id  plone-contentmenu-actions-delete
-    Wait until keyword succeeds  10s  1s  Click Button  Delete
-    Wait until keyword succeeds  10s  1s  Page Should Not Contain  An actionsmenu page
+# ---
+# Switching Contentactions menu by MouseOver
+# ---
 
-Rename Page
-    Click Link  An actionsmenu page
-    Click Action by id  plone-contentmenu-actions-rename
-    Wait until keyword succeeds  10s  1s  Input text  new_ids:list  I_AM_RENAMED
-    Wait until keyword succeeds  10s  1s  Click Button  Rename All
-    Wait until keyword succeeds  10s  1s  Page Should Contain  I_AM_RENAMED
+Scenario: Hovering mouse from expanded menu on other menu shows that menu
+    Given a site owner
+      and a test document
+      and an actionsmenu page
+     When first menu link is clicked
+      and mouse moves to second menu
+     Then second menu should be visible
+      and first menu should not be visible
 
-Cut Document and Paste to Folder
-    Click Link  An actionsmenu page
-    Click Action by id  plone-contentmenu-actions-cut
-    Wait until keyword succeeds  10s  1s  Page Should Contain  An actionsmenu page cut.
-    Click Link  An actionsmenu folder
-    Click Action by id  plone-contentmenu-actions-paste
-    Wait until keyword succeeds  10s  1s  Page Should Contain  Item(s) pasted.
-    Click Link  Contents
-    Xpath Should Match X Times  //table[@id = 'listing-table']/tbody/tr  1
+# ---
+# Clicking outside of Contentactions menu
+# ---
+
+Scenario: Clicking outside of Contentactions menu
+    Given a site owner
+      and a test document
+      and an actionsmenu page
+     When first menu link is clicked
+      and i click outside of menu
+     Then first menu should not be visible
+
+# ---
+# Workflow stuff
+# ---
+
+Scenario: Do a workflow change
+    Given a site owner
+      and a test document
+      and an actionsmenu page
+     When workflow link is clicked
+     Then state should have changed
+
+# ---
+# Copy stuff
+# ---
+
+Scenario:
+    Given a site owner
+      and a test document
+      and an actionsmenu page
+     When i copy the page
+      and i paste
+     Then i should see 'Item(s) pasted.' in the page
 
 *** Keywords ***
 
-Setup
-    Enable autologin as  Contributor  Editor
-    Go to homepage
-    Add Page  An actionsmenu page
-    Go to homepage
-    Add folder  An actionsmenu folder
-    Go to homepage
+a site owner
+    Enable autologin as  Site Administrator
+
+a test document
+    Go to  ${PLONE_URL}/createObject?type_name=Document
+    Input text  name=title  ${TITLE}
+    Click Button  Save
+
+an actionsmenu page
+    Go to  ${PLONE_URL}/${PAGE_ID}
+
+delete link exists
+     Page Should Contain Element  xpath=//div[@class='contentActions']//a[@id='plone-contentmenu-actions-delete']
+
+delete link should not be visible
+     Element Should Not Be Visible  xpath=//div[@class='contentActions']//a[@id='plone-contentmenu-actions-delete']
+
+menu link is clicked
+    Click Link  css=dl#plone-contentmenu-actions dt.actionMenuHeader a
+
+delete link should be visible
+    Element Should Be Visible  xpath=//div[@class='contentActions']//a[@id='plone-contentmenu-actions-delete']
+
+actions menu should be visible
+    Element Should Be Visible  xpath=//dl[@id='plone-contentmenu-actions']/dd
+
+first menu link is clicked
+    Click Link  xpath=(//div[@class="contentActions"]//dt[contains(@class, 'actionMenuHeader')]/a)[1]
+
+mouse moves to second menu
+    Click Link  xpath=(//div[@class="contentActions"]//dt[contains(@class, 'actionMenuHeader')]/a)[2]
+
+second menu should be visible
+    Element Should Be Visible  xpath=(//dl[contains(@class, 'actionMenu')])[2]
+
+first menu should not be visible
+    Wait until keyword succeeds  10s  1s  Element Should Not Be Visible  xpath=(//dl[contains(@class, 'actionMenu')])[1]//dd
+
+i click outside of menu
+    Mouse Down  xpath=//h1
+
+workflow link is clicked
+    # store current state
+    ${OLD_STATE} =  Get Text  xpath=//span[contains(@class,'state-')]
+    Set Suite Variable  ${OLD_STATE}  ${OLD_STATE}
+    Click Link  xpath=//dl[@id='plone-contentmenu-workflow']/dt/a
+    Click Link  xpath=(//dl[@id='plone-contentmenu-workflow']/dd//a)[1]
+
+state should have changed
+    ${NEW_STATE} =  Get Text  xpath=//span[contains(@class,'state-')]
+    Should Not Be Equal  ${NEW_STATE}  ${OLD_STATE}
+
+Open Menu
+    [Arguments]  ${elementId}
+    Element Should Not Be Visible  css=dl#${elementId} dd.actionMenuContent
+    Click link  css=dl#${elementId} dt.actionMenuHeader a
+    Wait until keyword succeeds  1  5  Element Should Be Visible  css=dl#${elementId} dd.actionMenuContent
+
+Open Action Menu
+    Open Menu  plone-contentmenu-actions
+
+i copy the page
+    Open Action Menu
+    Click Link  link=Copy
+    Page should contain  copied
+
+i paste
+    Go to  ${PLONE_URL}
+    Open Action Menu
+    Click Link  link=Paste
+
+i should see '${message}' in the page
+    Page Should Contain  ${message}

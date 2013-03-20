@@ -16,6 +16,7 @@ ${TEST_FOLDER} =  test-folder
 
 Scenario: Select All items
     Given a site owner
+      And a test folder
       And four dummy pages on test folder
       And the folder contents view
      When I select all the elements
@@ -46,6 +47,8 @@ Scenario: Select All items
 
 a site owner
     Enable autologin as  Site Administrator
+
+a test folder
     Go to homepage
     Add folder  ${TEST_FOLDER}
 

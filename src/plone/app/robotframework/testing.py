@@ -84,3 +84,9 @@ AUTOLOGIN_ROBOT_TESTING = FunctionalTesting(
     bases=(AUTOLOGIN_LIBRARY_FIXTURE, z2.ZSERVER_FIXTURE),
     name="AutoLogin:Robot"
 )
+
+SIMPLE_PUBLICATION_ROBOT_TESTING = FunctionalTesting(
+    bases=(SIMPLE_PUBLICATION_FIXTURE, AUTOLOGIN_LIBRARY_FIXTURE,
+           z2.ZSERVER_FIXTURE),
+    name="SimplePublication:Robot"
+)
