@@ -29,9 +29,6 @@ def test_suite():
                 os.path.join("cmfplone", "test_edit.robot")),
                 layer=AUTOLOGIN_ROBOT_TESTING),
         layered(robotsuite.RobotTestSuite(
-                os.path.join("cmfplone", "test_edit_tabs.robot")),
-                layer=AUTOLOGIN_ROBOT_TESTING),
-        layered(robotsuite.RobotTestSuite(
                 os.path.join("cmfplone", "test_portlets.robot")),
                 layer=AUTOLOGIN_ROBOT_TESTING),
         layered(robotsuite.RobotTestSuite(
