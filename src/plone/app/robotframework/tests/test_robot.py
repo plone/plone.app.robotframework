@@ -3,7 +3,7 @@ import os.path
 import unittest
 
 import robotsuite
-from plone.app.robotframework.tests._testing import (
+from plone.app.robotframework.testing import (
     LIVESEARCH_ROBOT_TESTING,
     REMOTE_LIBRARY_ROBOT_TESTING,
     AUTOLOGIN_ROBOT_TESTING,
@@ -21,6 +21,7 @@ def test_suite():
         layered(robotsuite.RobotTestSuite(
                 os.path.join("cmfplone", "test_contact_overlay.robot")),
                 layer=PLONE_ZSERVER),
+
         layered(robotsuite.RobotTestSuite(
                 os.path.join("cmfplone", "test_actions_menu.robot")),
                 layer=AUTOLOGIN_ROBOT_TESTING),
@@ -28,7 +29,19 @@ def test_suite():
                 os.path.join("cmfplone", "test_edit.robot")),
                 layer=AUTOLOGIN_ROBOT_TESTING),
         layered(robotsuite.RobotTestSuite(
+                os.path.join("cmfplone", "test_edit_tabs.robot")),
+                layer=AUTOLOGIN_ROBOT_TESTING),
+        layered(robotsuite.RobotTestSuite(
                 os.path.join("cmfplone", "test_portlets.robot")),
+                layer=AUTOLOGIN_ROBOT_TESTING),
+        layered(robotsuite.RobotTestSuite(
+                os.path.join("cmfplone", "test_history.robot")),
+                layer=AUTOLOGIN_ROBOT_TESTING),
+        layered(robotsuite.RobotTestSuite(
+                os.path.join("cmfplone", "test_folder_contents.robot")),
+                layer=AUTOLOGIN_ROBOT_TESTING),
+        layered(robotsuite.RobotTestSuite(
+                os.path.join("cmfplone", "test_reference_browser.robot")),
                 layer=AUTOLOGIN_ROBOT_TESTING),
 
         layered(robotsuite.RobotTestSuite(

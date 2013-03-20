@@ -1,7 +1,12 @@
 *** Settings ***
 
-Resource  plone/app/robotframework/keywords.txt
+Resource  plone/app/robotframework/keywords.robot
+Resource  plone/app/robotframework/saucelabs.robot
 
+Library  Remote  ${PLONE_URL}/RobotRemoteLibrary
+
+Test Setup  Run keywords  Open SauceLabs test browser
+Test Teardown  Run keywords  Report test status  Close all browsers
 
 *** Test cases ***
 
@@ -12,7 +17,7 @@ Test related items field
 *** Keywords ***
 
 the edit wizard form categorization step
-    Log in as site owner
+    Enable autologin as  Site Administrator
     Go to homepage
     Add Page  test reference browser widget
     Go to homepage
