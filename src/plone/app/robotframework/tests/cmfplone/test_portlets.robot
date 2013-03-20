@@ -10,217 +10,49 @@ Test Teardown  Run keywords  Report test status  Close all browsers
 
 *** Test cases ***
 
-Test toggling the visiblity of a portlet
-    Given there is a portlet Login in the right column
-    When I go to the manage portlets view
-    Then the Log in portlet should be visible in the right column
-    When I toggle the visiblity of the Log in portlet in the right column
-    Then the Log in portlet should not be visible in the right column
-    When I toggle the visiblity of the Log in portlet in the right column
-    Then the Log in portlet should be visible in the right column
+Scenario: Add Login Portlet
+    Given a manage portlets view
+     When I add a 'Login' portlet to the left column
+     Then I should see a 'Login' portlet in the left column
 
-
-Test reordering portlets
-    Given two portlets in the right column
-    And the first one is Log in
-    And the second one is Calendar
-    When I move the first portlet down
-    Then the first one is Calendar
-    And the second one is Log in
-    When I move the second portlet up
-    Then the first one is Log in
-    And the second one is Calendar
-
-
-Test adding the login portlet
-    Given I go to the manage portlets view
-    When I add the portlet Login to the left column
-    I should see the portlet Log in in the left column
-
-
-Test adding and removing the calendar portlet
-    Given I go to the manage portlets view
-    When I add the portlet Calendar portlet to the right column
-    And Goto homepage
-    Then I should see the calendar portlet in the right column
-
-    When I go to the manage portlets view
-    And I delete the portlet Calendar from the right column
-    And Goto homepage
-    Then I should not see the calendar portlet in the right column
-
-
-Test adding and removing the search portlet
-    Given I go to the manage portlets view
-    When I add the portlet Search to the left column
-    And Click Button  Save
-    And Goto homepage
-    Then I should see the portlet Search in the left column
-
-    When I go to the manage portlets view
-    And I delete the portlet Search from the left column
-    And Goto homepage
-    Then I should not see the portlet Search in the left column
-
-
-Test adding and removing the static text portlet
-    Given I go to the manage portlets view
-    When I add the portlet Static text portlet to the right column
-    And Click Link  Edit without visual editor
-    And Input text  form.header  foo
-    And Input text  form.text  bar
-    And Click Button  Save
-    And Goto homepage
-    Then I should see the portlet foo in the right column
-
-    When I go to the manage portlets view
-    And I delete the portlet foo from the right column
-    And Goto homepage
-    Then I should not see the portlet foo in the right column
-
-
-Test adding and removing the classic portlet
-    Given I go to the manage portlets view
-    When I add the portlet Classic portlet to the right column
-    And Input text  form.template  classical
-    And Click Button  Save
-    Then I should see the portlet classical in the right column
-
-    When I go to the manage portlets view
-    And I delete the portlet classical from the right column
-    Then I should not see the portlet classical in the right column
-
-
-Test adding and removing a collection portlet
-    Given I have a collection with name collection for portlet testing
-    And I go to the manage portlets view
-    When I add the portlet Collection portlet to the right column
-    And Input text  form.header  collect my stuff
-    And Select Radio Button  form.target_collection  /collection-for-portlet-testing
-    And Click Button  Save
-    Then I should see the portlet collect my stuff in the right column
-
-    When I go to the manage portlets view
-    And I delete the portlet collect my stuff from the right column
-    Then I should not see the portlet collect my stuff in the right column
-
-
-Test adding and removing an event portlet
-    Given I go to the manage portlets view
-    When I add the portlet Events to the right column
-    And Click Button  Save
-    Then I should see the portlet Events in the right column
-
-    When I go to the manage portlets view
-    And I delete the portlet Events from the right column
-    Then I should not see the portlet Events in the right column
-
-
-Test adding and removing a news portlet
-    Given I go to the manage portlets view
-    When I add the portlet News to the right column
-    And Click Button  Save
-    Then I should see the portlet News in the right column
-
-    When I go to the manage portlets view
-    And I delete the portlet News from the right column
-    Then I should not see the portlet News in the right column
-
-
-Test adding and removing a recent items portlet
-    Given I go to the manage portlets view
-    When I add the portlet Recent items to the right column
-    And Click Button  Save
-    Then I should see the portlet Recent items in the right column
-
-    When I go to the manage portlets view
-    And I delete the portlet Recent items from the right column
-    Then I should not see the portlet Recent items in the right column
-
+Scenario: Add Calendar Portlet
+    Given a manage portlets view
+     When I add a 'Calendar' portlet to the left column
+     Then I should see a 'Calendar' portlet in the left column
 
 *** Keywords ***
 
 Background
+    Given a site owner
+
+a site owner
     Enable autologin as  Site Administrator
-    Go to homepage
 
-I go to the manage portlets view
-    Go To  ${PLONE_URL}/@@manage-portlets
+a manage portlets view
+    Go to   ${PLONE_URL}/@@manage-portlets
 
-there is a portlet ${portlet} in the right column
-    I go to the manage portlets view
-    I add the portlet ${portlet} to the right column
+I add a '${portletname}' portlet to the left column
+    Select from list  xpath=//div[@id="portletmanager-plone-leftcolumn"]//select  ${portletname}
 
-I add the portlet ${portlet} to the left column
-    Select from list  xpath=//div[@id="portletmanager-plone-leftcolumn"]//select  ${portlet}
+I add a '${portletname}' portlet to the right column
+    Select from list  xpath=//div[@id="portletmanager-plone-rightcolumn"]//select  ${portletname}
 
-I add the portlet ${portlet} to the right column
-    Select from list  xpath=//div[@id="portletmanager-plone-rightcolumn"]//select  ${portlet}
+I delete a '${portlet}'' portlet from the left column
+    Click Link  xpath=//div[@id="portal-column-one"]//div[@class="portletHeader" and contains(.,"${portlet}")]//a[@class="delete"]  don't wait
+    Wait until keyword succeeds  1s  10s  Flex Element Should not exist  xpath=//div[@id="portal-column-one"]//div[@class="portletHeader" and contains(.,"${portlet}")]
 
-I should see the portlet ${title} in the left column
-    Page Should Contain Element  xpath=//div[@id="portal-column-one"]//*[@class="portletHeader" and (*[contains(., "${title}")] or contains(., "${title}"))]
+when I delete the '${portlet}' portlet from the right column
+    Click Link  xpath=//div[@id="portal-column-two"]//div[@class="portletHeader" and contains(.,"${portlet}")]//a[@class="delete"]  don't wait
+    Wait until keyword succeeds  1s  10s  Flex Element Should not exist  xpath=//div[@id="portal-column-two"]//div[@class="portletHeader" and contains(.,"${portlet}")]
 
-I should see the portlet ${title} in the right column
-    Page Should Contain Element  xpath=//div[@id="portal-column-two"]//*[@class="portletHeader" and (*[contains(., "${title}")] or contains(., "${title}"))]
+I should see a '${portletname}' portlet in the left column
+    Element should contain  portal-column-one  ${portletname}
 
-the ${title} portlet should be visible in the right column
-    Wait until keyword succeeds  5s  0.5s  Page Should Not Contain Element  xpath=//div[@id="portal-column-two"]//div[contains(concat(' ', normalize-space(@class), ' '), ' blockedPortlet ')]//*[@class="portletHeader" and (*[contains(., "${title}")] or contains(., "${title}"))]
+I should see a '${portletname}' portlet in the right column
+    Element should contain  portal-column-two  ${portletname}
 
-the ${title} portlet should not be visible in the right column
-    Page Should Contain Element  xpath=//div[@id="portal-column-two"]//div[contains(concat(' ', normalize-space(@class), ' '), ' blockedPortlet ')]//*[@class="portletHeader" and (*[contains(., "${title}")] or contains(., "${title}"))]
+I should not see '${text}' in the left column
+    Flex Element should not exist  xpath=//div[@id="portal-column-one" and contains(.,"${text}")]
 
-I should not see the portlet ${title} in the left column
-    Page Should Not Contain Element  xpath=//div[@id="portal-column-one"]//*[@class="portletHeader" and (*[contains(., "${title}")] or contains(., "${title}"))]
-
-I should not see the portlet ${title} in the right column
-    Page Should Not Contain Element  xpath=//div[@id="portal-column-two"]//*[@class="portletHeader" and (*[contains(., "${title}")] or contains(., "${title}"))]
-
-I delete the portlet ${portlet} from the right column
-    Click Link  xpath=//div[@id="portal-column-two"]//div[@class="portletHeader" and contains(.,"${portlet}")]//a[@class="delete"]
-    # Explicit wait is necessary here, because there are no new elements we could wait for.
-    Wait until keyword succeeds  5s  0.5s  Page Should Not Contain Element  xpath=//div[@id="portal-column-two"]//div[@class="portletHeader" and contains(.,"${portlet}")]
-
-I delete the portlet ${portlet} from the left column
-    Click Link  xpath=//div[@id="portal-column-one"]//div[@class="portletHeader" and contains(.,"${portlet}")]//a[@class="delete"]
-    # Explicit wait is necessary here, because there are no new elements we could wait for.
-    Wait until keyword succeeds  5s  0.5s  Page Should Not Contain Element  xpath=//div[@id="portal-column-one"]//div[@class="portletHeader" and contains(.,"${portlet}")]
-
-I toggle the visiblity of the ${portlet} portlet in the right column
-    Click Link  xpath=//div[@id="portal-column-two"]//div[@class="portletHeader" and contains(.,"${portlet}")]//a[@class="toggle-visibility"]
-
-
-# Reordering portlets
-two portlets in the right column
-    I go to the manage portlets view
-    I add the portlet Login to the right column
-    I add the portlet Calendar portlet to the right column
-
-the first one is ${title}
-    Page Should Contain Element  xpath=//div[@id="portal-column-two"]//div[contains(concat(' ', normalize-space(@class), ' '), ' portlet ')][1]//*[@class="portletHeader" and (*[contains(., "${title}")] or contains(., "${title}"))]
-
-the second one is ${title}
-    Page Should Contain Element  xpath=//div[@id="portal-column-two"]//div[contains(concat(' ', normalize-space(@class), ' '), ' portlet ')][2]//*[@class="portletHeader" and (*[contains(., "${title}")] or contains(., "${title}"))]
-
-I move the first portlet down
-    Click Link  xpath=//div[@id="portal-column-two"]//div[contains(concat(' ', normalize-space(@class), ' '), ' portlet ')][1]//*[@class="portletHeader"]//a[@class="down"]
-
-I move the second portlet up
-    Click Link  xpath=//div[@id="portal-column-two"]//div[contains(concat(' ', normalize-space(@class), ' '), ' portlet ')][2]//*[@class="portletHeader"]//a[@class="up"]
-
-
-
-# Calendar portlet
-I should see the calendar portlet in the right column
-    Element should contain  portal-column-two  Mo Tu We Th Fr Sa Su
-
-I should not see the calendar portlet in the right column
-    Page Should Not Contain Element  xpath=//div[@id="portal-column-two" and contains(.,"Mo Tu We Th Fr Sa Su")]
-
-
-# Collection portlet
-I have a collection with name ${title}
-    Goto homepage
-    Click Link  xpath=//*[@id="plone-contentmenu-factories"]/dt/a
-    Click Link  xpath=//*[@id="collection"]
-    Input text  title  ${title}
-    Click Button  Save
+I should not see '${text}' in the right column
+    Flex Element should not exist  xpath=//div[@id="portal-column-two" and contains(.,"${text}")]

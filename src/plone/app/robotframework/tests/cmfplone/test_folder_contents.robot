@@ -5,102 +5,138 @@ Resource  plone/app/robotframework/saucelabs.robot
 
 Library  Remote  ${PLONE_URL}/RobotRemoteLibrary
 
-Test Setup  Run keywords  Open SauceLabs test browser  Background
+Test Setup  Open SauceLabs test browser
 Test Teardown  Run keywords  Report test status  Close all browsers
 
 *** Variables ***
 
-${SELECT_ALL} =   xpath=//*[@id="foldercontents-selectall"]
-${CLEAR_SELECTION} =  xpath=//*[@id="foldercontents-clearselection"]
-${LISTING_TEMPLATE} =  css=#listing-table .nosort
+${TEST_FOLDER} =  test-folder
 
 *** Test cases ***
 
-Test Select All
-    Go to homepage
-    Click Contents In Edit Bar
+Scenario: Select All items
+    Given a site owner
+      And four dummy pages on test folder
+      And the folder contents view
+     When I select all the elements
+     Then the four elements got selected
+      And the informative string appears
+      And the clear selection link appears
 
-    # We have 4 pages on Plone site's root
-    Page Should Contain Element  ${SELECT_ALL}
-    Click Element  ${SELECT_ALL}
-    Page Should Contain Element  ${LISTING_TEMPLATE}  All 4 items in this folder are selected.
-    Page Should Contain Element  ${CLEAR_SELECTION}
-    Click Element  ${CLEAR_SELECTION}
-    Page Should Contain Element  ${SELECT_ALL}
+#Scenario: Clear selection
+#    Given a site owner
+#      And four dummy pages on test folder
+#      And the folder contents view
+#      And I select all the elements
+#     When I clear the selection
+#     Then no elements should be selected
 
-Copy Paste Element
-    Go to homepage
-    Click Contents In Edit Bar
+# XXX: This scenario only works on Firefox. In Chrome fails to do the Mouse Up
+# and Mouse Down correctly.
+#Scenario: Reorder Folder Contents
+#    Given a site owner
+#      And four dummy pages on test folder
+#     When the folder contents view
+#     Then the order should be 1 > 2 > 3 > 4
+#     When I reorder the elements
+#     Then the new order should be 4 > 3 > 2 > 1
 
-    Select Checkbox  css=#cb_test1
-    Click Button  Copy
-    Page Should Contain  1 item(s) copied.
-    Click Button  Paste
-    Page Should Contain Element  css=#folder-contents-item-copy_of_test1
-
-Cut Paste Element
-    Go to homepage
-    Click Contents In Edit Bar
-
-    Select Checkbox  css=#cb_test1
-    Click Button  Cut
-    Page Should Contain  1 item(s) cut.
-    Click Button  Paste
-    Page Should Contain Element  css=#folder-contents-item-test1
-
-Test Rename Element
-    Go to homepage
-    Click Contents In Edit Bar
-
-    Select Checkbox  css=#cb_test1
-    Click Button  Rename
-    Input Text  css=#test1_title  TEST1
-    Click Button  Rename All
-    Page Should Contain  TEST1
-
-Delete Element
-    Go to homepage
-    Duplicate Element  test1
-    Select Checkbox  css=#cb_copy_of_test1
-    Click Button  Delete
-    Page Should Contain  Item(s) deleted.
-    Page Should Not Contain Element  css=#folder-contents-item-copy_of_test1
 
 *** Keywords ***
 
-Background
+a site owner
     Enable autologin as  Site Administrator
     Go to homepage
-    Create Pages
+    Add folder  ${TEST_FOLDER}
 
-Create Pages
-    Go to homepage
-    Add Page  test1
-    Go to homepage
-    Add Page  test2
-    Go to homepage
-    Add Page  test3
-    Go to homepage
-    Add Page  test4
-    Go to homepage
+the site root
+    Go to  ${PLONE_URL}
 
-Remove Pages
-    Remove Content  test1
-    Remove Content  test2
-    Remove Content  test3
-    Remove Content  test4
+the test folder
+    Go to  ${PLONE_URL}/${TEST_FOLDER}
+
+the folder contents view
+    Go to  ${PLONE_URL}/${TEST_FOLDER}/folder_contents
+
+I click the '${link_name}' link
+    Click Link  ${link_name}
+
+four dummy pages on test folder
+    a document 'doc1' in the test folder
+    a document 'doc2' in the test folder
+    a document 'doc3' in the test folder
+    a document 'doc4' in the test folder
+
+a document '${title}' in the test folder
+    Go to  ${PLONE_URL}/${TEST_FOLDER}/createObject?type_name=Document
+    Input text  name=title  ${title}
+    Click Button  Save
+
+I select all the elements
+    Click Element  id=foldercontents-selectall
+
+the four elements got selected
+    Checkbox Should Be Selected  id=cb_doc1
+    Checkbox Should Be Selected  id=cb_doc2
+    Checkbox Should Be Selected  id=cb_doc3
+    Checkbox Should Be Selected  id=cb_doc4
+
+the informative string appears
+    # The response contained a newline and Selenium was unable to recognize the
+    # full message correctly. So we are forced to check for it only partially.
+    Page Should Contain  All 4 items in this folder
+
+the clear selection link appears
+    Page Should Contain Element  id=foldercontents-clearselection
+
+I clear the selection
+    Click link  Clear selection
+
+no elements should be selected
+    Checkbox Should Not Be Selected  id=cb_doc1
+    Checkbox Should Not Be Selected  id=cb_doc2
+    Checkbox Should Not Be Selected  id=cb_doc3
+    Checkbox Should Not Be Selected  id=cb_doc4
+
+the order should be 1 > 2 > 3 > 4
+    Should be above  css=tr#folder-contents-item-doc1  css=tr#folder-contents-item-doc2
+    Should be above  css=tr#folder-contents-item-doc2  css=tr#folder-contents-item-doc3
+    Should be above  css=tr#folder-contents-item-doc3  css=tr#folder-contents-item-doc4
+
+I reorder the elements
+    # Moving items could fail on a fast computer
+    Set Selenium Speed  0.1 seconds
+
+    # Moves the doc2 page above the doc1 page
+    Reorder Element  folder-contents-item-doc1  folder-contents-item-doc2
+
+    # Moves the doc4 page above the doc2 page
+    Reorder Element  folder-contents-item-doc4  folder-contents-item-doc3
+    Reorder Element  folder-contents-item-doc4  folder-contents-item-doc1
+    Reorder Element  folder-contents-item-doc4  folder-contents-item-doc2
+
+    # Moves the doc3 page above the doc2 page
+    Reorder Element  folder-contents-item-doc3  folder-contents-item-doc1
+    Reorder Element  folder-contents-item-doc3  folder-contents-item-doc2
+
+    # Go back to normal speed
+    Set Selenium Speed  0 seconds
+
+the new order should be 4 > 3 > 2 > 1
+    Should be above  css=tr#folder-contents-item-doc4  css=tr#folder-contents-item-doc3
+    Should be above  css=tr#folder-contents-item-doc3  css=tr#folder-contents-item-doc2
+    Should be above  css=tr#folder-contents-item-doc2  css=tr#folder-contents-item-doc1
 
 Reorder Element
     [arguments]  ${element}  ${destination}
 
-    Mouse Down  css=#${element} td.draggable
-    Mouse Move  css=#${destination} td.draggable
-    Mouse Up  css=#${element} td.draggable
-    Mouse Out  css=#${element} td.draggable
+    Mouse Down  xpath=//tr[@id='${element}']/td
+    Mouse Up    xpath=//tr[@id='${destination}']/td
+    Mouse Out   xpath=//tr[@id='${element}']/td
 
-Duplicate Element
-    [arguments]  ${element}
-    Click Contents In Edit Bar
-    Select Checkbox  css=#cb_${element}
-    Click Button  Copy
-    Click Button  Paste
+Should be above
+    [Arguments]  ${locator1}  ${locator2}
+
+    ${locator1-position} =  Get vertical position  ${locator1}
+    ${locator2-position} =  Get vertical position  ${locator2}
+    Should be true  ${locator1-position} < ${locator2-position}
