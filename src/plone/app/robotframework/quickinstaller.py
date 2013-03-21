@@ -2,7 +2,7 @@
 from plone.app.robotframework.remote import RemoteLibrary
 
 
-class QuickInstallerRemoteLibrary(RemoteLibrary):
+class QuickInstaller(RemoteLibrary):
 
     def product_is_activated(self, product_name):
         """Assert that given product_name is activated (installed) in

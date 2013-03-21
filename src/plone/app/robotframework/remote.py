@@ -61,7 +61,7 @@ class RemoteLibraryLayer(Layer):
     libraryBases = ()
 
     def __init__(self, *args, **kwargs):
-        kwargs['name'] = kwargs.get('name', 'RobotRemoteLibrary')
+        kwargs['name'] = kwargs.get('name', 'RobotRemote')
         self.libraryBases = (RemoteLibrary,) + kwargs.pop('libraries', ())
         super(RemoteLibraryLayer, self).__init__(*args, **kwargs)
 

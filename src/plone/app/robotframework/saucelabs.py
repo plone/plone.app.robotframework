@@ -16,9 +16,9 @@ Selenium2Library.keywords._browsermanagement.\
     self._cache.current.session_id
 
 
-class SauceLabsLibrary:
+class SauceLabs:
 
-    def report_sauce_status(self, job_id, test_status, test_tags=[]):
+    def report_sauce_status(self, job_id, name, status, tags=[]):
         """Report test status and tags to SauceLabs
         """
         username = os.environ.get('SAUCE_USERNAME')
@@ -30,8 +30,9 @@ class SauceLabsLibrary:
             return u"No Sauce environment variables found. Skipping..."
 
         token = base64.encodestring('%s:%s' % (username, access_key))[:-1]
-        body = json.dumps({'passed': test_status == 'PASS',
-                           'tags': test_tags})
+        body = json.dumps({'name': name,
+                           'passed': status == 'PASS',
+                           'tags': tags})
 
         connection = httplib.HTTPConnection('saucelabs.com')
         connection.request('PUT', '/rest/v1/%s/jobs/%s' % (

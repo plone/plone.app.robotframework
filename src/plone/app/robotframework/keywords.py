@@ -2,7 +2,7 @@
 import sys
 
 
-class LayoutMathLibrary:
+class LayoutMath:
 
     def get_offset_difference(self, source_offset, dest_offset, padding):
         """Return dest_offset - source_offset + padding
@@ -10,7 +10,7 @@ class LayoutMathLibrary:
         return (int(dest_offset) - int(source_offset)) + int(padding)
 
 
-class DebuggingLibrary:
+class Debugging:
 
     def stop(self):
         """Pauses the test runner and drops it into Python debugger.

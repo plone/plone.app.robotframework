@@ -2,7 +2,7 @@
 
 Resource  plone/app/robotframework/variables.robot
 
-Library  Remote  ${PLONE_URL}/RobotRemoteLibrary
+Library  Remote  ${PLONE_URL}/RobotRemote
 
 *** Test cases ***
 

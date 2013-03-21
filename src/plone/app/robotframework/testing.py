@@ -18,8 +18,8 @@ from plone.testing import (
 )
 from zope.configuration import xmlconfig
 from plone.app.robotframework import (
-    QuickInstallerRemoteLibrary,
-    AutoLoginRemoteLibrary,
+    QuickInstaller,
+    AutoLogin,
     RemoteLibraryLayer
 )
 
@@ -62,31 +62,27 @@ LIVESEARCH_ROBOT_TESTING = FunctionalTesting(
     name="LiveSearch:Robot"
 )
 
-REMOTE_LIBRARY_FIXTURE = RemoteLibraryLayer(
-    bases=(SIMPLE_PUBLICATION_FIXTURE,),
-    libraries=(AutoLoginRemoteLibrary,
-               QuickInstallerRemoteLibrary),
-    name="RobotRemoteLibrary"
+REMOTE_LIBRARY_BUNDLE_FIXTURE = RemoteLibraryLayer(
+    bases=(PLONE_FIXTURE,),
+    libraries=(AutoLogin, QuickInstaller),
+    name="RemoteLibraryBundle:RobotRemote"
 )
 
 REMOTE_LIBRARY_ROBOT_TESTING = FunctionalTesting(
-    bases=(REMOTE_LIBRARY_FIXTURE, z2.ZSERVER_FIXTURE),
+    bases=(SIMPLE_PUBLICATION_FIXTURE,
+           REMOTE_LIBRARY_BUNDLE_FIXTURE,
+           z2.ZSERVER_FIXTURE),
     name="RemoteLibrary:Robot"
 )
 
-AUTOLOGIN_LIBRARY_FIXTURE = RemoteLibraryLayer(
-    bases=(PLONE_FIXTURE,),
-    libraries=(AutoLoginRemoteLibrary,),
-    name="RobotRemoteLibrary"
-)
-
 AUTOLOGIN_ROBOT_TESTING = FunctionalTesting(
-    bases=(AUTOLOGIN_LIBRARY_FIXTURE, z2.ZSERVER_FIXTURE),
+    bases=(REMOTE_LIBRARY_BUNDLE_FIXTURE, z2.ZSERVER_FIXTURE),
     name="AutoLogin:Robot"
 )
 
 SIMPLE_PUBLICATION_ROBOT_TESTING = FunctionalTesting(
-    bases=(SIMPLE_PUBLICATION_FIXTURE, AUTOLOGIN_LIBRARY_FIXTURE,
+    bases=(SIMPLE_PUBLICATION_FIXTURE,
+           REMOTE_LIBRARY_BUNDLE_FIXTURE,
            z2.ZSERVER_FIXTURE),
     name="SimplePublication:Robot"
 )

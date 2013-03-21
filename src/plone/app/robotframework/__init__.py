@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 # Stand-alone Python keyword libraries
-from plone.app.robotframework.server import Zope2ServerLibrary
-from plone.app.robotframework.saucelabs import SauceLabsLibrary
-from plone.app.robotframework.keywords import DebuggingLibrary
-from plone.app.robotframework.keywords import LayoutMathLibrary
+from plone.app.robotframework.server import Zope2Server
+from plone.app.robotframework.saucelabs import SauceLabs
+from plone.app.robotframework.keywords import Debugging
+from plone.app.robotframework.keywords import LayoutMath
 
 # Remote Python libraries
-from plone.app.robotframework.quickinstaller import QuickInstallerRemoteLibrary
-from plone.app.robotframework.autologin import AutoLoginRemoteLibrary
+from plone.app.robotframework.quickinstaller import QuickInstaller
+from plone.app.robotframework.autologin import AutoLogin
 
 # Generic remote Python library layer
 from plone.app.robotframework.remote import RemoteLibraryLayer

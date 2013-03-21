@@ -35,7 +35,7 @@ def start(zope_layer_dotted_name):
 
     print WAIT("Starting Zope 2 server")
 
-    zsl = Zope2ServerLibrary()
+    zsl = Zope2Server()
     zsl.start_zope_server(zope_layer_dotted_name)
 
     print READY("Started Zope 2 server")
@@ -62,7 +62,7 @@ def start_reload(zope_layer_dotted_name, reload_paths=('src',),
 
     print WAIT("Starting Zope 2 server")
 
-    zsl = Zope2ServerLibrary()
+    zsl = Zope2Server()
     zsl.start_zope_server(preload_layer_dotted_name)
 
     forkloop = ForkLoop()
@@ -148,7 +148,7 @@ def server():
                      args.preload_layer or 'plone.app.testing.PLONE_FIXTURE')
 
 
-class RobotListener(object):
+class RobotListener:
 
     ROBOT_LISTENER_API_VERSION = 2
 
@@ -165,7 +165,7 @@ class RobotListener(object):
 ZODB = RobotListener  # BBB
 
 
-class Zope2ServerLibrary(object):
+class Zope2Server:
 
     def __init__(self):
         self.zope_layer = None
