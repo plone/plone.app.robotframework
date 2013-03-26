@@ -23,6 +23,8 @@ else:
 
 HAS_VERBOSE_CONSOLE = False
 
+ZSERVER_HOST = os.getenv("ZSERVER_HOST", "localhost")
+LISTENER_HOST = os.getenv("LISTENER_HOST", ZSERVER_HOST)
 LISTENER_PORT = int(os.getenv("LISTENER_PORT", 10001))
 
 TIME = lambda: time.strftime('%H:%M:%S')
@@ -40,7 +42,7 @@ def start(zope_layer_dotted_name):
 
     print READY("Started Zope 2 server")
 
-    listener = SimpleXMLRPCServer(('localhost', LISTENER_PORT),
+    listener = SimpleXMLRPCServer((LISTENER_HOST, LISTENER_PORT),
                                   logRequests=False)
     listener.allow_none = True
     listener.register_function(zsl.zodb_setup, 'zodb_setup')
@@ -75,8 +77,6 @@ def start_reload(zope_layer_dotted_name, reload_paths=('src',),
         print READY("Zope 2 server stopped")
         return
 
-    hostname = os.environ.get('ZSERVER_HOST', 'localhost')
-
     # XXX: For unknown reason call to socket.gethostbyaddr may cause malloc
     # errors on OSX in forked child when called from medusa http_server, but
     # proper sleep seem to fix it:
@@ -85,7 +85,7 @@ def start_reload(zope_layer_dotted_name, reload_paths=('src',),
     import platform
     if 'Darwin' in platform.uname():
         gethostbyaddr = socket.gethostbyaddr
-        socket.gethostbyaddr = lambda x: time.sleep(0.5) or (hostname,)
+        socket.gethostbyaddr = lambda x: time.sleep(0.5) or (ZSERVER_HOST,)
 
     # Setting smaller asyncore poll timeout will speed up restart a bit
     import plone.testing.z2
@@ -99,7 +99,7 @@ def start_reload(zope_layer_dotted_name, reload_paths=('src',),
     print READY("Zope 2 server started")
 
     try:
-        listener = SimpleXMLRPCServer((hostname, LISTENER_PORT),
+        listener = SimpleXMLRPCServer((LISTENER_HOST, LISTENER_PORT),
                                       logRequests=False)
     except socket.error as e:
         print ERROR(str(e))
@@ -153,7 +153,8 @@ class RobotListener:
     ROBOT_LISTENER_API_VERSION = 2
 
     def __init__(self):
-        server_listener_address = 'http://localhost:%s' % LISTENER_PORT
+        server_listener_address = 'http://%s:%s' % (
+            LISTENER_HOST, LISTENER_PORT)
         self.server = xmlrpclib.ServerProxy(server_listener_address)
 
     def start_test(self, name, attrs):
