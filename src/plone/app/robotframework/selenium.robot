@@ -25,6 +25,13 @@ Open test browser
     ...           remote_url=${REMOTE_URL}
     ...           desired_capabilities=${DESIRED_CAPABILITIES}
 
+Wait until location is
+    [Arguments]  ${expected_url}
+    ${TIMEOUT} =  Get Selenium timeout
+    ${IMPLICIT_WAIT} =  Get Selenium implicit wait
+    Wait until keyword succeeds  ${TIMEOUT}  ${IMPLICIT_WAIT}
+    ...                          Location should be  ${expected_url}
+
 # ----------------------------------------------------------------------------
 # Forms
 # ----------------------------------------------------------------------------

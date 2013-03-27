@@ -12,13 +12,6 @@ Go to homepage
     Go to   ${PLONE_URL}
     Wait until location is  ${PLONE_URL}
 
-Wait until location is
-    [Arguments]  ${expected_url}
-    ${TIMEOUT} =  Get Selenium timeout
-    ${IMPLICIT_WAIT} =  Get Selenium implicit wait
-    Wait until keyword succeeds  ${TIMEOUT}  ${IMPLICIT_WAIT}
-    ...                          Location should be  ${expected_url}
-
 # ----------------------------------------------------------------------------
 # Login/Logout
 # ----------------------------------------------------------------------------
