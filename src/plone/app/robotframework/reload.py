@@ -24,6 +24,7 @@ class Watcher(FileSystemEventHandler):
         'pt',
         'py',
         'xml',
+        'csv',
         'zcml',
     )))
 
