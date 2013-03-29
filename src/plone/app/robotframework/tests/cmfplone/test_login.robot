@@ -45,6 +45,7 @@ I enter invalid credentials
     Click Button  Log in
 
 I am logged in
+    # FIXME: The following has failed a few times randomly:
     Wait until page contains  ${TEST_USER_ID}
 
 I am not logged in
