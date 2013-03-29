@@ -33,6 +33,28 @@ Wait until location is
     ...                          Location should be  ${expected_url}
 
 # ----------------------------------------------------------------------------
+# Elements
+# ----------------------------------------------------------------------------
+
+Possibly stale element should not be visible
+    [Arguments]  ${locator}
+    @{value} =  Run keyword and ignore error
+    ...         Element should not be visible  ${locator}
+    Should be equal  @{value}[0]  PASS
+
+Element should not remain visible
+    [Documentation]  Due to the internals of Selenium2Library, a disappearing
+    ...              element may rise StaleElementReferenceException (element
+    ...              disappears between it's located and inspected). This
+    ...              keyword is a workaround that tries again until success.
+    [Arguments]  ${locator}
+    ${TIMEOUT} =  Get Selenium timeout
+    ${IMPLICIT_WAIT} =  Get Selenium implicit wait
+    Wait until keyword succeeds  ${TIMEOUT}  ${IMPLICIT_WAIT}
+    ...                          Possibly stale element should not be visible
+    ...                          ${locator}
+
+# ----------------------------------------------------------------------------
 # Forms
 # ----------------------------------------------------------------------------
 

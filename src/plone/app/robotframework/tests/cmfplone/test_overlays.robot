@@ -223,7 +223,7 @@ I close the overlay
     Click Element  css=div.overlay div.close
 
 overlay should close
-    Wait until keyword succeeds  2  2  Element Should Not Be Visible  id=exposeMask
+    Element should not remain visible  id=exposeMask
     Wait until keyword succeeds  2  2  Page should not contain element  css=div.overlay
 
 overlay shows an error
