@@ -10,8 +10,8 @@ Test Teardown  Run keywords  Report test status  Close all browsers
 
 *** Variables ***
 
-${TITLE} =  An actionsmenu page
-${PAGE_ID} =  an-actionsmenu-page
+${TITLE}  An actionsmenu page
+${PAGE_ID}  an-actionsmenu-page
 
 *** Test cases ***
 

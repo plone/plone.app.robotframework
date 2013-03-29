@@ -7,9 +7,9 @@ Library  plone.app.robotframework.SauceLabs
 
 *** Variables ***
 
-${BUILD_NUMBER} =  manual
-${DESIRED_CAPABILITIES} =  tunnel-identifier:manual
-${SESSION_ID} =
+${BUILD_NUMBER}  manual
+${DESIRED_CAPABILITIES}  tunnel-identifier:manual
+${SESSION_ID}
 
 *** Keywords ***
 

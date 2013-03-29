@@ -7,12 +7,12 @@ Resource  variables.robot
 
 *** Variables ***
 
-${SELENIUM_IMPLICIT_WAIT} =  0.5
-${SELENIUM_TIMEOUT} =  10
+${SELENIUM_IMPLICIT_WAIT}  0.5
+${SELENIUM_TIMEOUT}  10
 
-${BROWSER} =  Firefox
-${REMOTE_URL} =
-${DESIRED_CAPABILITIES} =
+${BROWSER}  Firefox
+${REMOTE_URL}
+${DESIRED_CAPABILITIES}
 
 *** Keywords ***
 

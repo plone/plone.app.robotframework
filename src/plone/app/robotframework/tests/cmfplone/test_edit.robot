@@ -10,8 +10,8 @@ Test Teardown  Run keywords  Report test status  Close all browsers
 
 *** Variables ***
 
-${TITLE} =  An edited page
-${PAGE_ID} =  an-edited-page
+${TITLE}  An edited page
+${PAGE_ID}  an-edited-page
 
 *** Test cases ***
 

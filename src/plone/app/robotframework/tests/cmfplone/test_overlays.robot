@@ -16,7 +16,7 @@ Test Teardown  Run keywords  Report test status  Close all browsers
 
 *** Variables ***
 
-${TEST_FOLDER} =  test-folder
+${TEST_FOLDER}  test-folder
 
 *** Test cases ***
 
