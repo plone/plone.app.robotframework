@@ -127,13 +127,16 @@ workflow link is clicked
     Set Suite Variable  ${OLD_STATE}  ${OLD_STATE}
     Click Link  xpath=//dl[@id='plone-contentmenu-workflow']/dt/a
     Click Link  xpath=(//dl[@id='plone-contentmenu-workflow']/dd//a)[1]
+    # FIXME: The above 'Click Link' fails on Internet Explorer, but the
+    # following keywors 'workflow link is clicked softly' passes. Until we know
+    # why, we check if the above worked and if not, we try the other approach.
     @{value} =  Run Keyword And Ignore Error
     ...         Page Should Contain  Item state changed.
     Run Keyword If  '@{value}[0]' == 'FAIL'
     ...         workflow link is clicked softly
 
 workflow link is clicked softly
-    [Documentation]  Sometimes Internet Explorer requires special care.
+    [Documentation]  This works on Internet Explorer, but not on Firefox...
     Mouse Over  xpath=//dl[@id='plone-contentmenu-workflow']/dt/a
     Click Link  xpath=//dl[@id='plone-contentmenu-workflow']/dt/a
     Mouse Over  xpath=(//dl[@id='plone-contentmenu-workflow']/dd//a)[1]
