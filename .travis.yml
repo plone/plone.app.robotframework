@@ -18,12 +18,12 @@ after_script:
 - kill $JAVA_PID
 env:
   global:
-  - secure: ! 'UDDQpOnB2b3/eLZ91eZICI0ONe3Z2JFl9PcK4X+32vq3QwUAZnASe9+u4xph
-      yUNLrHPBly52e8rDChcr9qYga7dt4l4rBD0FBHDXYB54ZfLbryGjyzylzIZ+
-      KDclDYy8v6S1dhP5RSkrhq0td9JtZQZxdnA7hzZ6BIKfA5bJFeQ='
-  - secure: ! 'fXGxapnlXsaom0+F6gxVXY3QcEOjKqz8UukDDFlM7BzgWITmzVylwbARaev0
-      ueMFNtZSZOXP57NqvN27TL7fuZnd5D6x37LxIGEHbvtauVIK4o4B+p5Ug42x
-      YGULDySxeI/5dxnji2zgEO3yBG/Q7kEIJ6RhaSLA01u2XwqYRds='
+  - secure: ! 'YLol0TyHB+XAUbCzzjfc5JJ5AFqEi/GVhGphtAAcSv8+JY6MhTVVTjyCPeoK
+      2nT7tDhQRnYKOAMBmTuP/TUdzFqBf5LvjrFxvcjBawJMRW85kuYEuXsS8XEx
+      C+lc1bbXSUPGA0x03tvSHIYbCowvVPZNUupxgRQdW2QLa5HcSuQ='
+  - secure: ! 'YhG9gTzNMbQWiHLO6RU2J9btjB8L4X/QpKgu4c48XHYEf0Mwgxi5kKhZTTqp
+      KY6/buwYhcBFWh0PQVC1b35lHHxI+bD4/d3v8xea7v670COdP0zMrgjXlSLn
+      bfV7g3/doSmAUtbEyUQdfzmWS8kyst0div6XzpWtR3cl6lP6Tfo='
   - ROBOT_BUILD_NUMBER=travis-$TRAVIS_BUILD_NUMBER
   - ROBOT_REMOTE_URL=http://$SAUCE_USERNAME:$SAUCE_ACCESS_KEY@ondemand.saucelabs.com:80/wd/hub
   matrix:
