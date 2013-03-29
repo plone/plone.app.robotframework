@@ -119,7 +119,7 @@ first menu should not be visible
     Wait until keyword succeeds  10s  1s  Element Should Not Be Visible  xpath=(//dl[contains(@class, 'actionMenu')])[1]//dd
 
 i click outside of menu
-    Mouse Down  xpath=//h1
+    Click Element  xpath=//h1
 
 workflow link is clicked
     # store current state
