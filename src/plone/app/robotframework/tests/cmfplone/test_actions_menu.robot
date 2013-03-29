@@ -127,6 +127,19 @@ workflow link is clicked
     Set Suite Variable  ${OLD_STATE}  ${OLD_STATE}
     Click Link  xpath=//dl[@id='plone-contentmenu-workflow']/dt/a
     Click Link  xpath=(//dl[@id='plone-contentmenu-workflow']/dd//a)[1]
+    @{value} =  Run Keyword And Ignore Error
+    ...         Page Should Contain  Item state changed.
+    Run Keyword If  '@{value}[0]' == 'FAIL'
+    ...         workflow link is clicked softly
+
+workflow link is clicked softly
+    [Documentation]  Sometimes Internet Explorer requires special care.
+    Mouse Over  xpath=//dl[@id='plone-contentmenu-workflow']/dt/a
+    Click Link  xpath=//dl[@id='plone-contentmenu-workflow']/dt/a
+    Mouse Over  xpath=(//dl[@id='plone-contentmenu-workflow']/dd//a)[1]
+    Mouse Down  xpath=(//dl[@id='plone-contentmenu-workflow']/dd//a)[1]
+    Mouse Up  xpath=(//dl[@id='plone-contentmenu-workflow']/dd//a)[1]
+    Page Should Contain  Item state changed.
 
 state should have changed
     ${NEW_STATE} =  Get Text  xpath=//span[contains(@class,'state-')]
