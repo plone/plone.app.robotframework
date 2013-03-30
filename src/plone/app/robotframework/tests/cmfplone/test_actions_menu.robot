@@ -142,7 +142,7 @@ workflow link is clicked softly
     Mouse Over  xpath=(//dl[@id='plone-contentmenu-workflow']/dd//a)[1]
     Mouse Down  xpath=(//dl[@id='plone-contentmenu-workflow']/dd//a)[1]
     Mouse Up  xpath=(//dl[@id='plone-contentmenu-workflow']/dd//a)[1]
-    Page Should Contain  Item state changed.
+    Wait until page contains  Item state changed.
 
 state should have changed
     ${NEW_STATE} =  Get Text  xpath=//span[contains(@class,'state-')]
