@@ -1,5 +1,6 @@
 - Anatoly Bubenkov
 - Asko Soukka
+- Carles Bruguera
 - Chris Ewing
 - Chris Shenton
 - Ed Manlove
@@ -8,9 +9,12 @@
 - Hector Velarde
 - Johan Beyers
 - Jonas Baumann
+- Kees Hink
+- Laure Perez Mayos
 - Leo Rochael
 - Mikko Ohtamaa
 - Roman Kozlovskyi
 - Steffen Lindner
 - Timo Stollenwerk
+- Victor Fernández de Alba
 - zotya
