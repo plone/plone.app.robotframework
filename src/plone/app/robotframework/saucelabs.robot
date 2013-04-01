@@ -40,4 +40,4 @@ Report test status
     ...              is sent to fix test names missing colons (:).
     Run keyword unless  '${SESSION_ID}' == ''
     ...    Report sauce status  ${SESSION_ID}  ${SUITE_NAME} | ${TEST_NAME}
-    ...                         ${TEST_STATUS}  ${TEST_TAGS}
+    ...                         ${TEST_STATUS}  ${TEST_TAGS}  ${REMOTE_URL}

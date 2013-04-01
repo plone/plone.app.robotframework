@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import re
 import os
 import httplib
 import base64
@@ -15,14 +16,19 @@ Selenium2Library.keywords._browsermanagement.\
     _BrowserManagementKeywords.get_session_id = lambda self:\
     self._cache.current.session_id
 
+USERNAME_ACCESS_KEY = re.compile('^(http|https):\/\/([^:]+):([^@]+)@')
+
 
 class SauceLabs:
 
-    def report_sauce_status(self, job_id, name, status, tags=[]):
+    def report_sauce_status(self, job_id, name, status, tags=[], url=''):
         """Report test status and tags to SauceLabs
         """
-        username = os.environ.get('SAUCE_USERNAME')
-        access_key = os.environ.get('SAUCE_ACCESS_KEY')
+        if USERNAME_ACCESS_KEY.match(url):
+            username, access_key = USERNAME_ACCESS_KEY.findall(url)[0][1:]
+        else:
+            username = os.environ.get('SAUCE_USERNAME')
+            access_key = os.environ.get('SAUCE_ACCESS_KEY')
 
         if not job_id:
             return u"No Sauce job id found. Skipping..."
