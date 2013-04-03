@@ -5,14 +5,14 @@ version = '0.1.1.dev0'
 
 long_description = (
     open('README.rst').read()
-    + u'\n' +
-    u'Contributors\n'
-    u'============\n'
-    + u'\n' +
-    open('CONTRIBUTORS.txt').read()
-    + u'\n' +
+    + '\n' +
+    'Contributors\n'
+    '============\n'
+    + '\n' +
+    open('CONTRIBUTORS.txt').read().decode('utf-8')
+    + '\n' +
     open('CHANGES.txt').read()
-    + u'\n'
+    + '\n'
 )
 
 console_scripts = [
