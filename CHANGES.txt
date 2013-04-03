@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.1dev (unreleased)
--------------------
+0.1.0 (2013-04-03)
+------------------
 
-- First functionality
+- PLOG2013 development release.
