@@ -1,9 +1,10 @@
-**plone.app.robotframework** holds `Robot Framework
-<http://code.google.com/p/robotframework/>`_ resources for writing functional
-Selenium (including acceptance tests) for Plone CMS and its add-ons.
+**plone.app.robotframework** provides `Robot Framework
+<http://code.google.com/p/robotframework/>`_ compatible resources and tools for
+writing functional Selenium tests (including acceptance tests) for Plone CMS
+and its add-ons.
 
 Please read the full documentation at
-`ReadTheDocs <http://readthedocs.org/docs/ploneact/en/latest/index.html>`_.
+`Plone Developer Documentation <http://developer.plone.org/#manuals>`_.
 
 .. image:: https://secure.travis-ci.org/plone/plone.app.robotframework.png
      :target: http://travis-ci.org/plone/plone.app.robotframework
