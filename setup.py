@@ -1,18 +1,18 @@
 from setuptools import setup
 from setuptools import find_packages
 
-version = '0.1.0'
+version = '0.1.1.dev0'
 
 long_description = (
     open('README.rst').read()
-    + '\n' +
-    'Contributors\n'
-    '============\n'
-    + '\n' +
+    + u'\n' +
+    u'Contributors\n'
+    u'============\n'
+    + u'\n' +
     open('CONTRIBUTORS.txt').read()
-    + '\n' +
+    + u'\n' +
     open('CHANGES.txt').read()
-    + '\n'
+    + u'\n'
 )
 
 console_scripts = [
