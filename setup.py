@@ -20,6 +20,7 @@ console_scripts = [
     "robot = plone.app.robotframework.robotentrypoints:robot",
     "pybot = plone.app.robotframework.robotentrypoints:pybot",
     "rebot = plone.app.robotframework.robotentrypoints:rebot",
+    "ride = plone.app.robotframework.robotentrypoints:ride",
     "act_server = plone.app.robotframework.server:server",  # BBB for plone.act
 ]
 
@@ -41,6 +42,10 @@ install_requires = [
     'selenium',
     # BBB for plone.act:
     'zope.deprecation',
+]
+
+ride_requires = [
+    'robotframework-ride'
 ]
 
 reload_requires = [
@@ -67,6 +72,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=install_requires,
-    extras_require={'reload': reload_requires},
+    extras_require={'ride': ride_requires,
+                    'reload': reload_requires},
     entry_points=entry_points,
 )
