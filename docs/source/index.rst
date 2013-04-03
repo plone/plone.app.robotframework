@@ -1,13 +1,21 @@
-Plone ACT -- functional tests for Plone made easy
-=================================================
+Writing Robot Framework tests for Plone
+=======================================
 
-**plone.act** and its documentation gives you everything to get started in
-writing and executing functional Selenium tests (including acceptance tests)
-for your Plone add-on.
+.. warning::
 
-**plone.act** performs functional testing by using two testing frameworks:
-`Robot Framework <http://code.google.com/p/robotframework/>`_ and
-`Selenium <http://seleniumhq.org/>`_.
+    It's Plone Open Garden 2013 (from 3.4.2013 to 7.4.2013) and a lot of
+    changes will be made during the event.
+
+**plone.app.robotframework** provides `Robot Framework
+<http://code.google.com/p/robotframework/>`_ compatible resources and tools for
+writing functional Selenium tests (including acceptance tests) for Plone CMS
+and its add-ons.
+
+**This documentation** gives you everything to get started in writing and
+executing functional Selenium tests (including acceptance tests) for Plone or
+your own Plone add-on. It depends on two testing frameworks: `Robot Framework
+<http://code.google.com/p/robotframework/>`_ and `Selenium
+<http://seleniumhq.org/>`_.
 
 Robot Framework is a generic test automation framework for acceptance testing
 and acceptance test-driven development (ATDD), even for behavior driven
@@ -50,7 +58,7 @@ Print these
 -----------
 
 **Robot Framework built-in library documentation**
-    http://robotframework.googlecode.com/hg/doc/libraries/BuiltIn.html?r=2.7.6
+    http://robotframework.googlecode.com/hg/doc/libraries/BuiltIn.html?r=2.7.7
 **Robot Framework Selenium2Library documentation**
     http://rtomac.github.com/robotframework-selenium2library/doc/Selenium2Library.html
 
@@ -69,5 +77,5 @@ Become master
    :maxdepth: 1
    :titlesonly:
 
-   Speed up your test writing with ACT-server <server>
+   Speed up your test writing with robot-server <server>
    Speed up your BDD Given-clauses with a remote library <remote>

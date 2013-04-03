@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# plone.act documentation build configuration file, created by
+# plone.app.robotframework documentation build configuration file, created by
 # sphinx-quickstart on Wed Sep 12 14:43:02 2012.
 #
 # This file is execfile()d with the current directory set to its containing dir.
@@ -40,8 +40,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'plone.act'
-copyright = u'2012, Plone Foundation'
+project = u'plone.app.robotframework'
+copyright = u'2013, Plone Foundation'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -164,7 +164,7 @@ html_static_path = ['_static']
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'ploneactdoc'
+htmlhelp_basename = 'parobotframeworkdoc'
 
 
 # -- Options for LaTeX output --------------------------------------------------
@@ -183,7 +183,7 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'ploneact.tex', u'plone.act Documentation',
+  ('index', 'parobotframework.tex', u'Writing Robot Framework tests for Plone',
    u'Plone Foundation', 'manual'),
 ]
 
@@ -213,7 +213,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'ploneact', u'plone.act Documentation',
+    ('index', 'parobotframework', u'Writing Robot Framework tests for Plone',
      [u'Plone Foundation'], 1)
 ]
 
@@ -227,8 +227,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'ploneact', u'plone.act Documentation',
-   u'Plone Foundation', 'ploneact', 'One line description of project.',
+  ('index', 'parobotframework', u'Writing Robot Framework tests for Plone',
+   u'Plone Foundation', 'parobotframework', 'One line description of project.',
    'Miscellaneous'),
 ]
 
