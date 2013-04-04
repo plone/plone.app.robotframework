@@ -1,11 +1,13 @@
 Changelog
 =========
 
-0.1.1 (unreleased)
+0.2.0 (2013-04-04)
 ------------------
 
-- Nothing changed yet.
-
+- PLOG2013 development release.
+- Drop BBB for plone.act
+- Drop entrypoints for pure pybot and rebot to make it easier to use them pure
+  without extra dependencies by installing robotentrypoints-package
 
 0.1.0 (2013-04-03)
 ------------------
