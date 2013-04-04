@@ -64,7 +64,7 @@ LIVESEARCH_ROBOT_TESTING = FunctionalTesting(
 
 AUTOLOGIN_LIBRARY_FIXTURE = RemoteLibraryLayer(
     bases=(PLONE_FIXTURE,),
-    libraries=(AutoLogin),
+    libraries=(AutoLogin,),
     name="AutoLoginRemoteLibrary:RobotRemote"
 )
 
