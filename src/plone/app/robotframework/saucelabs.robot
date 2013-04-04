@@ -8,7 +8,6 @@ Library  plone.app.robotframework.SauceLabs
 *** Variables ***
 
 ${BUILD_NUMBER}  manual
-${DESIRED_CAPABILITIES}  tunnel-identifier:manual
 ${SELENIUM_VERSION}  2.31.0
 ${SESSION_ID}
 
@@ -25,9 +24,12 @@ Open SauceLabs test browser
     ...              build:${BUILD_NUMBER},name:${SUITE_INFO} | ${TEST_INFO}
     ${SAUCE_EXTRAS} =  Set variable
     ...                selenium-version:${SELENIUM_VERSION},${BUILD_INFO}
+    ${SAUCE_CAPABILITIES} =  Replace String Using Regexp
+    ...                      ${DESIRED_CAPABILITIES},${SAUCE_EXTRAS}
+    ...                      ^,  ${EMPTY}
     Open browser  ${PLONE_URL}  ${BROWSER}
     ...           remote_url=${REMOTE_URL}
-    ...           desired_capabilities=${DESIRED_CAPABILITIES},${SAUCE_EXTRAS}
+    ...           desired_capabilities=${SAUCE_CAPABILITIES}
     Run keyword and ignore error  Set session id
 
 Set session id
