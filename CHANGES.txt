@@ -1,15 +1,17 @@
 Changelog
 =========
 
-0.2.5 (unreleased)
+
+0.2.5 (2013-04-05)
 ------------------
 
-- Nothing changed yet.
-
+- PLOG2013 development release.
+- Fix Sauce Labs -library to work without tunnel identifier
 
 0.2.4 (2013-04-04)
 ------------------
 
+- PLOG2013 development release.
 - Fix typo in AUTOLOGIN_LIBRARY_FIXTURE
 
 0.2.3 (2013-04-04)
