@@ -7,7 +7,6 @@ install:
 - java -jar Sauce-Connect.jar $SAUCE_USERNAME $SAUCE_ACCESS_KEY -i $TRAVIS_JOB_ID
   -f CONNECTED 1>/dev/null &
 - JAVA_PID=$!
-- mkdir -p buildout-cache/eggs
 - mkdir -p buildout-cache/downloads
 - python bootstrap.py -c travis.cfg
 - bin/buildout -N -t 3 -c travis.cfg
