@@ -1,19 +1,7 @@
 Changelog
 =========
 
-0.2.2 (unreleased)
-------------------
-
-- Nothing changed yet.
-
-
-0.2.1 (2013-04-04)
-------------------
-
-- Nothing changed yet.
-
-
-0.2.1 (2013-04-04)
+0.2.2 (2013-04-04)
 ------------------
 
 - PLOG2013 development release.
