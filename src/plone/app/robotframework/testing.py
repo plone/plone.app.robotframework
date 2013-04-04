@@ -62,6 +62,12 @@ LIVESEARCH_ROBOT_TESTING = FunctionalTesting(
     name="LiveSearch:Robot"
 )
 
+AUTOLOGIN_LIBRARY_FIXTURE = RemoteLibraryLayer(
+    bases=(PLONE_FIXTURE,),
+    libraries=(AutoLogin),
+    name="AutoLoginRemoteLibrary:RobotRemote"
+)
+
 REMOTE_LIBRARY_BUNDLE_FIXTURE = RemoteLibraryLayer(
     bases=(PLONE_FIXTURE,),
     libraries=(AutoLogin, QuickInstaller),
@@ -76,7 +82,7 @@ REMOTE_LIBRARY_ROBOT_TESTING = FunctionalTesting(
 )
 
 AUTOLOGIN_ROBOT_TESTING = FunctionalTesting(
-    bases=(REMOTE_LIBRARY_BUNDLE_FIXTURE, z2.ZSERVER_FIXTURE),
+    bases=(AUTOLOGIN_LIBRARY_FIXTURE, z2.ZSERVER_FIXTURE),
     name="AutoLogin:Robot"
 )
 
