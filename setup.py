@@ -18,10 +18,7 @@ long_description = (
 console_scripts = [
     "robot-server = plone.app.robotframework.server:server",
     "robot = plone.app.robotframework.robotentrypoints:robot",
-    "pybot = plone.app.robotframework.robotentrypoints:pybot",
-    "rebot = plone.app.robotframework.robotentrypoints:rebot",
     "ride = plone.app.robotframework.robotentrypoints:ride",
-    "act_server = plone.app.robotframework.server:server",  # BBB for plone.act
 ]
 
 entry_points = dict(console_scripts=console_scripts)
@@ -40,11 +37,10 @@ install_requires = [
     # Implicit Robot Framework dependencies:
     'decorator',
     'selenium',
-    # BBB for plone.act:
-    'zope.deprecation',
 ]
 
 ride_requires = [
+    # GUI
     'robotframework-ride'
 ]
 
