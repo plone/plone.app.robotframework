@@ -1,7 +1,7 @@
 from setuptools import setup
 from setuptools import find_packages
 
-version = '0.2.2'
+version = '0.2.3.dev0'
 
 long_description = (
     open('README.rst').read()
@@ -9,7 +9,7 @@ long_description = (
     'Contributors\n'
     '============\n'
     + '\n' +
-    unicode(open('CONTRIBUTORS.txt').read(), 'utf-8')
+    open('CONTRIBUTORS.txt').read()
     + '\n' +
     open('CHANGES.txt').read()
     + '\n'

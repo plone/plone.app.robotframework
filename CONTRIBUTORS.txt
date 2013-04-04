@@ -16,5 +16,5 @@
 - Roman Kozlovskyi
 - Steffen Lindner
 - Timo Stollenwerk
-- Victor Fernández de Alba
+- Victor Fernandez de Alba
 - zotya
