@@ -1,10 +1,11 @@
 Changelog
 =========
 
-0.2.0 (2013-04-04)
+0.2.1 (2013-04-04)
 ------------------
 
 - PLOG2013 development release.
+- Define dedicated re-usable AUTOLOGIN_ROBOT_FIXTURE
 - Drop BBB for plone.act
 - Drop entrypoints for pure pybot and rebot to make it easier to use them pure
   without extra dependencies by installing robotentrypoints-package
