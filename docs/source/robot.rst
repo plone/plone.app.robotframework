@@ -1,28 +1,25 @@
 Learn more robot
 ================
 
-Robot Framework is a generic and independent test automation framework with its
-own expandable test syntax, test runner and test reporting tools. Yet, because
-of its extensibility it's very pleasant to work with.
+Robot Framework is a generic and independent test automation framework.
+It hasits own expandable test syntax, test runner and test reporting tools.
+Yet, because of its extensibility it's very pleasant to work with.
 
 Robot is all about running test clauses called **keywords**. Every test may
 contain one more keywords, which are run in serial -- usually until first of
 them fails.
 
 Keywords are defined in **keywords libraries** and as **user keywords**.
-Keyword libraries may be, for example, Python libraries or XML-RPC-services.
-User keywords are just composite lists of existing keywords -- also user
-keywords.
-
-Because user keywords can also be composite of other user keywords,
-they make it possible to write tests in domain-specific language.
+Keyword libraries can Python libraries or XML-RPC-services. User keywords are
+lists of test clauses reusing existing keywords. User keywords may also re-use
+other user keywords.
 
 
 Test suite
 ----------
 
-Robot tests are written in test suites, which are simply plain text files,
-usually ending with ``.txt``.
+Robot tests are written in test suites, which are plain text files, usually
+ending with ``.robot`` (or just ``.txt``).
 
 .. note::
 
@@ -35,7 +32,7 @@ Here's an example test suite::
     *** Settings ***
 
     Library  Selenium2Library  timeout=10  implicit_wait=0.5
-    Resources  keywords.txt
+    Resources  keywords.robot
 
     Suite Setup  Start browser
     Suite Teardown  Close All Browsers

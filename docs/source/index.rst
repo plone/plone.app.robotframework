@@ -7,15 +7,16 @@ Writing Robot Framework tests for Plone
     changes will be made during the event.
 
 **plone.app.robotframework** provides `Robot Framework
-<http://code.google.com/p/robotframework/>`_ compatible resources and tools for
+<http://code.google.com/p/robotframework/>`_ compatible tools and resources for
 writing functional Selenium tests (including acceptance tests) for Plone CMS
 and its add-ons.
 
 **This documentation** gives you everything to get started in writing and
 executing functional Selenium tests (including acceptance tests) for Plone or
-your own Plone add-on. It depends on two testing frameworks: `Robot Framework
+your own Plone add-on. It depends on two testing frameworks, `Robot Framework
 <http://code.google.com/p/robotframework/>`_ and `Selenium
-<http://seleniumhq.org/>`_.
+<http://seleniumhq.org/>`_, and uses the tools and resources provided by
+plone.app.robotframework.
 
 Robot Framework is a generic test automation framework for acceptance testing
 and acceptance test-driven development (ATDD), even for behavior driven
@@ -23,9 +24,21 @@ development (BDD). It has easy-to-use plain text test syntax and utilizes the
 keyword-driven testing approach. Selenium is a web browser automation framework
 that exercises the browser as if the user was interacting with the browser.
 
+Selenium is a generic browser controlling framework.
+
 
 Start here
 ----------
+
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+
+
+
+
+Old tutorials
+-------------
 
 .. toctree::
    :maxdepth: 1
@@ -36,22 +49,6 @@ Start here
    Learn more robot ... <robot>
    ... also by reading some good examples <https://github.com/plone/Products.CMFPlone/blob/master/Products/CMFPlone/tests/robot/robot_livesearch.txt>
    Debug robot tests <debugging>
-
-.. If you are developing for Plone core and want information about
-.. acceptance tests for Plone core skip to ADD-LINK-HERE.
-..
-.. Contents:
-..
-.. .. toctree::
-..    :maxdepth: 2
-..
-..    robotsuite.rst
-..    plone-keywords/index.rst
-..    keywords.rst
-..
-.. Run single robot tests::
-..
-..   $ bin/test -s plone.app.deco -t Robot_Testcase_you_want_to_run
 
 
 Print these
