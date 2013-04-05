@@ -1,22 +1,35 @@
 Debugging robot tests
 =====================
 
-1. Slow done Selenium (WebDriver) to make the tests easier to follow::
+1. Pause Selenium (WebDriver) completely to inspect your step with
+   *Pause execution* keywords from *Dialogs*-library shipped with
+   Robot Framework::
 
-    Set Selenium Speed  0.5 seconds
+       ***Settings***
 
+       Library  Dialogs
+
+       ...
+
+       Test case
+          ...
+          Pause execution
 
 2. Pause Selenium (WebDriver) completely to inspect your step::
 
     Set Selenium Timeout  600 seconds
     Wait For Condition  true
 
-3. Write a python keyword into your Python keyword library
+3. Slow done Selenium (WebDriver) to make the tests easier to follow::
+
+    Set Selenium Speed  0.5 seconds
+
+4. Write a python keyword into your Python keyword library
    to drop the Zope server into debugger.
 
    There's one catch in debugging your code while running Robot Framework
-   tests. Robot eats your standard input and output, which prevents you to just
-   ``import pdb; pdb.set_trace()``.
+   tests. Robot may eat your standard input and output, which prevents you to
+   just ``import pdb; pdb.set_trace()``.
 
    Instead, you have to add a few more lines to reclaim your I/O at first, and
    only then let your debugger in::
