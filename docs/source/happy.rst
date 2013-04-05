@@ -100,9 +100,9 @@ Update ``buildout.cfg``::
         plone.app.robotframework[ride,reload]
 
 .. note:: Robot-tools are optional, but will ease and speed up test
-   development. [reload]-extras will make ``robot-server`` to detect
-   filesystem changes under ``./src`` and reload the test layer a
-   change is detected. [ride]-extras will create a script to start
+   development. [reload]-extras will make ``robot-server`` detect
+   filesystem changes under ``./src`` and reload the test layer when
+   a change is detected. [ride]-extras will create a script to start
    RIDE, the IDE for Robot Framework, but it can be launched only
    explicitly with a compatible system python with wxPython 2.8.x
    installed.
