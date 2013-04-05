@@ -47,7 +47,7 @@ def test_suite():
 
         layered(robotsuite.RobotTestSuite(
                 "test_autologin_library.robot"),
-                layer=AUTOLOGIN_ROBOT_TESTING),
+                layer=SIMPLE_PUBLICATION_ROBOT_TESTING),
         layered(robotsuite.RobotTestSuite(
                 "test_quickinstaller_library.robot"),
                 layer=REMOTE_LIBRARY_ROBOT_TESTING),
