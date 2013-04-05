@@ -18,7 +18,7 @@ And see also a minimal example:
 - https://travis-ci.org/datakurre/example.product
 - https://saucelabs.com/u/exampleproduct
 
-And get started by yourself:
+And then get started by yourself:
 
 
 Require plone.app.robotframework
@@ -33,11 +33,14 @@ Update ``setup.py`` to require *plone.app.robotframework*::
         ],
     },
 
-All you need is *plone.app.robotframework*.
+All your need is *plone.app.robotframework*.
 It will require the rest (*selenium*, *robotframework*,
 *robotframework-selenium2library* and *robotsuite*).
 
-.. note:: ..
+.. note:: Because Selenium-bindings for Python use Firefox as the
+   default browser, you should have Firefox installed in your system (unless
+   you already know, how to configure other browsers to work with Selenium).
+
 
 Define functional testing layer
 -------------------------------
@@ -50,19 +53,11 @@ Update your ``src/my/product/testing.py`` to include::
 
     from plone.testing import z2
     from plone.app.testing import FunctionalTesting
-
-    MY_PRODUCT_ROBOT_TESTING = FunctionalTesting(
-        bases=(MY_PRODUCT_FIXTURE, z2.ZSERVER),
-        name="MyProduct:Robot")
-
-For example, a functional testing layer definition for Plomino could lool like::
-
-    from plone.app.testing import FunctionalTesting
     from plone.app.robotframework.testing import AUTOLOGIN_LIBRARY_FIXTURE
 
-    PLOMINO_ROBOT_TESTING = FunctionalTesting(
-        bases=(AUTOLOGIN_LIBRARY_FIXTURE, PLOMINO_FIXTURE, z2.ZSERVER),
-        name="Plomino:Robot")
+    MY_PRODUCT_ROBOT_TESTING = FunctionalTesting(
+        bases=(AUTOLOGIN_LIBRARY_FIXTURE, MY_PRODUCT_FIXTURE, z2.ZSERVER),
+        name="MyProduct:Robot")
 
 .. note:: AUTOLOGIN_LIBRARY_FIXTURE is optional, but it will allow you to
    write faster Selenium tests, because tests don't need to spend time on
@@ -101,9 +96,9 @@ Update ``buildout.cfg``::
         plone.app.robotframework[ride,reload]
 
 .. note:: Robot-tools are optional, but will ease and speed up test
-   development. [reload]-extras will make ``robot-server`` detect
-   filesystem changes under ``./src`` and reload the test layer when
-   a change is detected. [ride]-extras will create a script to start
+   development. [reload]-extras will make ``robot-server`` to detect
+   filesystem changes under ``./src`` and reload the test layer a
+   change is detected. [ride]-extras will create a script to start
    RIDE, the IDE for Robot Framework, but it can be launched only
    explicitly with a compatible system python with wxPython 2.8.x
    installed.
@@ -116,11 +111,6 @@ Once the buildout with Robot-tools is run, start the test server with::
 
     $ bin/robot-server my.product.testing.MY_PRODUCT_ROBOT_TESTING
 
-This is how the test layer is started with the example Plomino testing
-layer::
-
-    $ bin/robot-server Products.CMFPlomino.testing.PLOMINO_ROBOT_TESTING
-
 Once the test server has started, there's a test Plone-site served
 at http://localhost:55001/plone/.
 
@@ -129,14 +119,13 @@ at http://localhost:55001/plone/.
    layers and set them up in the required order.
 
 
-
 Write the first test
 --------------------
 
 Robot tests are written in test suites, which are plain text files, usually
 ending with ``.robot`` (and older ones with ``.txt``).
 
-The first test can be written anywhere in the filestystem.
+The first test can be written anywhere in the filesystem.
 
 For example, a ``test_hello.robot``::
 
@@ -162,7 +151,7 @@ Keyword libraries can be Python libraries or XML-RPC-services.
 User keywords are lists of test clauses reusing existing keywords.
 User keywords may also re-use other user keywords.
 
-Here is a more complicated example for Plomino::
+Here is a more complicated example::
 
     *** Settings ***
 
@@ -175,32 +164,22 @@ Here is a more complicated example for Plomino::
 
     *** Test Cases ***
 
-    Plomino is installed
-        Go to  ${PLONE_URL}
-        Page should contain  mydb
-
-    Form can be created
-        Log in as the database owner
-        Open the database
-        Create test form
+    Site Administrator can access control panel
+        Given I'm logged in as a 'Site Administrator'
+         When I open the personal menu
+         Then I see the Site Setup -link
 
     *** Keywords ***
 
-    Log in as the database owner
-        Enable autologin as  Site Administrator
-        Set autologin username  ${TEST_USER_ID}
+    I'm logged in as a '${ROLE}'
+        Enable autologin as  ${ROLE}
         Go to  ${PLONE_URL}
 
-    Open the database
-        Go to  ${PLONE_URL}/mydb
+    I open the personal menu
+        Click link  css=#user-name
 
-    Create test form
-        Click link  Form
-        Page should contain element  css=input#id
-        Input text  id  frm_test
-        Input text  title  Test Form
-        Click button  Save
-        Page should contain  Changes saved.
+    I see the Site Setup -link
+        Element should be visible  css=#personaltools-plone_setup
 
 .. note:: We use ``.robot`` as Robot Framework test suite
    file extension to make it easier for developers to
@@ -211,11 +190,10 @@ Here is a more complicated example for Plomino::
 Run the first test
 ------------------
 
-Once the ``bin/robot-server`` has been started
-and a test suite has been written,
-the test suite can be run with ``bin/robot``::
+Once the ``bin/robot-server`` has been started and a test suite has been
+written, the test suite can be run with ``bin/robot``::
 
-    $ bin/robot test_plomino.robot
+    $ bin/robot test_hello.robot
 
 
 .. note::: ``bin/robot`` is a wrapper for Robot Framework's
@@ -231,7 +209,7 @@ by zope.testrunner e.g. on Travis-CI, we usually want to integrate
 robot test to be run with other tests using *zope.testrunner*.
 
 For *zope.testrunner* integration, create
-``src/my/product/tests/test_robot.py`::
+``src/my/product/tests/test_robot.py``::
 
     import unittest
 
@@ -248,42 +226,35 @@ For *zope.testrunner* integration, create
         ])
         return suite
 
-For Plomino, we created ``Products/CMFPlomino/tests/test_robot.py``::
-
-    import unittest
-
-    import robotsuite
-    from Products.CMFPlomino.testing import PLOMINO_ROBOT_TESTING
-    from plone.testing import layered
-
-
-    def test_suite():
-        suite = unittest.TestSuite()
-        suite.addTests([
-            layered(robotsuite.RobotTestSuite('test_plomino.robot'),
-                    layer=PLOMINO_ROBOT_TESTING),
-        ])
-        return suite
-
-.. notes:: For this to work and ``zope.testrunner`` to discover your
-   robot test suite, remember to move ``test_plomino.robot`` under
-   ``Products/CMFPlomino/tests``.
+.. note:: For this to work and ``zope.testrunner`` to discover your
+   robot test suite, remember to move ``test_hello.robot`` under
+   ``my/product/tests``.
 
 It's good to know that this pattern is same how doctest suites are registered
-(e.g. in https://pypi.python.org/pypi/plone.testing) to use layer.
-Also, RobotSuite is a Collective-package, which only purpose is to wrap
-Robot Framework tests to be Python unittest compatible.
+(e.g. in https://pypi.python.org/pypi/plone.testing) to use layer.  Also,
+RobotSuite is a Collective-package, which only purpose is to wrap Robot
+Framework tests to be Python unittest compatible.
 
 
 Integrate to Sauce Labs
 -----------------------
 
 1. Register account for http://saucelabs.com/ with Open Sauce -plan.
-   Derive username from product name. For example, ``myproduct`` or
-   ``plomino``. User your own contact email for the beginning.
-   It can be changed later.
+   Derive username from product name. For example, ``myproduct``. User your own
+   contact email for the beginning.  It can be changed later.
 
-2. Update ``.travis.yml`` to set up the Sauce Labs connection before tests::
+2. Install travis-gem for you Ruby active Ruby-installation::
+
+       $ sudo gem install travis
+
+3. Log in to Sauce Labs to see your Sauce Labs access key.
+
+4. Encrypt Sauce Labs credentials into ``.travis.yml``::
+
+       $ travis encrypt SAUCE_USERNAME=myusername -r mygithubname/myproduct --add env.global
+       $ travis encrypt SAUCE_ACCESS_KEY=myaccesskey -r mygithubname/myproduct --add env.global
+
+5. Update ``.travis.yml`` to set up the Sauce Labs connection before tests::
 
        ---
        language: python
@@ -296,57 +267,24 @@ Integrate to Sauce Labs
        - unzip Sauce-Connect-latest.zip
        - java -jar Sauce-Connect.jar $SAUCE_USERNAME $SAUCE_ACCESS_KEY -i $TRAVIS_JOB_ID -f CONNECTED &
        - JAVA_PID=$!
-       before_script:
        - bash -c "while [ ! -f CONNECTED ]; do sleep 2; done"
        script: bin/test
        after_script:
        - kill $JAVA_PID
        env:
          global:
+         - secure: ! (here's an encrypted variable createdwith travis-commmand)
+         - secure: ! (here's an encrypted variable createdwith travis-commmand)
          - ROBOT_BUILD_NUMBER=travis-$TRAVIS_BUILD_NUMBER
          - ROBOT_REMOTE_URL=http://$SAUCE_USERNAME:$SAUCE_ACCESS_KEY@ondemand.saucelabs.com:80/wd/hub
          - ROBOT_DESIRED_CAPABILITIES=tunnel-identifier:$TRAVIS_JOB_ID
-
-And this is an example we came up for Plomino:: language: python
-       python:
-         - 2.7
-       install:
-         - mkdir -p buildout-cache/downloads
-         - python bootstrap.py -c travis.cfg -v 1.7.1
-         - bin/buildout -N -t 3 -c travis.cfg install download install
-         - bin/buildout -N -t 3 -c travis.cfg
-         - curl -O http://saucelabs.com/downloads/Sauce-Connect-latest.zip
-         - unzip Sauce-Connect-latest.zip
-         - java -jar Sauce-Connect.jar $SAUCE_USERNAME $SAUCE_ACCESS_KEY -i $TRAVIS_JOB_ID -f CONNECTED &
-         - JAVA_PID=$!
-       before_script:
-         - bash -c "while [ ! -f CONNECTED ]; do sleep 2; done"
-         - "export DISPLAY=:99.0"
-         - "sh -e /etc/init.d/xvfb start"
-       script:
-        - bin/test --coverage -m Products.CMFPlomino
-       env:
-         global:
-           - ROBOT_BUILD_NUMBER=travis-$TRAVIS_BUILD_NUMBER
-           - ROBOT_REMOTE_URL=http://$SAUCE_USERNAME:$SAUCE_ACCESS_KEY@ondemand.saucelabs.com:80/wd/hub
-           - ROBOT_DESIRED_CAPABILITIES=tunnel-identifier:$TRAVIS_JOB_ID
-
-3. Install travis-gem for you Ruby active Ruby-installation::
-
-       $ sudo gem install travis
-
-4. Log in to Sauce Labs to see your Sauce Labs access key.
-
-5. Encrypt Sauce Labs credentials into ``.travis.yml``::
-
-       $ travis encrypt SAUCE_USERNAME=myusername -r mygithubname/myproduct --add env.global
-       $ travis encrypt SAUCE_ACCESS_KEY=myaccesskey -r mygithubname/myproduct --add env.global
 
 6. Update the test to use SauceLabs test browser::
 
        *** Settings ***
 
        ...
+
        Resource  plone/app/robotframework/saucelabs.robot
 
        Test Setup  Open SauceLabs test browser
@@ -357,7 +295,9 @@ And this is an example we came up for Plomino:: language: python
 7. Update ``travis.cfg`` to allow downloading robotframework-packages::
 
        [buildout]
+
        ...
+
        allow-hosts +=
            code.google.com
            robotframework.googlecode.com
@@ -382,8 +322,32 @@ And this is an example we came up for Plomino:: language: python
        [test]
        environment = environment
 
-    The *environment*-part and line in *test*-part are optional, but are required to
-    run tests using Internet Explorer (via SauceLabs) later.
+   The *environment*-part and line in *test*-part are optional, but are required to
+   run tests using Internet Explorer (via SauceLabs) later.
+
+
+Running sauce labs build manually
+---------------------------------
+
+0. Start ``bin/robot-server``::
+
+       $ bin/robot my.product.testing.ROBOT_TESTING
+
+1. Run tests with ``bin/robot``::
+
+       $ bin/robot -v REMOTE_URL:http://SAUCE_USERNAME:SAUCE_ACCESS_KEY@ondemand.saucelabs.com:80/wd/hub -v BUILD_NUMBER:manual -v DESIRED_CAPABILITIES:tunnel-identifier:manual src/my/product/tests/test_product.robot
+
+or
+
+1. Create an argument file, e.g. ``saucelabs_arguments.txt``::
+
+       -v REMOTE_URL:http://SAUCE_USERNAME:SAUCE_ACCESS_KEY@ondemand.saucelabs.com:80/wd/hub
+       -v BUILD_NUMBER:manual
+       -v DESIRED_CAPABILITIES:tunnel-identifier:manual
+
+2. Execute ``bin/robot`` with the argument file option::
+
+       bin/robot -A saucelabs_arguments.txt src/my/product/tests/test_product.robot
 
 
 How to write more tests
@@ -442,4 +406,3 @@ Examples:
 
 - https://github.com/plone/plone.app.robotframework/tree/master/src/plone/app/robotframework/tests
 - http://plone.293351.n2.nabble.com/Robot-Framework-How-to-fill-TinyMCE-s-text-field-tp7563662p7563691.html
-
