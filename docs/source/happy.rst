@@ -1,18 +1,18 @@
-TODO:
+Writing Robot Framework tests with plone.app.robotframework
+===========================================================
 
-- Testing needs Firefox ...
-- Testing ...
+**plone.app.robotframework** provides `Robot Framework
+<http://code.google.com/p/robotframework/>`_ compatible resources and tools for
+writing functional Selenium tests (including acceptance tests) for Plone CMS
+and its add-ons.
 
-Write Robot Framework tests for a Plone add-on -- the Happy Path
-================================================================
-
-See how we used this for Plomino to run some Robot Tests at SaucesLabs:
+See how we used this for Plomino to run some robot tests at SauceLabs:
 
 - https://github.com/fulv/Plomino/compare/github-main
 - https://travis-ci.org/fulv/Plomino
 - https://saucelabs.com/u/fulv_plomino
 
-And also a minimal example at:
+And see also a minimal example:
 
 - https://github.com/datakurre/example.product/tree/p.a.robotframework
 - https://travis-ci.org/datakurre/example.product
@@ -37,6 +37,7 @@ All you need is *plone.app.robotframework*.
 It will require the rest (*selenium*, *robotframework*,
 *robotframework-selenium2library* and *robotsuite*).
 
+.. note:: ..
 
 Define functional testing layer
 -------------------------------
@@ -306,9 +307,7 @@ Integrate to Sauce Labs
          - ROBOT_REMOTE_URL=http://$SAUCE_USERNAME:$SAUCE_ACCESS_KEY@ondemand.saucelabs.com:80/wd/hub
          - ROBOT_DESIRED_CAPABILITIES=tunnel-identifier:$TRAVIS_JOB_ID
 
-And this is an example we came up for Plomino::
-
-       language: python
+And this is an example we came up for Plomino:: language: python
        python:
          - 2.7
        install:
