@@ -33,7 +33,7 @@ Update ``setup.py`` to require *plone.app.robotframework*::
         ],
     },
 
-All your need is *plone.app.robotframework*.
+All you need is *plone.app.robotframework*.
 It will require the rest (*selenium*, *robotframework*,
 *robotframework-selenium2library* and *robotsuite*).
 
