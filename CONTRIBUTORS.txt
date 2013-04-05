@@ -5,6 +5,7 @@
 - Chris Shenton
 - Ed Manlove
 - Esa-Matti Suuronen
+- Fulvio Casali
 - Godefroid Chapelle, Original Author
 - Hector Velarde
 - Johan Beyers
