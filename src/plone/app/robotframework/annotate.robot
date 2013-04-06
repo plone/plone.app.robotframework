@@ -2,17 +2,21 @@
 Documentation  This library expects jQuery to be found from the page to be
 ...            tested.
 
+Library  String
+
 Resource  speak.robot
+
 
 *** Keywords ***
 
 Add dot
-    [Arguments]  ${jqlocator}
+    [Arguments]  ${locator}
+    ${selector} =  Replace string using regexp  ${locator}  ^css=  ${empty}
     ${id} =  Execute Javascript
     ...    return (function(){
     ...        var id = 'id' + Math.random().toString().substring(2);
     ...        var annotation = jq('<div></div>');
-    ...        var target = jq("${jqlocator}");
+    ...        var target = jq("${selector}");
     ...        var offset = target.offset();
     ...        var height = target.height();
     ...        var width = target.width();
@@ -34,15 +38,16 @@ Add dot
     [return]  ${id}
 
 Add note
-    [Arguments]  ${jqlocator}  ${sleep}  ${message}
+    [Arguments]  ${locator}  ${sleep}  ${message}
     ...          ${background}=white
     ...          ${color}=black
     ...          ${border}=1px solid black
+    ${selector} =  Replace string using regexp  ${locator}  ^css=  ${empty}
     ${id} =  Execute Javascript
     ...    return (function(){
     ...        var id = 'id' + Math.random().toString().substring(2);
     ...        var annotation = jq('<div></div>');
-    ...        var target = jq("${jqlocator}");
+    ...        var target = jq("${selector}");
     ...        var offset = target.offset();
     ...        var height = target.height();
     ...        var width = target.width();
@@ -74,14 +79,14 @@ Remove element by id
     ...    })();
 
 Show note with dot
-    [Arguments]  ${jqlocator}  ${sleep}  ${message}
+    [Arguments]  ${locator}  ${sleep}  ${message}
     ...          ${background}=white
     ...          ${color}=black
     ...          ${border}=1px solid black
-    ${dot-id} =  Add dot  ${jqlocator}
+    ${dot-id} =  Add dot  ${locator}
     Sleep  1s
     Speak  ${message}
-    ${note-id} =  Add note  ${jqlocator}  ${sleep}  ${message}
+    ${note-id} =  Add note  ${locator}  ${sleep}  ${message}
     ...                     ${background}  ${color}  ${border}
     Sleep  2s
     Remove element by id  ${dot-id}

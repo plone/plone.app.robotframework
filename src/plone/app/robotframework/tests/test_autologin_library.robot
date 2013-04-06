@@ -26,11 +26,11 @@ Contributor can create a folder
     [Tags]  Foo
     Given I'm logged in as a 'Contributor'
      When I go to the front page
-     Show note with dot  \#user-name  2s  This is my username
-     Show note with dot  \#content  2s  This is the content
-     Show note with dot  \#portaltab-index_html  2s  This is the home button
-     Show note with dot  \#edit-bar  2s  This is the edit bar
-     Show note with dot  \#portal-logo  2s  This is the logo
+     Show note with dot  css=#user-name  2s  This is my username
+     Show note with dot  css=#content  2s  This is the content
+     Show note with dot  css=#portaltab-index_html  2s  This is the home button
+     Show note with dot  css=#edit-bar  2s  This is the edit bar
+     Show note with dot  css=#portal-logo  2s  This is the logo
      Then I can add a new folder
 
 Owner can add a sub-folder under her own folder
