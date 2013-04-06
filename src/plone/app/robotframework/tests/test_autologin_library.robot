@@ -3,7 +3,6 @@
 Resource  plone/app/robotframework/selenium.robot
 Resource  plone/app/robotframework/keywords.robot
 Resource  plone/app/robotframework/saucelabs.robot
-Resource  plone/app/robotframework/annotate.robot
 
 Library  Remote  ${PLONE_URL}/RobotRemote
 
@@ -23,14 +22,8 @@ Contributor cannot access control panel
      Then I cannot see the Site Setup -link
 
 Contributor can create a folder
-    [Tags]  Foo
     Given I'm logged in as a 'Contributor'
      When I go to the front page
-     Show note with dot  css=#user-name  2s  This is my username
-     Show note with dot  css=#content  2s  This is the content
-     Show note with dot  css=#portaltab-index_html  2s  This is the home button
-     Show note with dot  css=#edit-bar  2s  This is the edit bar
-     Show note with dot  css=#portal-logo  2s  This is the logo
      Then I can add a new folder
 
 Owner can add a sub-folder under her own folder

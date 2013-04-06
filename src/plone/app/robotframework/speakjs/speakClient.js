@@ -1,6 +1,6 @@
 var speakWorker;
 try {
-  speakWorker = new Worker('++resource++speakjs/speakWorker.js');
+  speakWorker = new Worker(portal_url + '/++resource++speakjs/speakWorker.js');
 } catch(e) {
   console.log('speak.js warning: no worker support');
 }
