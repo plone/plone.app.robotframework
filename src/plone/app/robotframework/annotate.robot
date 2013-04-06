@@ -80,8 +80,22 @@ Show note with dot
     ...          ${border}=1px solid black
     ${dot-id} =  Add dot  ${jqlocator}
     Sleep  1s
+    Speak  ${message}
     ${note-id} =  Add note  ${jqlocator}  ${sleep}  ${message}
     ...                     ${background}  ${color}  ${border}
-    Sleep  1s
+    Sleep  2s
     Remove element by id  ${dot-id}
     Remove element by id  ${note-id}
+
+Speak
+    [Arguments]   ${text}
+    Execute Javascript
+    ...    return (function(){
+    ...        if (jq('#audio').length == 0) {
+    ...            jq('<div id="audio"></div>').appendTo($('body'));
+    ...        }
+    ...        speak("${text}");
+    ...        return true;
+    ...    })();
+
+

@@ -9,6 +9,7 @@ from plone.app.testing import (
     PloneSandboxLayer,
     applyProfile,
     PLONE_FIXTURE,
+    PLONE_ZSERVER,
     FunctionalTesting,
     ploneSite
 )
@@ -40,6 +41,21 @@ class SimplePublicationLayer(Layer):
 SIMPLE_PUBLICATION_FIXTURE = SimplePublicationLayer()
 
 
+class SpeakJSLayer(Layer):
+
+    defaultBases = (PLONE_FIXTURE,)
+
+    def setUp(self):
+        import plone.app.robotframework
+        xmlconfig.file('speakjs.zcml', plone.app.robotframework,
+                       context=self['configurationContext'])
+
+        with ploneSite() as portal:
+            applyProfile(portal, 'plone.app.robotframework:speakjs')
+
+SPEAKJS_FIXTURE = SpeakJSLayer()
+
+
 class LiveSearchLayer(PloneSandboxLayer):
 
     defaultBases = (PLONE_FIXTURE,)
@@ -57,9 +73,15 @@ class LiveSearchLayer(PloneSandboxLayer):
 
 LIVESEARCH_FIXTURE = LiveSearchLayer()
 
+
 LIVESEARCH_ROBOT_TESTING = FunctionalTesting(
     bases=(LIVESEARCH_FIXTURE, z2.ZSERVER_FIXTURE),
     name="LiveSearch:Robot"
+)
+
+SPEAKJS_ROBOT_TESTING = FunctionalTesting(
+    bases=(SPEAKJS_FIXTURE, PLONE_ZSERVER),
+    name="SpeakJS:Robot"
 )
 
 AUTOLOGIN_LIBRARY_FIXTURE = RemoteLibraryLayer(
