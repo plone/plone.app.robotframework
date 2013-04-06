@@ -1,26 +1,25 @@
 *** Settings ***
 
-Library  plone.app.robotframework.Zope2ServerLibrary
+Library  plone.app.robotframework.Zope2Server
 
 Resource  selenium.robot
 
 *** Keywords ***
 
-Start browser and wake Plone up
-    [Arguments]  ${ZOPE_LAYER_DOTTED_NAME}
+Setup Plone site
+    [Arguments]  ${zope_layer_dotted_name}
 
-    Start Zope server  ${ZOPE_LAYER_DOTTED_NAME}
+    Start Zope server  ${zope_layer_dotted_name}
     Zodb setup
 
     ${previous} =  Register keyword to run on failure  Close Browser
-    Wait until keyword succeeds  2min  3s  Access plone
+    Wait until keyword succeeds  2min  3s  Browser can be opened
     Register keyword to run on failure  ${previous}
 
-Access Plone
+Browser can be opened
     Open test browser
-    Go to homepage
 
-Close browser, teardown zodb, and stop selenium server
-    Close browser
+Teardown Plone site
+    Close all browsers
     Zodb teardown
     Stop Zope server
