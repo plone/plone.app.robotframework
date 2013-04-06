@@ -56,7 +56,7 @@ Show note with dot
 
 *** Test cases ***
 
-Say something
+Introducing Mr. Roboto
     Go to  ${PLONE_URL}
     Sleep  1s
 
