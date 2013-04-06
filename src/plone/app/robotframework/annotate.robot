@@ -2,7 +2,7 @@
 Documentation  This library expects jQuery to be found from the page to be
 ...            tested.
 
-Library  Dialogs
+Resource  speak.robot
 
 *** Keywords ***
 
@@ -86,16 +86,3 @@ Show note with dot
     Sleep  2s
     Remove element by id  ${dot-id}
     Remove element by id  ${note-id}
-
-Speak
-    [Arguments]   ${text}
-    Execute Javascript
-    ...    return (function(){
-    ...        if (jq('#audio').length == 0) {
-    ...            jq('<div id="audio"></div>').appendTo($('body'));
-    ...        }
-    ...        speak("${text}");
-    ...        return true;
-    ...    })();
-
-

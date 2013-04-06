@@ -9,7 +9,6 @@ from plone.app.testing import (
     PloneSandboxLayer,
     applyProfile,
     PLONE_FIXTURE,
-    PLONE_ZSERVER,
     FunctionalTesting,
     ploneSite
 )
@@ -79,11 +78,6 @@ LIVESEARCH_ROBOT_TESTING = FunctionalTesting(
     name="LiveSearch:Robot"
 )
 
-SPEAKJS_ROBOT_TESTING = FunctionalTesting(
-    bases=(SPEAKJS_FIXTURE, PLONE_ZSERVER),
-    name="SpeakJS:Robot"
-)
-
 AUTOLOGIN_LIBRARY_FIXTURE = RemoteLibraryLayer(
     bases=(PLONE_FIXTURE,),
     libraries=(AutoLogin,),
@@ -113,4 +107,12 @@ SIMPLE_PUBLICATION_ROBOT_TESTING = FunctionalTesting(
            REMOTE_LIBRARY_BUNDLE_FIXTURE,
            z2.ZSERVER_FIXTURE),
     name="SimplePublication:Robot"
+)
+
+SPEAKJS_ROBOT_TESTING = FunctionalTesting(
+    bases=(SPEAKJS_FIXTURE,
+           SIMPLE_PUBLICATION_FIXTURE,
+           REMOTE_LIBRARY_BUNDLE_FIXTURE,
+           z2.ZSERVER_FIXTURE),
+    name="SpeakJS:Robot"
 )
