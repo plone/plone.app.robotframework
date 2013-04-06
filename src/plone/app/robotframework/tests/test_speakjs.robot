@@ -21,5 +21,5 @@ Say something
     Sleep  2s
     Speak  I am mister roboto
     Sleep  2s
-    Speak  'asta la vistaa, baby
+    Speak  'asta la vistaa. baby
     Sleep  3s
