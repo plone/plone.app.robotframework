@@ -4,6 +4,7 @@ from plone.app.robotframework.server import Zope2Server
 from plone.app.robotframework.saucelabs import SauceLabs
 from plone.app.robotframework.keywords import Debugging
 from plone.app.robotframework.keywords import LayoutMath
+from plone.app.robotframework.annotate import Annotate
 
 # Remote Python libraries
 from plone.app.robotframework.quickinstaller import QuickInstaller
