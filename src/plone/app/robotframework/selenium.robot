@@ -12,6 +12,7 @@ ${SELENIUM_TIMEOUT}  10
 
 ${BROWSER}  Firefox
 ${REMOTE_URL}
+${FF_PROFILE_DIR}
 ${DESIRED_CAPABILITIES}
 
 *** Keywords ***
@@ -21,9 +22,10 @@ ${DESIRED_CAPABILITIES}
 # ----------------------------------------------------------------------------
 
 Open test browser
-    Open browser  ${PLONE_URL}  ${BROWSER}
+    Open browser  ${START_URL}  ${BROWSER}
     ...           remote_url=${REMOTE_URL}
     ...           desired_capabilities=${DESIRED_CAPABILITIES}
+    ...           ff_profile_dir=${FF_PROFILE_DIR}
 
 Wait until location is
     [Arguments]  ${expected_url}

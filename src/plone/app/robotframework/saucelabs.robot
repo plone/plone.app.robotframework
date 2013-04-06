@@ -27,9 +27,10 @@ Open SauceLabs test browser
     ${SAUCE_CAPABILITIES} =  Replace String Using Regexp
     ...                      ${DESIRED_CAPABILITIES},${SAUCE_EXTRAS}
     ...                      ^,  ${EMPTY}
-    Open browser  ${PLONE_URL}  ${BROWSER}
+    Open browser  ${START_URL}  ${BROWSER}
     ...           remote_url=${REMOTE_URL}
     ...           desired_capabilities=${SAUCE_CAPABILITIES}
+    ...           ff_profile_dir=${FF_PROFILE_DIR}
     Run keyword and ignore error  Set session id
 
 Set session id

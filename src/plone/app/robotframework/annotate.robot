@@ -29,11 +29,12 @@ Add dot
     ...        var annotation = jQuery('<div></div>');
     ...        var target = jQuery('${selector}');
     ...        var offset = target.offset();
-    ...        var height = target.height();
-    ...        var width = target.width();
+    ...        var height = target.outerHeight();
+    ...        var width = target.outerWidth();
     ...        annotation.attr('id', id);
     ...        annotation.css({
     ...            'display': '${display}',
+    ...            'opacity': '0.5',
     ...            '-moz-box-sizing': 'border-box',
     ...            '-webkit-box-sizing': 'border-box',
     ...            'box-sizing': 'border-box',
@@ -55,9 +56,9 @@ Add dot
 
 Add note
     [Arguments]  ${locator}  ${sleep}  ${message}
-    ...          ${background}=white
+    ...          ${background}=#fcf0ad
     ...          ${color}=black
-    ...          ${border}=1px solid black
+    ...          ${border}=none
     ...          ${display}=block
     ${selector} =  Normalize annotation locator  ${locator}
     ${message} =  Replace string  ${message}  '  \\'
@@ -71,25 +72,27 @@ Add note
     ...        var annotation = jQuery('<div></div>');
     ...        var target = jQuery('${selector}');
     ...        var offset = target.offset();
-    ...        var width = target.width();
-    ...        var height = target.height();
+    ...        var width = target.outerWidth();
+    ...        var height = target.outerHeight();
     ...        annotation.attr('id', id);
     ...        annotation.text('${message}');
     ...        annotation.css({
     ...            'display': '${display}',
     ...            'position': 'absolute',
+    ...            'font-family': 'serif',
+    ...            'box-shadow': '0 0 5px #888',
     ...            '-moz-box-sizing': 'border-box',
     ...            '-webkit-box-sizing': 'border-box',
     ...            'box-sizing': 'border-box',
     ...            'padding': '0.5ex 0.5em',
-    ...            'border-radius': '1ex',
     ...            'border': '${border}',
+    ...            'border-radius': '2px',
     ...            'background': '${background}',
     ...            'color': '${color}',
     ...            'z-index': '9999',
-    ...            'width': '100px',
+    ...            'width': '140px',
     ...            'top': (offset.top + height / 2).toString() + 'px',
-    ...            'left': (offset.left + width / 2 - 50).toString() + 'px',
+    ...            'left': (offset.left + width / 2 - 70).toString() + 'px',
     ...        });
     ...        jQuery('body').append(annotation);
     ...        return id;

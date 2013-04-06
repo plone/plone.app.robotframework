@@ -13,25 +13,9 @@ Test Teardown  Run keywords  Report test status  Close all browsers
 
 *** Keywords ***
 
-Add fading dot
-    [Arguments]  ${locator}
-    ${dot} =  Add dot  ${locator}  display=none
-    Update element style  ${dot}  opacity  0.5
-    Update element style  ${dot}  display  block
-    Sleep  0.5s
-    [return]  ${dot}
-
 Add fading note
     [Arguments]  ${locator}  ${sleep}  ${message}
-    ...          ${background}=white
-    ...          ${color}=black
-    ...          ${border}=1px solid black
     ${note} =  Add note  ${locator}  ${sleep}  ${message}
-    ...                  ${background}  ${color}  ${border}
-    ...                  display=none
-    Update element style  ${note}  background  -moz-linear-gradient(top, rgba(235,241,246,1) 0%, rgba(171,211,238,1) 50%, rgba(137,195,235,1) 51%, rgba(213,235,251,1) 100%)
-    Update element style  ${note}  border  none
-    Update element style  ${note}  box-shadow   0 0 10px black
     Update element style  ${note}  -moz-transform  rotate(90deg)
     Update element style  ${note}  opacity  0
     Update element style  ${note}  -moz-transition  all 1s
@@ -43,13 +27,9 @@ Add fading note
 
 Show note with dot
     [Arguments]  ${locator}  ${sleep}  ${message}
-    ...          ${background}=white
-    ...          ${color}=black
-    ...          ${border}=1px solid black
-    ${dot} =  Add fading dot  ${locator}
+    ${dot} =  Add dot  ${locator}
     Speak  ${message}
     ${note} =  Add fading note  ${locator}  ${sleep}  ${message}
-    ...                         ${background}  ${color}  ${border}
     Sleep  2s
     Remove element  ${dot}
     Remove element  ${note}
@@ -99,12 +79,12 @@ Introducing Mr. Roboto
     Speak  'asta la vistaa.
     Sleep  3s
 
-    ${dot} =  Add fading dot  jquery=#user-name
+    ${dot} =  Add dot  jquery=#user-name
     Sleep  0.5s
     Click element  css=#user-name
     Sleep  0.5s
     Remove element  ${dot}
-    Add fading dot  jquery=#personaltools-logout
+    Add dot  jquery=#personaltools-logout
     Sleep  0.5s
     Disable autologin
     Click link  Log out
