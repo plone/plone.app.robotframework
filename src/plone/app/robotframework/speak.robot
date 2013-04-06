@@ -10,12 +10,12 @@ Library  String
 Speak
     [Documentation]  Speaks out the given test using speak.js (in english).
     [Arguments]   ${text}
-    ${escaped} =  Replace string  ${text}  '   \\'
+    ${text} =  Replace string  ${text}  '   \\'
     Execute Javascript
     ...    return (function(){
     ...        if (jq('#audio').length == 0) {
     ...            jq('<div id="audio"></div>').appendTo($('body'));
     ...        }
-    ...        speak('${escaped}');
+    ...        speak('${text}');
     ...        return true;
     ...    })();
