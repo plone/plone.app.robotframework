@@ -14,8 +14,8 @@ Test Teardown  Run keywords  Report test status  Close all browsers
 *** Keywords ***
 
 Add fading note
-    [Arguments]  ${locator}  ${sleep}  ${message}
-    ${note} =  Add note  ${locator}  ${sleep}  ${message}
+    [Arguments]  ${locator}  ${message}
+    ${note} =  Add note  ${locator}  ${message}
     Update element style  ${note}  -moz-transform  rotate(90deg)
     Update element style  ${note}  opacity  0
     Update element style  ${note}  -moz-transition  all 1s
@@ -26,10 +26,10 @@ Add fading note
     [return]  ${note}
 
 Show note with dot
-    [Arguments]  ${locator}  ${sleep}  ${message}
+    [Arguments]  ${locator}  ${message}
     ${dot} =  Add dot  ${locator}
     Speak  ${message}
-    ${note} =  Add fading note  ${locator}  ${sleep}  ${message}
+    ${note} =  Add fading note  ${locator}  ${message}
     Sleep  2s
     Remove element  ${dot}
     Remove element  ${note}

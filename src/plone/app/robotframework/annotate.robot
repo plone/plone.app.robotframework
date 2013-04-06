@@ -55,7 +55,7 @@ Add dot
 
 
 Add note
-    [Arguments]  ${locator}  ${sleep}  ${message}
+    [Arguments]  ${locator}  ${message}
     ...          ${background}=#fcf0ad
     ...          ${color}=black
     ...          ${border}=none
