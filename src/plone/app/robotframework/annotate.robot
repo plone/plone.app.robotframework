@@ -120,14 +120,14 @@ Add note
     ...        annotation.attr('id', id);
     ...        annotation.text('${text}');
     ...        annotation.css({
-    ...            'display': '${display}',
+    ...            'display': 'none',
     ...            'position': 'absolute',
     ...            'font-family': 'serif',
     ...            'box-shadow': '0 0 5px #888',
     ...            '-moz-box-sizing': 'border-box',
     ...            '-webkit-box-sizing': 'border-box',
     ...            'box-sizing': 'border-box',
-    ...            'padding': '0.5ex 0.5em',
+    ...            'padding': '0.75ex 0.5em 0.5ex 0.5em',
     ...            'border': '${border}',
     ...            'border-radius': '2px',
     ...            'background': '${background}',
@@ -171,6 +171,19 @@ Add note
     ...            });
     ...        }
     ...        jQuery('body').append(annotation);
+    ...        if ('${position}' !== 'top' && '${position}' !== 'bottom') {
+    ...            var annHeight = annotation.outerHeight();
+    ...            annotation.css({
+    ...                'display': '${display}',
+    ...                'top': Math.max((
+    ...                    offset.top + height / 2 - annHeight / 2
+    ...                ), ${CROP_MARGIN}).toString() + 'px'
+    ...            });
+    ...        } else {
+    ...            annotation.css({
+    ...                'display': '${display}'
+    ...            });
+    ...        }
     ...        return id;
     ...    })();
     Should match regexp  ${id}  ^robot-.*
