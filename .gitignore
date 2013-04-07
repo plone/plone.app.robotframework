@@ -1,9 +1,6 @@
 syntax: glob
 
 bin
-lib
-include
-devel
 develop-eggs
 buildout-cache
 parts
@@ -18,3 +15,4 @@ etc
 .installed.cfg
 .mr.developer.cfg
 .ropeproject
+.DS_Store
