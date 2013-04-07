@@ -131,7 +131,7 @@ Crop page screenshot
     @{dimensions} =  Execute Javascript
     ...    return (function(){
     ...        var selectors = ${selectors}, i, target, offset;
-    ...        var left = 0, top = 0, width = 0, height = 0;
+    ...        var left = null, top = null, width = null, height = null;
     ...        for (i = 0; i < selectors.length; i++) {
     ...            target = jQuery(selectors[i]);
     ...            offset = target.offset();
@@ -157,4 +157,4 @@ Crop page screenshot
     ...                width + ${CROP_MARGIN} * 2,
     ...                height + ${CROP_MARGIN} * 2];
     ...    })();
-    Crop image  ${filename}  @{dimensions}
+    Crop image  ${OUTPUT_DIR}  ${filename}  @{dimensions}
