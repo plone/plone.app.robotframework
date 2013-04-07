@@ -15,8 +15,15 @@ ${CROP_MARGIN} =  10
 Normalize annotation locator
     [Arguments]  ${locator}
     ${locator} =  Replace string  ${locator}  '  \\'
+
+    ${method} =  Get lines matching regexp  ${locator}
+    ...          ^jquery=.*|^css=.*|^id=.*
+    ${locator} =  Set variable if  '${method}' == ''
+    ...           id=${locator}  '${method}' != ''  ${locator}
+
     ${locator} =  Replace string using regexp  ${locator}  ^jquery=  ${empty}
     ${locator} =  Replace string using regexp  ${locator}  ^css=  ${empty}
+    ${locator} =  Replace string using regexp  ${locator}  ^id=  \#
     [return]  ${locator}
 
 Add dot
