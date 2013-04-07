@@ -16,11 +16,9 @@ Test Teardown  Run keywords  Report test status  Close all browsers
 Add fading note
     [Arguments]  ${locator}  ${message}
     ${note} =  Add note  ${locator}  ${message}
-    Update element style  ${note}  -moz-transform  rotate(90deg)
     Update element style  ${note}  opacity  0
-    Update element style  ${note}  -moz-transition  all 1s
     Update element style  ${note}  display  block
-    Update element style  ${note}  -moz-transform  rotate(0deg)
+    Update element style  ${note}  -moz-transition  opacity 1s
     Update element style  ${note}  opacity  1
     Sleep  1s
     [return]  ${note}
@@ -65,10 +63,10 @@ Introducing Mr. Roboto
 
     Go to  ${PLONE_URL}
 
-    Show note with dot  jquery=#user-name  2s  This is me.
-    Show note with dot  jquery=#portaltab-index_html  2s  This is my home,
-    Show note with dot  jquery=#content  2s  and here's all my stuff.
-    Show note with dot  jquery=#portal-logo  2s  Plone is my friend,
+    Show note with dot  jquery=#user-name  This is me.
+    Show note with dot  jquery=#portaltab-index_html  This is my home,
+    Show note with dot  jquery=#content  and here's all my stuff.
+    Show note with dot  jquery=#portal-logo  Plone is my friend,
 
     Speak  and so are U.
     Sleep  2s
