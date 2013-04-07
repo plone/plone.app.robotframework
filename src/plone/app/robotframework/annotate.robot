@@ -20,8 +20,9 @@ Normalize annotation locator
     [return]  ${locator}
 
 Add dot
-    [Arguments]  ${locator}  ${display}=block
+    [Arguments]  ${locator}  ${size}=20  ${display}=block
     ${selector} =  Normalize annotation locator  ${locator}
+    ${size} =  Replace string  ${size}  '  \\'
     ${display} =  Replace string  ${display}  '  \\'
     ${id} =  Execute Javascript
     ...    return (function(){
@@ -34,6 +35,8 @@ Add dot
     ...        annotation.attr('id', id);
     ...        annotation.css({
     ...            'display': '${display}',
+    ...            'font-family': 'serif',
+    ...            'text-align': 'center',
     ...            'opacity': '0.5',
     ...            '-moz-box-sizing': 'border-box',
     ...            '-webkit-box-sizing': 'border-box',
@@ -41,11 +44,15 @@ Add dot
     ...            'position': 'absolute',
     ...            'color': 'white',
     ...            'background': 'black',
-    ...            'width': '20px',
-    ...            'height': '20px',
-    ...            'border-radius': '10px',
-    ...            'top': (offset.top + height / 2 - 10).toString() + 'px',
-    ...            'left': (offset.left + width / 2 - 10).toString() + 'px',
+    ...            'width': '${size}px',
+    ...            'height': '${size}px',
+    ...            'border-radius': (${size} / 2).toString() + 'px',
+    ...            'top': (
+    ...                offset.top + height / 2 - ${size} / 2
+    ...            ).toString() + 'px',
+    ...            'left': (
+    ...                offset.left + width / 2 - ${size} / 2
+    ...            ).toString() + 'px',
     ...            'z-index': '9999'
     ...        });
     ...        jQuery('body').append(annotation);
@@ -53,19 +60,42 @@ Add dot
     ...    })();
     [return]  ${id}
 
+Add numbered dot
+    [Arguments]  ${locator}  ${text}
+    ...          ${background}=#fcf0ad
+    ...          ${color}=black
+    ...          ${display}=block
+    ${id} =  Add dot  ${locator}  size=20  display=none
+    Execute Javascript
+    ...    return (function(){
+    ...        jQuery('#${id}').css({
+    ...            'opacity': '1',
+    ...            'padding-top': '0.1em',
+    ...            'box-shadow': '0 0 5px #888',
+    ...            'background': '${background}',
+    ...            'color': '${color}'
+    ...        }).text('${text}');
+    ...        return true;
+    ...    })();
+    Update element style  ${id}  display  ${display}
+    [return]  ${id}
 
 Add note
-    [Arguments]  ${locator}  ${message}
+    [Arguments]  ${locator}  ${text}
     ...          ${background}=#fcf0ad
     ...          ${color}=black
     ...          ${border}=none
     ...          ${display}=block
+    ...          ${width}=140
+    ...          ${position}=${EMPTY}
     ${selector} =  Normalize annotation locator  ${locator}
-    ${message} =  Replace string  ${message}  '  \\'
+    ${text} =  Replace string  ${text}  '  \\'
     ${background} =  Replace string  ${background}  '  \\'
     ${color} =  Replace string  ${color}  '  \\'
     ${border} =  Replace string  ${border}  '  \\'
     ${display} =  Replace string  ${display}  '  \\'
+    ${width} =  Replace string  ${width}  '  \\'
+    ${position} =  Replace string  ${position}  '  \\'
     ${id} =  Execute Javascript
     ...    return (function(){
     ...        var id = 'id' + Math.random().toString().substring(2);
@@ -74,9 +104,10 @@ Add note
     ...        var offset = target.offset();
     ...        var width = target.outerWidth();
     ...        var height = target.outerHeight();
-    ...        var maxLeft = jQuery('html').width() - 140 - ${CROP_MARGIN};
+    ...        var maxLeft = jQuery('html').width()
+    ...                      - ${width} - ${CROP_MARGIN};
     ...        annotation.attr('id', id);
-    ...        annotation.text('${message}');
+    ...        annotation.text('${text}');
     ...        annotation.css({
     ...            'display': '${display}',
     ...            'position': 'absolute',
@@ -91,16 +122,43 @@ Add note
     ...            'background': '${background}',
     ...            'color': '${color}',
     ...            'z-index': '9999',
-    ...            'width': '140px',
+    ...            'width': '${width}px',
     ...            'top': Math.max(
     ...                 (offset.top + height / 2),
     ...                 ${CROP_MARGIN}
     ...            ).toString() + 'px',
     ...            'left': Math.max(${CROP_MARGIN}, Math.min(
-    ...                 (offset.left + width / 2 - 70),
+    ...                 (offset.left + width / 2 - (${width} / 2)),
     ...                 maxLeft
     ...            )).toString() + 'px'
     ...        });
+    ...        if ('${position}' === 'top') {
+    ...            annotation.css({
+    ...                'top': 'auto',
+    ...                'bottom': (
+    ...                    window.innerHeight - offset.top + ${CROP_MARGIN}
+    ...                ).toString() + 'px'
+    ...            });
+    ...        } else if ('${position}' === 'bottom') {
+    ...            annotation.css({
+    ...                'top': (
+    ...                    offset.top + height + ${CROP_MARGIN}
+    ...                ).toString() + 'px'
+    ...            });
+    ...        } else if ('${position}' === 'left') {
+    ...            annotation.css({
+    ...                'left': (
+    ...                    offset.left - ${width} - ${CROP_MARGIN} / 2
+    ...                ).toString() + 'px'
+    ...            });
+    ...        } else if ('${position}' === 'right') {
+    ...            annotation.css({
+    ...                'left': (Math.min(
+    ...                    offset.left + width + ${CROP_MARGIN} / 2,
+    ...                    maxLeft
+    ...                )).toString() + 'px'
+    ...            });
+    ...        }
     ...        jQuery('body').append(annotation);
     ...        return id;
     ...    })();
