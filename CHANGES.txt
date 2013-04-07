@@ -1,12 +1,12 @@
 Changelog
 =========
 
-
-0.3.1 (unreleased)
+0.4.0 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Moved speak.js into collective.js.speakjs.
+- Add note positions. Add numbered dot
+- Tune old annotation keywords.
 
 0.3.0 (2013-04-07)
 ------------------

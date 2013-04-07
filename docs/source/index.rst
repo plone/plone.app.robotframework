@@ -1,11 +1,6 @@
 Writing Robot Framework tests for Plone
 =======================================
 
-.. warning::
-
-    It's Plone Open Garden 2013 (from 3.4.2013 to 7.4.2013) and a lot of
-    changes will be made during the event.
-
 **plone.app.robotframework** provides `Robot Framework
 <http://code.google.com/p/robotframework/>`_ compatible tools and resources for
 writing functional Selenium tests (including acceptance tests) for Plone CMS
