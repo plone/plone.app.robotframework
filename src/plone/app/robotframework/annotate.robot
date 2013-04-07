@@ -46,7 +46,7 @@ Add dot
     ...            'border-radius': '10px',
     ...            'top': (offset.top + height / 2 - 10).toString() + 'px',
     ...            'left': (offset.left + width / 2 - 10).toString() + 'px',
-    ...            'z-index': '9999',
+    ...            'z-index': '9999'
     ...        });
     ...        jQuery('body').append(annotation);
     ...        return id;
@@ -74,6 +74,7 @@ Add note
     ...        var offset = target.offset();
     ...        var width = target.outerWidth();
     ...        var height = target.outerHeight();
+    ...        var maxLeft = jQuery('html').width() - 140 - ${CROP_MARGIN};
     ...        annotation.attr('id', id);
     ...        annotation.text('${message}');
     ...        annotation.css({
@@ -91,8 +92,14 @@ Add note
     ...            'color': '${color}',
     ...            'z-index': '9999',
     ...            'width': '140px',
-    ...            'top': (offset.top + height / 2).toString() + 'px',
-    ...            'left': (offset.left + width / 2 - 70).toString() + 'px',
+    ...            'top': Math.max(
+    ...                 (offset.top + height / 2),
+    ...                 ${CROP_MARGIN}
+    ...            ).toString() + 'px',
+    ...            'left': Math.max(${CROP_MARGIN}, Math.min(
+    ...                 (offset.left + width / 2 - 70),
+    ...                 maxLeft
+    ...            )).toString() + 'px'
     ...        });
     ...        jQuery('body').append(annotation);
     ...        return id;
