@@ -2,6 +2,15 @@
 import os.path
 import unittest
 
+import pkg_resources
+
+try:
+    pkg_resources.get_distribution('collective.js.speakjs')
+except pkg_resources.DistributionNotFound:
+    HAS_SPEAKJS = False
+else:
+    HAS_SPEAKJS = True
+
 import robotsuite
 from plone.app.robotframework.testing import (
     REMOTE_LIBRARY_ROBOT_TESTING,
@@ -53,8 +62,12 @@ def test_suite():
                 "test_quickinstaller_library.robot"),
                 layer=REMOTE_LIBRARY_ROBOT_TESTING),
 
-        layered(robotsuite.RobotTestSuite(
-                "test_speakjs.robot"),
-                layer=SPEAKJS_ROBOT_TESTING),
     ])
+
+    if HAS_SPEAKJS:
+        suite.addTests([
+            layered(robotsuite.RobotTestSuite(
+                    "test_speakjs.robot"),
+                    layer=SPEAKJS_ROBOT_TESTING),
+        ])
     return suite

@@ -23,6 +23,15 @@ from plone.app.robotframework import (
     RemoteLibraryLayer
 )
 
+import pkg_resources
+
+try:
+    pkg_resources.get_distribution('collective.js.speakjs')
+except pkg_resources.DistributionNotFound:
+    HAS_SPEAKJS = False
+else:
+    HAS_SPEAKJS = True
+
 
 class SimplePublicationLayer(Layer):
 
@@ -38,21 +47,6 @@ class SimplePublicationLayer(Layer):
             portal.portal_workflow.setDefaultChain('')
 
 SIMPLE_PUBLICATION_FIXTURE = SimplePublicationLayer()
-
-
-class SpeakJSLayer(Layer):
-
-    defaultBases = (PLONE_FIXTURE,)
-
-    def setUp(self):
-        import plone.app.robotframework
-        xmlconfig.file('speakjs.zcml', plone.app.robotframework,
-                       context=self['configurationContext'])
-
-        with ploneSite() as portal:
-            applyProfile(portal, 'plone.app.robotframework:speakjs')
-
-SPEAKJS_FIXTURE = SpeakJSLayer()
 
 
 class LiveSearchLayer(PloneSandboxLayer):
@@ -109,10 +103,25 @@ SIMPLE_PUBLICATION_ROBOT_TESTING = FunctionalTesting(
     name="SimplePublication:Robot"
 )
 
-SPEAKJS_ROBOT_TESTING = FunctionalTesting(
-    bases=(SPEAKJS_FIXTURE,
-           SIMPLE_PUBLICATION_FIXTURE,
-           REMOTE_LIBRARY_BUNDLE_FIXTURE,
-           z2.ZSERVER_FIXTURE),
-    name="SpeakJS:Robot"
-)
+if HAS_SPEAKJS:
+    class SpeakJSLayer(Layer):
+
+        defaultBases = (PLONE_FIXTURE,)
+
+        def setUp(self):
+            import collective.js.speakjs
+            xmlconfig.file('configure.zcml', collective.js.speakjs,
+                           context=self['configurationContext'])
+
+            with ploneSite() as portal:
+                applyProfile(portal, 'collective.js.speakjs:default')
+
+    SPEAKJS_FIXTURE = SpeakJSLayer()
+
+    SPEAKJS_ROBOT_TESTING = FunctionalTesting(
+        bases=(SPEAKJS_FIXTURE,
+               SIMPLE_PUBLICATION_FIXTURE,
+               REMOTE_LIBRARY_BUNDLE_FIXTURE,
+               z2.ZSERVER_FIXTURE),
+        name="SpeakJS:Robot"
+    )

@@ -45,6 +45,11 @@ ride_requires = [
     'robotframework-ride'
 ]
 
+speak_requires = [
+    # GUI
+    'collective.js.speakjs'
+]
+
 reload_requires = [
     # Watch for filesystem changes:
     'watchdog'
@@ -70,6 +75,7 @@ setup(
     zip_safe=False,
     install_requires=install_requires,
     extras_require={'ride': ride_requires,
+                    'speak': speak_requires,
                     'reload': reload_requires},
     entry_points=entry_points,
 )
