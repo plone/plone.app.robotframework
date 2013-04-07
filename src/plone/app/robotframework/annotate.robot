@@ -33,9 +33,10 @@ Add dot
     ${display} =  Replace string  ${display}  '  \\'
     ${id} =  Execute Javascript
     ...    return (function(){
-    ...        var id = 'id' + Math.random().toString().substring(2);
+    ...        var id = 'robot-' + Math.random().toString().substring(2);
     ...        var annotation = jQuery('<div></div>');
     ...        var target = jQuery('${selector}');
+    ...        if (target.length === 0) { return ''; }
     ...        var offset = target.offset();
     ...        var height = target.outerHeight();
     ...        var width = target.outerWidth();
@@ -65,6 +66,8 @@ Add dot
     ...        jQuery('body').append(annotation);
     ...        return id;
     ...    })();
+    Should match regexp  ${id}  ^robot-.*
+    ...                  msg=${selector} was not found and no dot was created
     [return]  ${id}
 
 Add numbered dot
@@ -105,9 +108,10 @@ Add note
     ${position} =  Replace string  ${position}  '  \\'
     ${id} =  Execute Javascript
     ...    return (function(){
-    ...        var id = 'id' + Math.random().toString().substring(2);
+    ...        var id = 'robot-' + Math.random().toString().substring(2);
     ...        var annotation = jQuery('<div></div>');
     ...        var target = jQuery('${selector}');
+    ...        if (target.length === 0) { return ''; }
     ...        var offset = target.offset();
     ...        var width = target.outerWidth();
     ...        var height = target.outerHeight();
@@ -169,6 +173,8 @@ Add note
     ...        jQuery('body').append(annotation);
     ...        return id;
     ...    })();
+    Should match regexp  ${id}  ^robot-.*
+    ...                  msg=${selector} was not found and no note was created
     [return]  ${id}
 
 Remove element
@@ -211,6 +217,9 @@ Crop page screenshot
     ...        var left = null, top = null, width = null, height = null;
     ...        for (i = 0; i < selectors.length; i++) {
     ...            target = jQuery(selectors[i]);
+    ...            if (target.length === 0) {
+    ...                return [selectors[i], '', '', ''];
+    ...            }
     ...            offset = target.offset();
     ...            if (left === null) { left = offset.left; }
     ...            else { left = Math.min(left, offset.left); }
@@ -234,6 +243,9 @@ Crop page screenshot
     ...                width + ${CROP_MARGIN} * 2,
     ...                height + ${CROP_MARGIN} * 2];
     ...    })();
+    ${first} =  Convert to string  @{dimensions}[0]
+    Should match regexp  ${first}  ^[\\d\\.]+$
+    ...    msg=${first} was not found and no image was cropped
     Crop image  ${OUTPUT_DIR}  ${filename}  @{dimensions}
 
 Capture and crop page screenshot
