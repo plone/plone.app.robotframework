@@ -1,11 +1,12 @@
 Changelog
 =========
 
-0.4.1 (unreleased)
+0.4.1 (2013-04-08)
 ------------------
 
-- Nothing changed yet.
-
+- Rename 'Add dot' to 'Add pointer' and 'Add numbered dot' to 'Add dot';
+  Available annotations keywords are now 'Add pointer', 'Add dot' and
+  'Add note'.
 
 0.4.0 (2013-04-08)
 ------------------
