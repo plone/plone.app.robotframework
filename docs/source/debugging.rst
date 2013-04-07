@@ -5,24 +5,17 @@ Debugging robot tests
    *Pause execution* keywords from *Dialogs*-library shipped with
    Robot Framework::
 
-       ***Settings***
-
-       Library  Dialogs
-
-       ...
-
-       Test case
-          ...
-          Pause execution
+       Import library  Dialogs
+       Pause execution
 
 2. Pause Selenium (WebDriver) completely to inspect your step::
 
-    Set Selenium Timeout  600 seconds
-    Wait For Condition  true
+       Set Selenium timeout  600 seconds
+       Wait for condition  true
 
 3. Slow done Selenium (WebDriver) to make the tests easier to follow::
 
-    Set Selenium Speed  0.5 seconds
+       Set Selenium speed  0.5s
 
 4. Write a python keyword into your Python keyword library
    to drop the Zope server into debugger.
@@ -34,8 +27,8 @@ Debugging robot tests
    Instead, you have to add a few more lines to reclaim your I/O at first, and
    only then let your debugger in::
 
-      import sys
-      import pdb
-      for attr in ('stdin', 'stdout', 'stderr'):
-          setattr(sys, attr, getattr(sys, '__%s__' % attr))
-      pdb.set_trace()
+       import sys
+       import pdb
+       for attr in ('stdin', 'stdout', 'stderr'):
+           setattr(sys, attr, getattr(sys, '__%s__' % attr))
+       pdb.set_trace()
