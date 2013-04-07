@@ -2,11 +2,12 @@ Changelog
 =========
 
 
-0.2.6 (unreleased)
+0.3.0 (2013-04-07)
 ------------------
 
-- Nothing changed yet.
-
+- Add annotation library with dot and note
+- Add image cropping keyword into annotation library
+- Restore pybot-entrypoint (it's needed for screenshot-usecase)
 
 0.2.5 (2013-04-05)
 ------------------
