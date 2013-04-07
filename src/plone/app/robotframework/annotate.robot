@@ -172,6 +172,11 @@ Remove element
     ...        return true;
     ...    })();
 
+Remove elements
+    [Arguments]  @{ids}
+    :FOR  ${id}  IN  @{ids}
+    \  Remove element  ${id}
+
 Update element style
     [Arguments]  ${id}  ${name}  ${value}
     ${name} =  Replace string  ${name}  '  \\'
@@ -223,3 +228,8 @@ Crop page screenshot
     ...                height + ${CROP_MARGIN} * 2];
     ...    })();
     Crop image  ${OUTPUT_DIR}  ${filename}  @{dimensions}
+
+Capture and crop page screenshot
+    [Arguments]  ${filename}  @{locators}
+    Capture page screenshot  ${filename}
+    Crop page screenshot  ${filename}  @{locators}
