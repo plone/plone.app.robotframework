@@ -13,24 +13,27 @@ Test Teardown  Run keywords  Report test status  Close all browsers
 
 *** Keywords ***
 
-Add fading note
-    [Arguments]  ${locator}  ${message}
+Add fading numbered dot
+    [Arguments]  ${locator}  ${number}
+    ${dot} =  Add numbered dot  ${locator}  ${number}  display=none
+    Update element style  ${dot}  -moz-transform  scale(4)
+    Update element style  ${dot}  display  block
+    Update element style  ${dot}  -moz-transition  all 1s
+    Update element style  ${dot}  -moz-transform  scale(1)
+    Sleep  1s
+    [return]  ${dot}
+
+Add spoken note
+    [Arguments]  ${locator}  ${message}  ${position}=${EMPTY}
     ${note} =  Add note  ${locator}  ${message}
+    ...        display=none  position=${position}
+    Speak  ${message}
     Update element style  ${note}  opacity  0
     Update element style  ${note}  display  block
     Update element style  ${note}  -moz-transition  opacity 1s
     Update element style  ${note}  opacity  1
-    Sleep  1s
-    [return]  ${note}
-
-Show note with dot
-    [Arguments]  ${locator}  ${message}
-    ${dot} =  Add dot  ${locator}
-    Speak  ${message}
-    ${note} =  Add fading note  ${locator}  ${message}
     Sleep  2s
-    Remove element  ${dot}
-    Remove element  ${note}
+    [return]  ${note}
 
 *** Test cases ***
 
@@ -62,18 +65,32 @@ Introducing Mr. Roboto
     Set autologin username   Mr. Roboto
 
     Go to  ${PLONE_URL}
+    Sleep  0.5s
 
-    Show note with dot  jquery=#user-name  This is me.
-    Show note with dot  jquery=#portaltab-index_html  This is my home,
-    Show note with dot  jquery=#content  and here's all my stuff.
-    Show note with dot  jquery=#portal-logo  Plone is my friend,
+    ${dot} =  Add fading numbered dot  user-name  1
+    ${note} =  Add spoken note  user-name  This is me.  position=bottom
+    Remove elements  ${dot}  ${note}
 
-    Speak  and so are U.
-    Sleep  2s
-    Speak  I love you all.
+    ${dot} =  Add fading numbered dot  portaltab-index_html  2
+    ${note} =  Add spoken note  portaltab-index_html  This is my home,
+    ...        position=bottom
+    Remove elements  ${dot}  ${note}
+
+    ${dot} =  Add fading numbered dot  content  3
+    ${note} =  Add spoken note  portal-footer  and here's all my stuff.
+    ...        position=top
+    Remove elements  ${dot}  ${note}
+
+    ${dot} =  Add fading numbered dot  portal-logo  4
+    ${note} =  Add spoken note  portal-logo  Plone is my best friend,
+    ...        position=bottom
+    Remove elements  ${dot}  ${note}
+
+
+    Speak  but I love you all.
     Sleep  2s
     Speak  Please, don't break my builds.
-    Sleep  2s
+    Sleep  4s
     Speak  'asta la vistaa.
     Sleep  3s
 
