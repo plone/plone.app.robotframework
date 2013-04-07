@@ -15,8 +15,7 @@ import robotsuite
 from plone.app.robotframework.testing import (
     REMOTE_LIBRARY_ROBOT_TESTING,
     AUTOLOGIN_ROBOT_TESTING,
-    SIMPLE_PUBLICATION_ROBOT_TESTING,
-    SPEAKJS_ROBOT_TESTING,
+    SIMPLE_PUBLICATION_ROBOT_TESTING
 )
 from plone.app.testing import PLONE_ZSERVER
 from plone.testing import layered
@@ -65,6 +64,8 @@ def test_suite():
     ])
 
     if HAS_SPEAKJS:
+        from plone.app.robotframework.testing import SPEAKJS_ROBOT_TESTING
+
         suite.addTests([
             layered(robotsuite.RobotTestSuite(
                     "test_speakjs.robot"),
