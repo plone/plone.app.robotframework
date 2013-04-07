@@ -26,7 +26,7 @@ Normalize annotation locator
     ${locator} =  Replace string using regexp  ${locator}  ^id=  \#
     [return]  ${locator}
 
-Add dot
+Add pointer
     [Arguments]  ${locator}  ${size}=20  ${display}=block
     ${selector} =  Normalize annotation locator  ${locator}
     ${size} =  Replace string  ${size}  '  \\'
@@ -70,12 +70,14 @@ Add dot
     ...                  msg=${selector} was not found and no dot was created
     [return]  ${id}
 
-Add numbered dot
-    [Arguments]  ${locator}  ${text}
+Add dot
+    [Arguments]  ${locator}
+    ...          ${text}=${EMPTY}
     ...          ${background}=#fcf0ad
     ...          ${color}=black
+    ...          ${size}=20
     ...          ${display}=block
-    ${id} =  Add dot  ${locator}  size=20  display=none
+    ${id} =  Add pointer  ${locator}  size=${size}  display=none
     Execute Javascript
     ...    return (function(){
     ...        jQuery('#${id}').css({

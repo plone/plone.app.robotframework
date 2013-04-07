@@ -13,9 +13,9 @@ Test Teardown  Run keywords  Report test status  Close all browsers
 
 *** Keywords ***
 
-Add fading numbered dot
+Add fading dot
     [Arguments]  ${locator}  ${number}
-    ${dot} =  Add numbered dot  ${locator}  ${number}  display=none
+    ${dot} =  Add dot  ${locator}  ${number}  display=none
     Update element style  ${dot}  -moz-transform  scale(4)
     Update element style  ${dot}  display  block
     Update element style  ${dot}  -moz-transition  all 1s
@@ -67,21 +67,21 @@ Introducing Mr. Roboto
     Go to  ${PLONE_URL}
     Sleep  0.5s
 
-    ${dot} =  Add fading numbered dot  user-name  1
+    ${dot} =  Add fading dot  user-name  1
     ${note} =  Add spoken note  user-name  This is me.  position=bottom
     Remove elements  ${dot}  ${note}
 
-    ${dot} =  Add fading numbered dot  portaltab-index_html  2
+    ${dot} =  Add fading dot  portaltab-index_html  2
     ${note} =  Add spoken note  portaltab-index_html  This is my home,
     ...        position=bottom
     Remove elements  ${dot}  ${note}
 
-    ${dot} =  Add fading numbered dot  content  3
+    ${dot} =  Add fading dot  content  3
     ${note} =  Add spoken note  portal-footer  and here's all my stuff.
     ...        position=top
     Remove elements  ${dot}  ${note}
 
-    ${dot} =  Add fading numbered dot  portal-logo  4
+    ${dot} =  Add fading dot  portal-logo  4
     ${note} =  Add spoken note  portal-logo  Plone is my best friend,
     ...        position=bottom
     Remove elements  ${dot}  ${note}
@@ -94,12 +94,12 @@ Introducing Mr. Roboto
     Speak  'asta la vistaa.
     Sleep  3s
 
-    ${dot} =  Add dot  jquery=#user-name
+    ${dot} =  Add pointer  jquery=#user-name
     Sleep  0.5s
     Click element  css=#user-name
     Sleep  0.5s
     Remove element  ${dot}
-    Add dot  jquery=#personaltools-logout
+    Add pointer  jquery=#personaltools-logout
     Sleep  0.5s
     Disable autologin
     Click link  Log out
