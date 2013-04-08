@@ -1,11 +1,11 @@
 Changelog
 =========
 
-0.4.2 (unreleased)
+0.4.2 (2013-04-08)
 ------------------
 
-- Nothing changed yet.
-
+- Use 'Capture and crop page screenshot' keyword in screencast example; Try
+  more transparent annotation pointer
 
 0.4.1 (2013-04-08)
 ------------------
