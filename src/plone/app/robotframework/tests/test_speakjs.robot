@@ -69,21 +69,29 @@ Introducing Mr. Roboto
 
     ${dot} =  Add fading dot  user-name  1
     ${note} =  Add spoken note  user-name  This is me.  position=bottom
+    Capture and crop page screenshot  robot-me.png
+    ...    user-name  ${dot}  ${note}
     Remove elements  ${dot}  ${note}
 
     ${dot} =  Add fading dot  portaltab-index_html  2
     ${note} =  Add spoken note  portaltab-index_html  This is my home,
     ...        position=bottom
+    Capture and crop page screenshot  robot-home.png
+    ...    portaltab-index_html  ${dot}  ${note}
     Remove elements  ${dot}  ${note}
 
     ${dot} =  Add fading dot  content  3
     ${note} =  Add spoken note  portal-footer  and here's all my stuff.
     ...        position=top
+    Capture and crop page screenshot  robot-content.png
+    ...    content  ${dot}  ${note}
     Remove elements  ${dot}  ${note}
 
     ${dot} =  Add fading dot  portal-logo  4
     ${note} =  Add spoken note  portal-logo  Plone is my best friend,
     ...        position=bottom
+    Capture and crop page screenshot  robot-logo.png
+    ...    portal-logo  ${dot}  ${note}
     Remove elements  ${dot}  ${note}
 
 
@@ -94,12 +102,14 @@ Introducing Mr. Roboto
     Speak  'asta la vistaa.
     Sleep  3s
 
-    ${dot} =  Add pointer  jquery=#user-name
+    ${dot} =  Add pointer  user-name
     Sleep  0.5s
-    Click element  css=#user-name
+    Click element  user-name
     Sleep  0.5s
     Remove element  ${dot}
-    Add pointer  jquery=#personaltools-logout
+    ${dot} =  Add pointer  personaltools-logout
+    Capture and crop page screenshot  robot-logout.png
+    ...    portal-personaltools  portal-searchbox  ${dot}
     Sleep  0.5s
     Disable autologin
     Click link  Log out

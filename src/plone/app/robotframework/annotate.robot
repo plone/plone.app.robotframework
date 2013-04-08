@@ -45,7 +45,7 @@ Add pointer
     ...            'display': '${display}',
     ...            'font-family': 'serif',
     ...            'text-align': 'center',
-    ...            'opacity': '0.5',
+    ...            'opacity': '0.3',
     ...            '-moz-box-sizing': 'border-box',
     ...            '-webkit-box-sizing': 'border-box',
     ...            'box-sizing': 'border-box',
