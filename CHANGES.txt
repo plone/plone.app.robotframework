@@ -1,11 +1,11 @@
 Changelog
 =========
 
-0.4.3 (unreleased)
+0.4.3 (2013-04-08)
 ------------------
 
-- Nothing changed yet.
-
+- Fix the default Selenium timeout to be 30s instead of 10s, because
+  defaults need to be safe at first and only then optimal.
 
 0.4.2 (2013-04-08)
 ------------------
