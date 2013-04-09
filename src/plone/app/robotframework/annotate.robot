@@ -218,6 +218,34 @@ Update element style
     ...    })();
     [return]  ${id}
 
+Align elements horizontally
+    [Arguments]  @{locators}
+    @{selectors} =  Create list
+    :FOR  ${locator}  IN  @{locators}
+    \  ${selector} =  Normalize annotation locator  ${locator}
+    \  Append to list  ${selectors}  ${selector}
+    ${selectors} =  Convert to string  ${selectors}
+    ${selectors} =  Replace string using regexp  ${selectors}  u'  '
+    Execute Javascript
+    ...    return (function(){
+    ...        var selectors = ${selectors}, center=null, el, max, i;
+    ...        for (i = 0; i < selectors.length; i++) {
+    ...            el = jQuery(selectors[i]);
+    ...            if (el.length > 0 && center === null) {
+    ...                center = el.offset().left + el.outerWidth() / 2;
+    ...                continue;
+    ...            } else if (el.length > 0) {
+    ...                max = jQuery('html').width()
+    ...                    - el.outerWidth() - ${CROP_MARGIN};
+    ...                el.css({
+    ...                    'left': Math.max(${CROP_MARGIN}, Math.min(
+    ...                        center - (el.outerWidth() / 2), max
+    ...                     )).toString() + 'px'
+    ...                });
+    ...            }
+    ...        }
+    ...    })();
+
 Crop page screenshot
     [Arguments]  ${filename}  @{locators}
     @{selectors} =  Create list
