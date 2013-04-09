@@ -236,22 +236,24 @@ Crop page screenshot
     ...                return [selectors[i], '', '', ''];
     ...            }
     ...            offset = target.offset();
+    ...            if (left === null || width === null) {
+    ...                width = target.outerWidth();
+    ...            } else {
+    ...                width = Math.max(
+    ...                    left + width, offset.left + target.outerWidth()
+    ...                ) - Math.min(left, offset.left);
+    ...            }
+    ...            if (top === null || height === null) {
+    ...                height = target.outerHeight();
+    ...            } else {
+    ...                height = Math.max(
+    ...                    top + height, offset.top + target.outerHeight()
+    ...                ) - Math.min(top, offset.top);
+    ...            }
     ...            if (left === null) { left = offset.left; }
     ...            else { left = Math.min(left, offset.left); }
     ...            if (top === null) { top = offset.top; }
     ...            else { top = Math.min(top, offset.top); }
-    ...            if (width === null) { width = target.outerWidth(); }
-    ...            else {
-    ...                width = Math.max(
-    ...                    left + width, offset.left + target.outerWidth()
-    ...                ) - left;
-    ...             }
-    ...            if (height === null) { height = target.outerHeight(); }
-    ...            else {
-    ...                height = Math.max(
-    ...                    top + height, offset.top + target.outerHeight()
-    ...                ) - top;
-    ...            }
     ...        }
     ...        return [left - ${CROP_MARGIN},
     ...                top - ${CROP_MARGIN},
