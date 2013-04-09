@@ -1,11 +1,10 @@
 Changelog
 =========
 
-0.4.4 (unreleased)
+0.4.4 (2013-04-09)
 ------------------
 
-- Nothing changed yet.
-
+- Fix image cropping math.
 
 0.4.3 (2013-04-08)
 ------------------
