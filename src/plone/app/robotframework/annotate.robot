@@ -27,7 +27,8 @@ Normalize annotation locator
     [return]  ${locator}
 
 Add pointer
-    [Arguments]  ${locator}  ${size}=20  ${display}=block
+    [Arguments]  ${locator}
+    ...          ${size}=20  ${display}=block
     ${selector} =  Normalize annotation locator  ${locator}
     ${size} =  Replace string  ${size}  '  \\'
     ${display} =  Replace string  ${display}  '  \\'
@@ -71,11 +72,10 @@ Add pointer
     [return]  ${id}
 
 Add dot
-    [Arguments]  ${locator}
-    ...          ${text}=${EMPTY}
+    [Arguments]  ${locator}  ${text}=${EMPTY}
+    ...          ${size}=20
     ...          ${background}=#fcf0ad
     ...          ${color}=black
-    ...          ${size}=20
     ...          ${display}=block
     ${id} =  Add pointer  ${locator}  size=${size}  display=none
     Execute Javascript
@@ -94,11 +94,11 @@ Add dot
 
 Add note
     [Arguments]  ${locator}  ${text}
+    ...          ${width}=140
     ...          ${background}=#fcf0ad
     ...          ${color}=black
     ...          ${border}=none
     ...          ${display}=block
-    ...          ${width}=140
     ...          ${position}=${EMPTY}
     ${selector} =  Normalize annotation locator  ${locator}
     ${text} =  Replace string  ${text}  '  \\'
