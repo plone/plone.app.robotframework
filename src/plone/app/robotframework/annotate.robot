@@ -283,10 +283,10 @@ Crop page screenshot
     ...            if (top === null) { top = offset.top; }
     ...            else { top = Math.min(top, offset.top); }
     ...        }
-    ...        return [left - ${CROP_MARGIN},
-    ...                top - ${CROP_MARGIN},
-    ...                width + ${CROP_MARGIN} * 2,
-    ...                height + ${CROP_MARGIN} * 2];
+    ...        return [Math.max(0, left - ${CROP_MARGIN}),
+    ...                Math.max(0, top - ${CROP_MARGIN}),
+    ...                Math.max(0, width + ${CROP_MARGIN} * 2),
+    ...                Math.max(height + ${CROP_MARGIN} * 2)];
     ...    })();
     ${first} =  Convert to string  @{dimensions}[0]
     Should match regexp  ${first}  ^[\\d\\.]+$
