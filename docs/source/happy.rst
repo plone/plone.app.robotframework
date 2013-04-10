@@ -103,6 +103,12 @@ Update ``buildout.cfg``::
    explicitly with a compatible system python with wxPython 2.8.x
    installed.
 
+   If you can get RIDE running, though, you should select it's *Run*-tab,
+   change the value of *Execution Profile* to *custom script*, and click
+   appearing *Browser*-button to select *bin/robot* from the buildout
+   directory. Running RIDE using *bin/robot* will enable test isolation
+   to work when running tests from RIDE.
+
 
 Start test server
 -----------------
