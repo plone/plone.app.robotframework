@@ -27,5 +27,5 @@ env:
   - ROBOT_REMOTE_URL=http://$SAUCE_USERNAME:$SAUCE_ACCESS_KEY@ondemand.saucelabs.com:80/wd/hub
   matrix:
   - ROBOT_BROWSER=firefox ROBOT_DESIRED_CAPABILITIES=tunnel-identifier:$TRAVIS_JOB_ID
-  - ROBOT_BROWSER=chrome ROBOT_DESIRED_CAPABILITIES="platform:Windows 7,browser:Safari,tunnel-identifier:$TRAVIS_JOB_ID"
+  - ROBOT_BROWSER=firefox ROBOT_DESIRED_CAPABILITIES=version:21,tunnel-identifier:$TRAVIS_JOB_ID"
 # - ROBOT_BROWSER=ie ROBOT_DESIRED_CAPABILITIES=tunnel-identifier:$TRAVIS_JOB_ID
