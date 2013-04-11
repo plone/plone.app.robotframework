@@ -9,7 +9,6 @@ Library  plone.app.robotframework.SauceLabs
 
 ${BUILD_NUMBER}  manual
 ${SELENIUM_VERSION}  2.31.0
-${SESSION_ID}
 
 *** Keywords ***
 
@@ -31,16 +30,9 @@ Open SauceLabs test browser
     ...           remote_url=${REMOTE_URL}
     ...           desired_capabilities=${SAUCE_CAPABILITIES}
     ...           ff_profile_dir=${FF_PROFILE_DIR}
-    Run keyword and ignore error  Set session id
-
-Set session id
-    Keyword should exist  Get session id
-    ${SESSION_ID} =  Get session id
-    Set test variable  ${SESSION_ID}  ${SESSION_ID}
 
 Report test status
     [Documentation]  Report test status back to SauceLabs. The final test name
     ...              is sent to fix test names missing colons (:).
-    Run keyword unless  '${SESSION_ID}' == ''
-    ...    Report sauce status  ${SESSION_ID}  ${SUITE_NAME} | ${TEST_NAME}
-    ...                         ${TEST_STATUS}  ${TEST_TAGS}  ${REMOTE_URL}
+    Report sauce status  ${SUITE_NAME} | ${TEST_NAME}
+    ...                  ${TEST_STATUS}  ${TEST_TAGS}  ${REMOTE_URL}

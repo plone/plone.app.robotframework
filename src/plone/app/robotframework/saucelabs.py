@@ -9,23 +9,22 @@ try:
 except ImportError:
     import simplejson as json
 
-
-# Inject keyword for getting the selenium session id
-import Selenium2Library
-Selenium2Library.keywords._browsermanagement.\
-    _BrowserManagementKeywords.get_session_id = lambda self:\
-    self._cache.current.session_id
+from robot.libraries.BuiltIn import BuiltIn
 
 USERNAME_ACCESS_KEY = re.compile('^(http|https):\/\/([^:]+):([^@]+)@')
 
 
 class SauceLabs:
 
-    def report_sauce_status(self, job_id, name, status, tags=[], url=''):
+    def report_sauce_status(self, name, status, tags=[], remote_url=''):
         """Report test status and tags to SauceLabs
         """
-        if USERNAME_ACCESS_KEY.match(url):
-            username, access_key = USERNAME_ACCESS_KEY.findall(url)[0][1:]
+        job_id = BuiltIn().get_library_instance(
+            'Selenium2Library')._current_browser().session_id
+
+        if USERNAME_ACCESS_KEY.match(remote_url):
+            username, access_key =\
+                USERNAME_ACCESS_KEY.findall(remote_url)[0][1:]
         else:
             username = os.environ.get('SAUCE_USERNAME')
             access_key = os.environ.get('SAUCE_ACCESS_KEY')
