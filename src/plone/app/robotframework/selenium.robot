@@ -56,6 +56,24 @@ Element should not remain visible
     ...                          Possibly stale element should not be visible
     ...                          ${locator}
 
+Possibly stale element should become visible
+    [Arguments]  ${locator}
+    @{value} =  Run keyword and ignore error
+    ...         Element should be visible  ${locator}
+    Should be equal  @{value}[0]  PASS
+
+Element should become visible
+    [Documentation]  Due to the internals of Selenium2Library, an appearing
+    ...              element may rise StaleElementReferenceException (element
+    ...              disappears between it's located and inspected). This
+    ...              keyword is a workaround that tries again until success.
+    [Arguments]  ${locator}
+    ${TIMEOUT} =  Get Selenium timeout
+    ${IMPLICIT_WAIT} =  Get Selenium implicit wait
+    Wait until keyword succeeds  ${TIMEOUT}  ${IMPLICIT_WAIT}
+    ...                          Possibly stale element should become visible
+    ...                          ${locator}
+
 # ----------------------------------------------------------------------------
 # Forms
 # ----------------------------------------------------------------------------
