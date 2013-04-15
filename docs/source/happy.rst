@@ -337,7 +337,7 @@ Running sauce labs build manually
 
 0. Start ``bin/robot-server``::
 
-       $ bin/robot my.product.testing.ROBOT_TESTING
+       $ bin/robot-server my.product.testing.ROBOT_TESTING
 
 1. Run tests with ``bin/robot``::
 
