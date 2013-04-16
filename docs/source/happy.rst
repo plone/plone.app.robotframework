@@ -109,6 +109,8 @@ Update ``buildout.cfg``::
    directory. Running RIDE using *bin/robot* will enable test isolation
    to work when running tests from RIDE.
 
+   If you want to place a breakpoint you can use the ``Comment`` keyword
+   with argument ``PAUSE``. RIDE will stop and let you step through your test.
 
 Start test server
 -----------------
