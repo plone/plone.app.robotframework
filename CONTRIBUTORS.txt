@@ -15,6 +15,7 @@
 - Leo Rochael
 - Mikko Ohtamaa
 - Roman Kozlovskyi
+- Silvio Tomatis
 - Steffen Lindner
 - Timo Stollenwerk
 - Victor Fernandez de Alba
