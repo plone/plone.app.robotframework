@@ -369,7 +369,8 @@ Robot Framework ships with a few selected standard libraries. One of them is
 *Dialogs*-library, which provides a very usable keyword: *Pause execution*. By
 importing Dialogs-library (while developing the test) and adding *Pause execution*
 keyword, you can pause the test at any point to make it possible to figure out
-what to do next.
+what to do next. (Dialogs depend on
+`TkInter-library <http://wiki.python.org/moin/TkInter>`_.)
 
 For example::
 
@@ -379,7 +380,6 @@ For example::
     Resource  plone/app/robotframework/saucelabs.robot
 
     Library  Remote  ${PLONE_URL}/RobotRemote
-    Library  Dialogs
 
     Test Setup  Open SauceLabs test browser
     Test Teardown  Run keywords  Report test status  Close all browsers
@@ -393,6 +393,7 @@ For example::
     Let me think what to do next
         Enable autologin as  Site Administrator
         Go to  ${PLONE_URL}
+        Import library  Dialogs
         Pause execution
 
 .. note:: Be sure to remove Dialogs-library import and its keywords
