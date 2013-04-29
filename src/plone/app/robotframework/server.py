@@ -217,6 +217,9 @@ class Zope2Server:
         layers = order_by_bases([self.zope_layer])
         for layer in layers:
             if hasattr(layer, 'testSetUp'):
+                if HAS_VERBOSE_CONSOLE:
+                    print WAIT("Test set up {0}.{1}".format(
+                        layer.__module__, layer.__name__))
                 layer.testSetUp()
 
     def zodb_teardown(self):
@@ -225,6 +228,9 @@ class Zope2Server:
         layers.reverse()
         for layer in layers:
             if hasattr(layer, 'testTearDown'):
+                if HAS_VERBOSE_CONSOLE:
+                    print WAIT("Test tear down {0}.{1}".format(
+                        layer.__module__, layer.__name__))
                 layer.testTearDown()
 
 
