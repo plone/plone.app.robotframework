@@ -221,6 +221,8 @@ class Zope2Server:
                     print WAIT("Test set up {0}.{1}".format(
                         layer.__module__, layer.__name__))
                 layer.testSetUp()
+        if HAS_VERBOSE_CONSOLE:
+            print READY("Test set up")
 
     def zodb_teardown(self):
         from zope.testing.testrunner.runner import order_by_bases
@@ -232,6 +234,8 @@ class Zope2Server:
                     print WAIT("Test tear down {0}.{1}".format(
                         layer.__module__, layer.__name__))
                 layer.testTearDown()
+        if HAS_VERBOSE_CONSOLE:
+            print READY("Test torn down")
 
 
 setup_layers = {}
