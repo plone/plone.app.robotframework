@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.6.0 (unreleased)
+0.6.0 (2013-04-30)
 ------------------
 
 - Add verbose console outout for robot-server for test setup and teardown
