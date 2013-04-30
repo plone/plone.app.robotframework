@@ -1,11 +1,16 @@
 Changelog
 =========
 
-0.5.1 (unreleased)
+0.6.0 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Add verbose console outout for robot-server for test setup and teardown
+  [Asko Soukka]
+- Documentation update
+  [Asko Soukka, Silvio Tomatis]
+- Merge pull request #2 from silviot/patch-1
+- Add 'Element should become visible'-keyword
+  [Asko Soukka]
 
 0.5.0 (2013-04-09)
 ------------------
