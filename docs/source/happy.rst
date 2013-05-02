@@ -33,13 +33,13 @@ Update ``setup.py`` to require *plone.app.robotframework*::
         ],
     },
 
-All your need is *plone.app.robotframework*.
+All you need is *plone.app.robotframework*.
 It will require the rest (*selenium*, *robotframework*,
 *robotframework-selenium2library* and *robotsuite*).
 
 .. note:: Because Selenium-bindings for Python use Firefox as the
    default browser, you should have Firefox installed in your system (unless
-   you already know, how to configure other browsers to work with Selenium).
+   you already know how to configure other browsers to work with Selenium).
 
 
 Define functional testing layer
@@ -63,23 +63,23 @@ Update your ``src/my/product/testing.py`` to include::
    write faster Selenium tests, because tests don't need to spend time on
    login forms.
 
-If you don't have any testing layers for your product yet or want to know
-more about them, please, read: http://pypi.python.org/pypi/plone.app.testing
+If you don't have any testing layers for your product yet, or want to know
+more about them, please read: http://pypi.python.org/pypi/plone.app.testing
 
 
 Install Robot-tools
 -------------------
 
-*plone.app.robotframework* ships with two main helper scripts for tests
-writing:
+*plone.app.robotframework* ships with two main helper scripts for 
+writing tests:
 
 * ``bin/robot-server`` starts a temporary Plone site with the given
   test layer set up
 
 * ``bin/robot`` executes Robot Framework's ``pybot``-runner so that it
-  will run the given test sure agains the running ``robot-server`` so
-  that tests will be run in isolation (database is cleaned between the
-  tests)
+  will run the given test suite agains the running ``robot-server``, 
+  ensuring that tests will be run in isolation (database is cleaned between 
+  the tests)
 
 Update ``buildout.cfg``::
 
@@ -97,15 +97,15 @@ Update ``buildout.cfg``::
 
 .. note:: Robot-tools are optional, but will ease and speed up test
    development. [reload]-extras will make ``robot-server`` to detect
-   filesystem changes under ``./src`` and reload the test layer a
+   filesystem changes under ``./src`` and reload the test layer when a
    change is detected. [ride]-extras will create a script to start
    RIDE, the IDE for Robot Framework, but it can be launched only
    explicitly with a compatible system python with wxPython 2.8.x
    installed.
 
-   If you can get RIDE running, though, you should select it's *Run*-tab,
+   If you can get RIDE running, though, you should select its *Run*-tab,
    change the value of *Execution Profile* to *custom script*, and click
-   appearing *Browser*-button to select *bin/robot* from the buildout
+   *Browser*-button to select *bin/robot* from the buildout
    directory. Running RIDE using *bin/robot* will enable test isolation
    to work when running tests from RIDE.
 
@@ -151,8 +151,8 @@ For example, a ``test_hello.robot``::
         Page should contain  Powered by Plone
 
 Robot is all about running test clauses called **keywords**.
-Every test case may contain one more keywords, which are run in serial --
-usually until first of them fails.
+Every test case may contain one or more keywords, which are run sequentially --
+usually until the first of them fails.
 
 Keywords are defined in **keywords libraries** and as **user keywords**.
 Keyword libraries can be Python libraries or XML-RPC-services.
@@ -189,7 +189,7 @@ Here is a more complicated example::
     I see the Site Setup -link
         Element should be visible  css=#personaltools-plone_setup
 
-.. note:: We use ``.robot`` as Robot Framework test suite
+.. note:: We use ``.robot`` as the Robot Framework test suite
    file extension to make it easier for developers to
    configure Robot Framework syntax highlighting
    for their editors (otherwise ``.txt`` would work also).
@@ -206,15 +206,15 @@ written, the test suite can be run with ``bin/robot``::
 
 .. note::: ``bin/robot`` is a wrapper for Robot Framework's
    pybot test runner to  support plone.testing's test isolation
-   for Plone when used with together with bin/robot-server.
+   for Plone when used together with bin/robot-server.
 
 
-Integrate to Zope-testrunner
+Integrate with Zope-testrunner
 ----------------------------
 
-Because it's convenient to run Robot tests with other tests
-by zope.testrunner e.g. on Travis-CI, we usually want to integrate
-robot test to be run with other tests using *zope.testrunner*.
+Because it's convenient to run Robot tests with other zope.testrunner
+tests e.g. on Travis-CI, we usually want to integrate
+Robot tests to be run with other tests using *zope.testrunner*.
 
 For *zope.testrunner* integration, create
 ``src/my/product/tests/test_robot.py``::
@@ -238,24 +238,25 @@ For *zope.testrunner* integration, create
    robot test suite, remember to move ``test_hello.robot`` under
    ``my/product/tests``.
 
-It's good to know that this pattern is same how doctest suites are registered
-(e.g. in https://pypi.python.org/pypi/plone.testing) to use layer.  Also,
-RobotSuite is a Collective-package, which only purpose is to wrap Robot
-Framework tests to be Python unittest compatible.
+It's good to know that this pattern is the same as how doctest suites are 
+registered (e.g. in https://pypi.python.org/pypi/plone.testing) to use 
+layers.  Also, RobotSuite is a Collective-package, the only purpose of
+which is to wrap Robot Framework tests to be Python unittest compatible.
 
 
-Integrate to Sauce Labs
+Integrate with Sauce Labs
 -----------------------
 
-1. Register account for http://saucelabs.com/ with Open Sauce -plan.
-   Derive username from product name. For example, ``myproduct``. User your own
+1. Register an account for http://saucelabs.com/ with the *Open Sauce* plan.
+   Derive username from product name. For example, ``myproduct``. Use your own
    contact email for the beginning.  It can be changed later.
 
-2. Install travis-gem for you Ruby active Ruby-installation::
+2. Install travis-gem for your active Ruby-installation::
 
        $ sudo gem install travis
 
-3. Log in to Sauce Labs to see your Sauce Labs access key.
+3. Log in to Sauce Labs to see your Sauce Labs access key (at the bottom of 
+   the left column).
 
 4. Encrypt Sauce Labs credentials into ``.travis.yml``::
 
@@ -281,8 +282,8 @@ Integrate to Sauce Labs
        - kill $JAVA_PID
        env:
          global:
-         - secure: ! (here's an encrypted variable createdwith travis-commmand)
-         - secure: ! (here's an encrypted variable createdwith travis-commmand)
+         - secure: ! (here's an encrypted variable created with travis-commmand)
+         - secure: ! (here's an encrypted variable created with travis-commmand)
          - ROBOT_BUILD_NUMBER=travis-$TRAVIS_BUILD_NUMBER
          - ROBOT_REMOTE_URL=http://$SAUCE_USERNAME:$SAUCE_ACCESS_KEY@ondemand.saucelabs.com:80/wd/hub
          - ROBOT_DESIRED_CAPABILITIES=tunnel-identifier:$TRAVIS_JOB_ID
@@ -361,15 +362,15 @@ or
 How to write more tests
 -----------------------
 
-The most difficult parts in writing robot tests with Selenium-keywords is to know
+The most difficult part in writing robot tests with Selenium-keywords is to know
 the application you are testing: which link to click when and to which field to
 input test data.
 
-Robot Framework ships with a few selected standard libraries. One of them is
-*Dialogs*-library, which provides a very usable keyword: *Pause execution*. By
-importing Dialogs-library (while developing the test) and adding *Pause execution*
-keyword, you can pause the test at any point to make it possible to figure out
-what to do next. (Dialogs depend on
+Robot Framework ships with a few selected standard libraries. One of them is the
+*Dialogs*-library, which provides a very useful keyword: *Pause execution*. By
+importing Dialogs-library (while developing the test) and adding the 
+*Pause execution* keyword, you can pause the test at any point to make it 
+possible to figure out what to do next. (Dialogs depend on
 `TkInter-library <http://wiki.python.org/moin/TkInter>`_.)
 
 For example::
@@ -396,7 +397,7 @@ For example::
         Import library  Dialogs
         Pause execution
 
-.. note:: Be sure to remove Dialogs-library import and its keywords
+.. note:: Be sure to remove the Dialogs-library import and its keywords
    before commit, because Dialogs-library may have dependencies,
    which are not available on your CI-machine.
 
