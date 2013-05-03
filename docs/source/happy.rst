@@ -288,6 +288,30 @@ Integrate with Sauce Labs
          - ROBOT_REMOTE_URL=http://$SAUCE_USERNAME:$SAUCE_ACCESS_KEY@ondemand.saucelabs.com:80/wd/hub
          - ROBOT_DESIRED_CAPABILITIES=tunnel-identifier:$TRAVIS_JOB_ID
 
+.. note:: If you already have an ``env`` section, for instance to define
+   different versions of Plone like this::
+
+       env:
+         - PLONE_VERSION=4.0
+         - PLONE_VERSION=4.1
+         - PLONE_VERSION=4.2
+         - PLONE_VERSION=4.3
+
+   you will need to declare those variables in a ``matrix`` section, like this::
+
+       env:
+         matrix:
+           - PLONE_VERSION=4.0
+           - PLONE_VERSION=4.1
+           - PLONE_VERSION=4.2
+           - PLONE_VERSION=4.3
+         global:
+         - secure: ! (here's an encrypted variable created with travis-commmand)
+         - secure: ! (here's an encrypted variable created with travis-commmand)
+         - ROBOT_BUILD_NUMBER=travis-$TRAVIS_BUILD_NUMBER
+         - ROBOT_REMOTE_URL=http://$SAUCE_USERNAME:$SAUCE_ACCESS_KEY@ondemand.saucelabs.com:80/wd/hub
+         - ROBOT_DESIRED_CAPABILITIES=tunnel-identifier:$TRAVIS_JOB_ID
+
 6. Update the test to use SauceLabs test browser::
 
        *** Settings ***
