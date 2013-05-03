@@ -373,7 +373,7 @@ Running sauce labs build manually
 
 0. Download and unzip http://saucelabs.com/downloads/Sauce-Connect-latest.zip, then start Sauce-Connect with:
 
-      java -jar Sauce-Connect.jar <your_sauce_username> <your_sauce_accesskey> -i manual -f CONNECTED &
+       java -jar Sauce-Connect.jar <your_sauce_username> <your_sauce_accesskey> -i manual -f CONNECTED &
 
 1. Start ``bin/robot-server``::
 
