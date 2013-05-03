@@ -371,23 +371,27 @@ Integrate with Sauce Labs
 Running sauce labs build manually
 ---------------------------------
 
-0. Start ``bin/robot-server``::
+0. Download and unzip http://saucelabs.com/downloads/Sauce-Connect-latest.zip, then start Sauce-Connect with:
+
+      java -jar Sauce-Connect.jar <your_sauce_username> <your_sauce_accesskey> -i manual -f CONNECTED &
+
+1. Start ``bin/robot-server``::
 
        $ bin/robot-server my.product.testing.ROBOT_TESTING
 
-1. Run tests with ``bin/robot``::
+2. Run tests with ``bin/robot``::
 
        $ bin/robot -v REMOTE_URL:http://SAUCE_USERNAME:SAUCE_ACCESS_KEY@ondemand.saucelabs.com:80/wd/hub -v BUILD_NUMBER:manual -v DESIRED_CAPABILITIES:tunnel-identifier:manual src/my/product/tests/test_product.robot
 
 or
 
-1. Create an argument file, e.g. ``saucelabs_arguments.txt``::
+2. Create an argument file, e.g. ``saucelabs_arguments.txt``::
 
        -v REMOTE_URL:http://SAUCE_USERNAME:SAUCE_ACCESS_KEY@ondemand.saucelabs.com:80/wd/hub
        -v BUILD_NUMBER:manual
        -v DESIRED_CAPABILITIES:tunnel-identifier:manual
 
-2. Execute ``bin/robot`` with the argument file option::
+3. Execute ``bin/robot`` with the argument file option::
 
        bin/robot -A saucelabs_arguments.txt src/my/product/tests/test_product.robot
 
