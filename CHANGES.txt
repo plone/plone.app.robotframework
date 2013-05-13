@@ -4,7 +4,8 @@ Changelog
 0.6.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix "Click Action by" keyword. on Sunburst Theme the action id is
+  #plone-contentmenu-actions-${name}
 
 
 0.6.0 (2013-04-30)

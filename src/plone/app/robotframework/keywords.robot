@@ -118,8 +118,8 @@ Click Action by id
     [arguments]  ${name}
 
     Open Action Menu
-    Element Should be visible  css=dl#plone-contentmenu-actions dd.actionMenuContent  #${name}
-    Click Link  id=${name}
+    Element Should be visible  css=dl#plone-contentmenu-actions dd.actionMenuContent  #plone-contentmenu-actions-${name}
+    Click Link  id=plone-contentmenu-actions-${name}
 
 Click Cut Action
     Click Action by id  cut
