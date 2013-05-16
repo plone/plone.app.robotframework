@@ -8,7 +8,7 @@ and its add-ons.
 
 See how we used this for Plomino to run some robot tests at SauceLabs:
 
-- https://github.com/fulv/Plomino/compare/github-main
+- https://github.com/plomino/Plomino/pull/322/files
 - https://travis-ci.org/fulv/Plomino
 - https://saucelabs.com/u/fulv_plomino
 
