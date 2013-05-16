@@ -190,6 +190,14 @@ class Zope2Server:
         setup_layer(new_layer)
         self.zope_layer = new_layer
 
+    def set_zope_layer(self, layer_dotted_name):
+        """Explicitly set the current Zope layer, when you know what you are
+        doing
+
+        """
+        new_layer = self._import_layer(layer_dotted_name)
+        self.zope_layer = new_layer
+
     def amend_zope_server(self, layer_dotted_name):
         """Set up extra layers up to given layer_dotted_name
         """
