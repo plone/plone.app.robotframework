@@ -18,6 +18,14 @@ And see also a minimal example:
 - https://travis-ci.org/datakurre/example.product
 - https://saucelabs.com/u/exampleproduct
 
+More examples which already contain robotframework tests in collective:
+
+- https://github.com/collective/collective.wfcomment  (checking prepOverlays)
+- https://github.com/collective/collective.prettyphoto
+- https://github.com/collective/plone.app.imagepropping  (includes 
+  javascript interaction in cropping editor).
+
+
 And then get started by yourself:
 
 
