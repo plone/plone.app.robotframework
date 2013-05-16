@@ -6,7 +6,12 @@ Changelog
 
 - Fix "Click Action by" keyword. on Sunburst Theme the action id is
   #plone-contentmenu-actions-${name}
-
+  [JeanMichel FRANCOIS]
+- Enhance Server-library to support carefully designed additional layers
+  (appended after the main layer)
+  [datakurre]
+- Documentatio updates
+  [ebrehault, Fulvio Casali, Daniel Widerin]
 
 0.6.0 (2013-04-30)
 ------------------

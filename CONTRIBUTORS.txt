@@ -3,11 +3,14 @@
 - Carles Bruguera
 - Chris Ewing
 - Chris Shenton
+- Daniel Widerin
 - Ed Manlove
+- Eric Brehault
 - Esa-Matti Suuronen
 - Fulvio Casali
 - Godefroid Chapelle, Original Author
 - Hector Velarde
+- Jean-Michel Francois
 - Johan Beyers
 - Jonas Baumann
 - Kees Hink
