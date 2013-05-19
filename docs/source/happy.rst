@@ -22,7 +22,7 @@ More examples which already contain robotframework tests in collective:
 
 - https://github.com/collective/collective.wfcomment  (checking prepOverlays)
 - https://github.com/collective/collective.prettyphoto
-- https://github.com/collective/plone.app.imagepropping  (includes 
+- https://github.com/collective/plone.app.imagepropping  (includes
   javascript interaction in cropping editor).
 
 
@@ -78,15 +78,15 @@ more about them, please read: http://pypi.python.org/pypi/plone.app.testing
 Install Robot-tools
 -------------------
 
-*plone.app.robotframework* ships with two main helper scripts for 
+*plone.app.robotframework* ships with two main helper scripts for
 writing tests:
 
 * ``bin/robot-server`` starts a temporary Plone site with the given
   test layer set up
 
 * ``bin/robot`` executes Robot Framework's ``pybot``-runner so that it
-  will run the given test suite agains the running ``robot-server``, 
-  ensuring that tests will be run in isolation (database is cleaned between 
+  will run the given test suite agains the running ``robot-server``,
+  ensuring that tests will be run in isolation (database is cleaned between
   the tests)
 
 Update ``buildout.cfg``::
@@ -130,9 +130,9 @@ Once the buildout with Robot-tools is run, start the test server with::
 Once the test server has started, there's a test Plone-site served
 at http://localhost:55001/plone/.
 
-.. note:: If you added the ``reload``-extras to the 
-   ``plone.app.robotframework`` egg and there is no ``src`` directory 
-   in your buildout (such as when you are using the buildout of a specific 
+.. note:: If you added the ``reload``-extras to the
+   ``plone.app.robotframework`` egg and there is no ``src`` directory
+   in your buildout (such as when you are using the buildout of a specific
    product), robot-server will complain and fail to start.  In this case,
    use the ``-P`` option on the command line to tell it where it should
    watch for changes, e.g.::
@@ -255,8 +255,8 @@ For *zope.testrunner* integration, create
    robot test suite, remember to move ``test_hello.robot`` under
    ``my/product/tests``.
 
-It's good to know that this pattern is the same as how doctest suites are 
-registered (e.g. in https://pypi.python.org/pypi/plone.testing) to use 
+It's good to know that this pattern is the same as how doctest suites are
+registered (e.g. in https://pypi.python.org/pypi/plone.testing) to use
 layers.  Also, RobotSuite is a Collective-package, the only purpose of
 which is to wrap Robot Framework tests to be Python unittest compatible.
 
@@ -272,7 +272,7 @@ Integrate with Sauce Labs
 
        $ sudo gem install travis
 
-3. Log in to Sauce Labs to see your Sauce Labs access key (at the bottom of 
+3. Log in to Sauce Labs to see your Sauce Labs access key (at the bottom of
    the left column).
 
 4. Encrypt Sauce Labs credentials into ``.travis.yml``::
@@ -366,14 +366,16 @@ Integrate with Sauce Labs
            robotframework.googlecode.com
 
        [environment]
-       ZSERVER_HOST = 0.0.0.0
-       ROBOT_ZOPE_HOST = 0.0.0.0
+       ZSERVER_PORT = 8080
+       ROBOT_ZOPE_PORT = 8080
 
        [test]
        environment = environment
 
-   The *environment*-part and line in *test*-part are optional, but are required to
-   run tests using Internet Explorer (via SauceLabs) later.
+   The *environment*-part and line in *test*-part are optional, but are
+   required to run tests using Internet Explorer and mobile browsers
+   using SauceLabs (as shown later), because SauceLabs proxies only
+   `predefined sets of ports <https://saucelabs.com/docs/connect#localhost>`_.
 
 
 Running sauce labs build manually
@@ -411,12 +413,12 @@ The most difficult part in writing robot tests with Selenium-keywords is to know
 the application you are testing: which link to click when and to which field to
 input test data.
 
-Robot Framework ships with a few selected standard libraries. One of them is the
-*Dialogs*-library, which provides a very useful keyword: *Pause execution*. By
-importing Dialogs-library (while developing the test) and adding the 
-*Pause execution* keyword, you can pause the test at any point to make it 
-possible to figure out what to do next. (Dialogs depend on
-`TkInter-library <http://wiki.python.org/moin/TkInter>`_.)
+Robot Framework ships with a few selected standard libraries. One of them is
+the *Dialogs*-library, which provides a very useful keyword: *Pause execution*.
+By importing Dialogs-library (while developing the test) and adding the *Pause
+execution* keyword, you can pause the test at any point to make it possible to
+figure out what to do next.
+(Dialogs depend on `TkInter-library <http://wiki.python.org/moin/TkInter>`_.)
 
 For example::
 
