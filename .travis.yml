@@ -27,7 +27,7 @@ env:
   - ROBOT_REMOTE_URL=http://$SAUCE_USERNAME:$SAUCE_ACCESS_KEY@ondemand.saucelabs.com:80/wd/hub
   matrix:
   - ROBOT_BROWSER=firefox ROBOT_DESIRED_CAPABILITIES=platform:linux,version:20,tunnel-identifier:$TRAVIS_JOB_ID
-#  - ZSERVER_HOST=0.0.0.0 ROBOT_ZOPE_HOST=0.0.0.0 ROBOT_DESIRED_CAPABILITIES=platform:linux,browserName:android,version:4,tunnel-identifier:$TRAVIS_JOB_ID
-#  - ZSERVER_HOST=0.0.0.0 ROBOT_ZOPE_HOST=0.0.0.0 ROBOT_DESIRED_CAPABILITIES="platform:OS X 10.8,browserName:iPad,version:6,tunnel-identifier:$TRAVIS_JOB_ID"
+  - ROBOT_DESIRED_CAPABILITIES=platform:linux,browserName:android,version:4,tunnel-identifier:$TRAVIS_JOB_ID
+  - ROBOT_DESIRED_CAPABILITIES="platform:OS X 10.8,browserName:iPad,version:6,tunnel-identifier:$TRAVIS_JOB_ID"
 # - ROBOT_BROWSER=firefox ROBOT_DESIRED_CAPABILITIES=tunnel-identifier:$TRAVIS_JOB_ID
 # - ROBOT_BROWSER=ie ROBOT_DESIRED_CAPABILITIES=tunnel-identifier:$TRAVIS_JOB_ID
