@@ -22,7 +22,7 @@ More examples which already contain robotframework tests in collective:
 
 - https://github.com/collective/collective.wfcomment  (checking prepOverlays)
 - https://github.com/collective/collective.prettyphoto
-- https://github.com/collective/plone.app.imagepropping  (includes
+- https://github.com/collective/plone.app.imagecropping  (includes
   javascript interaction in cropping editor).
 
 
