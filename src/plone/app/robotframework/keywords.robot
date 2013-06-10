@@ -241,7 +241,7 @@ Rename Content Title
     Go to  ${PLONE_URL}/${id}
     Page Should Contain Element  css=body.section-${id}
     Click Rename Action
-    Wait Until Page Contains Element  css=input#${id}_id
+    Wait Until Page Contains Element  css=input#${id}_title
     Input Text  css=input#${id}_title  ${new_title}
     Click Button  Rename All
 
