@@ -242,7 +242,7 @@ Rename Content Title
     Page Should Contain Element  css=body.section-${id}
     Click Rename Action
     Wait Until Page Contains Element  css=input#${id}_title
-    Input Text  css=input#${id}_title  ${new_title}
+    Input Text for sure  css=input#${id}_title  ${new_title}
     Click Button  Rename All
 
 
