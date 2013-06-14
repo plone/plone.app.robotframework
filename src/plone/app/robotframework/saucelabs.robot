@@ -8,7 +8,7 @@ Library  plone.app.robotframework.SauceLabs
 *** Variables ***
 
 ${BUILD_NUMBER}  manual
-${SELENIUM_VERSION}  2.33.0
+${SELENIUM_VERSION}
 
 *** Keywords ***
 
