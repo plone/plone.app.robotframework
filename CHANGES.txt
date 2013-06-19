@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.6.2 (unreleased)
+0.6.2 (2013-06-19)
 ------------------
 
 - Remove the default selenium-version (SELENIUM_VERSION-variable) set for
@@ -11,6 +11,8 @@ Changelog
 - Documentation updates
   [Godefroid Chapelle, Asko Soukka]
 - Add 'Capture viewport screenshot' into annotate.robot keywords library
+  [Asko Soukka]
+- Fix Speak-keyword to use 'jQuery' instead of 'jq'
   [Asko Soukka]
 
 0.6.1 (2013-05-16)
