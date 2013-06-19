@@ -13,8 +13,8 @@ Speak
     ${text} =  Replace string  ${text}  '   \\'
     Execute Javascript
     ...    return (function(){
-    ...        if (jq('#audio').length == 0) {
-    ...            jq('<div id="audio"></div>').appendTo($('body'));
+    ...        if (jQuery('#audio').length == 0) {
+    ...            jQuery('<div id="audio"></div>').appendTo($('body'));
     ...        }
     ...        speak('${text}');
     ...        return true;
