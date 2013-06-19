@@ -374,9 +374,8 @@ Integrate with Sauce Labs
 
    The *environment*-part and line in *test*-part are optional, but are
    required to run tests using Internet Explorer and mobile browsers
-   using SauceLabs (as shown later), because SauceLabs proxies only
+   using SauceLabs because SauceLabs proxies only
    `predefined sets of ports <https://saucelabs.com/docs/connect#localhost>`_.
-
 
 Running sauce labs build manually
 ---------------------------------
