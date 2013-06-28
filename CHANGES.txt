@@ -4,7 +4,8 @@ Changelog
 0.6.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Make ``robot-server`` show ``logging`` messages.
+  [Godefroid Chapelle]
 
 
 0.6.2 (2013-06-19)
