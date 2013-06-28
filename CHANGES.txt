@@ -4,6 +4,9 @@ Changelog
 0.6.3 (unreleased)
 ------------------
 
+- ZSERVER_PORT, ZOPE_HOST and ZOPE_PORT environment variables are supported.
+  [Godefroid Chapelle]
+
 - Make ``robot-server`` show ``logging`` messages.
   [Godefroid Chapelle]
 
