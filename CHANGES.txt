@@ -17,15 +17,15 @@ Changelog
   [Asko Soukka]
 - Documentation updates
   [Godefroid Chapelle, Asko Soukka]
-- Add 'Capture viewport screenshot' into annotate.robot keywords library
+- Add ``Capture viewport screenshot`` into annotate.robot keywords library
   [Asko Soukka]
-- Fix Speak-keyword to use 'jQuery' instead of 'jq'
+- Fix Speak-keyword to use ``jQuery`` instead of ``jq``
   [Asko Soukka]
 
 0.6.1 (2013-05-16)
 ------------------
 
-- Fix "Click Action by" keyword. on Sunburst Theme the action id is
+- Fix ``Click Action by`` keyword. on Sunburst Theme the action id is
   #plone-contentmenu-actions-${name}
   [JeanMichel FRANCOIS]
 - Enhance Server-library to support carefully designed additional layers
@@ -42,13 +42,13 @@ Changelog
 - Documentation update
   [Asko Soukka, Silvio Tomatis]
 - Merge pull request #2 from silviot/patch-1
-- Add 'Element should become visible'-keyword
+- Add ``Element should become visible`` keyword
   [Asko Soukka]
 
 0.5.0 (2013-04-09)
 ------------------
 
-- Add 'Align elements horizontally' annotation keyword.
+- Add ``Align elements horizontally`` annotation keyword.
 
 0.4.4 (2013-04-09)
 ------------------
@@ -64,15 +64,15 @@ Changelog
 0.4.2 (2013-04-08)
 ------------------
 
-- Use 'Capture and crop page screenshot' keyword in screencast example; Try
+- Use ``Capture and crop page screenshot`` keyword in screencast example; Try
   more transparent annotation pointer
 
 0.4.1 (2013-04-08)
 ------------------
 
-- Rename 'Add dot' to 'Add pointer' and 'Add numbered dot' to 'Add dot';
-  Available annotations keywords are now 'Add pointer', 'Add dot' and
-  'Add note'.
+- Rename ``Add dot`` to ``Add pointer`` and ``Add numbered dot`` to ``Add dot``;
+  Available annotations keywords are now ``Add pointer``, ``Add dot`` and
+  ``Add note``.
 
 0.4.0 (2013-04-08)
 ------------------
