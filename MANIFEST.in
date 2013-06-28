@@ -1,4 +1,5 @@
 recursive-include src *
 recursive-include docs *
+recursive-include templates *
 include *
 global-exclude *.pyc
