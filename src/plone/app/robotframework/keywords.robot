@@ -95,7 +95,10 @@ Open Menu
     Wait until keyword succeeds  1  5  Element Should Be Visible  css=dl#${elementId} dd.actionMenuContent
 
 Open User Menu
-    Open Menu  portal-personaltools
+    Element Should Be Visible  css=dl#portal-personaltools a
+    Element Should Not Be Visible  css=dl#portal-personaltools dd.actionMenuContent
+    Click link  css=dl#portal-personaltools dt.actionMenuHeader a
+    Wait until keyword succeeds  1  5  Element Should Be Visible  css=dl#portal-personaltools dd.actionMenuContent
 
 Open Add New Menu
     Open Menu  plone-contentmenu-factories
