@@ -64,7 +64,7 @@ Update your ``src/my/product/testing.py`` to include::
     from plone.app.robotframework.testing import AUTOLOGIN_LIBRARY_FIXTURE
 
     MY_PRODUCT_ROBOT_TESTING = FunctionalTesting(
-        bases=(MY_PRODUCT_FIXTURE, AUTOLOGIN_LIBRARY_FIXTURE, z2.ZSERVER),
+        bases=(MY_PRODUCT_FIXTURE, AUTOLOGIN_LIBRARY_FIXTURE, z2.ZSERVER_FIXTURE),
         name="MyProduct:Robot")
 
 .. note:: AUTOLOGIN_LIBRARY_FIXTURE is optional, but it will allow you to
