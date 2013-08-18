@@ -9,6 +9,7 @@ install:
 - JAVA_PID=$!
 - virtualenv buildout --no-setuptools
 - source buildout/bin/activate
+- pip install -U distribute
 - mkdir -p buildout-cache/downloads
 - python bootstrap.py -c travis.cfg
 - bin/buildout -N -t 3 -c travis.cfg
