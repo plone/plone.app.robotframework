@@ -29,10 +29,10 @@ Log in
     Go to  ${PLONE_URL}/login_form
     Page should contain element  __ac_name
     Page should contain element  __ac_password
-    Page should contain button  Log in
+    Page should contain element  css=#login-form .formControls input[name=submit]
     Input text for sure  __ac_name  ${userid}
     Input text for sure  __ac_password  ${password}
-    Click Button  Log in
+    Click Button  css=#login-form .formControls input[name=submit]
 
 Log in as test user
 
@@ -55,7 +55,7 @@ Log in as test user with role
 
 Log out
     Go to  ${PLONE_URL}/logout
-    Page should contain  logged out
+    Page Should Contain Element  css=#login-form
 
 
 # ----------------------------------------------------------------------------

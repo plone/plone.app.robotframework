@@ -4,7 +4,9 @@ Changelog
 0.6.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Better support for Login/Logout on multilingual sites by not relying on
+  'Log in' and 'Log out' on these pages. Check css locators instead.
+  [saily]
 
 
 0.6.3 (2013-06-28)
