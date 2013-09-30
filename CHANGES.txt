@@ -4,7 +4,8 @@ Changelog
 0.6.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Refactor add content keywords
+  [bsuttor, gotcha]
 
 
 0.6.4 (2013-08-19)

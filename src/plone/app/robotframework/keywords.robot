@@ -183,42 +183,35 @@ Workflow Promote to Draft
 
 Add Page
     [arguments]  ${title}
-
-    Open Add New Menu
-    Click Link  link=Page
-    Wait Until Page Contains Element  title
-    Input Text  title  ${title}
-    Click button  name=form.button.save
-    Page Should Contain  Changes saved.
+    Add content  document  ${title}
 
 Add folder
     [arguments]  ${title}
-
-    Open Add New Menu
-    Click Link  css=#plone-contentmenu-factories a#folder
-    Wait Until Page Contains Element  css=#archetypes-fieldname-title input
-    Input Text  title  ${title}
-    Click Button  Save
-    Page should contain  ${title}
-    Element should contain  css=#parent-fieldname-title  ${title}
+    Add content  folder  ${title}
 
 Add document
     [arguments]  ${title}
     Go to  ${PLONE_URL}
-    Open add new menu
-    Click link  id=document
-    Wait Until Page Contains Element  css=#archetypes-fieldname-title input
-    Input Text  title  ${title}
-    Click Button  Save
-    Page should contain  ${title}
-    Element should contain  css=#parent-fieldname-title  ${title}
-
+    Add Page  ${title}
+    
 Add news item
-    [Arguments]  ${title}
-    Go to  ${PLONE_URL}/createObject?type_name=News+Item
-    Wait Until Page Contains Element  title
-    Input text  title  ${title}
-    Click Button  Save
+    [arguments]  ${title}
+    Add content  news-item  ${title}
+
+Displayed content title should be
+    [arguments]  ${title}
+    Page should contain element  xpath=//*[contains(., "${title}")][@id='parent-fieldname-title']
+
+Add content
+    [arguments]  ${content_type}  ${title}
+    Open add new menu
+    Click Link  css=#plone-contentmenu-factories a.contenttype-${content_type}
+    Page Should Contain Element  css=#archetypes-fieldname-title input
+    Input Text  title  ${title}
+    Click button  name=form.button.save
+    Page Should Contain  Changes saved.
+    Page should contain  ${title}
+    Displayed content title should be  ${title}
 
 
 # ----------------------------------------------------------------------------
