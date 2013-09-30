@@ -20,6 +20,7 @@ console_scripts = [
     "robot = plone.app.robotframework.robotentrypoints:robot",
     "pybot = plone.app.robotframework.robotentrypoints:pybot",
     "ride = plone.app.robotframework.robotentrypoints:ride",
+    "libdoc = plone.app.robotframework.robotentrypoints:libdoc",
 ]
 
 entry_points = dict(console_scripts=console_scripts)
