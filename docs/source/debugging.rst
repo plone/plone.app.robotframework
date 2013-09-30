@@ -17,7 +17,13 @@ Debugging robot tests
 
        Set Selenium speed  0.5s
 
-4. Write a python keyword into your Python keyword library
+4. Use plone.app.robotframework keywords to drop the Zope server into 
+   debugger::
+
+       Import library  plone.app.robotframework.keywords.Debugging
+       Stop
+
+5. Write a python keyword into your Python keyword library
    to drop the Zope server into debugger.
 
    There's one catch in debugging your code while running Robot Framework
