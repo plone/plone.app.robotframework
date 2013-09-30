@@ -183,20 +183,24 @@ Workflow Promote to Draft
 
 Add Page
     [arguments]  ${title}
-    Add content  document  ${title}
+    ${result} =  Add content  document  ${title}
+    [return]  ${result}
 
 Add folder
     [arguments]  ${title}
-    Add content  folder  ${title}
+    ${result} =  Add content  folder  ${title}
+    [return]  ${result}
 
 Add document
     [arguments]  ${title}
     Go to  ${PLONE_URL}
-    Add Page  ${title}
-    
+    ${result} =  Add Page  ${title}
+    [return]  ${result}
+
 Add news item
     [arguments]  ${title}
-    Add content  news-item  ${title}
+    ${result} =  Add content  news-item  ${title}
+    [return]  ${result}
 
 Displayed content title should be
     [arguments]  ${title}
@@ -212,6 +216,8 @@ Add content
     Page Should Contain  Changes saved.
     Page should contain  ${title}
     Displayed content title should be  ${title}
+    ${location} =  Get Location
+    [return]  ${location}
 
 
 # ----------------------------------------------------------------------------
