@@ -2,6 +2,7 @@
 import sys
 
 from robot import run_cli
+from robot import libdoc as ld
 
 import pkg_resources
 
@@ -42,3 +43,7 @@ wxPython installed, like:
 
     /usr/bin/python bin/ride
 """
+
+
+def libdoc():
+    ld.libdoc_cli(sys.argv[1:])
