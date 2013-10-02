@@ -1,5 +1,6 @@
 - Anatoly Bubenkov
 - Asko Soukka
+- Benoît Suttor
 - Carles Bruguera
 - Chris Ewing
 - Chris Shenton
