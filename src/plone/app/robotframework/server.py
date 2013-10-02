@@ -123,13 +123,20 @@ def start_reload(zope_layer_dotted_name, reload_paths=('src',),
 
 
 def server():
-    parser = argparse.ArgumentParser()
+    if HAS_RELOAD:
+        parser = argparse.ArgumentParser()
+    else:
+        parser = argparse.ArgumentParser(
+            epilog='Note: require \'plone.app.robotframework\' with '
+                   '\'[reload]\'-extras to get the automatic code reloading '
+                   'support (powered by \'watchdog\').')
     parser.add_argument('layer')
     VERBOSE_HELP = (
         '-v information about test layers setup and tear down, '
         '-vv add logging.WARNING messages, '
         '-vvv add INFO messages, -vvvv add DEBUG messages.')
     parser.add_argument('--verbose', '-v', action='count', help=VERBOSE_HELP)
+
     if HAS_RELOAD:
         parser.add_argument('--reload-path', '-p', dest='reload_paths',
                             action='append')
@@ -140,7 +147,7 @@ def server():
     if args.verbose:
         global HAS_VERBOSE_CONSOLE
         HAS_VERBOSE_CONSOLE = True
-        loglevel = logging.ERROR - (args.verbose-1)*10
+        loglevel = logging.ERROR - (args.verbose - 1) * 10
     else:
         loglevel = logging.ERROR
     logging.basicConfig(level=loglevel)
