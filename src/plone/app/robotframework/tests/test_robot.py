@@ -69,6 +69,7 @@ def test_suite():
         suite.addTests([
             layered(robotsuite.RobotTestSuite(
                     "test_speakjs.robot"),
-                    layer=SPEAKJS_ROBOT_TESTING),
+                    layer=SPEAKJS_ROBOT_TESTING,
+                    noncritical=['non-critical']),
         ])
     return suite

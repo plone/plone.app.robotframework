@@ -38,6 +38,7 @@ Add spoken note
 *** Test cases ***
 
 Introducing Mr. Roboto
+    [Tags]  non-critical
     Go to  ${PLONE_URL}
     Sleep  1s
 
