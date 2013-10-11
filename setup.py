@@ -30,6 +30,7 @@ install_requires = [
     # Utility dependencies:
     'argparse',
     # Plone testing dependencies:
+    'plone.api',
     'plone.testing',
     'plone.app.testing',  # [robot] >= 4.2.2 would include Robot deps.
     # Functional Robot testing dependencies:
