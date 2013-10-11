@@ -117,7 +117,7 @@ SIMPLE_PUBLICATION_ROBOT_TESTING = FunctionalTesting(
 )
 
 
-class PloneRobotSandboxLayer(PloneSandboxLayer):
+class PloneRobotFixture(PloneSandboxLayer):
     defaultBases = (SIMPLE_PUBLICATION_FIXTURE,
                     MOCK_MAILHOST_FIXTURE,
                     REMOTE_LIBRARY_BUNDLE_FIXTURE)
@@ -169,7 +169,7 @@ class PloneRobotSandboxLayer(PloneSandboxLayer):
             self.applyProfile(portal, name)
 
 
-PLONE_ROBOT_FIXTURE = PloneRobotSandboxLayer()
+PLONE_ROBOT_FIXTURE = PloneRobotFixture()
 
 PLONE_ROBOT_TESTING = FunctionalTesting(
     bases=(PLONE_ROBOT_FIXTURE, z2.ZSERVER_FIXTURE),
