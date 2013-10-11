@@ -1,6 +1,7 @@
 *** Settings ***
 
-Documentation  This library expects jQuery to be found from the tested page.
+Documentation  *DEPRECATED* Use ``Selenium2Screenshots/keywords.robot`` from
+...            ``robotframework-selenium2screenshots``-package instead.
 
 Library  String
 Library  Collections
