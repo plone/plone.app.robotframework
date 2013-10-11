@@ -207,14 +207,12 @@ class Zope2Server:
     def set_zope_layer(self, layer_dotted_name):
         """Explicitly set the current Zope layer, when you know what you are
         doing
-
         """
         new_layer = self._import_layer(layer_dotted_name)
         self.zope_layer = new_layer
 
     def amend_zope_server(self, layer_dotted_name):
-        """Set up extra layers up to given layer_dotted_name
-        """
+        """Set up extra layers up to given layer_dotted_name"""
         old_layers = setup_layers.copy()
         new_layer = self._import_layer(layer_dotted_name)
         setup_layer(new_layer)
@@ -224,8 +222,7 @@ class Zope2Server:
         self.zope_layer = new_layer
 
     def prune_zope_server(self):
-        """Tear down the last set of layers set up with amend_zope_server
-        """
+        """Tear down the last set of layers set up with amend_zope_server"""
         tear_down(self.extra_layers)
         self.extra_layers = {}
         self.zope_layer = None
