@@ -3,8 +3,8 @@
 
 This module is located below tests directory to avoid confusing it with any
 re-usable resources of plone.app.robotframework.
-
 """
+
 from plone.app.testing import (
     PloneSandboxLayer,
     applyProfile,
