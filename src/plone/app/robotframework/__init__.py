@@ -8,6 +8,7 @@ from plone.app.robotframework.keywords import LayoutMath
 from plone.app.robotframework.annotate import Annotate
 
 # Remote Python libraries
+from plone.app.robotframework.serve import Zope2ServerRemote
 from plone.app.robotframework.quickinstaller import QuickInstaller
 from plone.app.robotframework.autologin import AutoLogin
 

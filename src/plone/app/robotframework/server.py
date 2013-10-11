@@ -301,7 +301,7 @@ def tear_down(setup_layers=setup_layers):
             del setup_layers[l]
 
 
-class RemoteServer(RemoteLibrary):
+class Zope2ServerRemote(RemoteLibrary):
     """Provide ``zodb_setup`` and ``zodb_teardown`` -keywords to allow
     explicit test isolation via remote library calls when server is set up
     with robot-server and tests are run by a separate pybot process.
