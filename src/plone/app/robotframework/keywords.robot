@@ -65,13 +65,13 @@ Log out
 Click Overlay Link
     [Arguments]  ${element}
     Click Link  ${element}
-    Page Should Contain Element  css=.pb-ajax > div
+    Wait until keyword succeeds  10  1  Page Should Contain Element  css=.pb-ajax > div
     Element Should Be Visible  css=.pb-ajax > div
 
 Click Overlay Button
     [Arguments]  ${element}
     Click Button  ${element}
-    Page Should Contain Element  css=.pb-ajax > div
+    Wait until keyword succeeds  10  1  Page Should Contain Element  css=.pb-ajax > div
     Element Should Be Visible  css=.pb-ajax > div
 
 Should be above
