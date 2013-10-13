@@ -22,11 +22,16 @@ from plone.testing import (
 import sys
 from zope.component import getSiteManager
 from zope.configuration import xmlconfig
-from plone.app.robotframework import (
-    QuickInstaller,
-    AutoLogin,
-    RemoteLibraryLayer
-)
+
+from plone.app.robotframework.server import Zope2ServerRemote
+from plone.app.robotframework.i18n import I18N
+from plone.app.robotframework.autologin import AutoLogin
+from plone.app.robotframework.mailhost import MockMailHost
+from plone.app.robotframework.content import Content
+from plone.app.robotframework.users import Users
+from plone.app.robotframework.genericsetup import GenericSetup
+from plone.app.robotframework.quickinstaller import QuickInstaller
+from plone.app.robotframework.remote import RemoteLibraryLayer
 
 import pkg_resources
 
@@ -63,12 +68,12 @@ class MockMailHostLayer(Layer):
     def setUp(self):
         # Note: CMFPlone can be imported safely only when a certain
         # zope.testing-set environment variable is in place.
-        from Products.CMFPlone.tests.utils import MockMailHost
+        from Products.CMFPlone.tests import utils
         with ploneSite() as portal:
             portal.email_from_address = 'noreply@example.com'
             portal.email_from_name = 'Plone Site'
             portal._original_MailHost = portal.MailHost
-            portal.MailHost = mailhost = MockMailHost('MailHost')
+            portal.MailHost = mailhost = utils.MockMailHost('MailHost')
             portal.MailHost.smtp_host = 'localhost'
             sm = getSiteManager(context=portal)
             sm.unregisterUtility(provided=IMailHost)
@@ -93,7 +98,9 @@ AUTOLOGIN_LIBRARY_FIXTURE = RemoteLibraryLayer(
 
 REMOTE_LIBRARY_BUNDLE_FIXTURE = RemoteLibraryLayer(
     bases=(PLONE_FIXTURE,),
-    libraries=(AutoLogin, QuickInstaller),
+    libraries=(AutoLogin, QuickInstaller, GenericSetup,
+               Content, Users, I18N, MockMailHost,
+               Zope2ServerRemote),
     name="RemoteLibraryBundle:RobotRemote"
 )
 
@@ -133,10 +140,6 @@ class PloneRobotFixture(PloneSandboxLayer):
             return filter(bool, [s.strip() for s in candidates])
 
     def setUpZope(self, app, configurationContext):
-
-        import collective.usermanual
-        xmlconfig.file('configure.zcml', collective.usermanual,
-                       context=configurationContext)
 
         for name in self._get_robot_variable('META_PACKAGES'):
             if not name in sys.modules:
@@ -194,6 +197,7 @@ if HAS_SPEAKJS:
 
     SPEAKJS_ROBOT_TESTING = FunctionalTesting(
         bases=(SPEAKJS_FIXTURE,
+               MOCK_MAILHOST_FIXTURE,
                SIMPLE_PUBLICATION_FIXTURE,
                REMOTE_LIBRARY_BUNDLE_FIXTURE,
                z2.ZSERVER_FIXTURE),

@@ -11,6 +11,6 @@ class QuickInstaller(RemoteLibrary):
         from Products.CMFCore.utils import getToolByName
         quickinstaller = getToolByName(self, 'portal_quickinstaller')
         assert quickinstaller.isProductInstalled(product_name),\
-            u"Product '%s' was not installed." % product_name
+            u"Product '%s' was not activated." % product_name
 
     product_is_installed = product_is_activated

@@ -4,33 +4,10 @@ from plone import api
 from plone.app.robotframework.remote import RemoteLibrary
 
 
-class PloneAPI(RemoteLibrary):
-
-    def create_user(self, username, *args, **kwargs):
-        """Create user with given details and return its id
-        """
-        # XXX: It seems that **kwargs does not yet work with Robot Framework
-        # remote library interface and that's why we need to unpack the
-        # keyword arguments from positional args list.
-        roles = []
-        properties = {}
-        for arg in args:
-            if not '=' in arg:
-                roles.append(arg)
-            else:
-                name, value = arg.split('=', 1)
-                if name in ('email', 'password'):
-                    kwargs[name] = value
-                else:
-                    properties[name] = value
-        if not 'email' in kwargs:
-            kwargs['email'] = '%s@example.com' % username
-        return api.user.create(
-            username=username, roles=roles, properties=properties, **kwargs)
+class Content(RemoteLibrary):
 
     def create_content(self, *args, **kwargs):
-        """Create content and return its UID
-        """
+        """Create content and return its UID"""
         # XXX: It seems that **kwargs does not yet work with Robot Framework
         # remote library interface and that's why we need to unpack the
         # keyword arguments from positional args list.
@@ -66,9 +43,10 @@ class PloneAPI(RemoteLibrary):
 
         return IUUID(api.content.create(**kwargs))
 
-    def do_transition(self, content, action):
-        """Do workflow action for content
-        """
+    def fire_transition(self, content, action):
+        """Fire workflow action for content"""
+        # It should be ok to use unrestricted-methods, because workflow
+        # transition guard should proctect unprivileged transition:
         obj = self.portal_catalog.unrestrictedSearchResults(
             UID=content)[0]._unrestrictedGetObject()
         api.content.transition(obj, action)

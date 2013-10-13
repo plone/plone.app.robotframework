@@ -9,11 +9,12 @@ from plone.app.robotframework.annotate import Annotate
 
 # Remote Python libraries
 from plone.app.robotframework.server import Zope2ServerRemote
-from plone.app.robotframework.i18n import I18N
 from plone.app.robotframework.autologin import AutoLogin
+from plone.app.robotframework.genericsetup import GenericSetup
+from plone.app.robotframework.i18n import I18N
 from plone.app.robotframework.mailhost import MockMailHost
-from plone.app.robotframework.ploneapi import PloneAPI
-from plone.app.robotframework.portalsetup import PortalSetup
+from plone.app.robotframework.users import Users
+from plone.app.robotframework.content import Content
 from plone.app.robotframework.quickinstaller import QuickInstaller
 
 # Generic remote Python library layer

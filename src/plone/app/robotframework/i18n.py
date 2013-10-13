@@ -1,24 +1,20 @@
 # -*- coding: utf-8 -*-
 import os
 
-from robot.libraries.BuiltIn import BuiltIn
+from plone import api
 from plone.app.robotframework.remote import RemoteLibrary
+
+from zope.i18n import translate
 
 
 class I18N(RemoteLibrary):
 
-    def _get_robot_variable(self, name):
-        if getattr(BuiltIn(), '_context', None) is not None:
-            return BuiltIn().get_variable_value('${%s}' % name, [])
-        else:
-            candidates = os.environ.get(name, '').split(',')
-            return filter(bool, [s.strip() for s in candidates])[0]
-
     def set_default_language(self, language=None):
         """Change portal default language"""
+        portal_object = api.portal.get()
         if language is None:
             language = os.environ.get('LANGUAGE') or 'en'
-        setattr(self.portal_url.getPortalObject(), 'language', language)
+        setattr(portal_object, 'language', language)
         self.portal_languages.setDefaultLanguage(language)
 
     def translate(self, msgid, *args, **kwargs):
@@ -39,6 +35,7 @@ class I18N(RemoteLibrary):
                 domain=kwargs.get('domain'),
                 default=kwargs.get('default') or msgid, mapping=mapping)
         else:
+            # XXX: Should self.REQUEST be replaced with zope.globalrequest.getRequest()?
             return translate(
                 msgid, context=self.REQUEST, domain=kwargs.get('domain'),
                 default=kwargs.get('default') or msgid, mapping=mapping)
