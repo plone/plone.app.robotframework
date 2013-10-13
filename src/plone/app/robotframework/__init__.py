@@ -23,4 +23,4 @@ from plone.app.robotframework.remote import RemoteLibraryLayer
 from plone.app.robotframework.server import RobotListener
 
 # Robot Plone fixture
-from plone.app.robotframework.testing import PLONE_ROBOT_FIXTURE
+from plone.app.robotframework.testing import PLONE_ROBOT_TESTING
