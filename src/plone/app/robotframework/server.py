@@ -302,16 +302,14 @@ def tear_down(setup_layers=setup_layers):
 
 
 class Zope2ServerRemote(RemoteLibrary):
-    """Provide ``zodb_setup`` and ``zodb_teardown`` -keywords to allow
-    explicit test isolation via remote library calls when server is set up
-    with robot-server and tests are run by a separate pybot process.
-    """
-    def zodb_setup(self, layer_dotted_name):
-        inst = Zope2Server()
-        inst.set_zope_layer(layer_dotted_name)
-        inst.zodb_setup()
+    """Provides ``remote_zodb_setup`` and ``remote_zodb_teardown`` -keywords to
+    allow explicit test isolation via remote library calls when server is set
+    up with robot-server and tests are run by a separate pybot process.
 
-    def zodb_teardown(self, layer_dotted_name):
-        inst = Zope2Server()
-        inst.set_zope_layer(layer_dotted_name)
-        inst.zodb_teardown()
+    *WARNING* These keywords does not with zope.testrunner (yet).
+    """
+    def remote_zodb_setup(self, layer_dotted_name):
+        Zope2Server().zodb_setup(layer_dotted_name)
+
+    def remote_zodb_teardown(self, layer_dotted_name):
+        Zope2Server().zodb_teardown(layer_dotted_name)
