@@ -9,6 +9,9 @@ Resource  selenium.robot
 *** Keywords ***
 
 Pause
+    [Documentation]  Visually pause test execution with interactive dialog by
+    ...              importing **Dialogs**-library and calling its
+    ...              **Pause Execution**-keyword.
     Import library  Dialogs
     Pause execution
 
