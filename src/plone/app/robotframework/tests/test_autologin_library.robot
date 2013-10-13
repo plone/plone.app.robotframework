@@ -6,7 +6,7 @@ Resource  plone/app/robotframework/saucelabs.robot
 
 Library  Remote  ${PLONE_URL}/RobotRemote
 
-Test Setup  Open SauceLabs test browser
+Test Setup  Run keywords  Open SauceLabs test browser  Test Setup
 Test Teardown  Run keywords  Report test status  Close all browsers
 
 *** Test cases ***
@@ -44,6 +44,9 @@ Contributors cannot edit each other's pages
      Then she gets insufficient privileges error
 
 *** Keywords ***
+
+Test Setup
+    Set window size  1024  768
 
 I'm logged in as a '${ROLE}'
     Enable autologin as  ${ROLE}
