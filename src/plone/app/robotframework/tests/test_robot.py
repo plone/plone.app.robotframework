@@ -13,7 +13,8 @@ else:
 import robotsuite
 from plone.app.robotframework.testing import (
     REMOTE_LIBRARY_ROBOT_TESTING,
-    SIMPLE_PUBLICATION_ROBOT_TESTING
+    SIMPLE_PUBLICATION_ROBOT_TESTING,
+    PLONE_ROBOT_TESTING
 )
 from plone.testing import layered
 
@@ -27,6 +28,9 @@ def test_suite():
         layered(robotsuite.RobotTestSuite(
                 "test_quickinstaller_library.robot"),
                 layer=REMOTE_LIBRARY_ROBOT_TESTING),
+        layered(robotsuite.RobotTestSuite(
+                "test_i18n.robot"),
+                layer=PLONE_ROBOT_TESTING),
     ])
 
     if HAS_SPEAKJS:

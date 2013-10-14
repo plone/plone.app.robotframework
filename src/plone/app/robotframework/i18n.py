@@ -32,10 +32,12 @@ class I18N(RemoteLibrary):
         if kwargs.get('target_language'):
             return translate(
                 msgid, target_langauge=kwargs.get('target_language'),
-                domain=kwargs.get('domain'),
+                domain=kwargs.get('domain') or 'plone',
                 default=kwargs.get('default') or msgid, mapping=mapping)
         else:
-            # XXX: Should self.REQUEST be replaced with zope.globalrequest.getRequest()?
+            # XXX: Should self.REQUEST be replaced with
+            # zope.globalrequest.getRequest()?
             return translate(
-                msgid, context=self.REQUEST, domain=kwargs.get('domain'),
+                msgid, context=self.REQUEST,
+                domain=kwargs.get('domain') or 'plone',
                 default=kwargs.get('default') or msgid, mapping=mapping)

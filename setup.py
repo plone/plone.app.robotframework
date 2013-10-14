@@ -21,6 +21,7 @@ console_scripts = [
     "pybot = plone.app.robotframework.robotentrypoints:pybot",
     "ride = plone.app.robotframework.robotentrypoints:ride",
     "libdoc = plone.app.robotframework.robotentrypoints:libdoc",
+    "pybabel = plone.app.robotframework.robotentrypoints:pybabel",
 ]
 
 entry_points = dict(console_scripts=console_scripts)
@@ -40,6 +41,8 @@ install_requires = [
     # Implicit Robot Framework dependencies:
     'decorator',
     'selenium',
+    # I18N message extractor for Translate -keyword:
+    'babel',
 ]
 
 ride_requires = [
