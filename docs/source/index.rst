@@ -20,7 +20,6 @@ development (BDD). It has easy-to-use plain text test syntax and utilizes the
 keyword-driven testing approach. Selenium is a web browser automation framework
 that exercises the browser as if the user was interacting with the browser.
 
-
 Start here
 ----------
 
@@ -29,6 +28,8 @@ Start here
    :titlesonly:
 
    Writing robot tests with plone.app.robotframework <happy>
+   Add continuous integration with Travis-CI <travis-ci>
+   Add cross-browser-testing with SauceLabs <saucelabs>
    Learn more about robot <robot>
    Debug robot tests <debugging>
 
@@ -36,7 +37,7 @@ Print these
 -----------
 
 **Robot Framework built-in library documentation**
-    http://robotframework.googlecode.com/hg/doc/libraries/BuiltIn.html?r=2.7.7
+    http://robotframework.googlecode.com/hg/doc/libraries/BuiltIn.html?r=2.8.1
 **Robot Framework Selenium2Library documentation**
     http://rtomac.github.com/robotframework-selenium2library/doc/Selenium2Library.html
 
