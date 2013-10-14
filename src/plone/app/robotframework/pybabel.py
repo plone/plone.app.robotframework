@@ -13,7 +13,7 @@ def populate(self):
         comments = []
         for part in filter(lambda x: x.startswith('default='), self._value):
             comments.append('Default: "%s"' % part[8:])
-        MESSAGES.append((0, None, parts[index + 1], comments))
+        MESSAGES.append((0, None, self._value[index + 1], comments))
     except ValueError:
         pass
     except IndexError:
