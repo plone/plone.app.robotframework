@@ -27,25 +27,38 @@ Start here
    :maxdepth: 1
    :titlesonly:
 
-   Writing robot tests with plone.app.robotframework <happy>
-   Add continuous integration with Travis-CI <travis-ci>
-   Add cross-browser-testing with SauceLabs <saucelabs>
-   Learn more about robot <robot>
-   Debug robot tests <debugging>
+   happy
 
 Print these
 -----------
 
-**Robot Framework built-in library documentation**
-    http://robotframework.googlecode.com/hg/doc/libraries/BuiltIn.html?r=2.8.1
-**Robot Framework Selenium2Library documentation**
-    http://rtomac.github.com/robotframework-selenium2library/doc/Selenium2Library.html
+* `Robot Framework built-in library documentation`__
+* `Robot Framework Selenium2Library documentation`__
 
-Read more
----------
+__ http://robotframework.googlecode.com/hg/doc/libraries/BuiltIn.html?r=2.8.1
+__ http://rtomac.github.com/robotframework-selenium2library/doc/Selenium2Library.html
 
-**How to write good Robot Framework test cases**
-    http://code.google.com/p/robotframework/wiki/HowToWriteGoodTestCases
+
+Learn more
+----------
+
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+
+   travis-ci
+   saucelabs
+   robot
+   debugging
+
+Other resources
+---------------
+
+* `How to write good Robot Framework test cases`__
+* `List of available Robot Framework test libraries`__
+
+__ http://code.google.com/p/robotframework/wiki/HowToWriteGoodTestCases
+__ http://code.google.com/p/robotframework/wiki/TestLibraries
 
 Old tutorials
 -------------

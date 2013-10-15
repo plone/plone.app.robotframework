@@ -1,10 +1,13 @@
-Writing Robot Framework tests with plone.app.robotframework
-===========================================================
+How to write Robot Framework tests for Plone
+============================================
 
-**plone.app.robotframework** provides `Robot Framework
-<http://code.google.com/p/robotframework/>`_ compatible resources and tools for
-writing functional Selenium tests (including acceptance tests) for Plone CMS
-and its add-ons.
+This is a brief tutorial for writing Robot Framework test for Plone with
+`plone.app.robotframework`_. *plone.app.robotframework* provides `Robot
+Framework`_ -compatible resources and tools for writing functional Selenium
+tests (including acceptance tests) for Plone CMS and its add-ons. (See also:
+:doc:`examples`).
+
+.. _plone.app.robotframework: http://pypi.python.org/pypi/plone.app.robotframework
 
 
 Require plone.app.robotframework
@@ -15,26 +18,32 @@ Update ``setup.py`` to require *plone.app.robotframework*:
 .. code-block:: python
 
    extras_require={
-       'test': [
+      'test': [
            ...
            'plone.app.robotframework',
        ],
    },
 
-All you need is *plone.app.robotframework*, because it will require the rest
-(*selenium*, *robotframework*, robotframework-selenium2library* and
-*robotsuite*).
+All you need is *plone.app.robotframework*. It will require the rest
+(selenium_, robotframework_, `robotframework-selenium2library`_ and
+also robotsuite_).
 
 .. note:: Selenium-bindings for Python use Firefox as the default browser.
    Unless you know how to configure other browsers to work with Selenium you
    should have Firefox installed in your system
 
+.. _Robot Framework: http://pypi.python.org/pypi/robotframework
+.. _selenium: http://pypi.python.org/pypi/selenium
+.. _robotframework: http://pypi.python.org/pypi/robotframework
+.. _robotframework-selenium2library: http://pypi.python.org/pypi/robotframework-selenium2library
+.. _robotsuite: http://pypi.python.org/pypi/robotsuite
+
 
 Define functional testing layer
 -------------------------------
 
-Plone add-on testing requires defining test layers,
-which setup Plone, the add-ons and any custom configuration
+Plone add-on testing requires defining a custom test layer,
+which setups Plone-sandbox, the dependent add-ons and any custom configuration
 required by the tests.
 
 Update your ``src/my/product/testing.py`` to include:
@@ -55,7 +64,9 @@ Update your ``src/my/product/testing.py`` to include:
    login forms. Also note that the order of the bases matters.
 
 If you don't have any testing layers for your product yet, or want to know
-more about them, please read: http://pypi.python.org/pypi/plone.app.testing
+more about them, please read `plone.app.testing`_-documentation.
+
+.. _plone.app.testing: http://pypi.python.org/pypi/plone.app.testing
 
 
 Install Robot-tools
@@ -68,7 +79,7 @@ writing tests:
   test layer set up
 
 * ``bin/robot`` executes Robot Framework's ``pybot``-runner so that it
-  will run the given test suite agains the running ``robot-server``,
+  will run the given test suite against the running ``robot-server``,
   ensuring that tests will be run in isolation (database is cleaned between
   the tests)
 
@@ -99,14 +110,18 @@ Once the buildout with Robot-tools is run, start the test server with:
 
 .. code-block:: bash
 
-    $ bin/robot-server my.product.testing.MY_PRODUCT_ROBOT_TESTING
+   $ bin/robot-server my.product.testing.MY_PRODUCT_ROBOT_TESTING
 
-Once the test server has started, there's a test Plone-site served
-at http://localhost:55001/plone/ (by default).
+Once the test server has started, there should be a test Plone-site served at
+http://localhost:55001/plone/ (by default). This allows you to play with the
+sandbox while writing the tests.
+
+.. note:: The default admin user for `plone.app.testing`_-based Plone-sandbox
+   is ``admin`` and password is ``secret``.
 
 
-Write the first test
---------------------
+Write your first test suite
+---------------------------
 
 Robot tests are written in test suites, which are plain text files, usually
 ending with ``.robot`` (and older ones with ``.txt``).
@@ -135,12 +150,12 @@ exact, keyword calls with parameters). Every test case may contain one or more
 keywords, which are run sequentially -- usually until the first of them fails.
 
 Keywords are defined in **keyword libraries** and as **user keywords**. Keyword
-libraries can be Python libraries or XML-RPC-services. User keywords are lists
-of test clauses reusing existing keywords or other user keywords.
+libraries can be Python libraries or XML-RPC-services. User keywords are just
+lists of test clauses reusing existing keywords or other user keywords.
 
 Here is a more complicated example with some user keywords in action:
 
-.. code:: robotframework
+.. code-block:: robotframework
 
    *** Settings ***
 
@@ -170,13 +185,18 @@ Here is a more complicated example with some user keywords in action:
    I see the Site Setup -link
        Element should be visible  css=#personaltools-plone_setup
 
+Please, stop for a while end read the example above again. Once you understand
+how you can stack keyword calls with user keywords, you are ready to unleash
+the power of Robot Framework all the way to building your own domain specific
+test language.
+
 .. note:: We use ``.robot`` as the Robot Framework test suite file extension
    to make it easier for developers to configure Robot Framework syntax
    highlighting for their editors (otherwise ``.txt`` would work also).
 
 
-Run the first test
-------------------
+Run your first test suite
+-------------------------
 
 Once the ``bin/robot-server`` has been started and a test suite has been
 written, the new test suite can be run with ``bin/robot``:
@@ -194,9 +214,11 @@ written, the new test suite can be run with ``bin/robot``:
 Integrate with Zope-testrunner
 ------------------------------
 
-Because it's convenient to run Robot tests with other *zope.testrunner*
-tests (e.g. on Jenkins or Travis-CI), we usually want to integrate
-Robot tests to be run with other tests using *zope.testrunner*.
+It's often convenient to run Robot tests with other Plone tests (e.g. on
+Jenkins or Travis-CI). To achieve that, we integrate Robot tests to be run with
+other tests so that all tests can be run with `zope.testrunner`_.
+
+.. _zope.testrunner: http://pypi.python.org/pypi/zope.testrunner
 
 For *zope.testrunner* integration, create
 ``src/my/product/tests/test_robot.py``:
@@ -225,7 +247,7 @@ For *zope.testrunner* integration, create
 `RobotSuite <http://pypi.python.org/pypi/robotsuite/>`_ is our package for
 wrapping Robot Framework tests into Python unittest compatible test cases.
 It's good to know that this registration pattern is the same as how
-doctest-suites are registered to support zope.testrunner's layers (see
+doctest-suites are registered to support *zope.testrunner*'s layers (see
 https://pypi.python.org/pypi/plone.testing for layered doctest examples).
 
 
@@ -236,32 +258,31 @@ Once your robot test have been integrated with *zope.testrunner* using
 ``test_robot.py``-module (or any other module returning RobotTestSuite),
 you can list your integrated robot test cases with command:
 
-.. code:: bash
+.. code-block:: bash
 
    $ bin/test --list-tests
 
 And run robot tests cases with all other test cases with command:
 
-.. code:: bash
+.. code-block:: bash
 
    $ bin/test
 
-You can filter robot test normally using ``-t``-argument for
-*zope.testrunnner*:
+You can filter robot test using ``-t``-argument for zope.testrunner*:
 
-.. code:: bash
+.. code-block:: bash
 
    $ bin/test -t robot
 
-And it's also possible to filter test by tags:
+And it's also possible to filter test by Robot Framework tags:
 
-.. code::
+.. code-block::
 
    $ bin/test -t \#mytag
 
-Or exclude them:
+Or exclude matching tests from being run:
 
-.. code::
+.. code-block::
 
    $ bin/test -t \!robot
 
@@ -269,23 +290,26 @@ Or exclude them:
 How to write more tests
 -----------------------
 
-The most difficult part in writing robot tests with Selenium-keywords is to know
-the application you are testing: which link to click when and to which field to
-input test data.
+The most difficult part in writing robot tests with Selenium-keywords is to
+know the application you are testing: which link to click when and to which
+field to input test data.
 
-Robot Framework ships with a few selected standard libraries. One of them is
-the *Dialogs*-library, which provides a very useful keyword: *Pause execution*.
-By importing Dialogs-library (while developing the test) and adding the *Pause
-execution* keyword, you can pause the test at any point to make it possible to
-figure out what to do next.
-(Dialogs depend on `TkInter-library <http://wiki.python.org/moin/TkInter>`_.)
+At first, you should have a brief idea about the available keywords:
 
-For example::
+* `Robot Framework built-in library documentation`__
+* `Robot Framework Selenium2Library documentation`__
+
+__ http://robotframework.googlecode.com/hg/doc/libraries/BuiltIn.html?r=2.8.1
+__ http://rtomac.github.com/robotframework-selenium2library/doc/Selenium2Library.html
+
+Then, learn to use pause test execution to make it easier to figure out,
+what to do next:
+
+.. code-block:: robotframework
 
     *** Settings ***
 
     Resource  plone/app/robotframework/selenium.robot
-    Resource  plone/app/robotframework/saucelabs.robot
 
     Library  Remote  ${PLONE_URL}/RobotRemote
 
@@ -294,32 +318,39 @@ For example::
 
     *** Test Cases ***
 
-    Plomino is installed
-        Go to  ${PLONE_URL}
-        Pages should contain  mydb
-
     Let me think what to do next
         Enable autologin as  Site Administrator
         Go to  ${PLONE_URL}
+
         Import library  Dialogs
         Pause execution
 
-.. note:: Be sure to remove the Dialogs-library import and its keywords
-   before commit, because Dialogs-library may have dependencies,
-   which are not available on your CI-machine.
+Robot Framework ships with a few selected standard libraries. One of them is
+the *Dialogs*-library, which provides a very useful keyword: *Pause execution*.
+By importing Dialogs-library (while developing the test) and adding the *Pause
+execution* keyword, you can pause the test at any point to make it possible to
+figure out what to do next.
+(Dialogs depend on `TkInter-library <http://wiki.python.org/moin/TkInter>`_.)
 
+.. note:: Be sure to remove *Import libary* and *Pause execution*
+   keyword calls before committing your tests to avoid pausing your
+   tests on CI.
 
-Resources
----------
+.. note:: *plone.app.robotframework* ships with an optional collection
+   of Plone-specific user keywords, which already include *Pause* keyword as a
+   shortcut for *Pause execution* keywords. You can include and use the
+   collection with:
 
-- http://robotframework.googlecode.com/hg/doc/libraries/BuiltIn.html?r=2.7.7
-- http://rtomac.github.com/robotframework-selenium2library/doc/Selenium2Library.html
-- http://code.google.com/p/robotframework/wiki/HowToWriteGoodTestCases
-- http://code.google.com/p/robotframework/
+   .. code-block:: robotframework
 
+      *** Settings ***
 
-Examples:
----------
+      ...
 
-- https://github.com/plone/plone.app.robotframework/tree/master/src/plone/app/robotframework/tests
-- http://plone.293351.n2.nabble.com/Robot-Framework-How-to-fill-TinyMCE-s-text-field-tp7563662p7563691.html
+      Resource  plone/app/robotframework/keywords.robot
+
+      *** Test Cases ***
+
+      Let me think what to do next
+          ...
+          Pause

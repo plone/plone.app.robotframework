@@ -1,3 +1,3 @@
 # This pip install requirements file is intended to be used only for building
 # documentation for this package.
-sphinxcontrib-robotdoc==0.4.0
+sphinxcontrib-robotdoc==0.6.0
