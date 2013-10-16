@@ -1,24 +1,27 @@
 Writing Robot Framework tests for Plone
 =======================================
 
-**plone.app.robotframework** provides `Robot Framework
-<http://code.google.com/p/robotframework/>`_ compatible tools and resources for
-writing functional Selenium tests (including acceptance tests) for Plone CMS
-and its add-ons.
+`plone.app.robotframework`_ provides `Robot Framework`_-compatible tools and
+resources for writing functional Selenium_-tests (including acceptance tests)
+for `Plone CMS`_ and its add-ons.
 
-**This documentation** gives you everything to get started in writing and
+This documentation gives you everything to get started in writing and
 executing functional Selenium tests (including acceptance tests) for Plone or
-your own Plone add-on. It depends on two testing frameworks, `Robot Framework
-<http://code.google.com/p/robotframework/>`_ and `Selenium
-<http://seleniumhq.org/>`_ (with
-`Selenium2Library <https://github.com/rtomac/robotframework-selenium2library>`_),
-and uses the tools and resources provided by plone.app.robotframework.
+your own Plone add-on. We depend  on two testing frameworks, `Robot Framework`_
+and Selenium_ (with Selenium2Library_), and our tools and resources provided
+in *plone.app.robotframework*.
 
-Robot Framework is a generic test automation framework for acceptance testing
-and acceptance test-driven development (ATDD), even for behavior driven
+`Robot Framework`_ is a generic test automation framework for acceptance
+testing and acceptance test-driven development (ATDD), even for behavior driven
 development (BDD). It has easy-to-use plain text test syntax and utilizes the
 keyword-driven testing approach. Selenium is a web browser automation framework
 that exercises the browser as if the user was interacting with the browser.
+
+.. _plone.app.robotframework: http://pypi.python.org/pypi/plone.app.robotframework
+.. _Robot Framework: http://robotframework.org/
+.. _Plone CMS: http://plone.org/
+.. _Selenium: http://seleniumhq.org/
+.. _Selenium2Library: https://pypi.python.org/pypi/robotframework-selenium2library
 
 Start here
 ----------

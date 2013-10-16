@@ -32,7 +32,7 @@ also robotsuite_).
    Unless you know how to configure other browsers to work with Selenium you
    should have Firefox installed in your system
 
-.. _Robot Framework: http://pypi.python.org/pypi/robotframework
+.. _Robot Framework: http://robotframework.org
 .. _selenium: http://pypi.python.org/pypi/selenium
 .. _robotframework: http://pypi.python.org/pypi/robotframework
 .. _robotframework-selenium2library: http://pypi.python.org/pypi/robotframework-selenium2library
