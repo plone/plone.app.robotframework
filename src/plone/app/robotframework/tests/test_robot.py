@@ -31,6 +31,9 @@ def test_suite():
         layered(robotsuite.RobotTestSuite(
                 "test_i18n.robot"),
                 layer=PLONE_ROBOT_TESTING),
+        layered(robotsuite.RobotTestSuite(
+                "docs"),
+                layer=PLONE_ROBOT_TESTING),
     ])
 
     if HAS_SPEAKJS:
