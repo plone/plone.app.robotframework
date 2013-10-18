@@ -26,3 +26,12 @@ env:
   matrix:
   - ROBOT_BROWSER=firefox ROBOT_DESIRED_CAPABILITIES=tunnel-identifier:$TRAVIS_JOB_NUMBER
   - ROBOT_BROWSER=ie ROBOT_DESIRED_CAPABILITIES=tunnel-identifier:$TRAVIS_JOB_NUMBER
+notifications:
+  irc:
+    channels:
+    - irc.freenode.org#plone-testing
+    template:
+    - "%{repository}#%{build_number} (%{branch} - %{commit} : %{author}): %{message}"
+    - "Change view : %{compare_url}"
+    - "Build details : %{build_url}"
+    - "Robot Test Report: http://plone.app.robotframework.s3-website-us-east-1.amazonaws.com/artifacts/%{build_number}"
