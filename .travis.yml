@@ -36,5 +36,5 @@ notifications:
     - "%{repository}#%{build_number} (%{branch} - %{commit} : %{author}): %{message}"
 #   - "Change view : %{compare_url}"
 #   - "Build details : %{build_url}"
-    - "Report: http://plone.app.robotframework.s3-website-us-east-1.amazonaws.com/artifacts/%{build_number}/%{build_number}.1"
-    - "Sphinx Documentation: http://plone.app.robotframework.s3-website-us-east-1.amazonaws.com/artifacts/%{build_number}/%{build_number}.1/index.html"
+    - "Report: http://plone.app.robotframework.s3-website-us-east-1.amazonaws.com/artifacts/%{build_number}/%{build_number}.1/robot_report.html"
+    - "Documentation: http://plone.app.robotframework.s3-website-us-east-1.amazonaws.com/artifacts/%{build_number}/%{build_number}.1/"
