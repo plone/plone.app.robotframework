@@ -26,13 +26,22 @@ that exercises the browser as if the user was interacting with the browser.
 Start here
 ----------
 
+Start here to learn the default way of writing Robot Framework tests to be
+run just next to your other Plone-tests with `zope.testrunner`_:
+
 .. toctree::
    :maxdepth: 2
 
    happy
 
+.. _zope.testrunner: http://pypi.python.org/pypi/zope.testrunner
+
 Print these
 -----------
+
+Print these keyword libraries to be easily available when writing Robot
+Framework tests, because they provide the basic building blocks for your
+tests:
 
 * `Robot Framework built-in library documentation`__
 * `Robot Framework Selenium2Library documentation`__

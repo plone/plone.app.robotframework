@@ -4,8 +4,8 @@ How to write Robot Framework tests for Plone
 This is a brief tutorial for writing Robot Framework test for Plone with
 `plone.app.robotframework`_. *plone.app.robotframework* provides `Robot
 Framework`_ -compatible resources and tools for writing functional Selenium
-tests (including acceptance tests) for Plone CMS and its add-ons. (See also:
-:doc:`examples`).
+tests (including acceptance tests) for Plone CMS and its add-ons. (See also
+:doc:`examples` for more ideas).
 
 .. _plone.app.robotframework: http://pypi.python.org/pypi/plone.app.robotframework
 
