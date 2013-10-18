@@ -13,7 +13,9 @@ before_script:
 - gem install travis-artifacts
 script: bin/test
 after_script:
+- bin/sphinx-build docs/source docs/html
 - travis-artifacts upload --path parts/test
+- travis-artifacts upload --path docs/html
 env:
   global:
   - secure: YLol0TyHB+XAUbCzzjfc5JJ5AFqEi/GVhGphtAAcSv8+JY6MhTVVTjyCPeoK 2nT7tDhQRnYKOAMBmTuP/TUdzFqBf5LvjrFxvcjBawJMRW85kuYEuXsS8XEx C+lc1bbXSUPGA0x03tvSHIYbCowvVPZNUupxgRQdW2QLa5HcSuQ=
@@ -35,3 +37,4 @@ notifications:
     - "Change view : %{compare_url}"
     - "Build details : %{build_url}"
     - "Robot Test Report: http://plone.app.robotframework.s3-website-us-east-1.amazonaws.com/artifacts/%{build_number}/%{job_number}"
+    - "Sphinx Documentation: http://plone.app.robotframework.s3-website-us-east-1.amazonaws.com/artifacts/%{build_number}/%{job_number}/index.html"
