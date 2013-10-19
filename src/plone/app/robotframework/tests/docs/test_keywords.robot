@@ -7,10 +7,14 @@ Library  Remote  ${PLONE_URL}/RobotRemote
 Test Setup  Open test browser
 Test Teardown  Close all browsers
 
+*** Variables ***
+
+${ADMIN_ROLE}  Site Administrator
+
 *** Test Cases ***
 
 Site Administrator can access control panel
-    Given I'm logged in as a 'Site Administrator'
+    Given I'm logged in as a '${ADMIN_ROLE}'
      When I open the personal menu
      Then I see the Site Setup -link
 

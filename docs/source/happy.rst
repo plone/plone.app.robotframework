@@ -136,10 +136,13 @@ For example, a ``test_hello.robot``:
 Robot is all about running test clauses called **keywords** (or, to be more
 exact, keyword calls with parameters). Every test case may contain one or more
 keywords, which are run sequentially -- usually until the first of them fails.
+Keywords are separated from their arguments (and arguments from each other)
+using at least two spaces.
 
 Keywords are defined in **keyword libraries** and as **user keywords**. Keyword
 libraries can be Python libraries or XML-RPC-services. User keywords are just
-lists of test clauses reusing existing keywords or other user keywords.
+lists of test clauses reusing existing keywords or other user keywords. User
+keywords are described in the test suite, or imported from **resource** files.
 
 Here is a more complicated example with some user keywords in action:
 

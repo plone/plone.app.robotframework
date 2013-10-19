@@ -59,9 +59,9 @@ Advanced topics
    :maxdepth: 1
    :titlesonly:
 
+   robot
    travis-ci
    saucelabs
-   robot
    debugging
    reload
    ride

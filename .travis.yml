@@ -33,8 +33,8 @@ notifications:
     channels:
     - irc.freenode.org#plone-testing
     template:
-    - "%{repository}#%{build_number} (%{branch} - %{commit} : %{author}): %{message}"
-#   - "Change view : %{compare_url}"
-#   - "Build details : %{build_url}"
-    - "Report: http://plone.app.robotframework.s3-website-us-east-1.amazonaws.com/artifacts/%{build_number}/%{build_number}.1/robot_report.html"
-    - "Documentation: http://plone.app.robotframework.s3-website-us-east-1.amazonaws.com/artifacts/%{build_number}/%{build_number}.1/"
+    - "%{repository}#%{build_number} (%{branch} | %{commit} | %{author}): %{message}"
+#   - "Change: %{compare_url}"
+#   - "Details: %{build_url}"
+    - "Robot: http://plone.app.robotframework.s3-website-us-east-1.amazonaws.com/artifacts/%{build_number}/%{build_number}.1/robot_report.html"
+    - "Sphinx: http://plone.app.robotframework.s3-website-us-east-1.amazonaws.com/artifacts/%{build_number}/%{build_number}.1/"
