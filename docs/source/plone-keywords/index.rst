@@ -11,7 +11,6 @@ all the keywords that are necessary to write acceptance test in Plone.
 
    content.rst
    browser.rst
-   editbar.rst
    login.rst
    history.rst
    edit-wizard-tabs.rst

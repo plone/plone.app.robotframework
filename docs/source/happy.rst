@@ -205,11 +205,11 @@ For *zope.testrunner* integration, create
    robot test suite, remember to move ``test_hello.robot`` under
    ``my/product/tests``.
 
-`RobotSuite <http://pypi.python.org/pypi/robotsuite/>`_ is our package for
-wrapping Robot Framework tests into Python unittest compatible test cases.
-It's good to know that this registration pattern is the same as how
-doctest-suites are registered to support *zope.testrunner*'s layers (see
-https://pypi.python.org/pypi/plone.testing for layered doctest examples).
+`RobotSuite`_ is our package for wrapping Robot Framework tests into Python
+unittest compatible test cases. It's good to know that this registration
+pattern is the same as how doctest-suites are registered to support
+*zope.testrunner*'s layers (see https://pypi.python.org/pypi/plone.testing for
+layered doctest examples).
 
 
 Running tests with zope.testrunner

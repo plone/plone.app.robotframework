@@ -43,7 +43,7 @@ Integrate with Sauce Labs
          - ROBOT_DESIRED_CAPABILITIES=tunnel-identifier:$TRAVIS_JOB_ID
 
 .. note:: If you already have an ``env`` section, for instance to define
-different versions of Plone like this::
+   different versions of Plone like this::
 
        env:
          - PLONE_VERSION=4.0
@@ -90,7 +90,7 @@ different versions of Plone like this::
            robotframework.googlecode.com
 
 .. note:: If you don't have Travis-CI-integration yet, you need to add ``travis.cfg``
-for the above ``.travis.yml`` to work::
+   for the above ``.travis.yml`` to work::
 
        [buildout]
        extends = https://raw.github.com/collective/buildout.plonetest/master/travis-4.x.cfg

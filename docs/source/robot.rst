@@ -23,9 +23,10 @@ ending with ``.robot`` (or just ``.txt``).
 
 .. note::
 
-   Advanced robot users may learn from the
-   `Robot Framework User Guide <http://code.google.com/p/robotframework/wiki/UserGuideRobot>`_
-   how to make hierarchical test suites.
+   Advanced robot users may learn from the `Robot Framework User Guide`_ how to
+   make hierarchical test suites.
+
+.. _Robot Framework User Guide: http://code.google.com/p/robotframework/wiki/UserGuideRobot
 
 Here's an example test suite::
 
@@ -53,7 +54,7 @@ Here's an example test suite::
     Start browser
         Open browser  http://localhost:55001/plone/  browser=${BROWSER}
 
-Each test suite may contain one to three different parts::
+Each test suite may contain one to three different parts:
 
 **Settings**
     Import available keyword libraries or resources (resources are
@@ -86,5 +87,4 @@ will match to a keyword::
     I'm logged in as an admin
 
 There's a little bit more of BDD-style tests in
-`Robot Framework User Guide
-<http://robotframework.googlecode.com/hg/doc/userguide/RobotFrameworkUserGuide.html?r=2.7.6#behavior-driven-stylep>`_.
+`Robot Framework User Guide`_.

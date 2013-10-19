@@ -60,6 +60,11 @@ reload_requires = [
     'watchdog'
 ]
 
+docs_requires = [
+    # Include robot-files outside docs:
+    'sphinxcontrib-robotdoc'
+]
+
 setup(
     name='plone.app.robotframework',
     version=version,
@@ -83,6 +88,7 @@ setup(
     install_requires=install_requires,
     extras_require={'ride': ride_requires,
                     'speak': speak_requires,
-                    'reload': reload_requires},
+                    'reload': reload_requires,
+                    'docs': docs_requires},
     entry_points=entry_points,
 )

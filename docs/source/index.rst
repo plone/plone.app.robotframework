@@ -130,7 +130,6 @@ Old tutorials
    plone-keywords/browser
    plone-keywords/content
    plone-keywords/edit-wizard-tabs
-   plone-keywords/editbar
    plone-keywords/history
    plone-keywords/index
    plone-keywords/login
