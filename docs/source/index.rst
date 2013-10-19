@@ -34,6 +34,7 @@ run just next to your other Plone-tests with `zope.testrunner`_:
    :maxdepth: 2
 
    happy
+   robot
 
 .. _zope.testrunner: http://pypi.python.org/pypi/zope.testrunner
 
@@ -48,7 +49,7 @@ tests:
 * `Robot Framework built-in library documentation`__
 * `Robot Framework Selenium2Library documentation`__
 
-__ http://robotframework.googlecode.com/hg/doc/libraries/BuiltIn.html?r=2.8.1
+__ http://robotframework.googlecode.com/hg/doc/libraries/BuiltIn.html
 __ http://rtomac.github.com/robotframework-selenium2library/doc/Selenium2Library.html
 
 
@@ -59,7 +60,6 @@ Advanced topics
    :maxdepth: 1
    :titlesonly:
 
-   robot
    travis-ci
    saucelabs
    debugging

@@ -17,18 +17,18 @@ lists of test clauses reusing existing keywords or other user keywords. User
 keywords are described in the test suite, or imported from **resource** files.
 
 
-Test suite
-----------
+Test suites
+-----------
 
-Robot tests are written in test suites, which are plain text files, usually
-ending with ``.robot`` (or just ``.txt``).
+Robot tests cases are written in test suites, which are plain text files,
+usually ending with ``.robot`` (or just ``.txt``).
 
 .. note:: Advanced robot users may learn from the `Robot Framework User Guide`_
    how to make hierarchical test suites.
 
 .. _Robot Framework User Guide: http://code.google.com/p/robotframework/wiki/UserGuideRobot
 
-Let's look into this example test suite in detail:
+Let's look into an example test suite in detail:
 
 .. robot-source::
    :source: plone.app.robotframework:tests/docs/test_keywords.robot
@@ -45,10 +45,93 @@ Each test suite may contain one to four different parts:
     or override variables defined in imported resources.
 
 **Test Cases**
-    Define runnable tests.
+    Is used to define runnable tests cases, which are made of test clauses
+    calling test keywords.
 
 **Keywords**
-    Define new user keywords.
+    Is used to define new user keywords, which may re-use existing keywords
+    from imported libraries or resource files.
+
+
+Keywords libraries
+------------------
+
+By default, only keywords from `built-in`_-library are available to be used in
+tests. Other keywords must be included by importing a keyword library in
+*Settings* part of test suite:
+
+.. code-block:: robotframework
+
+   *** Settings ***
+
+   Library  String
+   Library  Selenium2Library
+
+.. _built-in: http://robotframework.googlecode.com/hg/doc/libraries/BuiltIn.html
+
+View `the complete list of available keyword libraries shipped with
+Robot Framework or available as separate package`__.
+
+__ http://code.google.com/p/robotframework/wiki/TestLibraries
+
+.. note:: Libraries may also be included in resource files, and then it's
+   enough to import such resource file.
+
+There's also a built-in-keyword ``Import Library`` for importing library
+in a middle of test case or keyword::
+
+   Import library  String
+
+
+Remote keyword libraries
+------------------------
+
+One of the available keyword libraries (shipped with Robot Framework) is
+special: `Remote`_-library. Remote-library makes it possible to provide test
+keywords from an XML-RPC-service, for example, from a public Zope2-object.
+
+.. _remote: http://robotframework.googlecode.com/hg/doc/userguide/RobotFrameworkUserGuide.html#remote-library-interface
+
+*plone.app.robotframework*-provides convention and helpers to enable
+customizable set of remote keywords in Python as a public portal-tool object
+called ``RobotRemote``. These keywords can be imported with:
+
+.. code-block:: robotframework
+
+   *** Settings ***
+
+   Resource  plone/app/robotframework/selenium.robot
+
+   Library  Remote  ${PLONE_URL}/RobotRemote
+
+Remote-library approach provides the following benefits when testing Plone:
+
+* All test setup keywords can be implemented in Python, which makes their
+  execution almost instant when compared to executing similar steps in
+  Selenium (to make your Selenium tests as fast as possible only the really
+  meaningful steps should be executed through Selenium).
+
+* Each keyword call is executed as a normal transaction in Plone, which
+  makes all code behave normally as in real use.
+
+* When e.g.
+  :download:`content creation (remote) keywords <libdoc/remote_autologin.html>`
+  are called with
+  :download:`autologin <libdoc/remote_content.html>`
+  enabled, all actions are performed as the autologin user so author
+  metadata etc is created correctly.
+
+
+Resource files
+--------------
+
+.. code-block:: robotframework
+
+   *** Settings ***
+
+   Resource  plone/app/robotframework/keywords.robot
+   Resource  plone/app/robotframework/selenium.robot
+   Resource  plone/app/robotframework/saucelabs.robot
 
 
 BDD-style tests
