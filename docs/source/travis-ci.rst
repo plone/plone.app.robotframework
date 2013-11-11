@@ -1,5 +1,5 @@
-Travis-CI-integration
-=====================
+Integrate with Travis-CI
+========================
 
 travis.cfg
 ----------
@@ -36,13 +36,32 @@ travis.cfg
    script: bin/test
 
 
-S3 artifacts
+Build matrix
 ------------
 
 .. code-block:: yaml
 
+   env:
+     matrix:
+     - PLONE_VERSION=4.0
+     - PLONE_VERSION=4.1
+     - PLONE_VERSION=4.2
+     - PLONE_VERSION=4.3
+
+
+S3 artifacts
+------------
+
+.. code-block:: bash
+
+   $ gem install travis
+   $ travis encrypt ARTIFACTS_AWS_ACCESS_KEY_ID=... -r gh-user/my.product --add
+   $ travis encrypt ARTIFACTS_AWS_SECRET_ACCESS_KEY=... -r gh-user/my.product--add
+
+.. code-block:: yaml
+
    language: python
-   python: "2.7"
+   python: '2.7'
    install:
    - virtualenv test-env --no-setuptools
    - mkdir -p buildout-cache/downloads

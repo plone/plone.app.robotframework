@@ -1,40 +1,78 @@
-Debugging robot tests
-=====================
+Debugging Robot Framework tests
+===============================
+
+It's not always so easy to get the used Selenium keywords right. There are
+a few ways to pause the test runner in middle of a test to ease figuring out
+what to do next:
 
 1. Pause Selenium (WebDriver) completely to inspect your step with
    *Pause execution* keywords from *Dialogs*-library shipped with
-   Robot Framework::
+   Robot Framework:
 
-       Import library  Dialogs
-       Pause execution
+   .. code-block:: robotframework
 
-2. Pause Selenium (WebDriver) completely to inspect your step::
+      *** Test Cases ***
 
-       Set Selenium timeout  600 seconds
-       Wait for condition  true
+      Pause tests with interactive pause execution -keyword
+         Import library  Dialogs
+         Pause execution
 
-3. Slow done Selenium (WebDriver) to make the tests easier to follow::
+   The above is also provided as *Pause*-keyword in ``keywords.robot``
+   resource file:
 
-       Set Selenium speed  0.5s
+   .. code-block:: robotframework
 
-4. Use plone.app.robotframework keywords to drop the Zope server into 
-   debugger::
+      *** Settings ***
 
-       Import library  plone.app.robotframework.keywords.Debugging
-       Stop
+      Resource  plone/app/robotframework/keywords.robot
 
-5. Write a python keyword into your Python keyword library
-   to drop the Zope server into debugger.
+      *** Test Cases ***
 
-   There's one catch in debugging your code while running Robot Framework
-   tests. Robot may eat your standard input and output, which prevents you to
+      Pause tests with included Pause-keyword
+         Pause
+
+2. Let Selenium (WebDriver) sleep for long time:
+
+   .. code-block:: robotframework
+
+      *** Test Cases ***
+
+      Pause test with non-interactive (and auto-continuing) sleep
+         Sleep  10 min
+
+3. Slow down Selenium (WebDriver) to make the tests easier to follow:
+
+   .. code-block:: robotframework
+
+      *** Settings ***
+
+      Suite setup  Set Selenium speed  0.5s
+
+4. Use provided Python keyword to drop Zope server (or Robot Framework
+   test runner) into debugger:
+
+   .. code-block:: robotframework
+
+      *** Test Cases ***
+
+      Pause test with Python debugger
+           Import library  plone.app.robotframework.Debugging
+           Stop
+
+5. Write a custom python keyword into your custom Python keyword library
+   to drop Zope server (or Robot Framework test runner) into debugger.
+
+   But there's one catch in debugging your code while running Robot Framework
+   tests: Robot may eat your standard input and output, which prevents you to
    just ``import pdb; pdb.set_trace()``.
 
    Instead, you have to add a few more lines to reclaim your I/O at first, and
-   only then let your debugger in::
+   only then let your debugger in:
 
-       import sys
-       import pdb
-       for attr in ('stdin', 'stdout', 'stderr'):
-           setattr(sys, attr, getattr(sys, '__%s__' % attr))
-       pdb.set_trace()
+   .. code-block:: python
+
+      import sys
+      import pdb
+      for attr in ('stdin', 'stdout', 'stderr'):
+          setattr(sys, attr, getattr(sys, '__%s__' % attr))
+      pdb.set_trace()

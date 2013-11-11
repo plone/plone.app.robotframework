@@ -78,9 +78,14 @@ __ http://code.google.com/p/robotframework/wiki/TestLibraries
    enough to import such resource file.
 
 There's also a built-in-keyword ``Import Library`` for importing library
-in a middle of test case or keyword::
+in a middle of test case or keyword:
 
-   Import library  String
+.. code-block:: robotframework
+
+   *** Test Cases ***
+
+   Test Import library keyword
+       Import library  String
 
 
 Remote keyword libraries
@@ -125,6 +130,16 @@ Remote-library approach provides the following benefits when testing Plone:
 Resource files
 --------------
 
+Resource files provide a re-usable way to abstract your test suites. To put
+it simply, resources files are just like all the other ``.robot``-files, but
+they should not contain ``*** Test Cases ***`` certain ``*** Settings ***``
+commands (*Suite Setup*, *Suite Teardown*, *Test Setup* or *Test Teardown*).
+
+Resource files are the perfect way to import common libraries (with *Library*
+command in ```*** Settings ***``), define global ``*** Variables ***`` and
+define re-usable common ```*** Keywords ***```. Resource files are included
+in a test suite with *Resource*-command in ```*** Settings ***``:
+
 .. code-block:: robotframework
 
    *** Settings ***
@@ -141,12 +156,23 @@ Robot support Gherkin-style tests by removing exact words ``given``,
 ``when``, ``then`` and ``and`` from the beginning of keyword to find
 a matching keyword.
 
-For example, a clause::
+For example, a clause ``Given I'm logged in as an admin``:
 
-   Given I'm logged in as an admin
+.. code-block:: robtframework
 
-will match to a keyword::
+   *** Test Cases ***
+
+   Test something as logged in admin
+       Given I'm logged in as an admin
+
+will match to a keyword ``I'm logged in as an admin``:
+
+.. code-block:: robotframework
+
+   *** Keywords ***
 
    I'm logged in as an admin
+       Enable autologin as  Manager
 
-There's a little bit more of BDD-style tests in `Robot Framework User Guide`_.
+There's a little bit more of BDD-style tests available in `Robot Framework User
+Guide`_.

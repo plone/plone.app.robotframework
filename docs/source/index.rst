@@ -60,9 +60,9 @@ Advanced topics
    :maxdepth: 1
    :titlesonly:
 
+   debugging
    travis-ci
    saucelabs
-   debugging
    reload
    ride
 
@@ -70,14 +70,25 @@ Advanced topics
 User keywords
 -------------
 
+*plone.app.robotframework* ships with the following user keyword libraries
+as resource files:
+
 - :download:`libdoc/user_keywords.html`
 - :download:`libdoc/user_saucelabs.html`
 - :download:`libdoc/user_selenium.html`
 - :download:`libdoc/user_server.html`
 
+Each user keyword library can be included as a resource with ``Resource
+plone/app/robotframework/libraryname.rst`` in test suite ``*** Settings ***``.
+
 
 Remote keywords
 ---------------
+
+Remote keywords are a special *plone.app.robotframework*-way to implement
+Plone-specific keyword in Python for e.g. creating Plone content in test setup
+keywords. *plone.app.robotframework* comes with the following remote keyword
+libraries:
 
 - :download:`libdoc/remote_autologin.html`
 - :download:`libdoc/remote_content.html`
@@ -88,14 +99,31 @@ Remote keywords
 - :download:`libdoc/remote_users.html`
 - :download:`libdoc/remote_zope2server.html`
 
+All remote keywords above are included by including a special test fixture
+``plone.app.robotframework.testing.REMOTE_LIBRARY_BUNDLE_FIXTURE`` in *bases*
+of the used functional testing fixture, and finally with ``Library  Remote
+${PLONE_URL}/RobotRemote``-command in test suite ``*** Settings ***``.
+
+See ``testing.py`` in *plone.app.robotframework* for how to create a custom
+remote library bundle fixture with only selected (or custom) remote keyword
+libraries.
+
 
 Python keywords
 ---------------
+
+In addition to user keywords and remote libraries, *plone.app.robotframeworks*
+provides the following generic Python keyword libraries (their code is not
+dependent on Plone code base).
 
 - :download:`libdoc/python_debugging.html`
 - :download:`libdoc/python_layoutmath.html`
 - :download:`libdoc/python_saucelabs.html`
 - :download:`libdoc/python_zope2server.html`
+
+Each Python keyword library can be included as with ``Library
+plone.app.robotframework.LibraryClassName`` in test suite ```*** Settings
+***``.
 
 
 Other resources
@@ -111,6 +139,9 @@ __ http://code.google.com/p/robotframework/wiki/TestLibraries
 
 Old tutorials
 -------------
+
+.. note:: While these tutorials are still useful for gettings started with
+   Robot Framework testing for Plone, these may contain outdated instructions!
 
 .. toctree::
    :maxdepth: 1
