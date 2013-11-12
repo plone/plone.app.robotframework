@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from plone.uuid.interfaces import IUUID
 from plone import api
+from Products.CMFCore.utils import getToolByName
 from plone.app.robotframework.remote import RemoteLibrary
 
 
@@ -42,6 +43,15 @@ class Content(RemoteLibrary):
             kwargs['image'].seek(0)
 
         return IUUID(api.content.create(**kwargs))
+
+    def uid_to_url(self, uid):
+        """Return absolute path for an UID"""
+        pc = getToolByName(self, "portal_catalog")
+        results = pc.unrestrictedSearchResults(UID=str(uid))
+        if not results:
+            return None
+        else:
+            return results[0].getURL()
 
     def fire_transition(self, content, action):
         """Fire workflow action for content"""
