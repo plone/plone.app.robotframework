@@ -1,15 +1,66 @@
 Changelog
 =========
 
-0.6.5 (unreleased)
-------------------
+0.7.0rc3 (unreleased)
+---------------------
 
+- Nothing changed yet.
+
+
+0.7.0rc2 (2013-11-12)
+---------------------
+
+- Fix backwards compatibility with robotframework 1.7.7
+  [datakurre]
+
+0.7.0rc1 (2013-11-10)
+---------------------
+
+This is Arnhem Sprint preview release of 0.7.0.
+
+- Refactor and clean; Rename 'Do transition' to 'Fire transition';  Split
+  'PloneAPI' RemoteLibrary into 'Content' and 'Users' libraries
+  [datakurre]
+- Add 'Pause'-keyword
+  [datakurre]
+- Cleanup Zope2ServerRemote-library keywords
+  [datakurre]
+- Add I18N, MockMailHost, PortalSetup and PloneAPI -keywords from c.usermanual
+  [datakurre]
+- Rename RemoteServer-keyword library into Zope2ServerRemote and provide a
+  shortcut import
+  [datakurre]
+- Fix to support explicit layers with zodb_setup and zodb_teardown calls,
+  because sometime the layers is not available (because of different server
+  library instance); Add remote library for zodb_setup and zodb_teardown
+  keywords
+  [datakurre]
+- Rename PloneRobotSandboxLayer into PloneRobotFixture, because it's only
+  usable as it is
+  [datakurre]
+- Drop LiveSearch-layer (it was CMFPlone-specific); Add MockMailHostlayer; Add
+  robot configurable PloneRobotSandboxLayer
+  [datakurre]
+- Refactor to use python only for environment variables and define other
+  variables in robot to support robot variable overrides
+  [datakurre]
+- Deprecate annotate-library in favor of Selenium2Screenshots-library
+  [datakurre]
+- Remove moved CMFPlone-tests
+  [datakurre]
+- Use robotframework 2.8.1
+  [datakurre]
+- Fix to tell in 'robot-server' help how to enable code-reloading support
+  [fixes #13]
+  [datakurre]
+- Add entry point for robot.libdoc
+  [Benoît Suttor]
+- Return location to reference new content
+  [Benoît Suttor]
 - Refactor add content keywords
-  [bsuttor, gotcha]
-
-- Add liddoc entry_point.
-  [bsuttor, gotcha]
-
+  [Benoît Suttor]
+- Explain stop keyword from debugging library
+  [Benoît Suttor]
 
 0.6.4 (2013-08-19)
 ------------------

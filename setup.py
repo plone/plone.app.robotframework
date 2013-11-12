@@ -1,7 +1,7 @@
 from setuptools import setup
 from setuptools import find_packages
 
-version = '0.6.5.dev0'
+version = '0.7.0rc3.dev0'
 
 long_description = (
     open('README.rst').read()
@@ -21,6 +21,7 @@ console_scripts = [
     "pybot = plone.app.robotframework.robotentrypoints:pybot",
     "ride = plone.app.robotframework.robotentrypoints:ride",
     "libdoc = plone.app.robotframework.robotentrypoints:libdoc",
+    "pybabel = plone.app.robotframework.robotentrypoints:pybabel",
 ]
 
 entry_points = dict(console_scripts=console_scripts)
@@ -30,6 +31,7 @@ install_requires = [
     # Utility dependencies:
     'argparse',
     # Plone testing dependencies:
+    'plone.api',
     'plone.testing',
     'plone.app.testing',  # [robot] >= 4.2.2 would include Robot deps.
     # Functional Robot testing dependencies:
@@ -39,6 +41,8 @@ install_requires = [
     # Implicit Robot Framework dependencies:
     'decorator',
     'selenium',
+    # I18N message extractor for Translate -keyword:
+    'babel',
 ]
 
 ride_requires = [
@@ -54,6 +58,11 @@ speak_requires = [
 reload_requires = [
     # Watch for filesystem changes:
     'watchdog'
+]
+
+docs_requires = [
+    # Include robot-files outside docs:
+    'sphinxcontrib-robotdoc'
 ]
 
 setup(
@@ -79,6 +88,7 @@ setup(
     install_requires=install_requires,
     extras_require={'ride': ride_requires,
                     'speak': speak_requires,
-                    'reload': reload_requires},
+                    'reload': reload_requires,
+                    'docs': docs_requires},
     entry_points=entry_points,
 )

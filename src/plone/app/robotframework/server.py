@@ -10,7 +10,6 @@ from SimpleXMLRPCServer import SimpleXMLRPCServer
 
 import pkg_resources
 
-
 try:
     pkg_resources.get_distribution('watchdog')
 except pkg_resources.DistributionNotFound:
@@ -20,6 +19,7 @@ else:
     from plone.app.robotframework.reload import Watcher
     HAS_RELOAD = True
 
+from plone.app.robotframework.remote import RemoteLibrary
 
 HAS_VERBOSE_CONSOLE = False
 
@@ -207,14 +207,12 @@ class Zope2Server:
     def set_zope_layer(self, layer_dotted_name):
         """Explicitly set the current Zope layer, when you know what you are
         doing
-
         """
         new_layer = self._import_layer(layer_dotted_name)
         self.zope_layer = new_layer
 
     def amend_zope_server(self, layer_dotted_name):
-        """Set up extra layers up to given layer_dotted_name
-        """
+        """Set up extra layers up to given layer_dotted_name"""
         old_layers = setup_layers.copy()
         new_layer = self._import_layer(layer_dotted_name)
         setup_layer(new_layer)
@@ -224,8 +222,7 @@ class Zope2Server:
         self.zope_layer = new_layer
 
     def prune_zope_server(self):
-        """Tear down the last set of layers set up with amend_zope_server
-        """
+        """Tear down the last set of layers set up with amend_zope_server"""
         tear_down(self.extra_layers)
         self.extra_layers = {}
         self.zope_layer = None
@@ -234,7 +231,10 @@ class Zope2Server:
         tear_down()
         self.zope_layer = None
 
-    def zodb_setup(self):
+    def zodb_setup(self, layer_dotted_name=None):
+        if layer_dotted_name:
+            self.set_zope_layer(layer_dotted_name)
+
         from zope.testing.testrunner.runner import order_by_bases
         layers = order_by_bases([self.zope_layer])
         for layer in layers:
@@ -246,7 +246,10 @@ class Zope2Server:
         if HAS_VERBOSE_CONSOLE:
             print READY("Test set up")
 
-    def zodb_teardown(self):
+    def zodb_teardown(self, layer_dotted_name=None):
+        if layer_dotted_name:
+            self.set_zope_layer(layer_dotted_name)
+
         from zope.testing.testrunner.runner import order_by_bases
         layers = order_by_bases([self.zope_layer])
         layers.reverse()
@@ -296,3 +299,17 @@ def tear_down(setup_layers=setup_layers):
                 pass
         finally:
             del setup_layers[l]
+
+
+class Zope2ServerRemote(RemoteLibrary):
+    """Provides ``remote_zodb_setup`` and ``remote_zodb_teardown`` -keywords to
+    allow explicit test isolation via remote library calls when server is set
+    up with robot-server and tests are run by a separate pybot process.
+
+    *WARNING* These keywords does not with zope.testrunner (yet).
+    """
+    def remote_zodb_setup(self, layer_dotted_name):
+        Zope2Server().zodb_setup(layer_dotted_name)
+
+    def remote_zodb_teardown(self, layer_dotted_name):
+        Zope2Server().zodb_teardown(layer_dotted_name)

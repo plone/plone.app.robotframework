@@ -8,6 +8,13 @@ Resource  selenium.robot
 
 *** Keywords ***
 
+Pause
+    [Documentation]  Visually pause test execution with interactive dialog by
+    ...              importing **Dialogs**-library and calling its
+    ...              **Pause Execution**-keyword.
+    Import library  Dialogs
+    Pause execution
+
 # ----------------------------------------------------------------------------
 # Access Resources
 # ----------------------------------------------------------------------------
@@ -209,7 +216,11 @@ Displayed content title should be
 Add content
     [arguments]  ${content_type}  ${title}
     Open add new menu
-    Click Link  css=#plone-contentmenu-factories a.contenttype-${content_type}
+
+    ${status} =  Run Keyword And Return Status  Click Link
+    ...  css=#plone-contentmenu-factories a.contenttype-${content_type}
+    Run keyword if  ${status} != True  Click Link  ${content_type}
+
     Page Should Contain Element  css=#archetypes-fieldname-title input
     Input Text  title  ${title}
     Click button  name=form.button.save

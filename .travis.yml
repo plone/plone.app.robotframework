@@ -1,6 +1,5 @@
----
 language: python
-python: '2.7'
+python: "2.7"
 addons:
   sauce_connect:
   - username: $SAUCE_USERNAME
@@ -9,18 +8,34 @@ install:
 - virtualenv buildout --no-setuptools
 - mkdir -p buildout-cache/downloads
 - buildout/bin/python bootstrap.py -c travis.cfg
-- bin/buildout -N -t 3 -c travis.cfg
+- bin/buildout -N -t 3 -c travis.cfg ${VERSIONS}
+before_script:
+- gem install travis-artifacts
 script: bin/test
+after_script:
+- bin/sphinx-build docs/source docs/html
+- travis-artifacts upload --path parts/test
+- travis-artifacts upload --path docs/html
 env:
   global:
-  - secure: ! 'YLol0TyHB+XAUbCzzjfc5JJ5AFqEi/GVhGphtAAcSv8+JY6MhTVVTjyCPeoK
-      2nT7tDhQRnYKOAMBmTuP/TUdzFqBf5LvjrFxvcjBawJMRW85kuYEuXsS8XEx
-      C+lc1bbXSUPGA0x03tvSHIYbCowvVPZNUupxgRQdW2QLa5HcSuQ='
-  - secure: ! 'YhG9gTzNMbQWiHLO6RU2J9btjB8L4X/QpKgu4c48XHYEf0Mwgxi5kKhZTTqp
-      KY6/buwYhcBFWh0PQVC1b35lHHxI+bD4/d3v8xea7v670COdP0zMrgjXlSLn
-      bfV7g3/doSmAUtbEyUQdfzmWS8kyst0div6XzpWtR3cl6lP6Tfo='
+  - secure: YLol0TyHB+XAUbCzzjfc5JJ5AFqEi/GVhGphtAAcSv8+JY6MhTVVTjyCPeoK 2nT7tDhQRnYKOAMBmTuP/TUdzFqBf5LvjrFxvcjBawJMRW85kuYEuXsS8XEx C+lc1bbXSUPGA0x03tvSHIYbCowvVPZNUupxgRQdW2QLa5HcSuQ=
+  - secure: YhG9gTzNMbQWiHLO6RU2J9btjB8L4X/QpKgu4c48XHYEf0Mwgxi5kKhZTTqp KY6/buwYhcBFWh0PQVC1b35lHHxI+bD4/d3v8xea7v670COdP0zMrgjXlSLn bfV7g3/doSmAUtbEyUQdfzmWS8kyst0div6XzpWtR3cl6lP6Tfo=
+  - secure: AOFoFixluD1YzjtKuNLClALcpH6YpJyxZYfx8QVs0SQ3aDJRc53lVw2e0YKpghGSuuHm75cAKbmZVJVYT/qgYFdZfah6+amKFRgTVDsGEnGIGcL8+z43n+y3b1NZotwPXXZz4hboFLL4FknuEymGmKl4ZJdpQFcf+36iylg2KFQ=
+  - secure: eK2r6iQU0M8tq2qC+SpoqJJmtyBa8Okdr5DjlrAa4efuA7fiIzsfvSfcTcb9zQ0T+7cbOoGiEFQVFcat0uSY49fAZcxTjJakjYC1plwBfQl/StQGHZIlx+oy2GZTthi6UWAVYeC6NmLTqBtoGxVvCMp6+LtNhzd2Fc4MUHrafqQ=
+  - ARTIFACTS_S3_BUCKET=plone.app.robotframework
   - ROBOT_BUILD_NUMBER=travis-$TRAVIS_BUILD_NUMBER
   - ROBOT_REMOTE_URL=http://$SAUCE_USERNAME:$SAUCE_ACCESS_KEY@ondemand.saucelabs.com:80/wd/hub
   matrix:
   - ROBOT_BROWSER=firefox ROBOT_DESIRED_CAPABILITIES=tunnel-identifier:$TRAVIS_JOB_NUMBER
   - ROBOT_BROWSER=ie ROBOT_DESIRED_CAPABILITIES=tunnel-identifier:$TRAVIS_JOB_NUMBER
+  - ROBOT_BROWSER=firefox ROBOT_DESIRED_CAPABILITIES=tunnel-identifier:$TRAVIS_JOB_NUMBER VERSIONS="versions:robotframework=2.7.7 versions:robotsuite=1.3.3 versions:robotframework-selenium2library=1.2.0"
+notifications:
+  irc:
+    channels:
+    - irc.freenode.org#plone-testing
+    template:
+    - "%{repository}#%{build_number} (%{branch} | %{commit} | %{author}): %{message}"
+#   - "Change: %{compare_url}"
+#   - "Details: %{build_url}"
+    - "Robot: http://plone.app.robotframework.s3-website-us-east-1.amazonaws.com/artifacts/%{build_number}/%{build_number}.1/robot_report.html"
+    - "Sphinx: http://plone.app.robotframework.s3-website-us-east-1.amazonaws.com/artifacts/%{build_number}/%{build_number}.1/"

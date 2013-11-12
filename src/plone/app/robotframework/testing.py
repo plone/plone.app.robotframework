@@ -3,8 +3,11 @@
 
 This module is located below tests directory to avoid confusing it with any
 re-usable resources of plone.app.robotframework.
-
 """
+import os
+from Acquisition import aq_base
+from Products.MailHost.interfaces import IMailHost
+
 from plone.app.testing import (
     PloneSandboxLayer,
     applyProfile,
@@ -16,12 +19,19 @@ from plone.testing import (
     z2,
     Layer
 )
+import sys
+from zope.component import getSiteManager
 from zope.configuration import xmlconfig
-from plone.app.robotframework import (
-    QuickInstaller,
-    AutoLogin,
-    RemoteLibraryLayer
-)
+
+from plone.app.robotframework.server import Zope2ServerRemote
+from plone.app.robotframework.i18n import I18N
+from plone.app.robotframework.autologin import AutoLogin
+from plone.app.robotframework.mailhost import MockMailHost
+from plone.app.robotframework.content import Content
+from plone.app.robotframework.users import Users
+from plone.app.robotframework.genericsetup import GenericSetup
+from plone.app.robotframework.quickinstaller import QuickInstaller
+from plone.app.robotframework.remote import RemoteLibraryLayer
 
 import pkg_resources
 
@@ -31,10 +41,10 @@ except pkg_resources.DistributionNotFound:
     HAS_SPEAKJS = False
 else:
     HAS_SPEAKJS = True
+from robot.libraries.BuiltIn import BuiltIn
 
 
 class SimplePublicationLayer(Layer):
-
     defaultBases = (PLONE_FIXTURE,)
 
     def setUp(self):
@@ -49,28 +59,36 @@ class SimplePublicationLayer(Layer):
 SIMPLE_PUBLICATION_FIXTURE = SimplePublicationLayer()
 
 
-class LiveSearchLayer(PloneSandboxLayer):
-
+class MockMailHostLayer(Layer):
+    """Layer for setting up a MockMailHost to store all sent messages as
+    strings into a list at portal.MailHost.messages
+    """
     defaultBases = (PLONE_FIXTURE,)
 
-    def setUpZope(self, app, configurationContext):
-        import plone.app.robotframework.tests
-        xmlconfig.file(
-            '_profiles.zcml',
-            plone.app.robotframework.tests,
-            context=configurationContext
-        )
+    def setUp(self):
+        # Note: CMFPlone can be imported safely only when a certain
+        # zope.testing-set environment variable is in place.
+        from Products.CMFPlone.tests import utils
+        with ploneSite() as portal:
+            portal.email_from_address = 'noreply@example.com'
+            portal.email_from_name = 'Plone Site'
+            portal._original_MailHost = portal.MailHost
+            portal.MailHost = mailhost = utils.MockMailHost('MailHost')
+            portal.MailHost.smtp_host = 'localhost'
+            sm = getSiteManager(context=portal)
+            sm.unregisterUtility(provided=IMailHost)
+            sm.registerUtility(mailhost, provided=IMailHost)
 
-    def setUpPloneSite(self, portal):
-        applyProfile(portal, 'plone.app.robotframework.tests:content')
+    def tearDown(self):
+        with ploneSite() as portal:
+            portal.MailHost = portal._original_MailHost
+            sm = getSiteManager(context=portal)
+            sm.unregisterUtility(provided=IMailHost)
+            sm.registerUtility(aq_base(portal._original_MailHost),
+                               provided=IMailHost)
 
-LIVESEARCH_FIXTURE = LiveSearchLayer()
+MOCK_MAILHOST_FIXTURE = MockMailHostLayer()
 
-
-LIVESEARCH_ROBOT_TESTING = FunctionalTesting(
-    bases=(LIVESEARCH_FIXTURE, z2.ZSERVER_FIXTURE),
-    name="LiveSearch:Robot"
-)
 
 AUTOLOGIN_LIBRARY_FIXTURE = RemoteLibraryLayer(
     bases=(PLONE_FIXTURE,),
@@ -80,7 +98,9 @@ AUTOLOGIN_LIBRARY_FIXTURE = RemoteLibraryLayer(
 
 REMOTE_LIBRARY_BUNDLE_FIXTURE = RemoteLibraryLayer(
     bases=(PLONE_FIXTURE,),
-    libraries=(AutoLogin, QuickInstaller),
+    libraries=(AutoLogin, QuickInstaller, GenericSetup,
+               Content, Users, I18N, MockMailHost,
+               Zope2ServerRemote),
     name="RemoteLibraryBundle:RobotRemote"
 )
 
@@ -103,6 +123,63 @@ SIMPLE_PUBLICATION_ROBOT_TESTING = FunctionalTesting(
     name="SimplePublication:Robot"
 )
 
+
+class PloneRobotFixture(PloneSandboxLayer):
+    defaultBases = (SIMPLE_PUBLICATION_FIXTURE,
+                    MOCK_MAILHOST_FIXTURE,
+                    REMOTE_LIBRARY_BUNDLE_FIXTURE)
+
+    def _get_robot_variable(self, name):
+        """Return robot list variable either from robot instance or
+        from ROBOT_-prefixed environment variable
+        """
+        if getattr(BuiltIn(), '_context', None) is not None:
+            return BuiltIn().get_variable_value('${%s}' % name, [])
+        else:
+            candidates = os.environ.get(name, '').split(',')
+            return filter(bool, [s.strip() for s in candidates])
+
+    def setUpZope(self, app, configurationContext):
+
+        for name in self._get_robot_variable('META_PACKAGES'):
+            if not name in sys.modules:
+                __import__(name)
+            package = sys.modules[name]
+            xmlconfig.file('meta.zcml', package,
+                           context=configurationContext)
+
+        for name in self._get_robot_variable('CONFIGURE_PACKAGES'):
+            if not name in sys.modules:
+                __import__(name)
+            package = sys.modules[name]
+            xmlconfig.file('configure.zcml', package,
+                           context=configurationContext)
+
+        for name in self._get_robot_variable('OVERRIDE_PACKAGES'):
+            if not name in sys.modules:
+                __import__(name)
+            package = sys.modules[name]
+            xmlconfig.includeOverrides(
+                configurationContext, 'overrides.zcml', package=package)
+
+        for name in self._get_robot_variable('INSTALL_PRODUCTS'):
+            if not name in sys.modules:
+                __import__(name)
+            z2.installProduct(app, name)
+
+    def setUpPloneSite(self, portal):
+        for name in self._get_robot_variable('APPLY_PROFILES'):
+            self.applyProfile(portal, name)
+
+
+PLONE_ROBOT_FIXTURE = PloneRobotFixture()
+
+PLONE_ROBOT_TESTING = FunctionalTesting(
+    bases=(PLONE_ROBOT_FIXTURE, z2.ZSERVER_FIXTURE),
+    name="Plone:Robot"
+)
+
+
 if HAS_SPEAKJS:
     class SpeakJSLayer(Layer):
 
@@ -120,6 +197,7 @@ if HAS_SPEAKJS:
 
     SPEAKJS_ROBOT_TESTING = FunctionalTesting(
         bases=(SPEAKJS_FIXTURE,
+               MOCK_MAILHOST_FIXTURE,
                SIMPLE_PUBLICATION_FIXTURE,
                REMOTE_LIBRARY_BUNDLE_FIXTURE,
                z2.ZSERVER_FIXTURE),
