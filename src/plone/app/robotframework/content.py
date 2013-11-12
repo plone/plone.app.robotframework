@@ -28,12 +28,19 @@ class Content(RemoteLibrary):
             kwargs[name] = value
         assert 'id' in kwargs, u"Keyword arguments must include 'id'."
         assert 'type' in kwargs, u"Keyword arguments must include 'type'."
+        portal = getSite()
         if 'container' in kwargs:
-            pc = getToolByName(self, 'portal_catalog')
-            results = pc.unrestrictedSearchResults(UID=kwargs.pop('container'))
-            container = results[0]._unrestrictedGetObject()
+            pc = getToolByName(portal, 'portal_catalog')
+            uid_or_path = kwargs.pop('container')
+            uid_results =\
+                pc.unrestrictedSearchResults(UID=uid_or_path)
+            path_results = \
+                pc.unrestrictedSearchResults(
+                    path={'query': uid_or_path.rstrip('/'), 'depth': 0})
+            container =\
+                (uid_results or path_results)[0]._unrestrictedGetObject()
         else:
-            container = getSite()
+            container = portal
 
         # Pre-fill Image-types with random content
         if kwargs.get('type') == 'Image' and not 'image' in kwargs:
