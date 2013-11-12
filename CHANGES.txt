@@ -4,8 +4,8 @@ Changelog
 0.7.0rc2 (unreleased)
 ---------------------
 
-- Nothing changed yet.
-
+- Fix backwards compatibility with robotframework 1.7.7
+  [datakurre]
 
 0.7.0rc1 (2013-11-10)
 ---------------------
@@ -14,39 +14,39 @@ This is Arnhem Sprint preview release of 0.7.0.
 
 - Refactor and clean; Rename 'Do transition' to 'Fire transition';  Split
   'PloneAPI' RemoteLibrary into 'Content' and 'Users' libraries
-  [Asko Soukka]
+  [datakurre]
 - Add 'Pause'-keyword
-  [Asko Soukka]
+  [datakurre]
 - Cleanup Zope2ServerRemote-library keywords
-  [Asko Soukka]
+  [datakurre]
 - Add I18N, MockMailHost, PortalSetup and PloneAPI -keywords from c.usermanual
-  [Asko Soukka]
+  [datakurre]
 - Rename RemoteServer-keyword library into Zope2ServerRemote and provide a
   shortcut import
-  [Asko Soukka]
+  [datakurre]
 - Fix to support explicit layers with zodb_setup and zodb_teardown calls,
   because sometime the layers is not available (because of different server
   library instance); Add remote library for zodb_setup and zodb_teardown
   keywords
-  [Asko Soukka]
+  [datakurre]
 - Rename PloneRobotSandboxLayer into PloneRobotFixture, because it's only
   usable as it is
-  [Asko Soukka]
+  [datakurre]
 - Drop LiveSearch-layer (it was CMFPlone-specific); Add MockMailHostlayer; Add
   robot configurable PloneRobotSandboxLayer
-  [Asko Soukka]
+  [datakurre]
 - Refactor to use python only for environment variables and define other
   variables in robot to support robot variable overrides
-  [Asko Soukka]
+  [datakurre]
 - Deprecate annotate-library in favor of Selenium2Screenshots-library
-  [Asko Soukka]
+  [datakurre]
 - Remove moved CMFPlone-tests
-  [Asko Soukka]
+  [datakurre]
 - Use robotframework 2.8.1
-  [Asko Soukka]
+  [datakurre]
 - Fix to tell in 'robot-server' help how to enable code-reloading support
   [fixes #13]
-  [Asko Soukka]
+  [datakurre]
 - Add entry point for robot.libdoc
   [Benoît Suttor]
 - Return location to reference new content
