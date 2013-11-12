@@ -11,5 +11,5 @@ Test Teardown  Run keywords  Report test status  Close all browsers
 
 *** Test Cases ***
 
-Iterate should be installed
-    Product is activated  plone.app.iterate
+Session refresh support should be activated
+    Product is activated  plone.session
