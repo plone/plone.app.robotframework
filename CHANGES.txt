@@ -1,11 +1,10 @@
 Changelog
 =========
 
-0.7.0rc3 (unreleased)
+0.7.0rc3 (2013-11-12)
 ---------------------
 
-- Nothing changed yet.
-
+- Drop dependency on plone.api
 
 0.7.0rc2 (2013-11-12)
 ---------------------
