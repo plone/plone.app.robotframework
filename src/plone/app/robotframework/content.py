@@ -71,8 +71,8 @@ class Content(RemoteLibrary):
                 pass
 
         if content is None:
-            # It must be Archetypes based content
-            container.invokeFactory(type_, id_, **kwargs)
+            # It must be Archetypes based content:
+            content = container[container.invokeFactory(type_, id_, **kwargs)]
             content.processForm()
 
         return IUUID(content)
