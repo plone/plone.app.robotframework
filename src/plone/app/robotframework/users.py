@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from plone import api
+from Products.CMFCore.utils import getToolByName
+from zope.component.hooks import getSite
 from plone.app.robotframework.remote import RemoteLibrary
 
 
@@ -11,17 +12,30 @@ class Users(RemoteLibrary):
         # remote library interface and that's why we need to unpack the
         # keyword arguments from positional args list.
         roles = []
-        properties = {}
+        properties = kwargs
         for arg in args:
             if not '=' in arg:
                 roles.append(arg)
             else:
                 name, value = arg.split('=', 1)
                 if name in ('email', 'password'):
-                    kwargs[name] = value
+                    properties[name] = value
                 else:
                     properties[name] = value
-        if not 'email' in kwargs:
-            kwargs['email'] = '%s@example.com' % username
-        return api.user.create(
-            username=username, roles=roles, properties=properties, **kwargs)
+        if not 'email' in properties:
+            properties['email'] = '%s@example.com' % username
+
+        portal = getSite()
+        registration = getToolByName(portal, 'portal_registration')
+        portal_properties = getToolByName(portal, 'portal_properties')
+
+        use_email_as_username =\
+            portal_properties.site_properties.use_email_as_login
+
+        user_id = use_email_as_username and properties['email'] or username
+        password = properties.pop('password', username)
+        roles = properties.pop('roles', ('Member', ))
+
+        properties['username'] = user_id
+        registration.addMember(
+            user_id, password, roles, properties=properties)

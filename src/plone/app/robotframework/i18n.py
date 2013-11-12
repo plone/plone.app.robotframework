@@ -1,21 +1,24 @@
 # -*- coding: utf-8 -*-
 import os
 
-from plone import api
-from plone.app.robotframework.remote import RemoteLibrary
-
+from Products.CMFCore.utils import getToolByName
+from zope.component.hooks import getSite
+from zope.globalrequest import getRequest
 from zope.i18n import translate
+
+from plone.app.robotframework.remote import RemoteLibrary
 
 
 class I18N(RemoteLibrary):
 
     def set_default_language(self, language=None):
         """Change portal default language"""
-        portal_object = api.portal.get()
+        portal = getSite()
+        portal_languages = getToolByName(portal, 'portal_languages')
         if language is None:
             language = os.environ.get('LANGUAGE') or 'en'
-        setattr(portal_object, 'language', language)
-        self.portal_languages.setDefaultLanguage(language)
+        setattr(portal, 'language', language)
+        portal_languages.setDefaultLanguage(language)
 
     def translate(self, msgid, *args, **kwargs):
         """Return localized string for given msgid"""
@@ -37,7 +40,8 @@ class I18N(RemoteLibrary):
         else:
             # XXX: Should self.REQUEST be replaced with
             # zope.globalrequest.getRequest()?
+            request = getRequest()
             return translate(
-                msgid, context=self.REQUEST,
+                msgid, context=request,
                 domain=kwargs.get('domain') or 'plone',
                 default=kwargs.get('default') or msgid, mapping=mapping)

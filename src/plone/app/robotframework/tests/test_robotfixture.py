@@ -13,8 +13,8 @@ from plone.app.robotframework.testing import PloneRobotFixture
 class CustomPloneRobotFixture(PloneRobotFixture):
 
     def setUp(self):
-        os.environ['CONFIGURE_PACKAGES'] = 'plone.app.iterate'
-        os.environ['APPLY_PROFILES'] = 'plone.app.iterate:plone.app.iterate'
+        os.environ['CONFIGURE_PACKAGES'] = 'plone.session'
+        os.environ['APPLY_PROFILES'] = 'plone.session:default'
         super(CustomPloneRobotFixture, self).setUp()
 
     def tearDown(self):

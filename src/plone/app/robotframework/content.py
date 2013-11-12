@@ -1,7 +1,18 @@
 # -*- coding: utf-8 -*-
+# GOOD
+import pkg_resources
+from zope.component.hooks import getSite
+
+try:
+    pkg_resources.get_distribution('plone.dexterity')
+except pkg_resources.DistributionNotFound:
+    HAS_DEXTERITY = False
+else:
+    HAS_DEXTERITY = True
+
 from plone.uuid.interfaces import IUUID
-from plone import api
 from Products.CMFCore.utils import getToolByName
+from zope.component import getUtility, ComponentLookupError
 from plone.app.robotframework.remote import RemoteLibrary
 
 
@@ -18,9 +29,11 @@ class Content(RemoteLibrary):
         assert 'id' in kwargs, u"Keyword arguments must include 'id'."
         assert 'type' in kwargs, u"Keyword arguments must include 'type'."
         if 'container' in kwargs:
-            kwargs['container'] = api.content.get(UID=kwargs['container'])
+            pc = getToolByName(self, 'portal_catalog')
+            results = pc.unrestrictedSearchResults(UID=kwargs.pop('container'))
+            container = results[0]._unrestrictedGetObject()
         else:
-            kwargs['container'] = api.portal.get()
+            container = getSite()
 
         # Pre-fill Image-types with random content
         if kwargs.get('type') == 'Image' and not 'image' in kwargs:
@@ -42,11 +55,31 @@ class Content(RemoteLibrary):
             img.save(kwargs['image'], 'PNG')
             kwargs['image'].seek(0)
 
-        return IUUID(api.content.create(**kwargs))
+        id_ = kwargs.pop('id')
+        type_ = kwargs.pop('type')
+
+        content = None
+        if HAS_DEXTERITY:
+            from plone.dexterity.interfaces import IDexterityFTI
+            from plone.dexterity.utils import createContentInContainer
+            try:
+                getUtility(IDexterityFTI, name=type_)
+                content = createContentInContainer(container, type_, **kwargs)
+                if content.id != id_:
+                    container.manage_renameObject(content.id, id_)
+            except ComponentLookupError:
+                pass
+
+        if content is None:
+            # It must be Archetypes based content:
+            content = container[container.invokeFactory(type_, id_, **kwargs)]
+            content.processForm()
+
+        return IUUID(content)
 
     def uid_to_url(self, uid):
         """Return absolute path for an UID"""
-        pc = getToolByName(self, "portal_catalog")
+        pc = getToolByName(self, 'portal_catalog')
         results = pc.unrestrictedSearchResults(UID=str(uid))
         if not results:
             return None
@@ -57,6 +90,10 @@ class Content(RemoteLibrary):
         """Fire workflow action for content"""
         # It should be ok to use unrestricted-methods, because workflow
         # transition guard should proctect unprivileged transition:
-        obj = self.portal_catalog.unrestrictedSearchResults(
-            UID=content)[0]._unrestrictedGetObject()
-        api.content.transition(obj, action)
+        pc = getToolByName(self, 'portal_catalog')
+        results = pc.unrestrictedSearchResults(UID=content)
+        obj = results[0]._unrestrictedGetObject()
+        wftool = getToolByName(obj, 'portal_workflow')
+        wftool.doActionFor(obj, action)
+
+    do_action_for = fire_transition

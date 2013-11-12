@@ -26,10 +26,16 @@ def test_suite():
                 "test_autologin_library.robot"),
                 layer=SIMPLE_PUBLICATION_ROBOT_TESTING),
         layered(robotsuite.RobotTestSuite(
+                "test_content_library.robot"),
+                layer=SIMPLE_PUBLICATION_ROBOT_TESTING),
+        layered(robotsuite.RobotTestSuite(
                 "test_quickinstaller_library.robot"),
                 layer=REMOTE_LIBRARY_ROBOT_TESTING),
         layered(robotsuite.RobotTestSuite(
-                "test_i18n.robot"),
+                "test_i18n_library.robot"),
+                layer=PLONE_ROBOT_TESTING),
+        layered(robotsuite.RobotTestSuite(
+                "test_users_library.robot"),
                 layer=PLONE_ROBOT_TESTING),
         layered(robotsuite.RobotTestSuite(
                 "docs"),
