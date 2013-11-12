@@ -1,8 +1,8 @@
 #!/bin/sh
 LIBDOC="../bin/libdoc -F REST"
 
-$LIBDOC --name="Plone User Keywords" plone/app/robotframework/selenium.robot source/libdoc/user_keywords.html
-$LIBDOC --name="Zope2Server User Keywords" plone/app/robotframework/selenium.robot source/libdoc/user_server.html
+$LIBDOC --name="Plone User Keywords" plone/app/robotframework/keywords.robot source/libdoc/user_keywords.html
+$LIBDOC --name="Zope2Server User Keywords" plone/app/robotframework/server.robot source/libdoc/user_server.html
 $LIBDOC --name="Selenium User Keywords" plone/app/robotframework/selenium.robot source/libdoc/user_selenium.html
 $LIBDOC --name="SauceLabs User Keywords" plone/app/robotframework/saucelabs.robot source/libdoc/user_saucelabs.html
 
