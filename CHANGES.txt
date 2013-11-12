@@ -1,16 +1,17 @@
 Changelog
 =========
 
-0.7.0rc4 (unreleased)
+0.7.0rc4 (2013-11-13)
 ---------------------
 
-- Nothing changed yet.
-
+- Add support for path as container argument value in Create content -keyword
+  [datakurre]
 
 0.7.0rc3 (2013-11-12)
 ---------------------
 
 - Drop dependency on plone.api
+  [datakurre]
 
 0.7.0rc2 (2013-11-12)
 ---------------------
