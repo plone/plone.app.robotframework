@@ -4,7 +4,7 @@ Documentation  This file should be required only using
 ...            ``Resource  plone/app/robotframework/variables.robot``.
 ...
 ...            The fancy import order is required for backwards
-...            compatibility with robotframework 1.7.x.
+...            compatibility with robotframework 2.7.7.
 
 *** Variables ***
 
