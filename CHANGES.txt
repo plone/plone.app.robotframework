@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.7.0rc2 (unreleased)
+0.7.0rc2 (2013-11-12)
 ---------------------
 
 - Fix backwards compatibility with robotframework 1.7.7
