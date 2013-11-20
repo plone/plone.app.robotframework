@@ -158,7 +158,7 @@ a matching keyword.
 
 For example, a clause ``Given I'm logged in as an admin``:
 
-.. code-block:: robtframework
+.. code-block:: robotframework
 
    *** Test Cases ***
 
