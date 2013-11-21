@@ -84,6 +84,17 @@ class Content(RemoteLibrary):
 
         return IUUID(content)
 
+    def set_field_value(self, uid, field, value, field_type):
+        """Set field value with a specific type"""
+        pc = getToolByName(self, 'portal_catalog')
+        results = pc.unrestrictedSearchResults(UID=uid)
+        obj = results[0]._unrestrictedGetObject()
+        if field_type == 'float':
+            value = float(value)
+        if field_type == 'int':
+            value = int(value)
+        setattr(obj, field, value)
+
     def uid_to_url(self, uid):
         """Return absolute path for an UID"""
         pc = getToolByName(self, 'portal_catalog')
