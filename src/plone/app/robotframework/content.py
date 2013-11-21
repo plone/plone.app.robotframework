@@ -94,6 +94,7 @@ class Content(RemoteLibrary):
         if field_type == 'int':
             value = int(value)
         setattr(obj, field, value)
+        obj.reindexObject()
 
     def uid_to_url(self, uid):
         """Return absolute path for an UID"""
