@@ -93,6 +93,9 @@ class Content(RemoteLibrary):
             value = float(value)
         if field_type == 'int':
             value = int(value)
+        if field_type == 'text/html':
+            from plone.app.textfield.value import RichTextValue
+            value = RichTextValue(value, 'text/html')
         setattr(obj, field, value)
         obj.reindexObject()
 
