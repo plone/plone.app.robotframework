@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-# GOOD
 import pkg_resources
 from zope.component.hooks import getSite
 
@@ -10,6 +9,7 @@ except pkg_resources.DistributionNotFound:
 else:
     HAS_DEXTERITY = True
 
+from plone.app.textfield.value import RichTextValue
 from plone.uuid.interfaces import IUUID
 from Products.CMFCore.utils import getToolByName
 from zope.component import getUtility, ComponentLookupError
@@ -94,8 +94,12 @@ class Content(RemoteLibrary):
         if field_type == 'int':
             value = int(value)
         if field_type == 'text/html':
-            from plone.app.textfield.value import RichTextValue
-            value = RichTextValue(value, 'text/html')
+            value = RichTextValue(
+                value,
+                'text/html',
+                'text/html'
+            )
+            obj.text = value
         setattr(obj, field, value)
         obj.reindexObject()
 
