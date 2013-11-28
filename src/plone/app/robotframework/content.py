@@ -93,6 +93,8 @@ class Content(RemoteLibrary):
             value = float(value)
         if field_type == 'int':
             value = int(value)
+        if field_type == 'list':
+            value = eval(value)
         if field_type == 'text/html':
             value = RichTextValue(
                 value,
