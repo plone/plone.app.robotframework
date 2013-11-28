@@ -98,6 +98,15 @@ class Content(RemoteLibrary):
             value = int(value)
         if field_type == 'list':
             value = eval(value)
+        if field_type == 'reference':
+            results_referenced = pc.unrestrictedSearchResults(UID=value)
+            referenced_obj = results_referenced[0]._unrestrictedGetObject()
+            from zope.app.intid.interfaces import IIntIds
+            from zope.component import getUtility
+            intids = getUtility(IIntIds)
+            referenced_obj_intid = intids.getId(referenced_obj)
+            from z3c.relationfield import RelationValue
+            value = RelationValue(referenced_obj_intid)
         if field_type == 'text/html':
             value = RichTextValue(
                 value,
