@@ -1,6 +1,15 @@
 # -*- coding: utf-8 -*-
-import pkg_resources
+from Products.CMFCore.utils import getToolByName
+from plone.app.textfield.value import RichTextValue
+from plone.app.robotframework.remote import RemoteLibrary
+from plone.namedfile.file import NamedBlobFile
+from plone.namedfile.file import NamedBlobImage
+from plone.uuid.interfaces import IUUID
 from zope.component.hooks import getSite
+from zope.component import getUtility, ComponentLookupError
+
+import os
+import pkg_resources
 
 try:
     pkg_resources.get_distribution('plone.dexterity')
@@ -8,12 +17,6 @@ except pkg_resources.DistributionNotFound:
     HAS_DEXTERITY = False
 else:
     HAS_DEXTERITY = True
-
-from plone.app.textfield.value import RichTextValue
-from plone.uuid.interfaces import IUUID
-from Products.CMFCore.utils import getToolByName
-from zope.component import getUtility, ComponentLookupError
-from plone.app.robotframework.remote import RemoteLibrary
 
 
 class Content(RemoteLibrary):
@@ -102,6 +105,23 @@ class Content(RemoteLibrary):
                 'text/html'
             )
             obj.text = value
+        if field_type == 'file':
+            pdf_file = os.path.join(
+                os.path.dirname(__file__), 'content', u'file.pdf')
+            value = NamedBlobFile(
+                data=open(pdf_file, 'r').read(),
+                contentType='application/pdf',
+                filename=u'file.pdf'
+            )
+        if field_type == 'image':
+            image_file = os.path.join(
+                os.path.dirname(__file__), u'image.jpg')
+            value = NamedBlobImage(
+                data=open(image_file, 'r').read(),
+                contentType='image/jpg',
+                filename=u'image.jpg'
+            )
+
         setattr(obj, field, value)
         obj.reindexObject()
 
