@@ -102,7 +102,10 @@ Open Menu
     Wait until keyword succeeds  1  5  Element Should Be Visible  css=dl#${elementId} dd.actionMenuContent
 
 Open User Menu
-    Open Menu  portal-personaltools
+    Element Should Be Visible  css=dl#portal-personaltools a
+    Element Should Not Be Visible  css=dl#portal-personaltools dd.actionMenuContent
+    Click link  css=dl#portal-personaltools dt.actionMenuHeader a
+    Wait until keyword succeeds  1  5  Element Should Be Visible  css=dl#portal-personaltools dd.actionMenuContent
 
 Open Add New Menu
     Open Menu  plone-contentmenu-factories
@@ -248,12 +251,10 @@ Remove Content
 Rename Content Title
     [arguments]  ${id}  ${new_title}
 
-    Go to  ${PLONE_URL}/${id}
-    Page Should Contain Element  css=body.section-${id}
-    Click Rename Action
-    Wait Until Page Contains Element  css=input#${id}_id
-    Input Text  css=input#${id}_title  ${new_title}
+    Go to  ${PLONE_URL}/${id}/object_rename
+    Input Text for sure  css=input#${id}_title  ${new_title}
     Click Button  Rename All
+    Go to  ${PLONE_URL}/${id}
 
 
 # ----------------------------------------------------------------------------
