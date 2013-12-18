@@ -8,6 +8,13 @@ Resource  selenium.robot
 
 *** Keywords ***
 
+Pause
+    [Documentation]  Visually pause test execution with interactive dialog by
+    ...              importing **Dialogs**-library and calling its
+    ...              **Pause Execution**-keyword.
+    Import library  Dialogs
+    Pause execution
+
 # ----------------------------------------------------------------------------
 # Access Resources
 # ----------------------------------------------------------------------------
@@ -29,10 +36,10 @@ Log in
     Go to  ${PLONE_URL}/login_form
     Page should contain element  __ac_name
     Page should contain element  __ac_password
-    Page should contain button  Log in
+    Page should contain element  css=#login-form .formControls input[name=submit]
     Input text for sure  __ac_name  ${userid}
     Input text for sure  __ac_password  ${password}
-    Click Button  Log in
+    Click Button  css=#login-form .formControls input[name=submit]
 
 Log in as test user
 
@@ -55,7 +62,7 @@ Log in as test user with role
 
 Log out
     Go to  ${PLONE_URL}/logout
-    Page should contain  logged out
+    Page Should Contain Element  css=#login-form
 
 
 # ----------------------------------------------------------------------------
@@ -65,13 +72,13 @@ Log out
 Click Overlay Link
     [Arguments]  ${element}
     Click Link  ${element}
-    Page Should Contain Element  css=.pb-ajax > div
+    Wait until keyword succeeds  10  1  Page Should Contain Element  css=.pb-ajax > div
     Element Should Be Visible  css=.pb-ajax > div
 
 Click Overlay Button
     [Arguments]  ${element}
     Click Button  ${element}
-    Page Should Contain Element  css=.pb-ajax > div
+    Wait until keyword succeeds  10  1  Page Should Contain Element  css=.pb-ajax > div
     Element Should Be Visible  css=.pb-ajax > div
 
 Should be above
@@ -186,42 +193,45 @@ Workflow Promote to Draft
 
 Add Page
     [arguments]  ${title}
-
-    Open Add New Menu
-    Click Link  link=Page
-    Wait Until Page Contains Element  title
-    Input Text  title  ${title}
-    Click button  name=form.button.save
-    Page Should Contain  Changes saved.
+    ${result} =  Add content  document  ${title}
+    [return]  ${result}
 
 Add folder
     [arguments]  ${title}
-
-    Open Add New Menu
-    Click Link  css=#plone-contentmenu-factories a#folder
-    Wait Until Page Contains Element  css=#archetypes-fieldname-title input
-    Input Text  title  ${title}
-    Click Button  Save
-    Page should contain  ${title}
-    Element should contain  css=#parent-fieldname-title  ${title}
+    ${result} =  Add content  folder  ${title}
+    [return]  ${result}
 
 Add document
     [arguments]  ${title}
     Go to  ${PLONE_URL}
-    Open add new menu
-    Click link  id=document
-    Wait Until Page Contains Element  css=#archetypes-fieldname-title input
-    Input Text  title  ${title}
-    Click Button  Save
-    Page should contain  ${title}
-    Element should contain  css=#parent-fieldname-title  ${title}
+    ${result} =  Add Page  ${title}
+    [return]  ${result}
 
 Add news item
-    [Arguments]  ${title}
-    Go to  ${PLONE_URL}/createObject?type_name=News+Item
-    Wait Until Page Contains Element  title
-    Input text  title  ${title}
-    Click Button  Save
+    [arguments]  ${title}
+    ${result} =  Add content  news-item  ${title}
+    [return]  ${result}
+
+Displayed content title should be
+    [arguments]  ${title}
+    Page should contain element  xpath=//*[contains(., "${title}")][@id='parent-fieldname-title']
+
+Add content
+    [arguments]  ${content_type}  ${title}
+    Open add new menu
+
+    ${status} =  Run Keyword And Return Status  Click Link
+    ...  css=#plone-contentmenu-factories a.contenttype-${content_type}
+    Run keyword if  ${status} != True  Click Link  ${content_type}
+
+    Page Should Contain Element  css=#archetypes-fieldname-title input
+    Input Text  title  ${title}
+    Click button  name=form.button.save
+    Page Should Contain  Changes saved.
+    Page should contain  ${title}
+    Displayed content title should be  ${title}
+    ${location} =  Get Location
+    [return]  ${location}
 
 
 # ----------------------------------------------------------------------------

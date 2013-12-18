@@ -2,6 +2,7 @@
 import sys
 
 from robot import run_cli
+from robot import libdoc as ld
 
 import pkg_resources
 
@@ -42,3 +43,30 @@ wxPython installed, like:
 
     /usr/bin/python bin/ride
 """
+
+
+def libdoc():
+    ld.libdoc_cli(sys.argv[1:])
+
+
+def pybabel():
+    # This registers our minimal robot translation extractor
+    import babel.messages.extract
+    babel.messages.extract.DEFAULT_MAPPING.extend([
+        ('**.rst', 'plone.app.robotframework.pybabel:extract_robot'),
+        ('**.robot', 'plone.app.robotframework.pybabel:extract_robot')
+    ])
+
+    # This code hides warnings for missing Sphinx-only-directives:
+    from docutils.parsers.rst.directives import register_directive
+    from docutils.parsers.rst.roles import register_local_role
+    dummy_directive = lambda *args: []
+    options = ('maxdepth', 'creates', 'numbered', 'hidden')
+    setattr(dummy_directive, 'content', True)
+    setattr(dummy_directive, 'options', dict([(opt, str) for opt in options]))
+    register_directive('toctree', dummy_directive)
+    register_directive('robotframework', dummy_directive)
+    register_local_role('ref', dummy_directive)
+
+    from babel.messages.frontend import main
+    main()

@@ -1,7 +1,7 @@
 from setuptools import setup
 from setuptools import find_packages
 
-version = '0.6.2.dev0'
+version = '0.7.0rc5.dev0'
 
 long_description = (
     open('README.rst').read()
@@ -20,6 +20,8 @@ console_scripts = [
     "robot = plone.app.robotframework.robotentrypoints:robot",
     "pybot = plone.app.robotframework.robotentrypoints:pybot",
     "ride = plone.app.robotframework.robotentrypoints:ride",
+    "libdoc = plone.app.robotframework.robotentrypoints:libdoc",
+    "pybabel = plone.app.robotframework.robotentrypoints:pybabel",
 ]
 
 entry_points = dict(console_scripts=console_scripts)
@@ -30,7 +32,8 @@ install_requires = [
     'argparse',
     # Plone testing dependencies:
     'plone.testing',
-    'plone.app.testing',  # [robot] >= 4.2.2 would include Robot deps.
+    'plone.app.testing',
+    'five.globalrequest',
     # Functional Robot testing dependencies:
     'robotsuite',
     'robotframework',
@@ -38,6 +41,8 @@ install_requires = [
     # Implicit Robot Framework dependencies:
     'decorator',
     'selenium',
+    # I18N message extractor for Translate -keyword:
+    'babel',
 ]
 
 ride_requires = [
@@ -55,6 +60,11 @@ reload_requires = [
     'watchdog'
 ]
 
+docs_requires = [
+    # Include robot-files outside docs:
+    'sphinxcontrib-robotdoc'
+]
+
 setup(
     name='plone.app.robotframework',
     version=version,
@@ -62,6 +72,8 @@ setup(
     long_description=long_description,
     classifiers=[
         "Programming Language :: Python",
+        "Programming Language :: Python :: 2.6",
+        "Programming Language :: Python :: 2.7",
     ],
     keywords='',
     author='Asko Soukka',
@@ -76,6 +88,7 @@ setup(
     install_requires=install_requires,
     extras_require={'ride': ride_requires,
                     'speak': speak_requires,
-                    'reload': reload_requires},
+                    'reload': reload_requires,
+                    'docs': docs_requires},
     entry_points=entry_points,
 )

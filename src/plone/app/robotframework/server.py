@@ -10,7 +10,6 @@ from SimpleXMLRPCServer import SimpleXMLRPCServer
 
 import pkg_resources
 
-
 try:
     pkg_resources.get_distribution('watchdog')
 except pkg_resources.DistributionNotFound:
@@ -20,6 +19,7 @@ else:
     from plone.app.robotframework.reload import Watcher
     HAS_RELOAD = True
 
+from plone.app.robotframework.remote import RemoteLibrary
 
 HAS_VERBOSE_CONSOLE = False
 
@@ -123,9 +123,20 @@ def start_reload(zope_layer_dotted_name, reload_paths=('src',),
 
 
 def server():
-    parser = argparse.ArgumentParser()
+    if HAS_RELOAD:
+        parser = argparse.ArgumentParser()
+    else:
+        parser = argparse.ArgumentParser(
+            epilog='Note: require \'plone.app.robotframework\' with '
+                   '\'[reload]\'-extras to get the automatic code reloading '
+                   'support (powered by \'watchdog\').')
     parser.add_argument('layer')
-    parser.add_argument('--verbose', '-v', action='count')
+    VERBOSE_HELP = (
+        '-v information about test layers setup and tear down, '
+        '-vv add logging.WARNING messages, '
+        '-vvv add INFO messages, -vvvv add DEBUG messages.')
+    parser.add_argument('--verbose', '-v', action='count', help=VERBOSE_HELP)
+
     if HAS_RELOAD:
         parser.add_argument('--reload-path', '-p', dest='reload_paths',
                             action='append')
@@ -136,7 +147,10 @@ def server():
     if args.verbose:
         global HAS_VERBOSE_CONSOLE
         HAS_VERBOSE_CONSOLE = True
-    logging.basicConfig(level=logging.ERROR)
+        loglevel = logging.ERROR - (args.verbose - 1) * 10
+    else:
+        loglevel = logging.ERROR
+    logging.basicConfig(level=loglevel)
 
     if not HAS_RELOAD or args.reload is False:
         try:
@@ -193,14 +207,12 @@ class Zope2Server:
     def set_zope_layer(self, layer_dotted_name):
         """Explicitly set the current Zope layer, when you know what you are
         doing
-
         """
         new_layer = self._import_layer(layer_dotted_name)
         self.zope_layer = new_layer
 
     def amend_zope_server(self, layer_dotted_name):
-        """Set up extra layers up to given layer_dotted_name
-        """
+        """Set up extra layers up to given layer_dotted_name"""
         old_layers = setup_layers.copy()
         new_layer = self._import_layer(layer_dotted_name)
         setup_layer(new_layer)
@@ -210,8 +222,7 @@ class Zope2Server:
         self.zope_layer = new_layer
 
     def prune_zope_server(self):
-        """Tear down the last set of layers set up with amend_zope_server
-        """
+        """Tear down the last set of layers set up with amend_zope_server"""
         tear_down(self.extra_layers)
         self.extra_layers = {}
         self.zope_layer = None
@@ -220,7 +231,10 @@ class Zope2Server:
         tear_down()
         self.zope_layer = None
 
-    def zodb_setup(self):
+    def zodb_setup(self, layer_dotted_name=None):
+        if layer_dotted_name:
+            self.set_zope_layer(layer_dotted_name)
+
         from zope.testing.testrunner.runner import order_by_bases
         layers = order_by_bases([self.zope_layer])
         for layer in layers:
@@ -232,7 +246,10 @@ class Zope2Server:
         if HAS_VERBOSE_CONSOLE:
             print READY("Test set up")
 
-    def zodb_teardown(self):
+    def zodb_teardown(self, layer_dotted_name=None):
+        if layer_dotted_name:
+            self.set_zope_layer(layer_dotted_name)
+
         from zope.testing.testrunner.runner import order_by_bases
         layers = order_by_bases([self.zope_layer])
         layers.reverse()
@@ -282,3 +299,17 @@ def tear_down(setup_layers=setup_layers):
                 pass
         finally:
             del setup_layers[l]
+
+
+class Zope2ServerRemote(RemoteLibrary):
+    """Provides ``remote_zodb_setup`` and ``remote_zodb_teardown`` -keywords to
+    allow explicit test isolation via remote library calls when server is set
+    up with robot-server and tests are run by a separate pybot process.
+
+    *WARNING* These keywords does not with zope.testrunner (yet).
+    """
+    def remote_zodb_setup(self, layer_dotted_name):
+        Zope2Server().zodb_setup(layer_dotted_name)
+
+    def remote_zodb_teardown(self, layer_dotted_name):
+        Zope2Server().zodb_teardown(layer_dotted_name)

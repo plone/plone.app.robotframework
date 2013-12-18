@@ -6,7 +6,7 @@ Resource  plone/app/robotframework/saucelabs.robot
 
 Library  Remote  ${PLONE_URL}/RobotRemote
 
-Test Setup  Open SauceLabs test browser
+Test Setup  Run keywords  Open SauceLabs test browser
 Test Teardown  Run keywords  Report test status  Close all browsers
 
 *** Test cases ***

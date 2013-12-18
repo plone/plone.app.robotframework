@@ -1,39 +1,136 @@
 Changelog
 =========
 
-0.6.2 (unreleased)
-------------------
+0.7.0rc5 (unreleased)
+---------------------
 
 - Nothing changed yet.
 
 
+0.7.0rc4 (2013-11-13)
+---------------------
+
+- Add support for path as container argument value in Create content -keyword
+  [datakurre]
+
+0.7.0rc3 (2013-11-12)
+---------------------
+
+- Drop dependency on plone.api
+  [datakurre]
+
+0.7.0rc2 (2013-11-12)
+---------------------
+
+- Fix backwards compatibility with robotframework 1.7.7
+  [datakurre]
+
+0.7.0rc1 (2013-11-10)
+---------------------
+
+This is Arnhem Sprint preview release of 0.7.0.
+
+- Refactor and clean; Rename 'Do transition' to 'Fire transition';  Split
+  'PloneAPI' RemoteLibrary into 'Content' and 'Users' libraries
+  [datakurre]
+- Add 'Pause'-keyword
+  [datakurre]
+- Cleanup Zope2ServerRemote-library keywords
+  [datakurre]
+- Add I18N, MockMailHost, PortalSetup and PloneAPI -keywords from c.usermanual
+  [datakurre]
+- Rename RemoteServer-keyword library into Zope2ServerRemote and provide a
+  shortcut import
+  [datakurre]
+- Fix to support explicit layers with zodb_setup and zodb_teardown calls,
+  because sometime the layers is not available (because of different server
+  library instance); Add remote library for zodb_setup and zodb_teardown
+  keywords
+  [datakurre]
+- Rename PloneRobotSandboxLayer into PloneRobotFixture, because it's only
+  usable as it is
+  [datakurre]
+- Drop LiveSearch-layer (it was CMFPlone-specific); Add MockMailHostlayer; Add
+  robot configurable PloneRobotSandboxLayer
+  [datakurre]
+- Refactor to use python only for environment variables and define other
+  variables in robot to support robot variable overrides
+  [datakurre]
+- Deprecate annotate-library in favor of Selenium2Screenshots-library
+  [datakurre]
+- Remove moved CMFPlone-tests
+  [datakurre]
+- Use robotframework 2.8.1
+  [datakurre]
+- Fix to tell in 'robot-server' help how to enable code-reloading support
+  [fixes #13]
+  [datakurre]
+- Add entry point for robot.libdoc
+  [Benoît Suttor]
+- Return location to reference new content
+  [Benoît Suttor]
+- Refactor add content keywords
+  [Benoît Suttor]
+- Explain stop keyword from debugging library
+  [Benoît Suttor]
+
+0.6.4 (2013-08-19)
+------------------
+
+- Better support for Login/Logout on multilingual sites by not relying on
+  'Log in' and 'Log out' on these pages. Check css locators instead.
+  [saily]
+
+0.6.3 (2013-06-28)
+------------------
+
+- ZSERVER_PORT, ZOPE_HOST and ZOPE_PORT environment variables are supported.
+  [gotcha]
+
+- Make ``robot-server`` show ``logging`` messages.
+  [gotcha]
+
+0.6.2 (2013-06-19)
+------------------
+
+- Remove the default selenium-version (SELENIUM_VERSION-variable) set for
+  sessions Sauce Labs to fix issues with mobile browser testing
+  (selenium-version must not be set when testing mobile browsers)
+  [datakurre]
+- Documentation updates
+  [gotcha, datakurre]
+- Add ``Capture viewport screenshot`` into annotate.robot keywords library
+  [datakurre]
+- Fix Speak-keyword to use ``jQuery`` instead of ``jq``
+  [datakurre]
+
 0.6.1 (2013-05-16)
 ------------------
 
-- Fix "Click Action by" keyword. on Sunburst Theme the action id is
+- Fix ``Click Action by`` keyword. on Sunburst Theme the action id is
   #plone-contentmenu-actions-${name}
   [JeanMichel FRANCOIS]
 - Enhance Server-library to support carefully designed additional layers
   (appended after the main layer)
   [datakurre]
 - Documentatio updates
-  [ebrehault, Fulvio Casali, Daniel Widerin]
+  [ebrehault, Fulvio Casali, saily]
 
 0.6.0 (2013-04-30)
 ------------------
 
 - Add verbose console outout for robot-server for test setup and teardown
-  [Asko Soukka]
+  [datakurre]
 - Documentation update
-  [Asko Soukka, Silvio Tomatis]
+  [datakurre, Silvio Tomatis]
 - Merge pull request #2 from silviot/patch-1
-- Add 'Element should become visible'-keyword
-  [Asko Soukka]
+- Add ``Element should become visible`` keyword
+  [datakurre]
 
 0.5.0 (2013-04-09)
 ------------------
 
-- Add 'Align elements horizontally' annotation keyword.
+- Add ``Align elements horizontally`` annotation keyword.
 
 0.4.4 (2013-04-09)
 ------------------
@@ -49,15 +146,15 @@ Changelog
 0.4.2 (2013-04-08)
 ------------------
 
-- Use 'Capture and crop page screenshot' keyword in screencast example; Try
+- Use ``Capture and crop page screenshot`` keyword in screencast example; Try
   more transparent annotation pointer
 
 0.4.1 (2013-04-08)
 ------------------
 
-- Rename 'Add dot' to 'Add pointer' and 'Add numbered dot' to 'Add dot';
-  Available annotations keywords are now 'Add pointer', 'Add dot' and
-  'Add note'.
+- Rename ``Add dot`` to ``Add pointer`` and ``Add numbered dot`` to ``Add dot``;
+  Available annotations keywords are now ``Add pointer``, ``Add dot`` and
+  ``Add note``.
 
 0.4.0 (2013-04-08)
 ------------------
