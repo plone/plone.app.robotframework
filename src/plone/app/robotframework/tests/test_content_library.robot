@@ -22,6 +22,20 @@ Test create content with custom id
     Go to  ${PLONE_URL}/example
     Page should contain  Example document
 
+Test create content inside a container specified by a uid
+    Enable autologin as  Contributor
+    ${folder_uid}  Create content  type=Folder  id=folder  title=Example folder
+    Create content  type=Document  id=example  title=Example document  container=${folder_uid}
+    Go to  ${PLONE_URL}/folder/example
+    Page should contain  Example document
+
+Test create content inside a container specified by a path
+    Enable autologin as  Contributor
+    Create content  type=Folder  id=folder  title=Example folder
+    Create content  type=Document  id=example  title=Example document  container=/plone/folder
+    Go to  ${PLONE_URL}/folder/example
+    Page should contain  Example document
+
 Test uid to url resolving
     Enable autologin as  Contributor
     ${uid} =  Create content  type=Document  id=example-document
