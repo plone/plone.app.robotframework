@@ -146,6 +146,16 @@ class Content(RemoteLibrary):
         else:
             return results[0].getURL()
 
+    def path_to_uid(self, path):
+        """Return UID for an absolute path"""
+        pc = getToolByName(self, 'portal_catalog')
+        results = pc.unrestrictedSearchResults(
+            path={'query': path.rstrip('/'), 'depth': 0})
+        if not results:
+            return None
+        else:
+            return results[0].UID
+
     def fire_transition(self, content, action):
         """Fire workflow action for content"""
         # It should be ok to use unrestricted-methods, because workflow

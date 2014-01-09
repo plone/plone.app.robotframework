@@ -44,6 +44,13 @@ Test uid to url resolving
     Go to  ${url}
     Page should contain  Example document
 
+Test path to uid resolving
+    Enable autologin as  Contributor
+    ${uid} =  Create content  type=Document  id=example-document
+    ...  title=Example document
+    ${result_uid} =  Path to UID  /plone/example-document
+    Fail unless equal  ${uid}  ${result_uid}
+
 Test fire transition
     Enable autologin as  Contributor  Reviewer
     ${uid} =  Create content  type=Document  id=example-document
