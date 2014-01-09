@@ -1,6 +1,15 @@
 # -*- coding: utf-8 -*-
-import pkg_resources
+from Products.CMFCore.utils import getToolByName
+from plone.app.textfield.value import RichTextValue
+from plone.app.robotframework.remote import RemoteLibrary
+from plone.namedfile.file import NamedBlobFile
+from plone.namedfile.file import NamedBlobImage
+from plone.uuid.interfaces import IUUID
 from zope.component.hooks import getSite
+from zope.component import getUtility, ComponentLookupError
+
+import os
+import pkg_resources
 
 try:
     pkg_resources.get_distribution('plone.dexterity')
@@ -8,12 +17,6 @@ except pkg_resources.DistributionNotFound:
     HAS_DEXTERITY = False
 else:
     HAS_DEXTERITY = True
-
-from plone.app.textfield.value import RichTextValue
-from plone.uuid.interfaces import IUUID
-from Products.CMFCore.utils import getToolByName
-from zope.component import getUtility, ComponentLookupError
-from plone.app.robotframework.remote import RemoteLibrary
 
 
 class Content(RemoteLibrary):
@@ -67,6 +70,9 @@ class Content(RemoteLibrary):
 
         content = None
         if HAS_DEXTERITY:
+            # The title attribute for Dexterity types needs to be unicode
+            if isinstance(kwargs['title'], str):
+                kwargs['title'] = kwargs['title'].decode('utf-8')
             from plone.dexterity.interfaces import IDexterityFTI
             from plone.dexterity.utils import createContentInContainer
             try:
@@ -93,6 +99,17 @@ class Content(RemoteLibrary):
             value = float(value)
         if field_type == 'int':
             value = int(value)
+        if field_type == 'list':
+            value = eval(value)
+        if field_type == 'reference':
+            results_referenced = pc.unrestrictedSearchResults(UID=value)
+            referenced_obj = results_referenced[0]._unrestrictedGetObject()
+            from zope.app.intid.interfaces import IIntIds
+            from zope.component import getUtility
+            intids = getUtility(IIntIds)
+            referenced_obj_intid = intids.getId(referenced_obj)
+            from z3c.relationfield import RelationValue
+            value = RelationValue(referenced_obj_intid)
         if field_type == 'text/html':
             value = RichTextValue(
                 value,
@@ -100,6 +117,23 @@ class Content(RemoteLibrary):
                 'text/html'
             )
             obj.text = value
+        if field_type == 'file':
+            pdf_file = os.path.join(
+                os.path.dirname(__file__), 'content', u'file.pdf')
+            value = NamedBlobFile(
+                data=open(pdf_file, 'r').read(),
+                contentType='application/pdf',
+                filename=u'file.pdf'
+            )
+        if field_type == 'image':
+            image_file = os.path.join(
+                os.path.dirname(__file__), u'image.jpg')
+            value = NamedBlobImage(
+                data=open(image_file, 'r').read(),
+                contentType='image/jpg',
+                filename=u'image.jpg'
+            )
+
         setattr(obj, field, value)
         obj.reindexObject()
 
