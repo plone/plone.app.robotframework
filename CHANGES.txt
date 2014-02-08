@@ -1,11 +1,14 @@
 Changelog
 =========
 
-0.7.1 (unreleased)
+0.7.1 (2014-02-08)
 ------------------
 
-- Nothing changed yet.
-
+- Add ignored Sphinx-directives to pybot to make it easier to run pybot agains
+  Sphinx documentation
+  [datakurre]
+- Update libdoc-generated documentations
+  [datakurre]
 
 0.7.0 (2014-02-08)
 ------------------
