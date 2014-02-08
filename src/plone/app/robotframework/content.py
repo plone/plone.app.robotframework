@@ -1,22 +1,18 @@
 # -*- coding: utf-8 -*-
 from Products.CMFCore.utils import getToolByName
-from plone.app.textfield.value import RichTextValue
 from plone.app.robotframework.remote import RemoteLibrary
-from plone.namedfile.file import NamedBlobFile
-from plone.namedfile.file import NamedBlobImage
 from plone.uuid.interfaces import IUUID
 from zope.component.hooks import getSite
 from zope.component import getUtility, ComponentLookupError
 
-import os
-import pkg_resources
+from plone.app.robotframework.config import HAS_DEXTERITY
 
-try:
-    pkg_resources.get_distribution('plone.dexterity')
-except pkg_resources.DistributionNotFound:
-    HAS_DEXTERITY = False
-else:
-    HAS_DEXTERITY = True
+if HAS_DEXTERITY:
+    from plone.app.textfield.value import RichTextValue
+    from plone.namedfile.file import NamedBlobFile
+    from plone.namedfile.file import NamedBlobImage
+
+import os
 
 
 class Content(RemoteLibrary):
@@ -91,7 +87,10 @@ class Content(RemoteLibrary):
         return IUUID(content)
 
     def set_field_value(self, uid, field, value, field_type):
-        """Set field value with a specific type"""
+        """Set field value with a specific type
+
+        XXX: Only dexterity fields are supported
+        """
         pc = getToolByName(self, 'portal_catalog')
         results = pc.unrestrictedSearchResults(UID=uid)
         obj = results[0]._unrestrictedGetObject()
