@@ -6,22 +6,21 @@ from plone.app.robotframework.remote import RemoteLibrary
 
 class Users(RemoteLibrary):
 
-    def create_user(self, username, *args, **kwargs):
+    def create_user(self, *args, **kwargs):
         """Create user with given details and return its id"""
-        # XXX: It seems that **kwargs does not yet work with Robot Framework
-        # remote library interface and that's why we need to unpack the
-        # keyword arguments from positional args list.
+        # XXX: Because kwargs are only supported with robotframework >= 2.8.3,
+        # we must parse them here to support robotframework < 2.8.3.
+        for arg in [x for x in args if '=' in x]:
+            name, value = arg.split('=', 1)
+            kwargs[name] = value
+
+        assert len(args), u"username must be provided."
+        username = args[0]
+
         roles = []
         properties = kwargs
-        for arg in args:
-            if not '=' in arg:
-                roles.append(arg)
-            else:
-                name, value = arg.split('=', 1)
-                if name in ('email', 'password'):
-                    properties[name] = value
-                else:
-                    properties[name] = value
+        for arg in [x for x in args[1:] if not '=' in x]:
+            roles.append(arg)
         if not 'email' in properties:
             properties['email'] = '%s@example.com' % username
 

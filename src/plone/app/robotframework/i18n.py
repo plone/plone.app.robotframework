@@ -22,13 +22,13 @@ class I18N(RemoteLibrary):
 
     def translate(self, msgid, *args, **kwargs):
         """Return localized string for given msgid"""
-        # XXX: It seems that **kwargs does not yet work with Robot Framework
-        # remote library interface and that's why we need to unpack the
-        # keyword arguments from positional args list.
-        mapping = {}
-        for arg in args:
+        # XXX: Because kwargs are only supported with robotframework >= 2.8.3,
+        # we must parse them here to support robotframework < 2.8.3.
+        for arg in [x for x in args if '=' in x]:
             name, value = arg.split('=', 1)
             kwargs[name] = value
+
+        mapping = {}
         for key, value in kwargs.items():
             if not key in ('target_language', 'domain', 'default'):
                 mapping[key] = value

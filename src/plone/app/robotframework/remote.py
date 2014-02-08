@@ -38,13 +38,13 @@ class RemoteLibrary(SimpleItem):
         func = getattr(self, name, None)
         return func.__doc__ if func else u''
 
-    def run_keyword(self, name, args):
+    def run_keyword(self, name, args, kwargs={}):
         """Execute the specified keyword with given arguments.
         """
         func = getattr(self, name, None)
         result = {'error': '', 'return': ''}
         try:
-            retval = func(*args)
+            retval = func(*args, **kwargs)
         except Exception, e:
             result['status'] = 'FAIL'
             result['error'] = str(e)
