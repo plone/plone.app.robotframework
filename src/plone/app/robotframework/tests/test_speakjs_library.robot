@@ -35,7 +35,7 @@ Add spoken note
     Sleep  2s
     [return]  ${note}
 
-*** Test cases ***
+*** Test Cases ***
 
 Introducing Mr. Roboto
     [Tags]  non-critical

@@ -4,7 +4,7 @@ Resource  plone/app/robotframework/variables.robot
 
 Library  Remote  ${PLONE_URL}/RobotRemote
 
-*** Test cases ***
+*** Test Cases ***
 
 Some default product is activated
     Given 'plone.app.jquery' is activated

@@ -9,7 +9,7 @@ Library  Remote  ${PLONE_URL}/RobotRemote
 Test Setup  Run keywords  Open SauceLabs test browser
 Test Teardown  Run keywords  Report test status  Close all browsers
 
-*** Test cases ***
+*** Test Cases ***
 
 Site Administrator can access control panel
     Given I'm logged in as a 'Site Administrator'

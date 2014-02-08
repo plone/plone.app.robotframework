@@ -8,7 +8,7 @@ Library  Remote  ${PLONE_URL}/RobotRemote
 Test Setup  Open SauceLabs test browser
 Test Teardown  Run keywords  Report test status  Close all browsers
 
-*** Test cases ***
+*** Test Cases ***
 
 Test create content
     Enable autologin as  Contributor
