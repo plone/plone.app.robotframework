@@ -4,8 +4,33 @@ Changelog
 0.7.0rc5 (unreleased)
 ---------------------
 
-- Nothing changed yet.
-
+- Fix kwargs support for robotframework >= 2.8.3 [fixes #17]
+  [datakurre]
+- Add path_to_uid method to content library.
+  [tisto]
+- Add content library container tests for documentation.
+  [tisto]
+- The title attribute for Dexterity types needs to be unicode.
+  [tisto]
+- Add field type reference (only intid support for now).
+  [tisto]
+- Add file/image support to set_field_value method/keyword.
+  [tisto]
+- Add support for list type.
+  [tisto]
+- Support setting RichText (Dexterity only).
+  [tisto]
+- Call reindexObject after setting a field value so the object is updated in
+  the catalog as well.
+  [tisto]
+- Add new set_field_value keyword that allows to set the field type explicitly.
+  [tisto]
+- Fix use object_rename view instead of pop-up for rename content title
+  [Gagaro]
+- Fix use "a" instead of "span" for Open User Menu
+  [Gagaro]
+- Fix rename content title
+  [Gagaro]
 
 0.7.0rc4 (2013-11-13)
 ---------------------
