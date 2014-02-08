@@ -10,6 +10,7 @@ install:
 - buildout/bin/python bootstrap.py -c travis.cfg
 - bin/buildout -N -t 3 -c travis.cfg ${VERSIONS}
 before_script:
+- gem install --version 0.8.9 faraday
 - gem install travis-artifacts
 script: bin/test
 after_script:
