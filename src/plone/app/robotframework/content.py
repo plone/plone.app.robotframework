@@ -1,7 +1,15 @@
 # -*- coding: utf-8 -*-
-# GOOD
-import pkg_resources
+from Products.CMFCore.utils import getToolByName
+from plone.app.textfield.value import RichTextValue
+from plone.app.robotframework.remote import RemoteLibrary
+from plone.namedfile.file import NamedBlobFile
+from plone.namedfile.file import NamedBlobImage
+from plone.uuid.interfaces import IUUID
 from zope.component.hooks import getSite
+from zope.component import getUtility, ComponentLookupError
+
+import os
+import pkg_resources
 
 try:
     pkg_resources.get_distribution('plone.dexterity')
@@ -9,11 +17,6 @@ except pkg_resources.DistributionNotFound:
     HAS_DEXTERITY = False
 else:
     HAS_DEXTERITY = True
-
-from plone.uuid.interfaces import IUUID
-from Products.CMFCore.utils import getToolByName
-from zope.component import getUtility, ComponentLookupError
-from plone.app.robotframework.remote import RemoteLibrary
 
 
 class Content(RemoteLibrary):
@@ -67,6 +70,9 @@ class Content(RemoteLibrary):
 
         content = None
         if HAS_DEXTERITY:
+            # The title attribute for Dexterity types needs to be unicode
+            if isinstance(kwargs['title'], str):
+                kwargs['title'] = kwargs['title'].decode('utf-8')
             from plone.dexterity.interfaces import IDexterityFTI
             from plone.dexterity.utils import createContentInContainer
             try:
@@ -84,6 +90,53 @@ class Content(RemoteLibrary):
 
         return IUUID(content)
 
+    def set_field_value(self, uid, field, value, field_type):
+        """Set field value with a specific type"""
+        pc = getToolByName(self, 'portal_catalog')
+        results = pc.unrestrictedSearchResults(UID=uid)
+        obj = results[0]._unrestrictedGetObject()
+        if field_type == 'float':
+            value = float(value)
+        if field_type == 'int':
+            value = int(value)
+        if field_type == 'list':
+            value = eval(value)
+        if field_type == 'reference':
+            results_referenced = pc.unrestrictedSearchResults(UID=value)
+            referenced_obj = results_referenced[0]._unrestrictedGetObject()
+            from zope.app.intid.interfaces import IIntIds
+            from zope.component import getUtility
+            intids = getUtility(IIntIds)
+            referenced_obj_intid = intids.getId(referenced_obj)
+            from z3c.relationfield import RelationValue
+            value = RelationValue(referenced_obj_intid)
+        if field_type == 'text/html':
+            value = RichTextValue(
+                value,
+                'text/html',
+                'text/html'
+            )
+            obj.text = value
+        if field_type == 'file':
+            pdf_file = os.path.join(
+                os.path.dirname(__file__), 'content', u'file.pdf')
+            value = NamedBlobFile(
+                data=open(pdf_file, 'r').read(),
+                contentType='application/pdf',
+                filename=u'file.pdf'
+            )
+        if field_type == 'image':
+            image_file = os.path.join(
+                os.path.dirname(__file__), u'image.jpg')
+            value = NamedBlobImage(
+                data=open(image_file, 'r').read(),
+                contentType='image/jpg',
+                filename=u'image.jpg'
+            )
+
+        setattr(obj, field, value)
+        obj.reindexObject()
+
     def uid_to_url(self, uid):
         """Return absolute path for an UID"""
         pc = getToolByName(self, 'portal_catalog')
@@ -92,6 +145,16 @@ class Content(RemoteLibrary):
             return None
         else:
             return results[0].getURL()
+
+    def path_to_uid(self, path):
+        """Return UID for an absolute path"""
+        pc = getToolByName(self, 'portal_catalog')
+        results = pc.unrestrictedSearchResults(
+            path={'query': path.rstrip('/'), 'depth': 0})
+        if not results:
+            return None
+        else:
+            return results[0].UID
 
     def fire_transition(self, content, action):
         """Fire workflow action for content"""
