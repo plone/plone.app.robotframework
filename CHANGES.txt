@@ -1,11 +1,11 @@
 Changelog
 =========
 
-0.7.2 (unreleased)
+0.7.2 (2014-02-09)
 ------------------
 
-- Nothing changed yet.
-
+- Add support for registering translations directly from docs for screenshots
+  [Asko Soukka]
 
 0.7.1 (2014-02-08)
 ------------------
