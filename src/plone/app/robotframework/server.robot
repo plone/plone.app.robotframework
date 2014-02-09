@@ -5,6 +5,10 @@ Library  plone.app.robotframework.Zope2Server
 
 Resource  selenium.robot
 
+*** Variables ***
+
+${OPEN_BROWSER_KEYWORD}  Open test browser
+
 *** Keywords ***
 
 Setup Plone site
@@ -22,7 +26,7 @@ Setup Plone site
     Register keyword to run on failure  ${previous}
 
 Browser can be opened
-    Open test browser
+    Run keyword  ${OPEN_BROWSER_KEYWORD}
 
 Teardown Plone site
     Close all browsers
