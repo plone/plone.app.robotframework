@@ -1,11 +1,11 @@
 Changelog
 =========
 
-0.7.3 (unreleased)
+0.7.3 (2014-02-09)
 ------------------
 
-- Nothing changed yet.
-
+- Allow to custom open browser keyword in server.robot
+  [Asko Soukka]
 
 0.7.2 (2014-02-09)
 ------------------
