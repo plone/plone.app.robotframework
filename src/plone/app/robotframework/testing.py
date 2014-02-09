@@ -141,6 +141,11 @@ class PloneRobotFixture(PloneSandboxLayer):
 
     def setUpZope(self, app, configurationContext):
 
+        locales_directory = self._get_robot_variable('REGISTER_TRANSLATIONS')
+        if locales_directory and os.path.isdir(locales_directory):
+            from zope.i18n.zcml import registerTranslations
+            registerTranslations(configurationContext, locales_directory)
+
         for name in self._get_robot_variable('META_PACKAGES'):
             if not name in sys.modules:
                 __import__(name)
