@@ -78,7 +78,8 @@ Click Overlay Link
 Click Overlay Button
     [Arguments]  ${element}
     Click Button  ${element}
-    Wait until keyword succeeds  10  1  Page Should Contain Element  css=.pb-ajax > div
+    Wait until page contains element  css=.pb-ajax > div
+    Page Should Contain Element  css=.pb-ajax > div
     Element Should Be Visible  css=.pb-ajax > div
 
 Should be above
