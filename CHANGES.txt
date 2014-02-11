@@ -4,26 +4,28 @@ Changelog
 0.7.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Fix crete content keyword to support schema.Object-fields (e.g. RichText)
+  [datakurre]
+- Fix support of passing list variables from environment into PloneRobotFixture
+  [datakurre]
 
 0.7.4 (2014-02-11)
 ------------------
 
 - Add 'Delete content' keyword for content remote library
-  [Asko Soukka]
+  [datakurre]
 
 0.7.3 (2014-02-09)
 ------------------
 
 - Allow to custom open browser keyword in server.robot
-  [Asko Soukka]
+  [datakurre]
 
 0.7.2 (2014-02-09)
 ------------------
 
 - Add support for registering translations directly from docs for screenshots
-  [Asko Soukka]
+  [datakurre]
 
 0.7.1 (2014-02-08)
 ------------------
