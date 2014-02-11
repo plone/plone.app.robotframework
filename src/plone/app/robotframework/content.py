@@ -17,6 +17,19 @@ import os
 
 class Content(RemoteLibrary):
 
+    def delete_content(self, uid_or_path):
+        """Delete content by uid or path"""
+        portal = getSite()
+        pc = getToolByName(portal, 'portal_catalog')
+        uid_results =\
+            pc.unrestrictedSearchResults(UID=uid_or_path)
+        path_results = \
+            pc.unrestrictedSearchResults(
+                path={'query': uid_or_path.rstrip('/'), 'depth': 0})
+        content =\
+            (uid_results or path_results)[0]._unrestrictedGetObject()
+        content.aq_parent.manage_delObjects([content.getId()])
+
     def create_content(self, *args, **kwargs):
         """Create content and return its UID"""
         # XXX: Because kwargs are only supported with robotframework >= 2.8.3,
