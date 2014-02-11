@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.7.5 (unreleased)
+0.7.5 (2014-02-11)
 ------------------
 
 - Fix crete content keyword to support schema.Object-fields (e.g. RichText)
