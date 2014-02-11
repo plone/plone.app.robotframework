@@ -134,7 +134,11 @@ class PloneRobotFixture(PloneSandboxLayer):
         from ROBOT_-prefixed environment variable
         """
         if getattr(BuiltIn(), '_context', None) is not None:
-            return BuiltIn().get_variable_value('${%s}' % name, [])
+            value = BuiltIn().get_variable_value('${%s}' % name, [])
+            if isinstance(value, str) or isinstance(value, unicode):
+                return value.split(',')
+            else:
+                return value
         else:
             candidates = os.environ.get(name, '').split(',')
             return filter(bool, [s.strip() for s in candidates])
