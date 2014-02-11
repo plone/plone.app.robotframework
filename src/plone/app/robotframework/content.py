@@ -12,6 +12,14 @@ if HAS_DEXTERITY:
     from plone.namedfile.file import NamedBlobFile
     from plone.namedfile.file import NamedBlobImage
 
+    from plone.dexterity.utils import getAdditionalSchemata
+    from z3c.form.interfaces import IDataConverter
+    from z3c.form.interfaces import IDataManager
+    from z3c.form.interfaces import IFieldWidget
+    from zope.component import queryMultiAdapter
+    from zope.globalrequest import getRequest
+    from zope.schema.interfaces import IFromUnicode
+
 import os
 
 
@@ -91,6 +99,33 @@ class Content(RemoteLibrary):
                     container.manage_renameObject(content.id, id_)
             except ComponentLookupError:
                 pass
+
+        if HAS_DEXTERITY and content:
+            # For dexterity-types, we need a second pass to fill all fields
+            # using their widgets to get e.g. RichText-values created
+            # correctly.
+            fti = getUtility(IDexterityFTI, name=type_)
+            schema = fti.lookupSchema()
+            fields = {}
+            for name in schema:
+                fields[name] = schema[name]
+            for schema in getAdditionalSchemata(portal_type=type_):
+                for name in schema:
+                    fields[name] = schema[name]
+            for name, field in fields.items():
+                widget = queryMultiAdapter((field, getRequest()), IFieldWidget)
+                if widget and name in kwargs:
+                    if not IFromUnicode.providedBy(field):
+                        value = kwargs[name]
+                    elif isinstance(kwargs[name], unicode):
+                        value = kwargs[name]
+                    else:
+                        value = unicode(str(kwargs[name]), 'utf-8',
+                                        errors='ignore')
+                    converter = IDataConverter(widget)
+                    dm = queryMultiAdapter((content, field), IDataManager)
+                    if dm:
+                        dm.set(converter.toFieldValue(value))
 
         if content is None:
             # It must be Archetypes based content:
