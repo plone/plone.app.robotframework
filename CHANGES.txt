@@ -1,11 +1,11 @@
 Changelog
 =========
 
-0.7.4 (unreleased)
+0.7.4 (2014-02-11)
 ------------------
 
-- Nothing changed yet.
-
+- Add 'Delete content' keyword for content remote library
+  [Asko Soukka]
 
 0.7.3 (2014-02-09)
 ------------------
