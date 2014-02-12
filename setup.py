@@ -38,6 +38,7 @@ install_requires = [
     'robotsuite',
     'robotframework',
     'robotframework-selenium2library',
+    'robotframework-debuglibrary',
     # Implicit Robot Framework dependencies:
     'decorator',
     'selenium',

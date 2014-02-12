@@ -5,6 +5,7 @@ Documentation  *WARNING* This resource is not stable yet and keywords may be
 
 Resource  selenium.robot
 
+Library  DebugLibrary
 
 *** Keywords ***
 

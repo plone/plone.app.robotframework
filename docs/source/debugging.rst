@@ -5,7 +5,18 @@ It's not always so easy to get the used Selenium keywords right. There are
 a few ways to pause the test runner in middle of a test to ease figuring out
 what to do next:
 
-1. Pause Selenium (WebDriver) completely to inspect your step with
+1. Use interactive `robotframework-debuglibrary`_ with *Debug*-keyword:
+
+      *** Settings ***
+
+      Resource  plone/app/robotframework/keywords.robot
+
+      *** Test Cases ***
+
+      Start interactive debugger with included Debug-keyword
+          Debug
+
+2. Pause Selenium (WebDriver) completely to inspect your step with
    *Pause execution* keywords from *Dialogs*-library shipped with
    Robot Framework:
 
@@ -31,7 +42,7 @@ what to do next:
       Pause tests with included Pause-keyword
          Pause
 
-2. Let Selenium (WebDriver) sleep for long time:
+3. Let Selenium (WebDriver) sleep for long time:
 
    .. code-block:: robotframework
 
@@ -40,7 +51,7 @@ what to do next:
       Pause test with non-interactive (and auto-continuing) sleep
          Sleep  10 min
 
-3. Slow down Selenium (WebDriver) to make the tests easier to follow:
+4. Slow down Selenium (WebDriver) to make the tests easier to follow:
 
    .. code-block:: robotframework
 
@@ -48,7 +59,7 @@ what to do next:
 
       Suite setup  Set Selenium speed  0.5s
 
-4. Use provided Python keyword to drop Zope server (or Robot Framework
+5. Use provided Python keyword to drop Zope server (or Robot Framework
    test runner) into debugger:
 
    .. code-block:: robotframework
@@ -59,7 +70,7 @@ what to do next:
            Import library  plone.app.robotframework.Debugging
            Stop
 
-5. Write a custom python keyword into your custom Python keyword library
+6. Write a custom python keyword into your custom Python keyword library
    to drop Zope server (or Robot Framework test runner) into debugger.
 
    But there's one catch in debugging your code while running Robot Framework
@@ -76,3 +87,5 @@ what to do next:
       for attr in ('stdin', 'stdout', 'stderr'):
           setattr(sys, attr, getattr(sys, '__%s__' % attr))
       pdb.set_trace()
+
+.. _robotframework-debuglibrary: https://pypi.python.org/pypi/robotframework-debuglibrary
