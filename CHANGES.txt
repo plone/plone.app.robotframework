@@ -4,8 +4,9 @@ Changelog
 0.7.6 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Add Debug-keyword by adding dependency on robotframework-debuglibrary and
+  automatically include it in keywords.robot.
+  [Asko Soukka]
 
 0.7.5 (2014-02-11)
 ------------------
