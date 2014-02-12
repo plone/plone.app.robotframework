@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.7.6 (unreleased)
+0.7.6 (2014-02-12)
 ------------------
 
 - Add Debug-keyword by adding dependency on robotframework-debuglibrary and
