@@ -4,6 +4,7 @@ Library  Selenium2Library  timeout=${SELENIUM_TIMEOUT}
 ...                        implicit_wait=${SELENIUM_IMPLICIT_WAIT}
 
 Resource  variables.robot
+Resource  ${CMFPLONE_SELECTORS}
 
 *** Variables ***
 

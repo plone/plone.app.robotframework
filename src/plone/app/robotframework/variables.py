@@ -1,4 +1,5 @@
 import os
+import pkg_resources
 
 try:
     from plone.testing.z2 import DEFAULT_ZSERVER_PORT
@@ -13,3 +14,10 @@ ZSERVER_PORT = os.environ.get('ZSERVER_PORT', DEFAULT_ZSERVER_PORT)
 # if tests should go through a proxy
 ZOPE_HOST = os.environ.get('ZOPE_HOST', 'localhost')
 ZOPE_PORT = os.environ.get('ZOPE_PORT', ZSERVER_PORT)
+
+CMFPLONE_VERSION = pkg_resources.get_distribution('Products.CMFPlone').version
+if CMFPLONE_VERSION.startswith('4.'):
+    CMFPLONE_SELECTORS = 'selectors/cmfplone43.robot'
+elif CMFPLONE_VERSION.startswith('5.'):
+    CMFPLONE_SELECTORS = 'selectors/cmfplone50.robot'
+
