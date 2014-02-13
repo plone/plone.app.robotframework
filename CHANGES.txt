@@ -1,11 +1,12 @@
 Changelog
 =========
 
-0.8.1 (unreleased)
+0.8.1 (2014-02-13)
 ------------------
 
-- Nothing changed yet.
-
+- Fix debug-keyword to load DebugLibrary lazily to not require readline until
+  its really required [fixes #20]
+  [Asko Soukka]
 
 0.8.0 (2014-02-13)
 ------------------
