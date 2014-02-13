@@ -5,7 +5,8 @@ It's not always so easy to get the used Selenium keywords right. There are
 a few ways to pause the test runner in middle of a test to ease figuring out
 what to do next:
 
-1. Use interactive `robotframework-debuglibrary`_ with *Debug*-keyword:
+1. Use interactive `robotframework-debuglibrary`_ with *Debug*-keyword
+   (requires that the used python is compiled with readline-support):
 
       *** Settings ***
 

@@ -5,8 +5,6 @@ Documentation  *WARNING* This resource is not stable yet and keywords may be
 
 Resource  selenium.robot
 
-Library  DebugLibrary
-
 *** Keywords ***
 
 Pause
@@ -15,6 +13,17 @@ Pause
     ...              **Pause Execution**-keyword.
     Import library  Dialogs
     Pause execution
+
+
+Debug
+    [Documentation]  Pause test execution with interactive debugger (REPL)
+    ...              in the current shell.
+    ...
+    ...              This keyword is based on ``roboframework-debuglibrary``
+    ...              and requires that the used Python is compiled with
+    ...              ``readline``-support.
+    Import library  DebugLibrary  WITH NAME  DebugLibrary
+    DebugLibrary.Debug
 
 # ----------------------------------------------------------------------------
 # Access Resources
