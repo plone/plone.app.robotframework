@@ -4,8 +4,12 @@ Changelog
 0.8.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Move robotframework-debuglibrary into its own extras to not require it by
+  default and to restore compatibility with robotframework < 2.8.
+  **Note:** *Debug*-keywords now requires either that
+  *plone.app.robotframework* is required with **[debug]** extras or that
+  *robotframework-debuglibrary* is requires explicitly.
+  [Asko Soukka]
 
 0.8.1 (2014-02-13)
 ------------------
@@ -20,9 +24,6 @@ Changelog
 - Add Debug-keyword by adding dependency on robotframework-debuglibrary and
   automatically include it in keywords.robot.
   [Asko Soukka]
-
-  **Note:** This requires robotframework >= 2.8.4. This was also released as
-  0.7.6, so the latest robotframework 2.7.7 compatible release is 0.7.5.
 
 0.7.5 (2014-02-11)
 ------------------
