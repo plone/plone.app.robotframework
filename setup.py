@@ -38,12 +38,15 @@ install_requires = [
     'robotsuite',
     'robotframework',
     'robotframework-selenium2library',
-    'robotframework-debuglibrary',
     # Implicit Robot Framework dependencies:
     'decorator',
     'selenium',
     # I18N message extractor for Translate -keyword:
     'babel',
+]
+
+debug_requires = [
+    'robotframework-debuglibrary',
 ]
 
 ride_requires = [
@@ -90,6 +93,7 @@ setup(
     extras_require={'ride': ride_requires,
                     'speak': speak_requires,
                     'reload': reload_requires,
-                    'docs': docs_requires},
+                    'docs': docs_requires,
+                    'debug': debug_requires},
     entry_points=entry_points,
 )
