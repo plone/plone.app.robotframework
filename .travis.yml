@@ -15,8 +15,11 @@ before_script:
 script: bin/test
 after_script:
 - bin/sphinx-build docs/source docs/html
+- cd docs && ./libdoc.sh && cd ..
 - travis-artifacts upload --path parts/test
 - travis-artifacts upload --path docs/html
+- travis-artifacts upload --target-path latest --path docs/html
+- travis-artifacts upload --target-path latest --path parts/test
 env:
   global:
   - secure: YLol0TyHB+XAUbCzzjfc5JJ5AFqEi/GVhGphtAAcSv8+JY6MhTVVTjyCPeoK 2nT7tDhQRnYKOAMBmTuP/TUdzFqBf5LvjrFxvcjBawJMRW85kuYEuXsS8XEx C+lc1bbXSUPGA0x03tvSHIYbCowvVPZNUupxgRQdW2QLa5HcSuQ=
@@ -40,3 +43,4 @@ notifications:
 #   - "Details: %{build_url}"
     - "Robot: http://plone.app.robotframework.s3-website-us-east-1.amazonaws.com/artifacts/%{build_number}/%{build_number}.1/robot_report.html"
     - "Sphinx: http://plone.app.robotframework.s3-website-us-east-1.amazonaws.com/artifacts/%{build_number}/%{build_number}.1/"
+    - "Latest: http://plone.app.robotframework.s3-website-us-east-1.amazonaws.com/latest/"
