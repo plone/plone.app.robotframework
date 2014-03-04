@@ -4,8 +4,8 @@ Changelog
 0.8.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Fix 'title'-keyword argument to be optional for Create content -keyword
+  [Asko Soukka]
 
 0.8.2 (2014-02-17)
 ------------------
