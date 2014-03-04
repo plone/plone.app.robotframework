@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.8.3 (unreleased)
+0.8.3 (2014-03-04)
 ------------------
 
 - Fix 'title'-keyword argument to be optional for Create content -keyword
