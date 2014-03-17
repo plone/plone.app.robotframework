@@ -81,11 +81,13 @@ class MockMailHostLayer(Layer):
 
     def tearDown(self):
         with ploneSite() as portal:
-            portal.MailHost = portal._original_MailHost
-            sm = getSiteManager(context=portal)
-            sm.unregisterUtility(provided=IMailHost)
-            sm.registerUtility(aq_base(portal._original_MailHost),
-                               provided=IMailHost)
+            _o_mailhost = getattr(portal, '_original_MailHost', None)
+            if _o_mailhost:
+                portal.MailHost = portal._original_MailHost
+                sm = getSiteManager(context=portal)
+                sm.unregisterUtility(provided=IMailHost)
+                sm.registerUtility(aq_base(portal._original_MailHost),
+                                   provided=IMailHost)
 
 MOCK_MAILHOST_FIXTURE = MockMailHostLayer()
 
