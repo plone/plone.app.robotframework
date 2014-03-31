@@ -4,8 +4,8 @@ Changelog
 0.8.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Fix regression in PloneRobotFixture (used in documentation screenshots)
+  [Asko Soukka]
 
 0.8.3 (2014-03-04)
 ------------------
