@@ -4,8 +4,9 @@ Changelog
 0.8.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Add 'Get total amount of sent emails'-keyword into MockMailHost remote
+  library
+  [Asko Soukka]
 
 0.8.4 (2014-03-31)
 ------------------
