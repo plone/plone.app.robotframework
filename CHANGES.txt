@@ -4,7 +4,9 @@ Changelog
 0.8.6 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- When using the MockMailHostlayer, don't fail on missing
+  portal._original_MailHost, when running the test teardown.
+  [thet]
 
 
 0.8.5 (2014-04-02)
