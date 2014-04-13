@@ -1,11 +1,27 @@
 Changelog
 =========
 
-0.8.6 (unreleased)
+0.9.0 (unreleased)
 ------------------
 
-- When using the MockMailHostlayer, don't fail on missing
-  portal._original_MailHost, when running the test teardown.
+- Add a new command-line option for robot-server to start Zope in debug-mode
+  (useage: bin/robot-server -d or bin/robot-server --debug-mode)
+  [datakurre]
+- Change robot LISTENER_PORT (used in communication between bin/robot-server
+  and bin/robot via robotframework) to default port 49999 instead of 10001
+  [datakurre]
+- Add SELENIUM_RUN_ON_FAILURE-variable into resource file
+  plone/app/robotframewor/selenium.robot to support custom keyword be called
+  at the first failing step (defaults to Capture Page Screenshot, but can be
+  changed to ease debugging)
+- Refactor Debug keyword in plone/app/robotframwork/keywords.robot to
+  to support both DebugLibrary and Dialogs-library and finally fallback to
+  pdb REPL.
+- Add new script bin/robot-debug as a shortcut to run robot with variable
+  SELENIUM_RUN_ON_FAILURE=Debug
+  [datakurre]
+- Fix MOCK_MAILHOST_FIXTURE's teardown to don't crash on missing
+  portal._original_mailhost attribute because of wrong layer order
   [thet]
 
 0.8.5 (2014-04-02)
@@ -13,19 +29,19 @@ Changelog
 
 - Add 'Get total amount of sent emails'-keyword into MockMailHost remote
   library
-  [Asko Soukka]
+  [datakurre]
 
 0.8.4 (2014-03-31)
 ------------------
 
 - Fix regression in PloneRobotFixture (used in documentation screenshots)
-  [Asko Soukka]
+  [datakurre]
 
 0.8.3 (2014-03-04)
 ------------------
 
 - Fix 'title'-keyword argument to be optional for Create content -keyword
-  [Asko Soukka]
+  [datakurre]
 
 0.8.2 (2014-02-17)
 ------------------
@@ -35,21 +51,21 @@ Changelog
   **Note:** *Debug*-keywords now requires either that
   *plone.app.robotframework* is required with **[debug]** extras or that
   *robotframework-debuglibrary* is requires explicitly.
-  [Asko Soukka]
+  [datakurre]
 
 0.8.1 (2014-02-13)
 ------------------
 
 - Fix debug-keyword to load DebugLibrary lazily to not require readline until
   its really required [fixes #20]
-  [Asko Soukka]
+  [datakurre]
 
 0.8.0 (2014-02-13)
 ------------------
 
 - Add Debug-keyword by adding dependency on robotframework-debuglibrary and
   automatically include it in keywords.robot.
-  [Asko Soukka]
+  [datakurre]
 
 0.7.5 (2014-02-11)
 ------------------
