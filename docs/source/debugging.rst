@@ -31,8 +31,8 @@ what to do next:
       *** Test Cases ***
 
       Start interactive debugger with Debug-keyword from DebugLibrary
-          Import library  DebugLibrary
-          Debug
+          Import library  DebugLibrary  WITH NAME  DebugLibrary
+          DebugLibrary.Debug
 
 3. Pause Selenium (WebDriver) completely to inspect your step with
    *Pause execution* keywords from *Dialogs*-library shipped with
