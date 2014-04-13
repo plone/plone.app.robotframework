@@ -21,6 +21,7 @@ else:
 
 from plone.app.robotframework.remote import RemoteLibrary
 
+HAS_DEBUG_MODE = False
 HAS_VERBOSE_CONSOLE = False
 
 ZSERVER_HOST = os.getenv("ZSERVER_HOST", "localhost")
@@ -131,6 +132,8 @@ def server():
                    '\'[reload]\'-extras to get the automatic code reloading '
                    'support (powered by \'watchdog\').')
     parser.add_argument('layer')
+    parser.add_argument('--debug-mode', '-d', dest='debug_mode',
+                        action='store_true')
     VERBOSE_HELP = (
         '-v information about test layers setup and tear down, '
         '-vv add logging.WARNING messages, '
@@ -144,6 +147,13 @@ def server():
         parser.add_argument('--no-reload', '-n', dest='reload',
                             action='store_false')
     args = parser.parse_args()
+
+    # Set debug mode
+    if args.debug_mode is True:
+        global HAS_DEBUG_MODE
+        HAS_DEBUG_MODE = True
+
+    # Set console log level
     if args.verbose:
         global HAS_VERBOSE_CONSOLE
         HAS_VERBOSE_CONSOLE = True
@@ -152,6 +162,7 @@ def server():
         loglevel = logging.ERROR
     logging.basicConfig(level=loglevel)
 
+    # Set reload when available
     if not HAS_RELOAD or args.reload is False:
         try:
             start(args.layer)
@@ -273,10 +284,19 @@ def setup_layer(layer, setup_layers=setup_layers):
             if base is not object:
                 setup_layer(base, setup_layers)
         if hasattr(layer, 'setUp'):
-            if HAS_VERBOSE_CONSOLE:
+            name = "{0}.{1}".format(layer.__module__, layer.__name__)
+            if HAS_VERBOSE_CONSOLE and name == 'plone.testing.z2.Startup':
+                print WAIT("Set up {0}.{1} (debug-mode={2})".format(
+                    layer.__module__, layer.__name__, HAS_DEBUG_MODE))
+            elif HAS_VERBOSE_CONSOLE:
                 print WAIT("Set up {0}.{1}".format(layer.__module__,
                                                    layer.__name__))
             layer.setUp()
+            if HAS_DEBUG_MODE and name == 'plone.testing.z2.Startup':
+                import App.config
+                config = App.config.getConfiguration()
+                config.debug_mode = HAS_DEBUG_MODE
+                App.config.setConfiguration(config)
         setup_layers[layer] = 1
 
 
