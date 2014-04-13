@@ -5,20 +5,36 @@ It's not always so easy to get the used Selenium keywords right. There are
 a few ways to pause the test runner in middle of a test to ease figuring out
 what to do next:
 
-1. Use interactive `robotframework-debuglibrary`_ with *Debug*-keyword'
-   (requires that **plone.app.robotframework** is required with **[debug]**
-   extras and the used python is compiled with readline-support):
+1. Set the variable ``SELENIUM_RUN_ON_FAILURE`` to use the Debug-keyword
+   provided in ``selenium.robot`` resource file (which is included in all
+   test suites relying on **plone.app.robotframework**, e.g. with:
 
-      *** Settings ***
+   .. code-block:: bash
 
-      Resource  plone/app/robotframework/keywords.robot
+      $ ROBOT_SELENIUM_RUN_ON_FAILURE=Debug bin/test -t robot
+
+   Or when testing against robot-server, just run your test suite with provided
+   script:
+
+   .. code-block:: bash
+
+      $ bin/robot-debug src/path/to/my/test.robot
+
+   This will stop the test automatically at the first failing step with the
+   first working approach listed also below.
+
+2. Use interactive `robotframework-debuglibrary`_ with *Debug*-keyword'
+   (requires that the used python is compiled with readline-support):
+
+   .. code-block:: robotframework
 
       *** Test Cases ***
 
-      Start interactive debugger with included Debug-keyword
+      Start interactive debugger with Debug-keyword from DebugLibrary
+          Import library  DebugLibrary
           Debug
 
-2. Pause Selenium (WebDriver) completely to inspect your step with
+3. Pause Selenium (WebDriver) completely to inspect your step with
    *Pause execution* keywords from *Dialogs*-library shipped with
    Robot Framework:
 
@@ -44,7 +60,7 @@ what to do next:
       Pause tests with included Pause-keyword
          Pause
 
-3. Let Selenium (WebDriver) sleep for long time:
+4. Let Selenium (WebDriver) sleep for long time:
 
    .. code-block:: robotframework
 
@@ -53,7 +69,7 @@ what to do next:
       Pause test with non-interactive (and auto-continuing) sleep
          Sleep  10 min
 
-4. Slow down Selenium (WebDriver) to make the tests easier to follow:
+5. Slow down Selenium (WebDriver) to make the tests easier to follow:
 
    .. code-block:: robotframework
 
@@ -61,7 +77,7 @@ what to do next:
 
       Suite setup  Set Selenium speed  0.5s
 
-5. Use provided Python keyword to drop Zope server (or Robot Framework
+6. Use provided Python keyword to drop Zope server (or Robot Framework
    test runner) into debugger:
 
    .. code-block:: robotframework
@@ -72,7 +88,7 @@ what to do next:
            Import library  plone.app.robotframework.Debugging
            Stop
 
-6. Write a custom python keyword into your custom Python keyword library
+7. Write a custom python keyword into your custom Python keyword library
    to drop Zope server (or Robot Framework test runner) into debugger.
 
    But there's one catch in debugging your code while running Robot Framework

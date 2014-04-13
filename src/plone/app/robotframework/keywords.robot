@@ -14,17 +14,6 @@ Pause
     Import library  Dialogs
     Pause execution
 
-
-Debug
-    [Documentation]  Pause test execution with interactive debugger (REPL)
-    ...              in the current shell.
-    ...
-    ...              This keyword is based on ``robotframework-debuglibrary``
-    ...              and requires that the used Python is compiled with
-    ...              ``readline``-support.
-    Import library  DebugLibrary  WITH NAME  DebugLibrary
-    DebugLibrary.Debug
-
 # ----------------------------------------------------------------------------
 # Access Resources
 # ----------------------------------------------------------------------------

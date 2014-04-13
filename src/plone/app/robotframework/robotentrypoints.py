@@ -35,6 +35,12 @@ def robot():
             + sys.argv[1:])
 
 
+def robot_debug():
+    run_cli(['--listener', 'plone.app.robotframework.RobotListener',
+             '-v', 'SELENIUM_RUN_ON_FAILURE:Debug']
+            + sys.argv[1:])
+
+
 def ride():
     if HAS_RIDE:
         from robotide import main

@@ -18,6 +18,7 @@ long_description = (
 console_scripts = [
     "robot-server = plone.app.robotframework.server:server",
     "robot = plone.app.robotframework.robotentrypoints:robot",
+    "robot-debug = plone.app.robotframework.robotentrypoints:robot_debug",
     "pybot = plone.app.robotframework.robotentrypoints:pybot",
     "ride = plone.app.robotframework.robotentrypoints:ride",
     "libdoc = plone.app.robotframework.robotentrypoints:libdoc",

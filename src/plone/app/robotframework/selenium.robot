@@ -2,6 +2,7 @@
 
 Library  Selenium2Library  timeout=${SELENIUM_TIMEOUT}
 ...                        implicit_wait=${SELENIUM_IMPLICIT_WAIT}
+...                        run_on_failure=${SELENIUM_RUN_ON_FAILURE}
 
 Resource  variables.robot
 Resource  ${CMFPLONE_SELECTORS}
@@ -10,6 +11,7 @@ Resource  ${CMFPLONE_SELECTORS}
 
 ${SELENIUM_IMPLICIT_WAIT}  0.5
 ${SELENIUM_TIMEOUT}  30
+${SELENIUM_RUN_ON_FAILURE}  Capture Page Screenshot
 
 ${BROWSER}  Firefox
 ${REMOTE_URL}
@@ -17,6 +19,37 @@ ${FF_PROFILE_DIR}
 ${DESIRED_CAPABILITIES}
 
 *** Keywords ***
+
+Debug
+    [Documentation]  Pause test execution for test debugging purposes.
+    ...
+    ...              When DebugLibrary is found, pauses test execution
+    ...              with interactive robotframework debugger (REPL)
+    ...              in the current shell. This s based on
+    ...              ``robotframework-debuglibrary`` and requires that the
+    ...              used Python is compiled with ``readline``-support.
+    ...
+    ...              When DebugLibrary is NOT found, pauses test execution
+    ...              with Dialogs-library's Pause Execution library, which
+    ...              requires that the used Python is compiled with TkInter
+    ...              support.
+    ...
+    ...              When Dialogs-library cannot be imported, pauses test
+    ...              execution with interactive Python debugger (REPL)
+    ...              in the current shell.
+    ${debug} =  Run keyword and ignore error
+    ...          Import library  DebugLibrary  WITH NAME  DebugLibrary
+    ${dialogs} =  Run keyword and ignore error
+    ...           Import library  Dialogs  WITH NAME  DialogsLibrary
+    ${fallback} =  Run keyword and ignore error
+    ...            Import library  plone.app.robotframework.keywords.Debugging
+    ...            WITH NAME  DebuggingLibrary
+    Run keyword if  ${debug}[0] == 'PASS'
+    ...             DebugLibrary.Debug
+    Run keyword if  ${debug}[0] == 'FAIL' and ${dialogs}[0] == 'PASS'
+    ...             DialogsLibrary.Pause Execution
+    Run keyword if  ${debug}[0] == 'FAIL' and ${dialogs}[0] == 'FAIL'
+    ...             DebuggingLibrary.Stop
 
 # ----------------------------------------------------------------------------
 # Browser
