@@ -6,8 +6,8 @@ a few ways to pause the test runner in middle of a test to ease figuring out
 what to do next:
 
 1. Set the variable ``SELENIUM_RUN_ON_FAILURE`` to use the Debug-keyword
-   provided in ``selenium.robot`` resource file (which is included in all
-   test suites relying on **plone.app.robotframework**, e.g. with:
+   provided in ``plone/app/robotframework/keywords.robot`` resource file,
+   e.g. with:
 
    .. code-block:: bash
 
@@ -31,8 +31,8 @@ what to do next:
       *** Test Cases ***
 
       Start interactive debugger with Debug-keyword from DebugLibrary
-          Import library  DebugLibrary  WITH NAME  DebugLibrary
-          DebugLibrary.Debug
+          Import library  DebugLibrary
+          Debug
 
 3. Pause Selenium (WebDriver) completely to inspect your step with
    *Pause execution* keywords from *Dialogs*-library shipped with

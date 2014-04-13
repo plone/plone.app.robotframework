@@ -7,6 +7,37 @@ Resource  selenium.robot
 
 *** Keywords ***
 
+Debug
+    [Documentation]  Pause test execution for test debugging purposes.
+    ...
+    ...              When DebugLibrary is found, pauses test execution
+    ...              with interactive robotframework debugger (REPL)
+    ...              in the current shell. This s based on
+    ...              ``robotframework-debuglibrary`` and requires that the
+    ...              used Python is compiled with ``readline``-support.
+    ...
+    ...              When DebugLibrary is NOT found, pauses test execution
+    ...              with Dialogs-library's Pause Execution library, which
+    ...              requires that the used Python is compiled with TkInter
+    ...              support.
+    ...
+    ...              When Dialogs-library cannot be imported, pauses test
+    ...              execution with interactive Python debugger (REPL)
+    ...              in the current shell.
+    ${debug} =  Run keyword and ignore error
+    ...          Import library  DebugLibrary  WITH NAME  DebugLibrary
+    ${dialogs} =  Run keyword and ignore error
+    ...           Import library  Dialogs  WITH NAME  DialogsLibrary
+    ${fallback} =  Run keyword and ignore error
+    ...            Import library  plone.app.robotframework.keywords.Debugging
+    ...            WITH NAME  DebuggingLibrary
+    Run keyword if  ${debug}[0] == 'PASS'
+    ...             DebugLibrary.Debug
+    Run keyword if  ${debug}[0] == 'FAIL' and ${dialogs}[0] == 'PASS'
+    ...             DialogsLibrary.Pause Execution
+    Run keyword if  ${debug}[0] == 'FAIL' and ${dialogs}[0] == 'FAIL'
+    ...             DebuggingLibrary.Stop
+
 Pause
     [Documentation]  Visually pause test execution with interactive dialog by
     ...              importing **Dialogs**-library and calling its
