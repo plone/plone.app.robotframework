@@ -25,7 +25,7 @@ HAS_VERBOSE_CONSOLE = False
 
 ZSERVER_HOST = os.getenv("ZSERVER_HOST", "localhost")
 LISTENER_HOST = os.getenv("LISTENER_HOST", ZSERVER_HOST)
-LISTENER_PORT = int(os.getenv("LISTENER_PORT", 10001))
+LISTENER_PORT = int(os.getenv("LISTENER_PORT", 49999))
 
 TIME = lambda: time.strftime('%H:%M:%S')
 WAIT = lambda msg:  '{0} [\033[33m wait \033[0m] {1}'.format(TIME(), msg)
