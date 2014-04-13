@@ -8,7 +8,6 @@ Changelog
   portal._original_MailHost, when running the test teardown.
   [thet]
 
-
 0.8.5 (2014-04-02)
 ------------------
 

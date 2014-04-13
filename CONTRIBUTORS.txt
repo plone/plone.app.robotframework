@@ -13,6 +13,7 @@
 - Hector Velarde
 - Jean-Michel Francois
 - Johan Beyers
+- Johannes Raggam
 - Jonas Baumann
 - Kees Hink
 - Laure Perez Mayos
