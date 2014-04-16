@@ -94,6 +94,12 @@ def start_reload(zope_layer_dotted_name, reload_paths=('src',),
 
     zsl.amend_zope_server(zope_layer_dotted_name)
 
+    if HAS_DEBUG_MODE:
+        import App.config
+        config = App.config.getConfiguration()
+        config.debug_mode = HAS_DEBUG_MODE
+        App.config.setConfiguration(config)
+
     if 'Darwin' in platform.uname():
         socket.gethostbyaddr = gethostbyaddr
 
