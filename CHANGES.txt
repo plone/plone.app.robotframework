@@ -4,8 +4,8 @@ Changelog
 0.9.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Fix robot-server debug-mode support to work also in code reloading mode
+  [datakurre]
 
 0.9.0 (2014-04-13)
 ------------------
