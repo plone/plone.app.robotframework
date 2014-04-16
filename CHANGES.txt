@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.9.1 (unreleased)
+0.9.1 (2014-04-16)
 ------------------
 
 - Fix robot-server debug-mode support to work also in code reloading mode
