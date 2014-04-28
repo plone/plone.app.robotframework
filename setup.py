@@ -44,6 +44,17 @@ install_requires = [
     'selenium',
     # I18N message extractor for Translate -keyword:
     'babel',
+    # XXX: can we keep the whole list sorted?
+    'plone.app.textfield',
+    'plone.dexterity',
+    'plone.namedfile [blobs]',
+    'plone.uuid',
+    'Products.CMFCore',
+    'z3c.form',
+    'z3c.relationfield',
+    'zope.component',
+    'zope.i18n',
+    'zope.schema',
 ]
 
 debug_requires = [
