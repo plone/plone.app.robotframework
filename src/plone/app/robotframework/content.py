@@ -214,3 +214,9 @@ class Content(RemoteLibrary):
         wftool.doActionFor(obj, action)
 
     do_action_for = fire_transition
+
+    def global_allow(self, type_, value=True):
+        """Allow type to be added globally."""
+        portal = getSite()
+        types_tool = getToolByName(portal, "portal_types")
+        types_tool[type_].global_allow = value

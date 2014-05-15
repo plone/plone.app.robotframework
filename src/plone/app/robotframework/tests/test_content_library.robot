@@ -59,3 +59,9 @@ Test fire transition
     Disable autologin
     Go to  ${PLONE_URL}/example-document
     Page should contain  Example document
+
+Test global allow
+    Enable autologin as  Contributor
+    Global Allow  Document
+    ${uid} =  Create content  type=Document  id=example-document
+    ...  title=Example document
