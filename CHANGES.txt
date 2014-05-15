@@ -4,8 +4,8 @@ Changelog
 0.9.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Add 'Global allow' content keyword.
+  [timo]
 
 0.9.2 (2014-04-28)
 ------------------

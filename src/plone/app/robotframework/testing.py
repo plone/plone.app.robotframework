@@ -12,6 +12,7 @@ from plone.app.testing import (
     PloneSandboxLayer,
     applyProfile,
     PLONE_FIXTURE,
+    IntegrationTesting,
     FunctionalTesting,
     ploneSite
 )
@@ -183,6 +184,11 @@ class PloneRobotFixture(PloneSandboxLayer):
 
 
 PLONE_ROBOT_FIXTURE = PloneRobotFixture()
+
+PLONE_ROBOT_INTEGRATION_TESTING = IntegrationTesting(
+    bases=(PLONE_ROBOT_FIXTURE,),
+    name="PloneRobot:Integration"
+)
 
 PLONE_ROBOT_TESTING = FunctionalTesting(
     bases=(PLONE_ROBOT_FIXTURE, z2.ZSERVER_FIXTURE),
