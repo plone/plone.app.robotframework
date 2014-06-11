@@ -28,19 +28,21 @@ class TestCreateContent(unittest.TestCase):
         )
         self.assertTrue('doc1' in self.portal.objectIds())
 
-    def test_create_content_requires_id(self):
-        self.assertRaises(
-            AssertionError,
-            self.create_content,
-            type='Document',
-        )
-
     def test_create_content_requires_type(self):
         self.assertRaises(
             AssertionError,
             self.create_content,
             id='d',
         )
+
+    def test_create_content_updates_catalog(self):
+        self.create_content(
+            type='Document',
+            id='doc1',
+            title='Document 1'
+        )
+        catalog = getToolByName(self.portal, "portal_catalog")
+        self.assertEqual(len(catalog(portal_type="Document")), 1)
 
 
 class TestGlobalAllow(unittest.TestCase):

@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
+from zope.component import queryUtility
 from Products.CMFCore.utils import getToolByName
 from plone.app.robotframework.remote import RemoteLibrary
+from plone.i18n.normalizer.interfaces import IURLNormalizer
 from plone.uuid.interfaces import IUUID
 from zope.component.hooks import getSite
 from zope.component import getUtility, ComponentLookupError
@@ -46,7 +48,6 @@ class Content(RemoteLibrary):
             name, value = arg.split('=', 1)
             kwargs[name] = value
 
-        assert 'id' in kwargs, u"Keyword arguments must include 'id'."
         assert 'type' in kwargs, u"Keyword arguments must include 'type'."
         portal = getSite()
         if 'container' in kwargs:
@@ -128,6 +129,10 @@ class Content(RemoteLibrary):
                         dm.set(converter.toFieldValue(value))
 
         if content is None:
+            if id_ is None:
+                normalizer = queryUtility(IURLNormalizer)
+                id_ = normalizer.normalize(kwargs['title'])
+
             # It must be Archetypes based content:
             content = container[container.invokeFactory(type_, id_, **kwargs)]
             content.processForm()
