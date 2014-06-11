@@ -83,7 +83,7 @@ class Content(RemoteLibrary):
             img.save(kwargs['image'], 'PNG')
             kwargs['image'].seek(0)
 
-        id_ = kwargs.pop('id')
+        id_ = kwargs.pop('id', None)
         type_ = kwargs.pop('type')
 
         content = None

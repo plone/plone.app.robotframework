@@ -20,6 +20,13 @@ class TestCreateContent(unittest.TestCase):
         from plone.app.robotframework.content import Content
         Content().create_content(*args, **kwargs)
 
+    def test_create_content_without_id(self):
+        self.create_content(
+            type='Document',
+            title='Document 1'
+        )
+        self.assertTrue('document-1' in self.portal.objectIds())
+
     def test_create_content(self):
         self.create_content(
             type='Document',
