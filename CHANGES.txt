@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.9.4 (unreleased)
+0.9.4 (2014-06-23)
 ------------------
 
 - Make the 'id' parameter optional for the 'create content' keyword.
