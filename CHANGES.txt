@@ -1,11 +1,14 @@
 Changelog
 =========
 
-0.9.3 (unreleased)
+0.9.4 (unreleased)
 ------------------
 
 - Make the 'id' parameter optional for the 'create content' keyword.
   [timo]
+
+0.9.3 (2014-06-23)
+------------------
 
 - Add 'Global allow' content keyword.
   [timo]
