@@ -4,8 +4,8 @@ Changelog
 0.9.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Refactor Dexterity not to be explicit dependency
+  [datakurre]
 
 0.9.4 (2014-06-23)
 ------------------
