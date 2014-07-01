@@ -16,8 +16,8 @@ Changelog
 0.9.3 (2014-06-23)
 ------------------
 
-- Add 'Global allow' content keyword.
-  [timo]
+- Add 'Global allow' content keyword
+  [tisto]
 
 0.9.2 (2014-04-28)
 ------------------

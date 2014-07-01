@@ -45,29 +45,36 @@ install_requires = [
     # I18N message extractor for Translate -keyword:
     'babel',
     # XXX: can we keep the whole list sorted?
-    'plone.app.textfield',
-    'plone.dexterity',
-    'plone.namedfile [blobs]',
+    # XXX: dexterity dependencies should be conditional
     'plone.uuid',
     'Products.CMFCore',
-    'z3c.form',
-    'z3c.relationfield',
     'zope.component',
     'zope.i18n',
     'zope.schema',
 ]
 
+test_requires = [
+    # Tests for conditional features:
+    'plone.app.dexterity',
+    'plone.app.textfield',
+    'plone.dexterity',
+    'plone.namedfile [blobs]',
+    'z3c.form',
+    'z3c.relationfield',
+]
+
 debug_requires = [
+    # REPL-debugger for Robot Framework:
     'robotframework-debuglibrary',
 ]
 
 ride_requires = [
-    # GUI
+    # Robot Framework IDE:
     'robotframework-ride'
 ]
 
 speak_requires = [
-    # GUI
+    # Enable talking screen casts:
     'collective.js.speakjs'
 ]
 
@@ -104,6 +111,7 @@ setup(
     install_requires=install_requires,
     extras_require={'ride': ride_requires,
                     'speak': speak_requires,
+                    'test': test_requires,
                     'reload': reload_requires,
                     'docs': docs_requires,
                     'debug': debug_requires},

@@ -5,7 +5,8 @@ from plone.app.robotframework.remote import RemoteLibrary
 from plone.i18n.normalizer.interfaces import IURLNormalizer
 from plone.uuid.interfaces import IUUID
 from zope.component.hooks import getSite
-from zope.component import getUtility, ComponentLookupError
+from zope.component import getUtility
+from zope.component import ComponentLookupError
 
 from plone.app.robotframework.config import HAS_DEXTERITY
 
@@ -18,9 +19,11 @@ if HAS_DEXTERITY:
     from z3c.form.interfaces import IDataConverter
     from z3c.form.interfaces import IDataManager
     from z3c.form.interfaces import IFieldWidget
+    from z3c.relationfield import RelationValue
     from zope.component import queryMultiAdapter
     from zope.globalrequest import getRequest
     from zope.schema.interfaces import IFromUnicode
+    from zope.intid.interfaces import IIntIds
 
 import os
 
@@ -139,55 +142,54 @@ class Content(RemoteLibrary):
 
         return IUUID(content)
 
-    def set_field_value(self, uid, field, value, field_type):
-        """Set field value with a specific type
+    if HAS_DEXTERITY:
 
-        XXX: Only dexterity fields are supported
-        """
-        pc = getToolByName(self, 'portal_catalog')
-        results = pc.unrestrictedSearchResults(UID=uid)
-        obj = results[0]._unrestrictedGetObject()
-        if field_type == 'float':
-            value = float(value)
-        if field_type == 'int':
-            value = int(value)
-        if field_type == 'list':
-            value = eval(value)
-        if field_type == 'reference':
-            results_referenced = pc.unrestrictedSearchResults(UID=value)
-            referenced_obj = results_referenced[0]._unrestrictedGetObject()
-            from zope.app.intid.interfaces import IIntIds
-            from zope.component import getUtility
-            intids = getUtility(IIntIds)
-            referenced_obj_intid = intids.getId(referenced_obj)
-            from z3c.relationfield import RelationValue
-            value = RelationValue(referenced_obj_intid)
-        if field_type == 'text/html':
-            value = RichTextValue(
-                value,
-                'text/html',
-                'text/html'
-            )
-            obj.text = value
-        if field_type == 'file':
-            pdf_file = os.path.join(
-                os.path.dirname(__file__), 'content', u'file.pdf')
-            value = NamedBlobFile(
-                data=open(pdf_file, 'r').read(),
-                contentType='application/pdf',
-                filename=u'file.pdf'
-            )
-        if field_type == 'image':
-            image_file = os.path.join(
-                os.path.dirname(__file__), u'image.jpg')
-            value = NamedBlobImage(
-                data=open(image_file, 'r').read(),
-                contentType='image/jpg',
-                filename=u'image.jpg'
-            )
+        def set_field_value(self, uid, field, value, field_type):
+            """Set field value with a specific type
 
-        setattr(obj, field, value)
-        obj.reindexObject()
+            XXX: Only dexterity fields are supported
+            """
+            pc = getToolByName(self, 'portal_catalog')
+            results = pc.unrestrictedSearchResults(UID=uid)
+            obj = results[0]._unrestrictedGetObject()
+            if field_type == 'float':
+                value = float(value)
+            if field_type == 'int':
+                value = int(value)
+            if field_type == 'list':
+                value = eval(value)
+            if field_type == 'reference':
+                results_referenced = pc.unrestrictedSearchResults(UID=value)
+                referenced_obj = results_referenced[0]._unrestrictedGetObject()
+                intids = getUtility(IIntIds)
+                referenced_obj_intid = intids.getId(referenced_obj)
+                value = RelationValue(referenced_obj_intid)
+            if field_type == 'text/html':
+                value = RichTextValue(
+                    value,
+                    'text/html',
+                    'text/html'
+                )
+                obj.text = value
+            if field_type == 'file':
+                pdf_file = os.path.join(
+                    os.path.dirname(__file__), 'content', u'file.pdf')
+                value = NamedBlobFile(
+                    data=open(pdf_file, 'r').read(),
+                    contentType='application/pdf',
+                    filename=u'file.pdf'
+                )
+            if field_type == 'image':
+                image_file = os.path.join(
+                    os.path.dirname(__file__), u'image.jpg')
+                value = NamedBlobImage(
+                    data=open(image_file, 'r').read(),
+                    contentType='image/jpg',
+                    filename=u'image.jpg'
+                )
+
+            setattr(obj, field, value)
+            obj.reindexObject()
 
     def uid_to_url(self, uid):
         """Return absolute path for an UID"""
