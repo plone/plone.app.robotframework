@@ -1,4 +1,4 @@
-plone.act Copyright 2012, <YOUR NAME HERE>
+plone.app.robotframework Copyright 2014, Plone Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
