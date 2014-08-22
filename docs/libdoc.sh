@@ -13,7 +13,7 @@ $LIBDOC --name="LayoutMath Library" plone.app.robotframework.LayoutMath source/l
 
 $LIBDOC --name="Zope2Server Remote Library" plone.app.robotframework.Zope2ServerRemote source/libdoc/remote_zope2server.html
 $LIBDOC --name="AutoLogin Remote Library" plone.app.robotframework.AutoLogin source/libdoc/remote_autologin.html
-$LIBDOC --name="GenericSetup Remote Library" plone.app.robotframework.GenericSetup source/libdoc/remote_genericsetup.html 
+$LIBDOC --name="GenericSetup Remote Library" plone.app.robotframework.GenericSetup source/libdoc/remote_genericsetup.html
 $LIBDOC --name="I18N Remote Library" plone.app.robotframework.I18N source/libdoc/remote_i18n.html
 $LIBDOC --name="MockMailHost Remote Library" plone.app.robotframework.MockMailHost source/libdoc/remote_mockmailhost.html
 $LIBDOC --name="Users Remote Library" plone.app.robotframework.Users source/libdoc/remote_users.html
