@@ -4,6 +4,11 @@ Changelog
 0.9.5 (unreleased)
 ------------------
 
+- Add default RobotRemote instance to support enabling the default remote
+  library with volatile monkeypatching
+  [datakurre]
+- Whitespaces cleanup
+  [Gil Forcada]
 - Refactor Dexterity not to be explicit dependency
   [datakurre]
 
