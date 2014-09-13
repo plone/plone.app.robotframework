@@ -4,37 +4,30 @@
 This module is located below tests directory to avoid confusing it with any
 re-usable resources of plone.app.robotframework.
 """
-import os
 from Acquisition import aq_base
 from Products.MailHost.interfaces import IMailHost
-
-from plone.app.testing import (
-    PloneSandboxLayer,
-    applyProfile,
-    PLONE_FIXTURE,
-    IntegrationTesting,
-    FunctionalTesting,
-    ploneSite
-)
-from plone.testing import (
-    z2,
-    Layer
-)
-import sys
-from zope.component import getSiteManager
-from zope.configuration import xmlconfig
-
-from plone.app.robotframework.server import Zope2ServerRemote
-from plone.app.robotframework.i18n import I18N
 from plone.app.robotframework.autologin import AutoLogin
-from plone.app.robotframework.mailhost import MockMailHost
 from plone.app.robotframework.content import Content
-from plone.app.robotframework.users import Users
 from plone.app.robotframework.genericsetup import GenericSetup
+from plone.app.robotframework.i18n import I18N
+from plone.app.robotframework.mailhost import MockMailHost
 from plone.app.robotframework.quickinstaller import QuickInstaller
 from plone.app.robotframework.remote import RemoteLibraryLayer
-
+from plone.app.robotframework.server import Zope2ServerRemote
+from plone.app.robotframework.users import Users
+from plone.app.testing import FunctionalTesting
+from plone.app.testing import IntegrationTesting
+from plone.app.testing import PLONE_FIXTURE
+from plone.app.testing import PloneSandboxLayer
+from plone.app.testing import applyProfile
+from plone.app.testing import ploneSite
+from plone.testing import Layer
+from plone.testing import z2
+from zope.component import getSiteManager
+from zope.configuration import xmlconfig
+import os
 import pkg_resources
+import sys
 
 try:
     pkg_resources.get_distribution('collective.js.speakjs')
