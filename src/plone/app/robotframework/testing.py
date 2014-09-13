@@ -100,6 +100,27 @@ REMOTE_LIBRARY_BUNDLE_FIXTURE = RemoteLibraryLayer(
     name="RemoteLibraryBundle:RobotRemote"
 )
 
+#
+# The following default remote library instance can be registered to function
+# as a Robot Framework remote library with collective.monkeypatcher:
+#
+# <monkey:patch
+#     description="Enable Robot Framework remote library"
+#     class="Products.CMFPlone.Portal.PloneSite"
+#     original="RobotRemote"
+#     replacement="plone.app.robotframework.testing.RobotRemote"
+#     ignoreOriginal="true"
+#     />
+#
+
+RobotRemote = type(
+    'RobotRemote',
+    (AutoLogin, QuickInstaller, GenericSetup,
+     Content, Users, I18N, MockMailHost,
+     Zope2ServerRemote),
+    {'__doc__': 'Robot Framework remote library',
+                'id': 'RobotRemote'})()
+
 REMOTE_LIBRARY_ROBOT_TESTING = FunctionalTesting(
     bases=(SIMPLE_PUBLICATION_FIXTURE,
            REMOTE_LIBRARY_BUNDLE_FIXTURE,
