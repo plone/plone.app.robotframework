@@ -99,7 +99,7 @@ class Content(RemoteLibrary):
             try:
                 getUtility(IDexterityFTI, name=type_)
                 content = createContentInContainer(container, type_, **kwargs)
-                if content.id != id_:
+                if id_ is not None and content.id != id_:
                     container.manage_renameObject(content.id, id_)
             except ComponentLookupError:
                 pass
