@@ -4,12 +4,17 @@ Changelog
 0.9.5 (unreleased)
 ------------------
 
-- Add default RobotRemote instance to support enabling the default remote
-  library with volatile monkeypatching
+- Fix issue where Dexterity content creation without explicit id fails
   [datakurre]
-- Whitespaces cleanup
-  [Gil Forcada]
+- Add user keywords 'a logged in test user' and 'a logged in site owner'.
+  [tisto]
+- Add user.robot keywords.
+  [tisto]
+  [datakurre]
 - Refactor Dexterity not to be explicit dependency
+  [datakurre]
+- Add default RobotRemote instance to support enabling the default remote
+  library with collective.monkeypatcher (see p.a.robotframework.testing)
   [datakurre]
 
 0.9.4 (2014-06-23)
