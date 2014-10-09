@@ -4,7 +4,7 @@ from plone.app.testing import TEST_USER_ID
 from plone.app.robotframework.testing import \
     PLONE_ROBOT_INTEGRATION_TESTING
 
-import unittest2 as unittest
+import unittest
 
 
 class TestCreateContent(unittest.TestCase):
