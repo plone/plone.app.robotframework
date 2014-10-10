@@ -19,7 +19,6 @@ if HAS_DEXTERITY:
     from z3c.form.interfaces import IDataConverter
     from z3c.form.interfaces import IDataManager
     from z3c.form.interfaces import IFieldWidget
-    from z3c.relationfield import RelationValue
     from zope.component import queryMultiAdapter
     from zope.globalrequest import getRequest
     from zope.schema.interfaces import IFromUnicode
@@ -163,6 +162,7 @@ class Content(RemoteLibrary):
                 referenced_obj = results_referenced[0]._unrestrictedGetObject()
                 intids = getUtility(IIntIds)
                 referenced_obj_intid = intids.getId(referenced_obj)
+                from z3c.relationfield import RelationValue
                 value = RelationValue(referenced_obj_intid)
             if field_type == 'text/html':
                 value = RichTextValue(
