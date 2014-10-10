@@ -6,7 +6,7 @@ Changelog
 
 - No changes yet
 
-0.9.5 (unreleased)
+0.9.5 (2014-10-09)
 ------------------
 
 - Fix issue where Dexterity content creation without explicit id fails
