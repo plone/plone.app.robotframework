@@ -36,7 +36,6 @@ install_requires = [
     'plone.app.testing',
     'five.globalrequest',
     # Functional Robot testing dependencies:
-    'robotsuite',
     'robotframework',
     'robotframework-selenium2library',
     # Implicit Robot Framework dependencies:
@@ -48,6 +47,7 @@ install_requires = [
     # XXX: dexterity dependencies should be conditional
     'plone.uuid',
     'Products.CMFCore',
+    'z3c.relationfield',
     'zope.component',
     'zope.i18n',
     'zope.schema',
@@ -59,8 +59,8 @@ test_requires = [
     'plone.app.textfield',
     'plone.dexterity',
     'plone.namedfile [blobs]',
+    'robotsuite',
     'z3c.form',
-    'z3c.relationfield',
 ]
 
 debug_requires = [
