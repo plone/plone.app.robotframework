@@ -4,13 +4,10 @@ Changelog
 0.9.6 (unreleased)
 ------------------
 
-- Fix package dependencies.
-  [hvelarde]
-
-- z3c.relationfield is not necessary there if plone.dexterity is present,
-  so move the import inside the code where we use RelationValue.
-  [vincentfretin]
-
+- Fix package dependencies; Remove needless dependency on unittest2 Remove
+  implicit dependency on z3c.relationfield unless it's required by the tested
+  add-on
+  [vincentfretin, hvelarde, datakurre]
 
 0.9.5 (2014-10-09)
 ------------------
