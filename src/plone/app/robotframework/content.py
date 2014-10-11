@@ -9,6 +9,7 @@ from zope.component import getUtility
 from zope.component import ComponentLookupError
 
 from plone.app.robotframework.config import HAS_DEXTERITY
+from plone.app.robotframework.config import HAS_DEXTERITY_RELATIONS
 
 if HAS_DEXTERITY:
     from plone.app.textfield.value import RichTextValue
@@ -22,7 +23,10 @@ if HAS_DEXTERITY:
     from zope.component import queryMultiAdapter
     from zope.globalrequest import getRequest
     from zope.schema.interfaces import IFromUnicode
+
+if HAS_DEXTERITY_RELATIONS:
     from zope.intid.interfaces import IIntIds
+    from z3c.relationfield import RelationValue
 
 import os
 
@@ -157,12 +161,11 @@ class Content(RemoteLibrary):
                 value = int(value)
             if field_type == 'list':
                 value = eval(value)
-            if field_type == 'reference':
+            if field_type == 'reference' and HAS_DEXTERITY_RELATIONS:
                 results_referenced = pc.unrestrictedSearchResults(UID=value)
                 referenced_obj = results_referenced[0]._unrestrictedGetObject()
                 intids = getUtility(IIntIds)
                 referenced_obj_intid = intids.getId(referenced_obj)
-                from z3c.relationfield import RelationValue
                 value = RelationValue(referenced_obj_intid)
             if field_type == 'text/html':
                 value = RichTextValue(

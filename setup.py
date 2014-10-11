@@ -28,33 +28,31 @@ console_scripts = [
 entry_points = dict(console_scripts=console_scripts)
 
 install_requires = [
-    'setuptools',
-    # Utility dependencies:
+    'Products.CMFCore',
+    'Products.CMFPlone',
+    'Products.MailHost',
+    'Products.PlonePAS',
+    'Products.PluggableAuthService',
     'argparse',
-    # Plone testing dependencies:
-    'plone.testing',
-    'plone.app.testing',
+    'babel',
+    'decorator',
     'five.globalrequest',
-    # Functional Robot testing dependencies:
+    'plone.app.testing',
+    'plone.testing',
+    'plone.uuid',
     'robotframework',
     'robotframework-selenium2library',
-    # Implicit Robot Framework dependencies:
-    'decorator',
     'selenium',
-    # I18N message extractor for Translate -keyword:
-    'babel',
-    # XXX: can we keep the whole list sorted?
-    # XXX: dexterity dependencies should be conditional
-    'plone.uuid',
-    'Products.CMFCore',
-    'z3c.relationfield',
+    'setuptools',
+    'simplejson',
     'zope.component',
+    'zope.configuration',
     'zope.i18n',
     'zope.schema',
+    'zope.testing',
 ]
 
 test_requires = [
-    # Tests for conditional features:
     'plone.app.dexterity',
     'plone.app.textfield',
     'plone.dexterity',
