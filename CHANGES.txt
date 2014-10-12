@@ -4,8 +4,8 @@ Changelog
 0.9.7 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Restore robotsuite into direct dependencies for convenience
+  [datakurre]
 
 0.9.6 (2014-10-11)
 ------------------
