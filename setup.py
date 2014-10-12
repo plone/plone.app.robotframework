@@ -35,17 +35,17 @@ install_requires = [
     'Products.PluggableAuthService',
     'argparse',
     'babel',
-    'decorator',
+    'decorator',  # required by r.selenium2library on Python 2.6.x
     'five.globalrequest',
     'plone.app.testing',
     'plone.testing',
     'plone.uuid',
     'robotframework',
-    'robotframework-selenium2library',
-    'robotsuite',  # not a dependency, but too many expect p.a.rf to pull this
-    'selenium',
+    'robotframework-selenium2library',  # ... but required for convenience
+    'robotsuite',  # not a direct dependency, but required for convenience
+    'selenium',    # not a direct dependency, but required for convenience
     'setuptools',
-    'simplejson',
+    'simplejson',  # required for SauceLabs-keywords on Python 2.6.x
     'zope.component',
     'zope.configuration',
     'zope.i18n',
