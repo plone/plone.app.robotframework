@@ -42,6 +42,7 @@ install_requires = [
     'plone.uuid',
     'robotframework',
     'robotframework-selenium2library',
+    'robotsuite',  # not a dependecy, but too many expect p.a.rf to pull this
     'selenium',
     'setuptools',
     'simplejson',
