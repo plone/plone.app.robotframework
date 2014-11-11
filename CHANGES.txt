@@ -4,8 +4,8 @@ Changelog
 0.9.8 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Fix dependency on plone.namedfile to be optional
+  [hvelarde, datakurre]
 
 0.9.7 (2014-10-13)
 ------------------
