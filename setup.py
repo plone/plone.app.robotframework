@@ -38,7 +38,6 @@ install_requires = [
     'decorator',   # required by r.selenium2library on Python 2.6.x
     'five.globalrequest',
     'plone.app.testing',
-    'plone.namedfile [blobs]',
     'plone.testing',
     'plone.uuid',
     'robotframework',

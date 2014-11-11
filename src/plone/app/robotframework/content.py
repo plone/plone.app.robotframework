@@ -10,11 +10,10 @@ from zope.component import ComponentLookupError
 
 from plone.app.robotframework.config import HAS_DEXTERITY
 from plone.app.robotframework.config import HAS_DEXTERITY_RELATIONS
+from plone.app.robotframework.config import HAS_BLOBS
 
 if HAS_DEXTERITY:
     from plone.app.textfield.value import RichTextValue
-    from plone.namedfile.file import NamedBlobFile
-    from plone.namedfile.file import NamedBlobImage
 
     from plone.dexterity.utils import getAdditionalSchemata
     from z3c.form.interfaces import IDataConverter
@@ -23,6 +22,13 @@ if HAS_DEXTERITY:
     from zope.component import queryMultiAdapter
     from zope.globalrequest import getRequest
     from zope.schema.interfaces import IFromUnicode
+
+    if HAS_BLOBS:
+        from plone.namedfile.file import NamedBlobFile
+        from plone.namedfile.file import NamedBlobImage
+    else:
+        from plone.namedfile.file import NamedFile as NamedBlobFile
+        from plone.namedfile.file import NamedImage as NamedBlobFile
 
 if HAS_DEXTERITY_RELATIONS:
     from zope.intid.interfaces import IIntIds
