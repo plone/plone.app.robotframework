@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.9.8 (unreleased)
+0.9.8 (2014-11-11)
 ------------------
 
 - Fix dependency on plone.namedfile to be optional
