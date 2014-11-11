@@ -2,8 +2,8 @@ language: python
 python: "2.7"
 addons:
   sauce_connect:
-  - username: $SAUCE_USERNAME
-  - access_key: $SAUCE_ACCESS_KEY
+    username: $SAUCE_USERNAME
+    access_key: $SAUCE_ACCESS_KEY
 install:
 - virtualenv buildout --no-setuptools
 - mkdir -p buildout-cache/downloads
