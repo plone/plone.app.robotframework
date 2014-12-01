@@ -11,6 +11,8 @@ from zope.component import ComponentLookupError
 from plone.app.robotframework.config import HAS_DEXTERITY
 from plone.app.robotframework.config import HAS_DEXTERITY_RELATIONS
 from plone.app.robotframework.config import HAS_BLOBS
+from zope.event import notify
+from zope.lifecycleevent import ObjectModifiedEvent
 
 if HAS_DEXTERITY:
     from plone.app.textfield.value import RichTextValue
@@ -199,6 +201,7 @@ class Content(RemoteLibrary):
 
             setattr(obj, field, value)
             obj.reindexObject()
+            notify(ObjectModifiedEvent(obj, dict(field=value)))
 
     def uid_to_url(self, uid):
         """Return absolute path for an UID"""
