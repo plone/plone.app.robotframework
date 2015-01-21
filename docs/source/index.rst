@@ -49,7 +49,7 @@ tests:
 * `Robot Framework built-in library documentation`__
 * `Robot Framework Selenium2Library documentation`__
 
-__ http://robotframework.googlecode.com/hg/doc/libraries/BuiltIn.html
+__ http://robotframework.org/robotframework/latest/libraries/BuiltIn.html
 __ http://rtomac.github.com/robotframework-selenium2library/doc/Selenium2Library.html
 
 
