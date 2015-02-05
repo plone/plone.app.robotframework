@@ -97,7 +97,6 @@ Input text and validate
     [Documentation]  Locate input element by ${locator} and enter the given
     ...              ${text}. Validate that the text has been entered.
     [Arguments]  ${locator}  ${text}
-    Focus  ${locator}
     Input text  ${locator}  ${text}
     ${value} =  Get value  ${locator}
     Should be equal  ${text}  ${value}
