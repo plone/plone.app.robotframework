@@ -4,6 +4,10 @@ Changelog
 0.9.9 (unreleased)
 ------------------
 
+- Also detect mockup-based modals in the "Click Overlay Link" and
+  "Click Overlay Button" keywords.
+  [davisagli]
+
 - Read ``use_email_as_login`` setting from the registry instead of portal
   properties (see https://github.com/plone/Products.CMFPlone/issues/216).
   [jcerjak]
