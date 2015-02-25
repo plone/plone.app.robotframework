@@ -30,7 +30,7 @@ if HAS_DEXTERITY:
         from plone.namedfile.file import NamedBlobImage
     else:
         from plone.namedfile.file import NamedFile as NamedBlobFile
-        from plone.namedfile.file import NamedImage as NamedBlobFile
+        from plone.namedfile.file import NamedImage as NamedBlobImage
 
 if HAS_DEXTERITY_RELATIONS:
     from zope.intid.interfaces import IIntIds
@@ -77,25 +77,79 @@ class Content(RemoteLibrary):
         else:
             container = portal
 
-        # Pre-fill Image-types with random content
-        if kwargs.get('type') == 'Image' and not 'image' in kwargs:
-            import random
-            import StringIO
-            from PIL import (
-                Image,
-                ImageDraw
-            )
-            img = Image.new('RGB', (random.randint(320, 640),
-                                    random.randint(320, 640)))
-            draw = ImageDraw.Draw(img)
-            draw.rectangle(((0, 0), img.size), fill=(random.randint(0, 255),
-                                                     random.randint(0, 255),
-                                                     random.randint(0, 255)))
-            del draw
+        # if we create 'file' and 'image' kwargs entries, they should not be
+        # used to create the content but be set afterwards
+        create_kwargs = {}
+        create_kwargs.update(kwargs)
 
-            kwargs['image'] = StringIO.StringIO()
-            img.save(kwargs['image'], 'PNG')
-            kwargs['image'].seek(0)
+        if HAS_DEXTERITY:
+            if kwargs.get('type') in ('File', ) and 'file' not in kwargs:
+                pdf_file = os.path.join(
+                    os.path.dirname(__file__), 'content', u'file.pdf')
+                value = NamedBlobFile(
+                    data=open(pdf_file, 'r').read(),
+                    contentType='application/pdf',
+                    filename=u'file.pdf'
+                )
+                kwargs['file'] = value
+
+            # Pre-fill Image-types with random content
+            if kwargs.get('type') in ('Image', 'News Item')\
+                    and 'image' not in kwargs:
+                import random
+                import string
+                import StringIO
+                from PIL import Image
+                from PIL import ImageDraw
+
+                img = Image.new('RGB', (random.randint(320, 640),
+                                        random.randint(320, 640)))
+                draw = ImageDraw.Draw(img)
+                draw.rectangle(
+                    ((0, 0), img.size),
+                    fill=(
+                        random.randint(0, 255),
+                        random.randint(0, 255),
+                        random.randint(0, 255)
+                    )
+                )
+                del draw
+
+                kwargs['image'] = StringIO.StringIO()
+                img.save(kwargs['image'], 'PNG')
+                kwargs['image'].seek(0)
+
+                filename = u'{}.png'.format(''.join(
+                    random.choice(string.ascii_lowercase) for _ in range(6)
+                ))
+                kwargs['image'] = NamedBlobImage(
+                    data=kwargs['image'], filename=filename)
+        else:
+            # ARCHETYPES
+            # Pre-fill Image-types with random content
+            if kwargs.get('type') == 'Image' and 'image' not in kwargs:
+                import random
+                import StringIO
+                from PIL import (
+                    Image,
+                    ImageDraw
+                )
+                img = Image.new('RGB', (random.randint(320, 640),
+                                        random.randint(320, 640)))
+                draw = ImageDraw.Draw(img)
+                draw.rectangle(
+                    ((0, 0), img.size),
+                    fill=(
+                        random.randint(0, 255),
+                        random.randint(0, 255),
+                        random.randint(0, 255)
+                    )
+                )
+                del draw
+
+                kwargs['image'] = StringIO.StringIO()
+                img.save(kwargs['image'], 'PNG')
+                kwargs['image'].seek(0)
 
         id_ = kwargs.pop('id', None)
         type_ = kwargs.pop('type')
@@ -109,7 +163,8 @@ class Content(RemoteLibrary):
             from plone.dexterity.utils import createContentInContainer
             try:
                 getUtility(IDexterityFTI, name=type_)
-                content = createContentInContainer(container, type_, **kwargs)
+                content = createContentInContainer(
+                    container, type_, **create_kwargs)
                 if id_ is not None and content.id != id_:
                     container.manage_renameObject(content.id, id_)
             except ComponentLookupError:

@@ -4,6 +4,10 @@ Changelog
 0.9.9 (unreleased)
 ------------------
 
+- "Create content" keyword fixes: Fix creation of random images, add image to
+  News Item if not defined, add file to File if not defined.
+  [thet]
+
 - Also detect mockup-based modals in the "Click Overlay Link" and
   "Click Overlay Button" keywords.
   [davisagli]
