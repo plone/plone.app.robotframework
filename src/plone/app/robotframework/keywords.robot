@@ -8,6 +8,23 @@ Resource  user.robot
 
 *** Keywords ***
 
+
+a logged-in site administrator
+  Enable autologin as  Site Administrator
+
+a logged-in member
+  Enable autologin as  Member  Contributor
+
+a document '${title}'
+  Create content  type=Document  id=doc  title=${title}
+
+a folder '${title}'
+  Create content  type=Folder  title=${title}
+
+Wait until patterns are loaded
+  Wait For Condition  return $('body.patterns-loaded').size() > 0
+
+
 Debug
     [Documentation]  Pause test execution for test debugging purposes.
     ...
