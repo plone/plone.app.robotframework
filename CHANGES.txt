@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.9.9 (unreleased)
+0.9.9 (2015-03-13)
 ------------------
 
 - "Create content" keyword fixes: Fix creation of random images, add image to
