@@ -69,7 +69,10 @@ def start_reload(zope_layer_dotted_name, reload_paths=('src',),
     zsl.start_zope_server(preload_layer_dotted_name)
 
     forkloop = ForkLoop()
-    Watcher(reload_paths, forkloop).start()
+    watcher = Watcher(reload_paths, forkloop)
+    if HAS_DEBUG_MODE:
+        watcher.allowed_extensions.remove('pt')
+    watcher.start()
     forkloop.start()
 
     if forkloop.exit:
