@@ -34,7 +34,6 @@ env:
   matrix:
   - ROBOT_BROWSER=firefox ROBOT_DESIRED_CAPABILITIES=tunnel-identifier:$TRAVIS_JOB_NUMBER
   - ROBOT_BROWSER=ie ROBOT_DESIRED_CAPABILITIES=tunnel-identifier:$TRAVIS_JOB_NUMBER
-  - ROBOT_BROWSER=firefox ROBOT_DESIRED_CAPABILITIES=tunnel-identifier:$TRAVIS_JOB_NUMBER VERSIONS="versions:robotsuite=1.6.1"
 notifications:
   irc:
     channels:
