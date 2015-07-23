@@ -19,14 +19,7 @@ ERROR = lambda msg: '{0} [\033[31m ERROR \033[0m] {1}'.format(TIME(), msg)
 
 class Watcher(FileSystemEventHandler):
 
-    allowed_extensions = set(os.getenv('RELOAD_EXTENSIONS', (
-        'po',
-        'pt',
-        'py',
-        'xml',
-        'csv',
-        'zcml',
-    )))
+    allowed_extensions = set(('po', 'pt', 'py', 'xml', 'csv', 'zcml'))
 
     def __init__(self, paths, forkloop, minimum_wait=2.0):
         FileSystemEventHandler.__init__(self)

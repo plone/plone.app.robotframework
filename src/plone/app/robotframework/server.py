@@ -61,7 +61,8 @@ def start(zope_layer_dotted_name):
 
 
 def start_reload(zope_layer_dotted_name, reload_paths=('src',),
-                 preload_layer_dotted_name='plone.app.testing.PLONE_FIXTURE'):
+                 preload_layer_dotted_name='plone.app.testing.PLONE_FIXTURE',
+                 extensions=None):
 
     print WAIT("Starting Zope 2 server")
 
@@ -69,7 +70,12 @@ def start_reload(zope_layer_dotted_name, reload_paths=('src',),
     zsl.start_zope_server(preload_layer_dotted_name)
 
     forkloop = ForkLoop()
-    Watcher(reload_paths, forkloop).start()
+    watcher = Watcher(reload_paths, forkloop)
+    if extensions:
+        watcher.allowed_extensions = extensions
+    elif HAS_DEBUG_MODE:
+        watcher.allowed_extensions.remove('pt')
+    watcher.start()
     forkloop.start()
 
     if forkloop.exit:
@@ -149,6 +155,9 @@ def server():
     if HAS_RELOAD:
         parser.add_argument('--reload-path', '-p', dest='reload_paths',
                             action='append')
+        parser.add_argument('--reload-extensions', '-x', dest='extensions',
+                            nargs='*', help=(
+                                'file extensions to watch for changes'))
         parser.add_argument('--preload-layer', '-l', dest='preload_layer')
         parser.add_argument('--no-reload', '-n', dest='reload',
                             action='store_false')
@@ -176,7 +185,8 @@ def server():
             pass
     else:
         start_reload(args.layer, args.reload_paths or ['src'],
-                     args.preload_layer or 'plone.app.testing.PLONE_FIXTURE')
+                     args.preload_layer or 'plone.app.testing.PLONE_FIXTURE',
+                     args.extensions)
 
 
 class RobotListener:
