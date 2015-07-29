@@ -33,7 +33,7 @@ packages related to it.
    plone.app.robotframework = 0.9.8
    robotframework = 2.8.4
    robotframework-selenium2library = 1.5.0
-   robotframework-selenium2screenshots = 0.4.0
+   robotframework-selenium2screenshots = 0.6.0
    robotsuite = 1.6.1
    selenium = 2.45.0
    sphinxcontrib-robotframework = 0.5.1
