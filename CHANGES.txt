@@ -4,7 +4,9 @@ Changelog
 0.9.10 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- "Create content" keyword fix: creation of random images in ATCT did not
+  work when dexterity was installed.
+  [gotcha]
 
 
 0.9.9 (2015-03-13)

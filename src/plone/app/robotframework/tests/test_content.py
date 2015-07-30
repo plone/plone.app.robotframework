@@ -35,6 +35,22 @@ class TestCreateContent(unittest.TestCase):
         )
         self.assertTrue('doc1' in self.portal.objectIds())
 
+    def test_create_image(self):
+        self.create_content(
+            type='Image',
+            id='image1',
+            title='Image 1'
+        )
+        self.assertTrue('image1' in self.portal.objectIds())
+
+    def test_create_news(self):
+        self.create_content(
+            type='News Item',
+            id='news1',
+            title='News 1'
+        )
+        self.assertTrue('news1' in self.portal.objectIds())
+
     def test_create_content_requires_type(self):
         self.assertRaises(
             AssertionError,

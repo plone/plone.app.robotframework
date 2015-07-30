@@ -18,6 +18,7 @@ if HAS_DEXTERITY:
     from plone.app.textfield.value import RichTextValue
 
     from plone.dexterity.utils import getAdditionalSchemata
+    from plone.dexterity.fti import DexterityFTI
     from z3c.form.interfaces import IDataConverter
     from z3c.form.interfaces import IDataManager
     from z3c.form.interfaces import IFieldWidget
@@ -63,6 +64,7 @@ class Content(RemoteLibrary):
             kwargs[name] = value
 
         assert 'type' in kwargs, u"Keyword arguments must include 'type'."
+        portal_type = kwargs.get('type')
         portal = getSite()
         if 'container' in kwargs:
             pc = getToolByName(portal, 'portal_catalog')
@@ -83,7 +85,7 @@ class Content(RemoteLibrary):
         create_kwargs.update(kwargs)
 
         if HAS_DEXTERITY:
-            if kwargs.get('type') in ('File', ) and 'file' not in kwargs:
+            if portal_type in ('File', ) and 'file' not in kwargs:
                 pdf_file = os.path.join(
                     os.path.dirname(__file__), 'content', u'file.pdf')
                 value = NamedBlobFile(
@@ -93,63 +95,8 @@ class Content(RemoteLibrary):
                 )
                 kwargs['file'] = value
 
-            # Pre-fill Image-types with random content
-            if kwargs.get('type') in ('Image', 'News Item')\
-                    and 'image' not in kwargs:
-                import random
-                import string
-                import StringIO
-                from PIL import Image
-                from PIL import ImageDraw
-
-                img = Image.new('RGB', (random.randint(320, 640),
-                                        random.randint(320, 640)))
-                draw = ImageDraw.Draw(img)
-                draw.rectangle(
-                    ((0, 0), img.size),
-                    fill=(
-                        random.randint(0, 255),
-                        random.randint(0, 255),
-                        random.randint(0, 255)
-                    )
-                )
-                del draw
-
-                kwargs['image'] = StringIO.StringIO()
-                img.save(kwargs['image'], 'PNG')
-                kwargs['image'].seek(0)
-
-                filename = u'{}.png'.format(''.join(
-                    random.choice(string.ascii_lowercase) for _ in range(6)
-                ))
-                kwargs['image'] = NamedBlobImage(
-                    data=kwargs['image'], filename=filename)
-        else:
-            # ARCHETYPES
-            # Pre-fill Image-types with random content
-            if kwargs.get('type') == 'Image' and 'image' not in kwargs:
-                import random
-                import StringIO
-                from PIL import (
-                    Image,
-                    ImageDraw
-                )
-                img = Image.new('RGB', (random.randint(320, 640),
-                                        random.randint(320, 640)))
-                draw = ImageDraw.Draw(img)
-                draw.rectangle(
-                    ((0, 0), img.size),
-                    fill=(
-                        random.randint(0, 255),
-                        random.randint(0, 255),
-                        random.randint(0, 255)
-                    )
-                )
-                del draw
-
-                kwargs['image'] = StringIO.StringIO()
-                img.save(kwargs['image'], 'PNG')
-                kwargs['image'].seek(0)
+        if portal_type in ('Image', 'News Item') and 'image' not in kwargs:
+            prefill_image_types(portal, kwargs)
 
         id_ = kwargs.pop('id', None)
         type_ = kwargs.pop('type')
@@ -294,3 +241,53 @@ class Content(RemoteLibrary):
         portal = getSite()
         types_tool = getToolByName(portal, "portal_types")
         types_tool[type_].global_allow = value
+
+
+def prefill_image_types(portal, kwargs):
+    portal_type = kwargs.get('type')
+    portal_types = getToolByName(portal, 'portal_types')
+    fti = portal_types[portal_type]
+    if HAS_DEXTERITY and isinstance(fti, DexterityFTI):
+        prefill_image_types_dexterity(kwargs)
+    else:
+        prefill_image_types_archetypes(kwargs)
+
+
+def random_image():
+    import random
+    import StringIO
+    from PIL import Image
+    from PIL import ImageDraw
+
+    img = Image.new('RGB', (random.randint(320, 640),
+                            random.randint(320, 640)))
+    draw = ImageDraw.Draw(img)
+    draw.rectangle(
+        ((0, 0), img.size),
+        fill=(
+            random.randint(0, 255),
+            random.randint(0, 255),
+            random.randint(0, 255)
+        )
+    )
+    del draw
+
+    result = StringIO.StringIO()
+    img.save(result, 'PNG')
+    result.seek(0)
+    return result
+
+
+def prefill_image_types_dexterity(kwargs):
+    import random
+    import string
+    image = random_image()
+    filename = u'{}.png'.format(''.join(
+        random.choice(string.ascii_lowercase) for _ in range(6)
+    ))
+    kwargs['image'] = NamedBlobImage(
+        data=image, filename=filename)
+
+
+def prefill_image_types_archetypes(kwargs):
+    kwargs['image'] = random_image()
