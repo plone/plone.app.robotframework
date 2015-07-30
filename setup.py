@@ -3,8 +3,19 @@ from setuptools import find_packages
 
 version = '0.9.10.dev0'
 
+
+def indented(filename):
+    return '\n'.join([indent(line) for line in open(filename)])
+
+
+def indent(line):
+    return '   ' + line
+
+
 long_description = (
     open('README.rst').read()
+    + '\n' +
+    indented('versions.cfg')
     + '\n' +
     'Contributors\n'
     '============\n'
@@ -14,6 +25,7 @@ long_description = (
     open('CHANGES.txt').read()
     + '\n'
 )
+
 
 console_scripts = [
     "robot-server = plone.app.robotframework.server:server",
