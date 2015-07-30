@@ -9,7 +9,7 @@
 - Eric Brehault
 - Esa-Matti Suuronen
 - Fulvio Casali
-- Godefroid Chapelle, Original Author
+- Godefroid Chapelle
 - Hector Velarde
 - Jean-Michel Francois
 - Johan Beyers
