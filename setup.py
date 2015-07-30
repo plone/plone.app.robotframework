@@ -5,7 +5,7 @@ version = '0.9.11.dev0'
 
 
 def indented(filename):
-    return '\n'.join([indent(line) for line in open(filename)])
+    return ''.join([indent(line) for line in open(filename)])
 
 
 def indent(line):
