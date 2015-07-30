@@ -21,10 +21,11 @@ Please read the full documentation at `Plone Developer Documentation
 Known good versions
 -------------------
 
-Updated: 2015-07-24
 
 This is the latest known good versions for **plone.app.robotframework** and
 packages related to it.
+
+Updated: 2015-07-30
 
 .. code:: ini
 
@@ -32,10 +33,10 @@ packages related to it.
    Pygments = 2.0.2
    plone.app.robotframework = 0.9.10
    robotframework = 2.8.4
-   robotframework-selenium2library = 1.5.0
+   robotframework-selenium2library = 1.7.1
    robotframework-selenium2screenshots = 0.6.0
    robotsuite = 1.6.1
-   selenium = 2.45.0
+   selenium = 2.46.0
    sphinxcontrib-robotframework = 0.5.1
 
 .. Remember to update also versions.cfg!
