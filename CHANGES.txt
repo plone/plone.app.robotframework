@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.9.10 (unreleased)
+0.9.10 (2015-07-30)
 -------------------
 
 - Update good known versions.
