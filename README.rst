@@ -30,7 +30,7 @@ packages related to it.
 
    [versions]
    Pygments = 2.0.2
-   plone.app.robotframework = 0.9.8
+   plone.app.robotframework = 0.9.10
    robotframework = 2.8.4
    robotframework-selenium2library = 1.5.0
    robotframework-selenium2screenshots = 0.6.0
