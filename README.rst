@@ -21,11 +21,10 @@ Please read the full documentation at `Plone Developer Documentation
 Known good versions
 -------------------
 
-
 This is the latest known good versions for **plone.app.robotframework** and
 packages related to it.
 
-Updated: 2015-07-30
+Updated: 2015-07-31
 
 .. code:: ini
 
