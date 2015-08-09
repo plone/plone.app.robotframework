@@ -130,8 +130,21 @@ The first test can be written anywhere in the filesystem.
 
 For example, a ``test_hello.robot``:
 
-.. robot-source::
-   :source: plone.app.robotframework:tests/docs/test_hello.robot
+.. code-block:: robotframework
+
+   *** Settings ***
+
+    Resource  plone/app/robotframework/selenium.robot
+
+    Test Setup  Open test browser
+    Test Teardown  Close all browsers
+
+  *** Test Cases ***
+
+    Plone is installed
+      Go to  ${PLONE_URL}
+      Page should contain  Powered by Plone
+
 
 Robot is all about running test clauses called **keywords** (or, to be more
 exact, keyword calls with parameters). Every test case may contain one or more
@@ -146,8 +159,40 @@ keywords are described in the test suite, or imported from **resource** files.
 
 Here is a more complicated example with some user keywords in action:
 
-.. robot-source::
-   :source: plone.app.robotframework:tests/docs/test_keywords.robot
+.. code-block:: robotframework
+
+   *** Settings ***
+
+    Resource  plone/app/robotframework/selenium.robot
+
+    Library  Remote  ${PLONE_URL}/RobotRemote
+
+    Test Setup  Open test browser
+    Test Teardown  Close all browsers
+
+    *** Variables ***
+
+    ${ADMIN_ROLE}  Site Administrator
+
+    *** Test Cases ***
+
+    Site Administrator can access control panel
+        Given I'm logged in as a '${ADMIN_ROLE}'
+         When I open the personal menu
+         Then I see the Site Setup -link
+
+    *** Keywords ***
+
+    I'm logged in as a '${ROLE}'
+        Enable autologin as  ${ROLE}
+        Go to  ${PLONE_URL}
+
+    I open the personal menu
+        Click link  css=#user-name
+
+    I see the Site Setup -link
+        Element should be visible  css=#personaltools-plone_setup
+
 
 Please, stop for a while end read the example above again. Once you understand
 how you can stack keyword calls with user keywords, you are ready to unleash
