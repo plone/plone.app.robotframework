@@ -50,7 +50,7 @@ tests:
 * `Robot Framework Selenium2Library documentation`__
 
 __ http://robotframework.org/robotframework/latest/libraries/BuiltIn.html
-__ http://rtomac.github.com/robotframework-selenium2library/doc/Selenium2Library.html
+__ http://robotframework.org/Selenium2Library/doc/Selenium2Library.html
 
 
 Advanced topics
