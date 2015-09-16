@@ -18,13 +18,7 @@ and its add-ons.
 Please read the full documentation at `Plone Developer Documentation
 <http://developer.plone.org/reference_manuals/external/plone.app.robotframework/>`_.
 
-Known good versions
--------------------
-
-This is the latest known good versions for **plone.app.robotframework** and
+`The latest known good version`__ for **plone.app.robotframework** and
 packages related to it.
 
-Updated: 2015-07-31
-
-.. code:: ini
-
+__ https://raw.githubusercontent.com/plone/plone.app.robotframework/master/versions.cfg
