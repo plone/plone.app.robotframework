@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.9.11 (unreleased)
+0.9.11 (2015-09-16)
 -------------------
 
 - Fix issue where 'use_email_as_login' was not found in registry
