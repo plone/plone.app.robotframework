@@ -41,7 +41,8 @@ class Users(RemoteLibrary):
                 ISecuritySchema,
                 prefix='plone',
             )
-            use_email_as_username = settings.use_email_as_login
+            use_email_as_username = getattr(
+                settings, 'use_email_as_login', None)
         else:  # Plone < 5
             portal_properties = getToolByName(portal, 'portal_properties')
             use_email_as_username = \
