@@ -4,8 +4,12 @@ Changelog
 0.9.11 (unreleased)
 -------------------
 
-- Nothing changed yet.
-
+- Fix issue where 'use_email_as_login' was not found in registry
+  [datakurre]
+- Fix selenium2library link in documentation
+  [gotcha]
+- Inline sample robot code for mentioned example into docs
+  [pjoshi]
 
 0.9.10 (2015-07-30)
 -------------------
