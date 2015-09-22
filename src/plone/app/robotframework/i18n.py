@@ -2,17 +2,18 @@
 import os
 
 from Products.CMFCore.utils import getToolByName
+from plone.app.robotframework.remote import RemoteLibrary
+from plone.app.robotframework.utils import disableCSRFProtection
 from zope.component.hooks import getSite
 from zope.globalrequest import getRequest
 from zope.i18n import translate
-
-from plone.app.robotframework.remote import RemoteLibrary
 
 
 class I18N(RemoteLibrary):
 
     def set_default_language(self, language=None):
         """Change portal default language"""
+        disableCSRFProtection()
         portal = getSite()
         portal_languages = getToolByName(portal, 'portal_languages')
         if language is None:
