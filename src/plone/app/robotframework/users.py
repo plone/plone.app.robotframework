@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from Products.CMFCore.utils import getToolByName
 from plone.app.robotframework.remote import RemoteLibrary
+from plone.app.robotframework.utils import disableCSRFProtection
 from plone.registry.interfaces import IRegistry
 from zope.component import getUtility
 from zope.component.hooks import getSite
@@ -16,6 +17,7 @@ class Users(RemoteLibrary):
 
     def create_user(self, *args, **kwargs):
         """Create user with given details and return its id"""
+        disableCSRFProtection()
         # XXX: Because kwargs are only supported with robotframework >= 2.8.3,
         # we must parse them here to support robotframework < 2.8.3.
         for arg in [x for x in args if '=' in x]:

@@ -2,6 +2,7 @@
 from Products.PlonePAS.Extensions.Install import activatePluginInterfaces
 from Products.PluggableAuthService.plugins import DomainAuthHelper
 from plone.app.robotframework.remote import RemoteLibrary
+from plone.app.robotframework.utils import disableCSRFProtection
 
 
 class AutoLogin(RemoteLibrary):
@@ -16,6 +17,7 @@ class AutoLogin(RemoteLibrary):
             Enable autologin as  Member  Contributor
 
         """
+        disableCSRFProtection()
         if 'robot_login' in self.acl_users.objectIds():
             self.acl_users.robot_login._domain_map.clear()
         else:
@@ -29,6 +31,7 @@ class AutoLogin(RemoteLibrary):
     def set_autologin_username(self, username):
         """Update autologin mapping with the given username
         """
+        disableCSRFProtection()
         if 'robot_login' not in self.acl_users.objectIds():
             raise Exception(u"Autologin is not enabled")
         if len(self.acl_users.robot_login._domain_map) == 0:
@@ -46,4 +49,5 @@ class AutoLogin(RemoteLibrary):
 
         """
         if 'robot_login' in self.acl_users.objectIds():
+            disableCSRFProtection()
             self.acl_users.robot_login._domain_map.clear()
