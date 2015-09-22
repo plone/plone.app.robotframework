@@ -4,7 +4,8 @@ Changelog
 0.9.12 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Fix CSRF errors on content creation keywords
+  [vangheem]
 
 
 0.9.11 (2015-09-16)

@@ -1,18 +1,27 @@
 # -*- coding: utf-8 -*-
-from zope.component import queryUtility
+import os
+
 from Products.CMFCore.utils import getToolByName
+from plone.app.robotframework.config import HAS_BLOBS
+from plone.app.robotframework.config import HAS_DEXTERITY
+from plone.app.robotframework.config import HAS_DEXTERITY_RELATIONS
 from plone.app.robotframework.remote import RemoteLibrary
 from plone.i18n.normalizer.interfaces import IURLNormalizer
 from plone.uuid.interfaces import IUUID
-from zope.component.hooks import getSite
-from zope.component import getUtility
 from zope.component import ComponentLookupError
-
-from plone.app.robotframework.config import HAS_DEXTERITY
-from plone.app.robotframework.config import HAS_DEXTERITY_RELATIONS
-from plone.app.robotframework.config import HAS_BLOBS
+from zope.component import getUtility
+from zope.component import queryUtility
+from zope.component.hooks import getSite
 from zope.event import notify
+from zope.interface import alsoProvides
 from zope.lifecycleevent import ObjectModifiedEvent
+
+try:
+    from plone.protect.interfaces import IDisableCSRFProtection
+except ImportError:
+    from zope.interface import Interface
+    class IDisableCSRFProtection(Interface):
+        pass
 
 if HAS_DEXTERITY:
     from plone.app.textfield.value import RichTextValue
@@ -37,13 +46,14 @@ if HAS_DEXTERITY_RELATIONS:
     from zope.intid.interfaces import IIntIds
     from z3c.relationfield import RelationValue
 
-import os
-
 
 class Content(RemoteLibrary):
 
     def delete_content(self, uid_or_path):
         """Delete content by uid or path"""
+
+        alsoProvides(getRequest(), IDisableCSRFProtection)
+
         portal = getSite()
         pc = getToolByName(portal, 'portal_catalog')
         uid_results =\
@@ -57,6 +67,9 @@ class Content(RemoteLibrary):
 
     def create_content(self, *args, **kwargs):
         """Create content and return its UID"""
+
+        alsoProvides(getRequest(), IDisableCSRFProtection)
+
         # XXX: Because kwargs are only supported with robotframework >= 2.8.3,
         # we must parse them here to support robotframework < 2.8.3.
         for arg in [x for x in args if '=' in x]:
@@ -226,6 +239,9 @@ class Content(RemoteLibrary):
 
     def fire_transition(self, content, action):
         """Fire workflow action for content"""
+
+        alsoProvides(getRequest(), IDisableCSRFProtection)
+
         # It should be ok to use unrestricted-methods, because workflow
         # transition guard should proctect unprivileged transition:
         pc = getToolByName(self, 'portal_catalog')
@@ -238,6 +254,9 @@ class Content(RemoteLibrary):
 
     def global_allow(self, type_, value=True):
         """Allow type to be added globally."""
+
+        alsoProvides(getRequest(), IDisableCSRFProtection)
+
         portal = getSite()
         types_tool = getToolByName(portal, "portal_types")
         types_tool[type_].global_allow = value
