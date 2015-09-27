@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.9.12 (unreleased)
+0.9.12 (2015-09-27)
 -------------------
 
 - Fix CSRF errors on content creation keywords
