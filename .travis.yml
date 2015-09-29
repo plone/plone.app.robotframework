@@ -13,15 +13,13 @@ install:
 - bin/buildout -N -t 3 -c travis.cfg ${VERSIONS}
 script: bin/test
 after_script:
-- gem 'faraday', '0.8.9'
-- gem 'net-ssh', '2.10.0'
-- gem install travis-artifacts
 - bin/sphinx-build docs/source docs/html
 - cd docs && ./libdoc.sh && cd ..
-- travis-artifacts upload --path parts/test
-- travis-artifacts upload --path docs/html
-- travis-artifacts upload --target-path latest --path docs/html
-- travis-artifacts upload --target-path latest --path parts/test
+- bundle install
+- bundle exec travis-artifacts upload --path parts/test
+- bundle exec travis-artifacts upload --path docs/html
+- bundle exec travis-artifacts upload --target-path latest --path docs/html
+- bundle exec travis-artifacts upload --target-path latest --path parts/test
 env:
   global:
   - secure: YLol0TyHB+XAUbCzzjfc5JJ5AFqEi/GVhGphtAAcSv8+JY6MhTVVTjyCPeoK 2nT7tDhQRnYKOAMBmTuP/TUdzFqBf5LvjrFxvcjBawJMRW85kuYEuXsS8XEx C+lc1bbXSUPGA0x03tvSHIYbCowvVPZNUupxgRQdW2QLa5HcSuQ=
