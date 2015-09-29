@@ -7,8 +7,8 @@ Library  Remote  ${PLONE_URL}/RobotRemote
 *** Test Cases ***
 
 Some default product is activated
-    Given 'plone.app.jquery' is activated
-      and 'plone.app.discussion' is not activated
+    Given 'plone.app.users' is activated
+      and 'plone.session' is not activated
 
 *** Keywords ***
 
