@@ -230,7 +230,9 @@ class Zope2Server:
     def start_zope_server(self, layer_dotted_name):
         new_layer = self._import_layer(layer_dotted_name)
         if self.zope_layer and self.zope_layer is not new_layer:
-            self.stop_zope_server()
+            self.stop_zope_server(force=True)
+        elif self.zope_layer and self.zope_layer.get('dirty', False):
+            self.stop_zope_server(force=True)
         setup_layer(new_layer)
         self.zope_layer = new_layer
 
@@ -257,8 +259,8 @@ class Zope2Server:
         self.extra_layers = {}
         self.zope_layer = None
 
-    def stop_zope_server(self):
-        if not self.stop_zope_server_lazy:
+    def stop_zope_server(self, force=False):
+        if not self.stop_zope_server_lazy or force:
             tear_down()
         else:
             # With lazy stop, the layer is saved to enable Zope2Server re-use
