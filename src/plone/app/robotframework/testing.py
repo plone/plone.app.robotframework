@@ -161,10 +161,12 @@ class PloneRobotFixture(PloneSandboxLayer):
             return filter(bool, [s.strip() for s in candidates])
 
     def setUpZope(self, app, configurationContext):
+
         for locales in self._get_robot_variable('REGISTER_TRANSLATIONS'):
             if locales and os.path.isdir(locales):
                 from zope.i18n.zcml import registerTranslations
                 registerTranslations(configurationContext, locales)
+                self['state'].append(locales)
 
         for name in self._get_robot_variable('META_PACKAGES'):
             if not name in sys.modules:
@@ -172,6 +174,7 @@ class PloneRobotFixture(PloneSandboxLayer):
             package = sys.modules[name]
             xmlconfig.file('meta.zcml', package,
                            context=configurationContext)
+            self['state'].append(name)
 
         for name in self._get_robot_variable('CONFIGURE_PACKAGES'):
             if not name in sys.modules:
@@ -179,6 +182,7 @@ class PloneRobotFixture(PloneSandboxLayer):
             package = sys.modules[name]
             xmlconfig.file('configure.zcml', package,
                            context=configurationContext)
+            self['state'].append(name)
 
         for name in self._get_robot_variable('OVERRIDE_PACKAGES'):
             if not name in sys.modules:
@@ -186,15 +190,34 @@ class PloneRobotFixture(PloneSandboxLayer):
             package = sys.modules[name]
             xmlconfig.includeOverrides(
                 configurationContext, 'overrides.zcml', package=package)
+            self['state'].append(name)
 
         for name in self._get_robot_variable('INSTALL_PRODUCTS'):
             if not name in sys.modules:
                 __import__(name)
             z2.installProduct(app, name)
+            self['state'].append(name)
 
     def setUpPloneSite(self, portal):
         for name in self._get_robot_variable('APPLY_PROFILES'):
             self.applyProfile(portal, name)
+            self['state'].append(name)
+
+    def setUp(self):
+        self['state'] = []
+        super(PloneRobotFixture, self).setUp()
+
+        class Value:
+            __repr__ = lambda x: str(bool(x))
+            __nonzero__ = lambda x: self.get('state', []) != (
+                self._get_robot_variable('REGISTER_TRANSLATIONS') +
+                self._get_robot_variable('META_PACKAGES') +
+                self._get_robot_variable('CONFIGURE_PACKAGES') +
+                self._get_robot_variable('OVERRIDE_PACKAGES') +
+                self._get_robot_variable('INSTALL_PRODUCTS') +
+                self._get_robot_variable('APPLY_PROFILES')
+            )
+        self['dirty'] = Value()
 
 
 PLONE_ROBOT_FIXTURE = PloneRobotFixture()
