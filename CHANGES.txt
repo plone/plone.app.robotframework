@@ -4,8 +4,12 @@ Changelog
 0.9.13 (unreleased)
 -------------------
 
-- Nothing changed yet.
-
+- Add support for lazy sandbox-server (Zope2Server) shutdown with
+  ``pybot --listener plone.app.framework.server.LazyStop`` or with
+  Sphinx extension ``plone.app.robotframeworks.server`` to allow
+  sequential Sphinx documents to share the same server for screenshots
+  generation
+  [datakurre]
 
 0.9.12 (2015-09-27)
 -------------------
