@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.9.13 (unreleased)
+0.9.13 (2015-10-10)
 -------------------
 
 - Add support for lazy sandbox-server (Zope2Server) shutdown with
