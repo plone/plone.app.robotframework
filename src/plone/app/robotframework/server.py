@@ -209,8 +209,11 @@ ZODB = RobotListener  # BBB
 
 class Zope2Server:
 
+    stop_zope_server_lazy = False  # trigger lazy Zope2Server shutdown
+    stop_zope_server_layer = None  # sticky layer for lazy shutdown
+
     def __init__(self):
-        self.zope_layer = None
+        self.zope_layer = self.stop_zope_server_layer
         self.extra_layers = {}
 
     def _import_layer(self, layer_dotted_name):
@@ -255,7 +258,12 @@ class Zope2Server:
         self.zope_layer = None
 
     def stop_zope_server(self):
-        tear_down()
+        if not self.stop_zope_server_lazy:
+            tear_down()
+        else:
+            # With lazy stop, the layer is saved to enable Zope2Server re-use
+            # within the same process, until tear_down is called explicitly.
+            Zope2Server.stop_zope_server_layer = self.zope_layer
         self.zope_layer = None
 
     def zodb_setup(self, layer_dotted_name=None):
@@ -349,3 +357,33 @@ class Zope2ServerRemote(RemoteLibrary):
 
     def remote_zodb_teardown(self, layer_dotted_name):
         Zope2Server().zodb_teardown(layer_dotted_name)
+
+
+class LazyStop:
+    """Robot Framework listener for enabling lazy Zope2Server shutdown with
+    normal Robot Framework test runner. Can be used to keep Zope2Server
+    running between otherwise independent test suites with matching layer.
+
+    Usage: pybot --listener plone.app.robotframework.LazyStop
+
+    """
+    ROBOT_LISTENER_API_VERSION = 2
+
+    def __init__(self):
+        Zope2Server.stop_zope_server_lazy = True
+
+    def close(self):
+        tear_down()
+
+
+def setup(app):
+    """Sphinx extension hook for enabling lazy Zope2Server shutdown with with
+    ``sphinxcontrib-robotframework`` embedded test suites. Can be used to keep
+    Zope2Server running between otherwise independent test suites with matching
+    layer.
+
+    Usage: extensions = ['plone.app.robotframework.server']
+
+    """
+    Zope2Server.stop_zope_server_lazy = True
+    app.connect('build-finished', lambda app, exception: tear_down())
