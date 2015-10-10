@@ -15,8 +15,6 @@ def indent(line):
 long_description = (
     open('README.rst').read()
     + '\n' +
-    indented('versions.cfg')
-    + '\n' +
     'Contributors\n'
     '============\n'
     + '\n' +
