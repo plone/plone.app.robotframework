@@ -4,8 +4,13 @@ Changelog
 0.9.14 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- With lazy sandbox-server shutdown, let test layers to declare themselves
+  dirty and force sandbox rebuild when required
+  [datakurre]
 
+- Fix PloneRobotFixture to know its deployment state and declare itself
+  dirty when required for lazy sandbox-server shutdown support
+  [datakurre]
 
 0.9.13 (2015-10-10)
 -------------------
