@@ -1,5 +1,7 @@
 *** Settings ***
 
+Force Tags  wip-not_in_docs
+
 Resource  plone/app/robotframework/selenium.robot
 
 Test Setup  Open test browser

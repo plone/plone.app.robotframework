@@ -134,6 +134,8 @@ For example, a ``test_hello.robot``:
 
    *** Settings ***
 
+    Force Tags  wip-not_in_docs
+
     Resource  plone/app/robotframework/selenium.robot
 
     Test Setup  Open test browser
@@ -162,6 +164,8 @@ Here is a more complicated example with some user keywords in action:
 .. code-block:: robotframework
 
    *** Settings ***
+
+    Force Tags  wip-not_in_docs
 
     Resource  plone/app/robotframework/selenium.robot
 
@@ -318,6 +322,8 @@ what to do next:
 
     *** Settings ***
 
+    Force Tags  wip-not_in_docs
+
     Resource  plone/app/robotframework/selenium.robot
 
     Library  Remote  ${PLONE_URL}/RobotRemote
@@ -353,6 +359,8 @@ figure out what to do next.
    .. code-block:: robotframework
 
       *** Settings ***
+
+      Force Tags  wip-not_in_docs
 
       ...
 

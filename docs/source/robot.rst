@@ -64,6 +64,8 @@ tests. Other keywords must be included by importing a keyword library in
 
    *** Settings ***
 
+   Force Tags  wip-not_in_docs
+
    Library  String
    Library  Selenium2Library
 
