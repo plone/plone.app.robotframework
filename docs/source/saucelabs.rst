@@ -81,6 +81,7 @@ Integrate with Sauce Labs
 
       *** Settings ***
 
+      Force Tags  wip-not_in_docs
       ...
 
       Resource  plone/app/robotframework/saucelabs.robot

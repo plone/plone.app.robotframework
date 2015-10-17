@@ -28,6 +28,11 @@ what to do next:
 
    .. code-block:: robotframework
 
+
+      *** Settings ***
+
+      Force Tags  wip-not_in_docs
+
       *** Test Cases ***
 
       Start interactive debugger with Debug-keyword from DebugLibrary
