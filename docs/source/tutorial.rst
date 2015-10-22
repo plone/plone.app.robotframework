@@ -13,9 +13,15 @@ Update requirements
 At first, we need to fix our product to require all the necessary dependencies
 for running Robot Framework tests.
 
-To fix our dependencies, we update ``my.product/setup.py`` with::
+To fix our dependencies, we update ``my.product/setup.py`` with
 
-    extras_require={'test': ['plone.app.testing[robot]]},
+..  code-block:: cfg
+
+    extras_require={
+        'test': [
+            'plone.app.testing[robot]',
+        ]
+    },
 
 .. note::
 
