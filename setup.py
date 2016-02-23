@@ -60,7 +60,7 @@ install_requires = [
     'zope.configuration',
     'zope.i18n',
     'zope.schema',
-    'zope.testing',
+    'zope.testrunner',
 ]
 
 test_requires = [

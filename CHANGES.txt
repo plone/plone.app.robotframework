@@ -4,8 +4,9 @@ Changelog
 0.9.15 (unreleased)
 -------------------
 
-- Nothing changed yet.
-
+- Replace import of ``zope.testing.testrunner`` with ``zope.testrunner``.
+  [thet]
+  
 
 0.9.14 (2015-10-11)
 -------------------
