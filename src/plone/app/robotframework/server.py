@@ -272,7 +272,7 @@ class Zope2Server:
         if layer_dotted_name:
             self.set_zope_layer(layer_dotted_name)
 
-        from zope.testing.testrunner.runner import order_by_bases
+        from zope.testrunner.runner import order_by_bases
         layers = order_by_bases([self.zope_layer])
         for layer in layers:
             if hasattr(layer, 'testSetUp'):
@@ -287,7 +287,7 @@ class Zope2Server:
         if layer_dotted_name:
             self.set_zope_layer(layer_dotted_name)
 
-        from zope.testing.testrunner.runner import order_by_bases
+        from zope.testrunner.runner import order_by_bases
         layers = order_by_bases([self.zope_layer])
         layers.reverse()
         for layer in layers:
@@ -327,7 +327,7 @@ def setup_layer(layer, setup_layers=setup_layers):
 
 
 def tear_down(setup_layers=setup_layers):
-    from zope.testing.testrunner.runner import order_by_bases
+    from zope.testrunner.runner import order_by_bases
     # Tear down any layers not needed for these tests. The unneeded layers
     # might interfere.
     unneeded = [l for l in setup_layers]
