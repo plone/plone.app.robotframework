@@ -1,5 +1,6 @@
 from setuptools import setup
 from setuptools import find_packages
+import sys
 
 version = '0.9.15.dev0'
 
@@ -43,9 +44,7 @@ install_requires = [
     'Products.MailHost',
     'Products.PlonePAS',
     'Products.PluggableAuthService',
-    'argparse',
     'babel',
-    'decorator',   # required by r.selenium2library on Python 2.6.x
     'five.globalrequest',
     'plone.app.testing',
     'plone.testing',
@@ -55,13 +54,19 @@ install_requires = [
     'robotsuite',  # not a direct dependency, but required for convenience
     'selenium',
     'setuptools',
-    'simplejson',  # required for SauceLabs-keywords on Python 2.6.x
     'zope.component',
     'zope.configuration',
     'zope.i18n',
     'zope.schema',
     'zope.testrunner',
 ]
+
+if sys.version_info < (2, 7):
+    install_requires.extend([
+        'argparse',
+        'decorator',   # required by r.selenium2library on Python 2.6.x
+        'simplejson',  # required for SauceLabs-keywords on Python 2.6.x
+        ])
 
 test_requires = [
     'plone.app.dexterity',

@@ -4,9 +4,14 @@ Changelog
 0.9.15 (unreleased)
 -------------------
 
+Fixes:
+
+- Do not require argparse, decorator, and simplejson in Python 2.7,
+  only lower.  [maurits]
+
 - Replace import of ``zope.testing.testrunner`` with ``zope.testrunner``.
   [thet]
-  
+
 
 0.9.14 (2015-10-11)
 -------------------
