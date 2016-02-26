@@ -110,7 +110,7 @@ setup(
         "Programming Language :: Python :: 2.6",
         "Programming Language :: Python :: 2.7",
     ],
-    keywords='',
+    keywords='robot automatic browser testing Plone',
     author='Asko Soukka',
     author_email='asko.soukka@iki.fi',
     url='https://github.com/plone/plone.app.robotframework/',
