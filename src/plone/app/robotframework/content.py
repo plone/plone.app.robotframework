@@ -205,7 +205,7 @@ class Content(RemoteLibrary):
 
             setattr(obj, field, value)
             obj.reindexObject()
-            notify(ObjectModifiedEvent(obj, dict(field=value)))
+            notify(ObjectModifiedEvent(obj))
 
     def uid_to_url(self, uid):
         """Return absolute path for an UID"""
