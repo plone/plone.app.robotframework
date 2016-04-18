@@ -14,8 +14,10 @@ New:
 
 Fixes:
 
-- *add item here*
-
+- Removed bad format parameter on ObjectModifiedEvent: must be an Attributes instance.
+  See zope.lifecycleevent.ObjectModifiedEvent class.
+  Removed because we can't get the interface and the correct fieldname.
+  [sgeulette]
 
 0.9.15 (2016-02-26)
 -------------------
