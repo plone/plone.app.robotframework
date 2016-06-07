@@ -4,14 +4,6 @@ Changelog
 0.9.16 (unreleased)
 -------------------
 
-Incompatibilities:
-
-- *add item here*
-
-New:
-
-- *add item here*
-
 Fixes:
 
 - Removed bad format parameter on ObjectModifiedEvent: must be an Attributes instance.
