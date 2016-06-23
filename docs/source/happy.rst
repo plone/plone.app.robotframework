@@ -300,14 +300,29 @@ Or exclude matching tests from being run:
    $ bin/test -t \!robot
 
 
-Running tests with the Google Chrome browser
---------------------------------------------
+Running tests with a different browser
+--------------------------------------
 
-In our setup, robot framework uses Firefox to run the robot tests.
-If you want to use a different browser, you can define it in an environment variable and make sure, any necessary webdriver application are installed.
-The tests can be started like so::
+Our robot configuration uses Firefox to run robot tests per default.
+To change this, you can pass an environment variable to zope.testrunner script.
+Make sure, any necessary webdriver applications are installed along with your browser (Firefox until version 46 ships with one preinstalled).
+Run your tests like so::
 
-    ROBOT_BROWSER=NAME_OF_EXECUTABLE_TO_USE ./bin/test --all -m MODULE_TO_TEST
+    ROBOT_BROWSER=BROWSER_CONFIG_NAME ./bin/test --all -m MODULE_TO_TEST
+
+The browser name is a configuration variable from Selenium2Library.
+The most important ones are::
+
+- android
+- chrome
+- firefox
+- internetexplorer
+- iphone
+- opera
+- phantomjs
+- safari
+
+For more information see: http://robotframework.org/Selenium2Library/doc/Selenium2Library.html#Open%20Browser
 
 In case for Google Chrome, do the following:
 
