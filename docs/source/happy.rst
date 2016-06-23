@@ -300,6 +300,25 @@ Or exclude matching tests from being run:
    $ bin/test -t \!robot
 
 
+Running tests with the Google Chrome browser
+--------------------------------------------
+
+In our setup, robot framework uses Firefox to run the robot tests.
+If you want to use a different browser, you can define it in an environment variable and make sure, any necessary webdriver application are installed.
+The tests can be started like so::
+
+    ROBOT_BROWSER=NAME_OF_EXECUTABLE_TO_USE ./bin/test --all -m MODULE_TO_TEST
+
+In case for Google Chrome, do the following:
+
+* Install the ``ChromeDriver`` from https://sites.google.com/a/chromium.org/chromedriver/
+  ChromeDriver needs to be accessible from your path.
+
+* Start the tests like so (An example testing the ``test_tinymce.robot`` test from ``Products.CMFPlone``)::
+
+    ROBOT_BROWSER=chrome ./bin/test --all -m Products.CMFPlone -t test_tinymce.robot
+
+
 How to write more tests
 -----------------------
 
