@@ -10,7 +10,8 @@ Breaking changes:
 
 New features:
 
-- *add item here*
+- Add ``Running tests with the Google Chrome browser`` section.
+  [thet]
 
 Bug fixes:
 

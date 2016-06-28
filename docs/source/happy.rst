@@ -300,6 +300,56 @@ Or exclude matching tests from being run:
    $ bin/test -t \!robot
 
 
+Running tests with a different browser
+--------------------------------------
+
+Our robot configuration uses Firefox to run robot tests per default.
+To change this, you can pass an environment variable to zope.testrunner script.
+Make sure, any necessary webdriver applications are installed along with your browser (Firefox until version 46 ships with one preinstalled).
+Run your tests like so::
+
+    ROBOT_BROWSER=BROWSER_CONFIG_NAME ./bin/test --all -m MODULE_TO_TEST
+
+The browser name is a configuration variable from Selenium2Library.
+The most important ones are::
+
+- android
+- chrome
+- firefox
+- internetexplorer
+- iphone
+- opera
+- phantomjs
+- safari
+
+For more information see: http://robotframework.org/Selenium2Library/doc/Selenium2Library.html#Open%20Browser
+
+In case for Google Chrome, do the following:
+
+* Install the ``ChromeDriver`` from https://sites.google.com/a/chromium.org/chromedriver/
+  ChromeDriver needs to be accessible from your path.
+
+* Start the tests like so (An example testing the ``test_tinymce.robot`` test from ``Products.CMFPlone``)::
+
+    ROBOT_BROWSER=chrome ./bin/test --all -m Products.CMFPlone -t test_tinymce.robot
+
+
+.. note::
+    If you want to run the tests with a different Firefox version than already installed, you can do the following (this applies to Linux based Systems):
+
+    1) Download the required version from https://ftp.mozilla.org/pub/firefox/releases/
+
+    2) Unzip it in a folder
+
+    3) Modify the ``PATH`` environment variable in a terminal to include the firefox binary before any other, like so::
+
+        $ export PATH=/home/user/Desktop/firefox43:$PATH
+
+    4) Run the tests in the same terminal session, where the modified PATH applies::
+
+        $ ./bin/test --all -m Products.CMFPlone -t test_tinymce.robot
+
+
 How to write more tests
 -----------------------
 
