@@ -334,6 +334,22 @@ In case for Google Chrome, do the following:
     ROBOT_BROWSER=chrome ./bin/test --all -m Products.CMFPlone -t test_tinymce.robot
 
 
+.. note::
+    If you want to run the tests with a different Firefox version than already installed, you can do the following (this applies to Linux based Systems):
+
+    1) Download the required version from https://ftp.mozilla.org/pub/firefox/releases/
+
+    2) Unzip it in a folder
+
+    3) Modify the ``PATH`` environment variable in a terminal to include the firefox binary before any other, like so::
+
+        $ export PATH=/home/user/Desktop/firefox43:$PATH
+
+    4) Run the tests in the same terminal session, where the modified PATH applies::
+
+        $ ./bin/test --all -m Products.CMFPlone -t test_tinymce.robot
+
+
 How to write more tests
 -----------------------
 
