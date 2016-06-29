@@ -1,8 +1,11 @@
 *** Settings ***
 
+# We set run_on_failure to Nothing because anything else interferes with
+# 'Wait until keyword succeeds', interpreting an initial failure as complete failure,
+# instead of waiting for a successful retry.
 Library  Selenium2Library  timeout=${SELENIUM_TIMEOUT}
 ...                        implicit_wait=${SELENIUM_IMPLICIT_WAIT}
-...                        run_on_failure=${SELENIUM_RUN_ON_FAILURE}
+...                        run_on_failure=Nothing
 
 Resource  variables.robot
 Resource  ${CMFPLONE_SELECTORS}
@@ -36,6 +39,15 @@ Wait until location is
     ${IMPLICIT_WAIT} =  Get Selenium implicit wait
     Wait until keyword succeeds  ${TIMEOUT}  ${IMPLICIT_WAIT}
     ...                          Location should be  ${expected_url}
+
+Plone Test Setup
+    Open SauceLabs test browser
+    Refresh JS/CSS resources
+
+Plone Test Teardown
+    Run Keyword If Test Failed  ${SELENIUM_RUN_ON_FAILURE}
+    Report test status
+    Close all browsers
 
 # ----------------------------------------------------------------------------
 # Elements

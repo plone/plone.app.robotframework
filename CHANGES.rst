@@ -10,6 +10,16 @@ Breaking changes:
 
 New features:
 
+- Do not use ``run_on_failure`` from ``Selenium2Library``.  This
+  interferes with ``Wait until keyword succeeds``: an initial failure
+  is seen as total failure instead of checking the retries of this
+  keyword.  Added ``Plone Test Setup`` and ``Plone Test Teardown``
+  keywords.  In that last one, in case of a failure do what used to be
+  done by ``run_on_failure``.  This means a screen shot by default,
+  but you can override this on the command line with for example
+  ``ROBOT_SELENIUM_RUN_ON_FAILURE=Debug``, or ``Nothing`` to ignore
+  it.  See https://github.com/plone/Products.CMFPlone/pull/1652  [maurits]
+
 - Add ``Running tests with the Google Chrome browser`` section.
   [thet]
 
