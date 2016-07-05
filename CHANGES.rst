@@ -25,7 +25,8 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Replaced deprecated ``Fail Unless Equal`` with ``Should Be Equal``
+  in test.  [maurits]
 
 
 0.9.16 (2016-06-07)
