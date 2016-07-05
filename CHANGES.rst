@@ -10,6 +10,8 @@ Breaking changes:
 
 New features:
 
+- Test with robotframework version 3.0.   [maurits]
+
 - Do not use ``run_on_failure`` from ``Selenium2Library``.  This
   interferes with ``Wait until keyword succeeds``: an initial failure
   is seen as total failure instead of checking the retries of this
@@ -25,7 +27,8 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Replaced deprecated ``Fail Unless Equal`` with ``Should Be Equal``
+  in test.  [maurits]
 
 
 0.9.16 (2016-06-07)
