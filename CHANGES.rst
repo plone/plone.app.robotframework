@@ -20,10 +20,6 @@ Bug fixes:
 0.9.17 (2016-07-15)
 -------------------
 
-Breaking changes:
-
-- *add item here*
-
 New features:
 
 - Test with robotframework version 3.0.   [maurits]
