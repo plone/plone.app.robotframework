@@ -6,15 +6,11 @@ Changelog
 
 Breaking changes:
 
-- *add item here*
-
-New features:
-
-- *add item here*
-
-Bug fixes:
-
-- *add item here*
+- Do not use ``run_on_failure`` from ``Selenium2Library``.  This
+  interferes with ``Wait until keyword succeeds``: an initial failure
+  is seen as total failure instead of checking the retries of this
+  keyword.  See https://github.com/plone/Products.CMFPlone/pull/1652
+  [maurits]
 
 
 0.9.17 (2016-07-15)
