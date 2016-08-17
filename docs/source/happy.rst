@@ -128,7 +128,8 @@ ending with ``.robot`` (and older ones with ``.txt``).
 
 The first test can be written anywhere in the filesystem.
 
-For example, a ``test_hello.robot``:
+
+For example, a ``test_hello.robot`` :
 
 .. code-block:: robotframework
 
@@ -137,7 +138,6 @@ For example, a ``test_hello.robot``:
     Force Tags  wip-not_in_docs
 
     Resource  plone/app/robotframework/selenium.robot
-
     Test Setup  Open test browser
     Test Teardown  Close all browsers
 
@@ -372,7 +372,7 @@ what to do next:
 
     *** Settings ***
 
-    Force Tags  wip-not_in_docs
+
 
     Resource  plone/app/robotframework/selenium.robot
 
@@ -410,7 +410,7 @@ figure out what to do next.
 
       *** Settings ***
 
-      Force Tags  wip-not_in_docs
+
 
       ...
 
