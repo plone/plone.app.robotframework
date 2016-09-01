@@ -322,7 +322,7 @@ The most important ones are::
 - phantomjs
 - safari
 
-For more information see: http://robotframework.org/Selenium2Library/doc/Selenium2Library.html#Open%20Browser
+For more information see: http://robotframework.org/Selenium2Library/Selenium2Library.html#Open%20Browser
 
 In case for Google Chrome, do the following:
 
