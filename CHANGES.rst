@@ -14,7 +14,8 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Update outdated link
+  [staeff]
 
 
 1.0 (2016-07-15)
