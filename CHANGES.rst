@@ -14,7 +14,7 @@ New features:
 
 Bug fixes:
 
-- Update outdated link
+- fix broken links
   [staeff]
 
 
