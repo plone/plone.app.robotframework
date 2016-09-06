@@ -362,7 +362,7 @@ At first, you should have a brief idea about the available keywords:
 * `Robot Framework built-in library documentation`__
 * `Robot Framework Selenium2Library documentation`__
 
-__ http://robotframework.googlecode.com/hg/doc/libraries/BuiltIn.html
+__ http://robotframework.org/robotframework/latest/libraries/BuiltIn.html
 __ http://rtomac.github.com/robotframework-selenium2library/doc/Selenium2Library.html
 
 Then, learn to use pause test execution to make it easier to figure out,
