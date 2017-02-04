@@ -42,9 +42,10 @@ Wait until location is
 
 Plone Test Setup
     Open SauceLabs test browser
-    Refresh JS/CSS resources
 
 Plone Test Teardown
+    Run Keyword If Test Failed  Log Location
+    Run Keyword If Test Failed  Log Source
     Run Keyword If Test Failed  ${SELENIUM_RUN_ON_FAILURE}
     Report test status
     Close all browsers
