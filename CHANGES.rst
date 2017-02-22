@@ -4,17 +4,10 @@ Changelog
 1.0.2 (unreleased)
 ------------------
 
-Breaking changes:
-
-- *add item here*
-
-New features:
-
-- *add item here*
-
 Bug fixes:
 
-- *add item here*
+- Fix issue where custom pybot-entrypoint failed to parse Sphinx-document with :ref:
+  [datakurre]
 
 
 1.0.1 (2016-09-08)
