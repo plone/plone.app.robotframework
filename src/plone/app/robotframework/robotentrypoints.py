@@ -19,12 +19,13 @@ def pybot():
     from docutils.parsers.rst.directives import register_directive
     from docutils.parsers.rst.roles import register_local_role
     dummy_directive = lambda *args: []
+    dummy_role = lambda *args: ([], [])
     options = ('maxdepth', 'creates', 'numbered', 'hidden')
     setattr(dummy_directive, 'content', True)
     setattr(dummy_directive, 'options', dict([(opt, str) for opt in options]))
     register_directive('toctree', dummy_directive)
     register_directive('robotframework', dummy_directive)
-    register_local_role('ref', dummy_directive)
+    register_local_role('ref', dummy_role)
 
     # Run pybot
     run_cli(sys.argv[1:])
@@ -80,12 +81,13 @@ def pybabel():
     from docutils.parsers.rst.directives import register_directive
     from docutils.parsers.rst.roles import register_local_role
     dummy_directive = lambda *args: []
+    dummy_role = lambda *args: ([], [])
     options = ('maxdepth', 'creates', 'numbered', 'hidden')
     setattr(dummy_directive, 'content', True)
     setattr(dummy_directive, 'options', dict([(opt, str) for opt in options]))
     register_directive('toctree', dummy_directive)
     register_directive('robotframework', dummy_directive)
-    register_local_role('ref', dummy_directive)
+    register_local_role('ref', dummy_role)
 
     from babel.messages.frontend import main
     main()
