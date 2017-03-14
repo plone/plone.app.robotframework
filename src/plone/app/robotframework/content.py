@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from datetime import datetime
 import os
 
 from Products.CMFCore.utils import getToolByName
@@ -173,6 +174,20 @@ class Content(RemoteLibrary):
                 value = int(value)
             if field_type == 'list':
                 value = eval(value)
+            if field_type.startswith('datetime'):
+                # field_type must begin with 'datetime'
+                # followed by optional format 'datetime%Y%m%d%H%M'
+                # without format: %Y%m%d%H%M is used
+                field_type = field_type[8:]
+                fmt = field_type and field_type or '%Y%m%d%H%M'
+                value = datetime.strptime(value, fmt)
+            if field_type.startswith('date'):
+                # field_type must begin with 'date'
+                # followed by optional format 'date%Y%m%d'
+                # without format: %Y%m%d is used
+                field_type = field_type[4:]
+                fmt = field_type and field_type or '%Y%m%d'
+                value = datetime.strptime(value, fmt).date()
             if field_type == 'reference' and HAS_DEXTERITY_RELATIONS:
                 results_referenced = pc.unrestrictedSearchResults(UID=value)
                 referenced_obj = results_referenced[0]._unrestrictedGetObject()

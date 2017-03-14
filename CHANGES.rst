@@ -10,7 +10,8 @@ king changes:
 
 New features:
 
-- *add item here*
+- Manage datetime and date field types in "set field value" keyword
+  [sgeulette]
 
 Bug fixes:
 
