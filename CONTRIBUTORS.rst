@@ -22,6 +22,7 @@
 - Roman Kozlovskyi
 - Silvio Tomatis
 - Steffen Lindner
+- Stephan Geulette
 - Timo Stollenwerk
 - Victor Fernandez de Alba
 - zotya
