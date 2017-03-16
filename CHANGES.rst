@@ -12,6 +12,8 @@ New features:
 
 - Manage datetime and date field types in "set field value" keyword
   [sgeulette]
+- Manage RelationList field using "references" field type in "set field value" keyword
+  [sgeulette]
 
 Bug fixes:
 

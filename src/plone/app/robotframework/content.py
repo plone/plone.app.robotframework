@@ -194,6 +194,15 @@ class Content(RemoteLibrary):
                 intids = getUtility(IIntIds)
                 referenced_obj_intid = intids.getId(referenced_obj)
                 value = RelationValue(referenced_obj_intid)
+            if field_type == 'references' and HAS_DEXTERITY_RELATIONS:
+                values = eval(value)
+                intids = getUtility(IIntIds)
+                value = []
+                for uid in values:
+                    results_referenced = pc.unrestrictedSearchResults(UID=uid)
+                    referenced_obj = results_referenced[0]._unrestrictedGetObject()
+                    referenced_obj_intid = intids.getId(referenced_obj)
+                    value.append(RelationValue(referenced_obj_intid))
             if field_type == 'text/html':
                 value = RichTextValue(
                     value,
