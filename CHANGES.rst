@@ -4,20 +4,13 @@ Changelog
 1.0.3 (unreleased)
 ------------------
 
-king changes:
-
-- *add item here*
-
 New features:
 
 - Manage datetime and date field types in "set field value" keyword
   [sgeulette]
+
 - Manage RelationList field using "references" field type in "set field value" keyword
   [sgeulette]
-
-Bug fixes:
-
-- *add item here*
 
 
 1.0.2 (2017-02-22)
