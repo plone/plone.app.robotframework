@@ -5,7 +5,7 @@
 # instead of waiting for a successful retry.
 Library  Selenium2Library  timeout=${SELENIUM_TIMEOUT}
 ...                        implicit_wait=${SELENIUM_IMPLICIT_WAIT}
-...                        run_on_failure=Nothing
+...                        run_on_failure=${SELENIUM2LIBRARY_RUN_ON_FAILURE}
 
 Resource  variables.robot
 Resource  ${CMFPLONE_SELECTORS}
@@ -15,6 +15,7 @@ Resource  ${CMFPLONE_SELECTORS}
 ${SELENIUM_IMPLICIT_WAIT}  0.5
 ${SELENIUM_TIMEOUT}  30
 ${SELENIUM_RUN_ON_FAILURE}  Capture Page Screenshot
+${SELENIUM2LIBRARY_RUN_ON_FAILURE}  No operation
 
 ${BROWSER}  Firefox
 ${REMOTE_URL}
