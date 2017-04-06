@@ -13,13 +13,16 @@ install:
 - bin/buildout -N -t 3 -c travis.cfg ${VERSIONS}
 script: bin/test
 after_script:
-- bin/sphinx-build docs/source docs/html
 - cd docs && ./libdoc.sh && cd ..
+- bin/sphinx-build docs/source docs/html
 - bundle install
 - bundle exec travis-artifacts upload --path parts/test
 - bundle exec travis-artifacts upload --path docs/html
 - bundle exec travis-artifacts upload --target-path latest --path docs/html
 - bundle exec travis-artifacts upload --target-path latest --path parts/test
+- 'echo "Sphinx: http://plone.app.robotframework.s3-website-us-east-1.amazonaws.com/artifacts/${TRAVIS_BUILD_NUMBER}/${TRAVIS_JOB_NUMBER}/"'
+- 'echo "Robot: http://plone.app.robotframework.s3-website-us-east-1.amazonaws.com/artifacts/${TRAVIS_BUILD_NUMBER}/${TRAVIS_JOB_NUMBER}/robot_report.html"'
+
 env:
   global:
   - secure: YLol0TyHB+XAUbCzzjfc5JJ5AFqEi/GVhGphtAAcSv8+JY6MhTVVTjyCPeoK 2nT7tDhQRnYKOAMBmTuP/TUdzFqBf5LvjrFxvcjBawJMRW85kuYEuXsS8XEx C+lc1bbXSUPGA0x03tvSHIYbCowvVPZNUupxgRQdW2QLa5HcSuQ=
@@ -31,7 +34,12 @@ env:
   - ROBOT_REMOTE_URL=http://$SAUCE_USERNAME:$SAUCE_ACCESS_KEY@ondemand.saucelabs.com:80/wd/hub
   matrix:
   - ROBOT_BROWSER=firefox ROBOT_DESIRED_CAPABILITIES=tunnel-identifier:$TRAVIS_JOB_NUMBER
+  - ROBOT_BROWSER=chrome ROBOT_DESIRED_CAPABILITIES=tunnel-identifier:$TRAVIS_JOB_NUMBER
   - ROBOT_BROWSER=ie ROBOT_DESIRED_CAPABILITIES=tunnel-identifier:$TRAVIS_JOB_NUMBER
+matrix:
+  allow_failures:
+  - env: ROBOT_BROWSER=ie ROBOT_DESIRED_CAPABILITIES=tunnel-identifier:$TRAVIS_JOB_NUMBER
+
 notifications:
   irc:
     channels:

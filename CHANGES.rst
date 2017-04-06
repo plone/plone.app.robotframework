@@ -10,11 +10,16 @@ Breaking changes:
 
 New features:
 
-- *add item here*
+- Add new variable ${SELENIUM2LIBRARY_RUN_ON_FAILURE} with default value
+  'No operation' (Robot Framework built-in keyword with no action) to define
+  operation immediately after failed Selenium keyword
+  [datakurre]
 
 Bug fixes:
 
-- *add item here*
+- Fix issue where an error "No keyword with name 'No keyword' found." after
+  a failing test was reported
+  [datakurre]
 
 
 1.0.3 (2017-03-28)
