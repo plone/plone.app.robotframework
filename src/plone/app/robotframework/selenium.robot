@@ -50,6 +50,10 @@ Plone Test Teardown
     Report test status
     Close all browsers
 
+Capture page screenshot and log source
+    Capture page screenshot
+    Log source
+
 # ----------------------------------------------------------------------------
 # Elements
 # ----------------------------------------------------------------------------
