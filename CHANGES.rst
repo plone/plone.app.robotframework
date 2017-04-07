@@ -4,10 +4,6 @@ Changelog
 1.1 (unreleased)
 ----------------
 
-Breaking changes:
-
-- *add item here*
-
 New features:
 
 - Add new variable ${SELENIUM2LIBRARY_RUN_ON_FAILURE} with default value
