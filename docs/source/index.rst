@@ -50,7 +50,7 @@ tests:
 * `Robot Framework Selenium2Library documentation`__
 
 __ http://robotframework.org/robotframework/latest/libraries/BuiltIn.html
-__ http://robotframework.org/Selenium2Library/doc/Selenium2Library.html
+__ http://robotframework.org/Selenium2Library/Selenium2Library.html
 
 
 Advanced topics
@@ -133,8 +133,8 @@ Other resources
 * `List of available Robot Framework test libraries`__
 * :doc:`plone.app.robotframework examples of use <examples>`
 
-__ http://code.google.com/p/robotframework/wiki/HowToWriteGoodTestCases
-__ http://code.google.com/p/robotframework/wiki/TestLibraries
+__ https://github.com/robotframework/HowToWriteGoodTestCases/blob/master/HowToWriteGoodTestCases.rst
+__ http://robotframework.org/#libraries
 
 
 Old tutorials
