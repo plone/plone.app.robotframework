@@ -14,7 +14,7 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Update links to external documentation.  [jensens]
 
 
 1.1 (2017-04-08)
