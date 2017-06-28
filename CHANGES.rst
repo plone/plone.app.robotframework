@@ -4,14 +4,6 @@ Changelog
 1.1.1 (unreleased)
 ------------------
 
-Breaking changes:
-
-- *add item here*
-
-New features:
-
-- *add item here*
-
 Bug fixes:
 
 - Update links to external documentation.  [jensens]
