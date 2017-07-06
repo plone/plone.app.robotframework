@@ -322,3 +322,9 @@ Checkbox Select
     [arguments]  ${title}
     ${for}=  Get Element Attribute  xpath=//table[contains(@class, 'group')]//label[contains(., "${title}")]@for
     Select Checkbox  id=${for}
+
+Remove line from textarea
+    [arguments]  ${fieldName}  ${value}
+    ${lines}=  Get value  name=${fieldName}
+    ${lines}=  Remove String  ${lines}  ${value}\n
+    Input Text  name=${fieldName}  ${lines}

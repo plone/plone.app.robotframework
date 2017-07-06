@@ -10,6 +10,7 @@ all the keywords that are necessary to write acceptance test in Plone.
    :maxdepth: 1
 
    content.rst
+   generic.rst
    browser.rst
    login.rst
    history.rst
