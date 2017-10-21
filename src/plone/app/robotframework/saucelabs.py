@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import re
 import os
-import httplib
+from plone.app.robotframework._compat import HTTPConnection
 import base64
 try:
     import json
@@ -39,7 +39,7 @@ class SauceLabs:
                            'passed': status == 'PASS',
                            'tags': tags})
 
-        connection = httplib.HTTPConnection('saucelabs.com')
+        connection = HTTPConnection('saucelabs.com')
         connection.request('PUT', '/rest/v1/%s/jobs/%s' % (
             username, job_id), body,
             headers={'Authorization': 'Basic %s' % token}
