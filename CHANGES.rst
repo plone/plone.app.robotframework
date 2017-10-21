@@ -14,7 +14,8 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Imports are Python3 compatible
+  [b4oshany]
 
 
 1.1.2 (2018-01-30)

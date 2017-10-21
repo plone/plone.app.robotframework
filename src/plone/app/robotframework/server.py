@@ -5,8 +5,8 @@ import select
 import os
 import sys
 import time
-import xmlrpclib
-from SimpleXMLRPCServer import SimpleXMLRPCServer
+from plone.app.robotframework._compat.xmlrpc.client import ServerProxy
+from plone.app.robotframework._compat import SimpleXMLRPCServer
 
 import pkg_resources
 
@@ -196,7 +196,7 @@ class RobotListener:
     def __init__(self):
         server_listener_address = 'http://%s:%s' % (
             LISTENER_HOST, LISTENER_PORT)
-        self.server = xmlrpclib.ServerProxy(server_listener_address)
+        self.server = ServerProxy(server_listener_address)
 
     def start_test(self, name, attrs):
         self.server.zodb_setup()

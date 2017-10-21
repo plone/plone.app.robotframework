@@ -1,7 +1,9 @@
 syntax: glob
 *.egg-info
 *.mo
+*.swp
 *.pyc
+*.py.bak
 .DS_Store
 .idea
 .installed.cfg
