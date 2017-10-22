@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import re
 import os
-from plone.app.robotframework._compat import HTTPConnection
 import base64
+from six.moves.http_client import HTTPConnection
 try:
     import json
     json  # pyflakes

@@ -283,7 +283,7 @@ def prefill_image_types(portal, kwargs):
 
 def random_image():
     import random
-    from plone.app.robotframework._compat import StringIO
+    from six import StringIO
     from PIL import Image
     from PIL import ImageDraw
 

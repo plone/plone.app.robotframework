@@ -5,8 +5,8 @@ import select
 import os
 import sys
 import time
-from plone.app.robotframework._compat.xmlrpc.client import ServerProxy
-from plone.app.robotframework._compat import SimpleXMLRPCServer
+from six.moves.xmlrpc_client import ServerProxy
+from six.moves.xmlrpc_server import SimpleXMLRPCServer
 
 import pkg_resources
 
