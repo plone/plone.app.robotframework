@@ -14,7 +14,8 @@ New features:
 
 Bug fixes:
 
-- Imports are Python3 compatible
+- Imports are Python3 compatible.
+  Adds six into install_requires set and sorts each file's imports with the isort package.
   [b4oshany]
 
 

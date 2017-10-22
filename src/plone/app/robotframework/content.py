@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
-import os
-
-from Products.CMFCore.utils import getToolByName
 from plone.app.robotframework.config import HAS_BLOBS
 from plone.app.robotframework.config import HAS_DEXTERITY
 from plone.app.robotframework.config import HAS_DEXTERITY_RELATIONS
@@ -10,6 +7,7 @@ from plone.app.robotframework.remote import RemoteLibrary
 from plone.app.robotframework.utils import disableCSRFProtection
 from plone.i18n.normalizer.interfaces import IURLNormalizer
 from plone.uuid.interfaces import IUUID
+from Products.CMFCore.utils import getToolByName
 from zope.component import ComponentLookupError
 from zope.component import getUtility
 from zope.component import queryUtility
@@ -17,6 +15,10 @@ from zope.component.hooks import getSite
 from zope.event import notify
 from zope.globalrequest import getRequest
 from zope.lifecycleevent import ObjectModifiedEvent
+
+import os
+import six
+
 
 if HAS_DEXTERITY:
     from plone.app.textfield.value import RichTextValue
@@ -137,10 +139,10 @@ class Content(RemoteLibrary):
                 if widget and name in kwargs:
                     if not IFromUnicode.providedBy(field):
                         value = kwargs[name]
-                    elif isinstance(kwargs[name], unicode):
+                    elif isinstance(kwargs[name], six.text_type):
                         value = kwargs[name]
                     else:
-                        value = unicode(str(kwargs[name]), 'utf-8',
+                        value = six.text_type(str(kwargs[name]), 'utf-8',
                                         errors='ignore')
                     converter = IDataConverter(widget)
                     dm = queryMultiAdapter((content, field), IDataManager)

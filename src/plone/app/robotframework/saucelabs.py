@@ -1,15 +1,18 @@
 # -*- coding: utf-8 -*-
-import re
-import os
-import base64
+from robot.libraries.BuiltIn import BuiltIn
 from six.moves.http_client import HTTPConnection
+
+import base64
+import os
+import re
+
+
 try:
     import json
     json  # pyflakes
 except ImportError:
     import simplejson as json
 
-from robot.libraries.BuiltIn import BuiltIn
 
 USERNAME_ACCESS_KEY = re.compile('^(http|https):\/\/([^:]+):([^@]+)@')
 

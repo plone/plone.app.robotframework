@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
-import argparse
-import logging
-import select
-import os
-import sys
-import time
+from plone.app.robotframework.remote import RemoteLibrary
 from six.moves.xmlrpc_client import ServerProxy
 from six.moves.xmlrpc_server import SimpleXMLRPCServer
 
+import argparse
+import logging
+import os
 import pkg_resources
+import select
+import sys
+import time
+
 
 try:
     pkg_resources.get_distribution('watchdog')
@@ -19,7 +21,6 @@ else:
     from plone.app.robotframework.reload import Watcher
     HAS_RELOAD = True
 
-from plone.app.robotframework.remote import RemoteLibrary
 
 HAS_DEBUG_MODE = False
 HAS_VERBOSE_CONSOLE = False
