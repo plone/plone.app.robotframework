@@ -14,7 +14,9 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Use ``get_installer`` for checking if a product is installed.
+  Fall back to getting the ``portal_quickinstaller`` tool.
+  [maurits]
 
 
 1.1.1 (2017-06-28)
