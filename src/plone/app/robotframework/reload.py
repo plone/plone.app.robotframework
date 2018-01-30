@@ -37,7 +37,7 @@ class Watcher(FileSystemEventHandler):
         registerHandler(signal.SIGTERM, self._exitHandler)
 
         for path in self.paths:
-            print WAIT("Watchdog is watching for changes in %s" % path)
+            print(WAIT("Watchdog is watching for changes in %s" % path))
             observer = Observer()
             self.observers.append(observer)
             observer.schedule(self, path=path, recursive=True)
@@ -62,16 +62,16 @@ class Watcher(FileSystemEventHandler):
                     break
 
             if self.last_event + self.minimum_wait < time.time():
-                print WAIT("Watchdog got %s event on %s"
-                           % (event_type, event_relpath))
+                print(WAIT("Watchdog got %s event on %s"
+                           % (event_type, event_relpath)))
                 try:
                     self.forkloop.forkNewChild()
                     self.last_event = time.time()
                 except Exception as e:
-                    print ERROR(str(e))
+                    print(ERROR(str(e)))
             else:
-                print WAIT("Watchdog skipped %s event on %s"
-                           % (event_type, event_relpath))
+                print(WAIT("Watchdog skipped %s event on %s"
+                           % (event_type, event_relpath)))
 
 
 class ForkLoop(object):
@@ -132,7 +132,7 @@ class ForkLoop(object):
 
         self.active = True
 
-        print WAIT("Fork loop now starting on parent process %i" % os.getpid())
+        print(WAIT("Fork loop now starting on parent process %i" % os.getpid()))
         while True:
             self.forking = False
 
@@ -147,12 +147,12 @@ class ForkLoop(object):
                     continue
 
                 if not self.killed_child:
-                    print ERROR(
+                    print(ERROR(
                         "Forked child process died on bootup. "
                         "Fix possible errors and save edits. "
                         "We are now paused until we detect the next file "
                         "change..."
-                    )
+                    ))
 
                     # Child died because of unknown reason. Mark it as killed
                     # and go into pause mode.
@@ -175,7 +175,7 @@ class ForkLoop(object):
 
         self.forking = False
 
-        print WAIT("Fork loop forked a new child process %i" % (os.getpid()))
+        print(WAIT("Fork loop forked a new child process %i" % (os.getpid())))
 
     def forkNewChild(self):
         """STEP 1 (parent): New child process forking starts by killing the
@@ -201,7 +201,7 @@ class ForkLoop(object):
         else:
             # Ok, we already have sent the SIGINT the child, but asking for new
             # child
-            print WAIT("Fork loop scheduling a new fork")
+            print(WAIT("Fork loop scheduling a new fork"))
             self._scheduleFork()
 
         self.killed_child = True
@@ -226,8 +226,8 @@ class ForkLoop(object):
 
         while self.isChildAlive():
             # XXX: Somehow this may get stuck if we don't print before kill
-            print WAIT("Fork loop is terminating its child process %s" %
-                       self.child_pid)
+            print(WAIT("Fork loop is terminating its child process %s" %
+                       self.child_pid))
             self._killChild()
             time.sleep(2)
 
@@ -259,14 +259,14 @@ class ForkLoop(object):
                 exit_flags.append("exited with code %d" % code)
 
             if exit_status == 0:
-                print WAIT("Fork loop terminated child process %d" % pid)
+                print(WAIT("Fork loop terminated child process %d" % pid))
 
             elif exit_flags:
-                print ERROR("Forked child process %d %s"
-                            % (pid, ", ".join(exit_flags)))
+                print(ERROR("Forked child process %d %s"
+                            % (pid, ", ".join(exit_flags))))
             else:
-                print ERROR("Forked child process %d exited with code %s"
-                            % (pid, exit_status))
+                print(ERROR("Forked child process %d exited with code %s"
+                            % (pid, exit_status)))
 
         except OSError:
             # OSError: [Errno 10] No child processes

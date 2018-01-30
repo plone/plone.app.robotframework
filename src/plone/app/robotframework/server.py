@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from __future__ import print_function
 from plone.app.robotframework.remote import RemoteLibrary
 from six.moves.xmlrpc_client import ServerProxy
 from six.moves.xmlrpc_server import SimpleXMLRPCServer
@@ -37,12 +38,12 @@ READY = lambda msg: '{0} [\033[32m ready \033[0m] {1}'.format(TIME(), msg)
 
 def start(zope_layer_dotted_name):
 
-    print WAIT("Starting Zope 2 server")
+    print(WAIT("Starting Zope 2 server"))
 
     zsl = Zope2Server()
     zsl.start_zope_server(zope_layer_dotted_name)
 
-    print READY("Started Zope 2 server")
+    print(READY("Started Zope 2 server"))
 
     listener = SimpleXMLRPCServer((LISTENER_HOST, LISTENER_PORT),
                                   logRequests=False)
@@ -53,19 +54,19 @@ def start(zope_layer_dotted_name):
     try:
         listener.serve_forever()
     finally:
-        print
-        print WAIT("Stopping Zope 2 server")
+        print()
+        print(WAIT("Stopping Zope 2 server"))
 
         zsl.stop_zope_server()
 
-        print READY("Zope 2 server stopped")
+        print(READY("Zope 2 server stopped"))
 
 
 def start_reload(zope_layer_dotted_name, reload_paths=('src',),
                  preload_layer_dotted_name='plone.app.testing.PLONE_FIXTURE',
                  extensions=None):
 
-    print WAIT("Starting Zope 2 server")
+    print(WAIT("Starting Zope 2 server"))
 
     zsl = Zope2Server()
     zsl.start_zope_server(preload_layer_dotted_name)
@@ -80,9 +81,9 @@ def start_reload(zope_layer_dotted_name, reload_paths=('src',),
     forkloop.start()
 
     if forkloop.exit:
-        print WAIT("Stopping Zope 2 server")
+        print(WAIT("Stopping Zope 2 server"))
         zsl.stop_zope_server()
-        print READY("Zope 2 server stopped")
+        print(READY("Zope 2 server stopped"))
         return
 
     # XXX: For unknown reason call to socket.gethostbyaddr may cause malloc
@@ -110,14 +111,14 @@ def start_reload(zope_layer_dotted_name, reload_paths=('src',),
     if 'Darwin' in platform.uname():
         socket.gethostbyaddr = gethostbyaddr
 
-    print READY("Zope 2 server started")
+    print(READY("Zope 2 server started"))
 
     try:
         listener = SimpleXMLRPCServer((LISTENER_HOST, LISTENER_PORT),
                                       logRequests=False)
     except socket.error as e:
-        print ERROR(str(e))
-        print WAIT("Pruning Zope 2 server")
+        print(ERROR(str(e)))
+        print(WAIT("Pruning Zope 2 server"))
         zsl.prune_zope_server()
         return
 
@@ -132,7 +133,7 @@ def start_reload(zope_layer_dotted_name, reload_paths=('src',),
     except select.error:  # Interrupted system call
         pass
     finally:
-        print WAIT("Pruning Zope 2 server")
+        print(WAIT("Pruning Zope 2 server"))
         zsl.prune_zope_server()
 
 
@@ -278,11 +279,11 @@ class Zope2Server:
         for layer in layers:
             if hasattr(layer, 'testSetUp'):
                 if HAS_VERBOSE_CONSOLE:
-                    print WAIT("Test set up {0}.{1}".format(
-                        layer.__module__, layer.__name__))
+                    print(WAIT("Test set up {0}.{1}".format(
+                        layer.__module__, layer.__name__)))
                 layer.testSetUp()
         if HAS_VERBOSE_CONSOLE:
-            print READY("Test set up")
+            print(READY("Test set up"))
 
     def zodb_teardown(self, layer_dotted_name=None):
         if layer_dotted_name:
@@ -294,11 +295,11 @@ class Zope2Server:
         for layer in layers:
             if hasattr(layer, 'testTearDown'):
                 if HAS_VERBOSE_CONSOLE:
-                    print WAIT("Test tear down {0}.{1}".format(
-                        layer.__module__, layer.__name__))
+                    print(WAIT("Test tear down {0}.{1}".format(
+                        layer.__module__, layer.__name__)))
                 layer.testTearDown()
         if HAS_VERBOSE_CONSOLE:
-            print READY("Test torn down")
+            print(READY("Test torn down"))
 
 
 setup_layers = {}
@@ -313,11 +314,11 @@ def setup_layer(layer, setup_layers=setup_layers):
         if hasattr(layer, 'setUp'):
             name = "{0}.{1}".format(layer.__module__, layer.__name__)
             if HAS_VERBOSE_CONSOLE and name == 'plone.testing.z2.Startup':
-                print WAIT("Set up {0}.{1} (debug-mode={2})".format(
-                    layer.__module__, layer.__name__, HAS_DEBUG_MODE))
+                print(WAIT("Set up {0}.{1} (debug-mode={2})".format(
+                    layer.__module__, layer.__name__, HAS_DEBUG_MODE)))
             elif HAS_VERBOSE_CONSOLE:
-                print WAIT("Set up {0}.{1}".format(layer.__module__,
-                                                   layer.__name__))
+                print(WAIT("Set up {0}.{1}".format(layer.__module__,
+                                                   layer.__name__)))
             layer.setUp()
             if HAS_DEBUG_MODE and name == 'plone.testing.z2.Startup':
                 import App.config
@@ -339,8 +340,8 @@ def tear_down(setup_layers=setup_layers):
             try:
                 if hasattr(l, 'tearDown'):
                     if HAS_VERBOSE_CONSOLE:
-                        print WAIT("Tear down {0}.{1}".format(l.__module__,
-                                                              l.__name__))
+                        print(WAIT("Tear down {0}.{1}".format(l.__module__,
+                                                              l.__name__)))
                     l.tearDown()
             except NotImplementedError:
                 pass
