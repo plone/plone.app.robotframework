@@ -106,6 +106,7 @@ setup(
     description="Robot Framework testing resources for Plone",
     long_description=long_description,
     classifiers=[
+        "License :: OSI Approved :: GNU General Public License (GPL)",
         "Programming Language :: Python",
         "Programming Language :: Python :: 2.6",
         "Programming Language :: Python :: 2.7",
@@ -114,7 +115,7 @@ setup(
     author='Asko Soukka',
     author_email='asko.soukka@iki.fi',
     url='https://github.com/plone/plone.app.robotframework/',
-    license='gpl',
+    license='GPL',
     packages=find_packages('src'),
     package_dir={'': 'src'},
     namespace_packages=['plone', 'plone.app'],
