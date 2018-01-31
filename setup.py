@@ -41,7 +41,7 @@ install_requires = [
     'Products.CMFCore',
     'Products.CMFPlone',
     'Products.MailHost',
-    'Products.PlonePAS',
+    'Products.PlonePAS >= 5.0.1',
     'Products.PluggableAuthService',
     'babel',
     'five.globalrequest',
