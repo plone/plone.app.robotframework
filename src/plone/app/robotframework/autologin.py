@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from Products.PlonePAS.Extensions.Install import activatePluginInterfaces
+from Products.PlonePAS.setuphandlers import activatePluginInterfaces
 from Products.PluggableAuthService.plugins import DomainAuthHelper
 from plone.app.robotframework.remote import RemoteLibrary
 from plone.app.robotframework.utils import disableCSRFProtection
