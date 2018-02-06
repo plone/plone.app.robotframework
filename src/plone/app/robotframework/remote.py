@@ -45,7 +45,7 @@ class RemoteLibrary(SimpleItem):
         result = {'error': '', 'return': ''}
         try:
             retval = func(*args, **kwargs)
-        except Exception, e:
+        except Exception as e:
             result['status'] = 'FAIL'
             result['error'] = str(e)
         else:

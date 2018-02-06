@@ -5,7 +5,6 @@ This module is located below tests directory to avoid confusing it with any
 re-usable resources of plone.app.robotframework.
 """
 from Acquisition import aq_base
-from Products.MailHost.interfaces import IMailHost
 from plone.app.robotframework.autologin import AutoLogin
 from plone.app.robotframework.content import Content
 from plone.app.robotframework.genericsetup import GenericSetup
@@ -15,19 +14,24 @@ from plone.app.robotframework.quickinstaller import QuickInstaller
 from plone.app.robotframework.remote import RemoteLibraryLayer
 from plone.app.robotframework.server import Zope2ServerRemote
 from plone.app.robotframework.users import Users
+from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
 from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import PloneSandboxLayer
-from plone.app.testing import applyProfile
 from plone.app.testing import ploneSite
 from plone.testing import Layer
 from plone.testing import z2
+from Products.MailHost.interfaces import IMailHost
+from robot.libraries.BuiltIn import BuiltIn
 from zope.component import getSiteManager
 from zope.configuration import xmlconfig
+
 import os
 import pkg_resources
+import six
 import sys
+
 
 try:
     pkg_resources.get_distribution('collective.js.speakjs')
@@ -35,7 +39,8 @@ except pkg_resources.DistributionNotFound:
     HAS_SPEAKJS = False
 else:
     HAS_SPEAKJS = True
-from robot.libraries.BuiltIn import BuiltIn
+
+
 
 
 class SimplePublicationLayer(Layer):
@@ -152,7 +157,7 @@ class PloneRobotFixture(PloneSandboxLayer):
         """
         if getattr(BuiltIn(), '_context', None) is not None:
             value = BuiltIn().get_variable_value('${%s}' % name, [])
-            if isinstance(value, str) or isinstance(value, unicode):
+            if isinstance(value, str) or isinstance(value, six.text_type):
                 return value.split(',')
             else:
                 return value

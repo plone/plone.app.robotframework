@@ -10,7 +10,9 @@ Breaking changes:
 
 New features:
 
-- *add item here*
+- Imports are Python3 compatible. Add six into install_requires set and sort
+  each file's imports with the isort package.
+  [b4oshany, @davilima6]
 
 Bug fixes:
 

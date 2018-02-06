@@ -1,9 +1,9 @@
-import sys
-
+from __future__ import print_function
 from robot import run_cli
 from robot import libdoc as ld
 
 import pkg_resources
+import sys
 
 try:
     pkg_resources.get_distribution('robotframework-ride')
@@ -47,7 +47,7 @@ def ride():
         from robotide import main
         main(*sys.argv[1:])
     else:
-        print u"""\
+        print(u"""\
 Package robotframework-ride was not found. Please, install
 plone.app.robotframework with proper extras, like:
 
@@ -61,7 +61,7 @@ Remember that ride must be lauched with system python with
 wxPython installed, like:
 
     /usr/bin/python bin/ride
-"""
+""")
 
 
 def libdoc():
