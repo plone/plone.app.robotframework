@@ -4,19 +4,11 @@ Changelog
 1.2.0 (unreleased)
 ------------------
 
-Breaking changes:
-
-- *add item here*
-
 New features:
 
 - Imports are Python3 compatible. Add six into install_requires set and sort
   each file's imports with the isort package.
   [b4oshany, @davilima6]
-
-Bug fixes:
-
-- *add item here*
 
 
 1.1.3 (2018-02-02)
