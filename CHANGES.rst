@@ -14,7 +14,10 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Create user with roles
+  with args:   Create user  siteadmin  Contributor  Reviewer  Site Administrator
+  with kwargs: Create user  siteadmin  roles=('Contributor','Reviewer','Site Administrator')
+  [ksuess]
 
 
 1.2.0 (2018-02-23)
