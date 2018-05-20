@@ -25,16 +25,16 @@ Test user creation with roles as args
     Create user  siteadmin  Contributor  Reviewer  Site Administrator
     Disable autologin
     Log in  siteadmin  siteadmin
+    Go to homepage
     
-    Page should contain  You are now logged in
     Page should contain  siteadmin
     Page should contain  Manage portlets
 
 Test user creation with roles as kwarg
     Enable autologin as  Manager
-    Create user  siteadmin2  roles=('Contributor','Reviewer','Site Administrator')
-    Log in  siteadmin2  siteadmin2
+    Create user  siteadmin  roles=('Contributor','Reviewer','Site Administrator')
+    Log in  siteadmin  siteadmin
+    Go to homepage
     
-    Page should contain  You are now logged in
-    Page should contain  siteadmin2
+    Page should contain  siteadmin
     Page should contain  Manage portlets
