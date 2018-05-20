@@ -52,7 +52,8 @@ class Users(RemoteLibrary):
 
         user_id = use_email_as_username and properties['email'] or username
         password = properties.pop('password', username)
-        roles = properties.pop('roles', ('Member', ))
+        roles.extend(eval(properties.pop('roles', '()')))
+        roles.append('Member')
 
         properties['username'] = user_id
         registration.addMember(
