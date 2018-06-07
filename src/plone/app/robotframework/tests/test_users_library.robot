@@ -32,7 +32,8 @@ Test user creation with roles as args
 
 Test user creation with roles as kwarg
     Enable autologin as  Manager
-    Create user  siteadmin  roles=('Contributor','Reviewer','Site Administrator')
+    @{roles} =  Create list  Contributor  Reviewer  Site Administrator
+    Create user  siteadmin  roles=@{roles}
     Log in  siteadmin  siteadmin
     Go to homepage
     
