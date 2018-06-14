@@ -14,7 +14,16 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Fixed create user with multiple roles with args::
+
+      Create user  siteadmin  Contributor  Reviewer  Site Administrator
+
+  and with kwargs::
+
+      @{roles} =  Create list  Contributor  Reviewer  Site Administrator
+      Create user  siteadmin  roles=@{roles}
+
+  [ksuess, datakurre]
 
 
 1.2.0 (2018-02-23)
