@@ -4,14 +4,6 @@ Changelog
 1.2.1 (unreleased)
 ------------------
 
-Breaking changes:
-
-- *add item here*
-
-New features:
-
-- *add item here*
-
 Bug fixes:
 
 - Fixed create user with multiple roles with args::
