@@ -24,7 +24,7 @@ class RemoteLibrary(SimpleItem):
             'get_keyword_documentation',
             'run_keyword'
         ])
-        names = filter(lambda x: x[0] != '_' and x not in blacklist, dir(self))
+        names = [x for x in dir(self) if x[0] != '_' and x not in blacklist]
         return names
 
     def get_keyword_arguments(self, name):

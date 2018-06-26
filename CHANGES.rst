@@ -14,7 +14,8 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Add support for Python 3.
+  [davisagli]
 
 
 1.2.1 (2018-06-22)
