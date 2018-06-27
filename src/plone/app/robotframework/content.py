@@ -285,7 +285,7 @@ def prefill_image_types(portal, kwargs):
 
 def random_image():
     import random
-    from six import StringIO
+    from six import BytesIO
     from PIL import Image
     from PIL import ImageDraw
 
@@ -302,7 +302,7 @@ def random_image():
     )
     del draw
 
-    result = StringIO()
+    result = BytesIO()
     img.save(result, 'PNG')
     result.seek(0)
     return result
