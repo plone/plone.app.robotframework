@@ -15,11 +15,11 @@ script: bin/test
 after_script:
 - cd docs && ./libdoc.sh && cd ..
 - bin/sphinx-build docs/source docs/html
-- bundle install
-- bundle exec travis-artifacts upload --path parts/test
-- bundle exec travis-artifacts upload --path docs/html
-- bundle exec travis-artifacts upload --target-path latest --path docs/html
-- bundle exec travis-artifacts upload --target-path latest --path parts/test
+- curl -sL https://raw.githubusercontent.com/travis-ci/artifacts/master/install | bash
+- artifacts upload parts/test
+- artifacts upload docs/html
+- artifacts upload parts/test --target-path latest
+- artifacts upload docs/html --target-path latest
 - 'echo "Sphinx: http://plone.app.robotframework.s3-website-us-east-1.amazonaws.com/artifacts/${TRAVIS_BUILD_NUMBER}/${TRAVIS_JOB_NUMBER}/"'
 - 'echo "Robot: http://plone.app.robotframework.s3-website-us-east-1.amazonaws.com/artifacts/${TRAVIS_BUILD_NUMBER}/${TRAVIS_JOB_NUMBER}/robot_report.html"'
 
