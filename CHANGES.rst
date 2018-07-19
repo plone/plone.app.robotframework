@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.3.0 (unreleased)
+1.2.2 (unreleased)
 ------------------
 
 Breaking changes:
@@ -10,9 +10,7 @@ Breaking changes:
 
 New features:
 
-- Upgrade KGS (versions.cfg).
-  Use newer selenium drivers and dependencies.
-  [gotcha]
+- *add item here*
 
 Bug fixes:
 
