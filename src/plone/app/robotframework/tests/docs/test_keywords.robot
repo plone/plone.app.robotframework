@@ -27,7 +27,9 @@ I'm logged in as a '${ROLE}'
     Go to  ${PLONE_URL}
 
 I open the personal menu
-    Click link  css=#user-name
+    # Note: There is a key word "Open User Menu" as well.
+    Click link  css=#portal-personaltools a
+    Wait Until Element Is Visible  css=#portal-personaltools .plone-toolbar-submenu-header
 
 I see the Site Setup -link
     Element should be visible  css=#personaltools-plone_setup

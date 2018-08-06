@@ -134,7 +134,7 @@ Open Menu
     Wait Until Element Is Visible  css=#${elementId} .plone-toolbar-submenu-header
 
 Open User Menu
-    Open Menu  portal-personal-tools
+    Open Menu  portal-personaltools
 
 Open Add New Menu
     Open Menu  plone-contentmenu-factories
