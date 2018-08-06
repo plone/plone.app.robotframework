@@ -14,6 +14,9 @@ New features:
 
 Bug fixes:
 
+- Fix RemoteLibrary ``i18n`` to work proper with registry based settings.
+  [jensens]
+
 - Make robotframework work with merged ``plone.login``.
   [jensens]
 
