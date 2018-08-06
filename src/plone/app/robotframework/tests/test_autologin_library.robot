@@ -65,7 +65,6 @@ I can add a new folder
     Add folder  New folder
     Go to  ${PLONE_URL}/new-folder
     Page should contain  New folder
-    Element should contain  css=.documentAuthor  Contributor
 
 I've created a test folder
     Enable autologin as  Contributor
@@ -74,7 +73,6 @@ I've created a test folder
     Add folder  Test folder
     Go to  ${PLONE_URL}/test-folder
     Page should contain  Test folder
-    Element should contain  css=.documentAuthor  Authenticated
 
 I'm logged in as an 'Authenticated'
     Enable autologin as  Authenticated
@@ -89,7 +87,6 @@ I can add a sub-folder
     Add folder  Sub folder
     Go to  ${PLONE_URL}/test-folder/sub-folder
     Page should contain  Sub folder
-    Element should contain  css=.documentAuthor  Authenticated
 
 Someone else has created a test folder
     Enable autologin as  Contributor

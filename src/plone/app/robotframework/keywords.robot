@@ -242,20 +242,17 @@ Add news item
 
 Displayed content title should be
     [arguments]  ${title}
-    Page should contain element  xpath=//*[contains(., "${title}")][@id='parent-fieldname-title']
+    Page should contain element  xpath=//header/h1[contains(., "${title}")]
 
 Add content
+    # DEXTERITY content only
     [arguments]  ${content_type}  ${title}
     Open add new menu
-
-    ${status} =  Run Keyword And Return Status  Click Link
-    ...  css=#plone-contentmenu-factories a.contenttype-${content_type}
-    Run keyword if  ${status} != True  Click Link  ${content_type}
-
-    Page Should Contain Element  css=#archetypes-fieldname-title input
-    Input Text  title  ${title}
-    Click button  name=form.button.save
-    Page Should Contain  Changes saved.
+    Click Link  ${content_type}
+    Wait until page contains element  css=#form-widgets-IDublinCore-title
+    Input Text  form.widgets.IDublinCore.title  ${title}
+    Click button  name=form.buttons.save
+    Wait until page contains  Item created
     Page should contain  ${title}
     Displayed content title should be  ${title}
     ${location} =  Get Location
