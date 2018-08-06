@@ -14,6 +14,9 @@ New features:
 
 Bug fixes:
 
+- Make robotframework work with merged ``plone.login``.
+  [jensens]
+
 - Fix Travis CI setup.
   [jensens]
 
