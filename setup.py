@@ -67,7 +67,7 @@ if sys.version_info < (2, 7):
         'argparse',
         'decorator',   # required by r.selenium2library on Python 2.6.x
         'simplejson',  # required for SauceLabs-keywords on Python 2.6.x
-        ])
+    ])
 
 test_requires = [
     'plone.app.dexterity',

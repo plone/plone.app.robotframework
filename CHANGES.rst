@@ -14,7 +14,8 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Fix Travis CI setup.
+  [jensens]
 
 
 1.2.1 (2018-06-22)
