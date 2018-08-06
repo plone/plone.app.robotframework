@@ -128,16 +128,13 @@ Should be above
 Open Menu
     [Arguments]  ${elementId}
 
-    Element Should Be Visible  css=dl#${elementId} span
-    Element Should Not Be Visible  css=dl#${elementId} dd.actionMenuContent
-    Click link  css=dl#${elementId} dt.actionMenuHeader a
-    Wait until keyword succeeds  1  5  Element Should Be Visible  css=dl#${elementId} dd.actionMenuContent
+    Element Should Be Visible  css=#${elementId} span
+    Element Should Not Be Visible  css=#${elementId} .plone-toolbar-submenu-header
+    Click link  css=#${elementId} a
+    Wait Until Element Is Visible  css=#${elementId} .plone-toolbar-submenu-header
 
 Open User Menu
-    Element Should Be Visible  css=dl#portal-personaltools a
-    Element Should Not Be Visible  css=dl#portal-personaltools dd.actionMenuContent
-    Click link  css=dl#portal-personaltools dt.actionMenuHeader a
-    Wait until keyword succeeds  1  5  Element Should Be Visible  css=dl#portal-personaltools dd.actionMenuContent
+    Open Menu  portal-personal-tools
 
 Open Add New Menu
     Open Menu  plone-contentmenu-factories
@@ -160,7 +157,6 @@ Click Action by id
     [arguments]  ${name}
 
     Open Action Menu
-    Element Should be visible  css=dl#plone-contentmenu-actions dd.actionMenuContent  #plone-contentmenu-actions-${name}
     Click Link  id=plone-contentmenu-actions-${name}
 
 Click Cut Action

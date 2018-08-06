@@ -12,6 +12,7 @@
 - Godefroid Chapelle
 - Hector Velarde
 - Jean-Michel Francois
+- Jens Klein
 - Johan Beyers
 - Johannes Raggam
 - Jonas Baumann

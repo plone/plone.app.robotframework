@@ -50,7 +50,7 @@ I'm logged in as a '${ROLE}'
     Go to  ${PLONE_URL}
 
 I open the personal menu
-    Click link  css=#user-name
+    Click link  css=#portal-personaltools > a
 
 I see the Site Setup -link
     Element should be visible  css=#personaltools-plone_setup

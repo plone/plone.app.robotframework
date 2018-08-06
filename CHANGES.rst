@@ -1,18 +1,21 @@
 Changelog
 =========
 
-1.2.2 (unreleased)
+1.3.0 (unreleased)
 ------------------
 
 Breaking changes:
 
-- *add item here*
+- Skip Support for Plone 4.x.
+  [jensens]
 
 New features:
 
-- *add item here*
 
 Bug fixes:
+
+- Support for Plone 5.x toolbar, i18n, ...
+  [jensens]
 
 - Fix RemoteLibrary ``i18n`` to work proper with registry based settings.
   [jensens]
