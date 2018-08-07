@@ -31,7 +31,6 @@ install:
   - bin/pip install -r requirements.txt
   - bin/buildout -N buildout:download-cache=downloads code-analysis:return-status-codes=True annotate
   - bin/buildout -N -t 3 -c travis.cfg buildout:download-cache=downloads code-analysis:return-status-codes=True
-  - bin/buildout -N -t 3 -c travis.cfg
 script:
   - bin/test
 after_script:
