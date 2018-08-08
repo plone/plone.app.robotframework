@@ -3,7 +3,7 @@ from setuptools import setup
 
 import sys
 
-version = '1.2.2.dev0'
+version = '1.3.0.dev0'
 
 
 def indented(filename):
@@ -67,7 +67,7 @@ if sys.version_info < (2, 7):
         'argparse',
         'decorator',   # required by r.selenium2library on Python 2.6.x
         'simplejson',  # required for SauceLabs-keywords on Python 2.6.x
-        ])
+    ])
 
 test_requires = [
     'plone.app.dexterity',

@@ -67,10 +67,10 @@ Log in
     Go to  ${PLONE_URL}/login_form
     Page should contain element  __ac_name
     Page should contain element  __ac_password
-    Page should contain element  xpath: //input[contains(text(), "Log in")]
+    Page should contain element  css=input[value="Log in"]
     Input text for sure  __ac_name  ${userid}
     Input text for sure  __ac_password  ${password}
-    Click Button  xpath: //input[contains(text(), "Log in")]
+    Click Element  css=input[value="Log in"]
 
 Log in as test user
 
@@ -128,16 +128,13 @@ Should be above
 Open Menu
     [Arguments]  ${elementId}
 
-    Element Should Be Visible  css=dl#${elementId} span
-    Element Should Not Be Visible  css=dl#${elementId} dd.actionMenuContent
-    Click link  css=dl#${elementId} dt.actionMenuHeader a
-    Wait until keyword succeeds  1  5  Element Should Be Visible  css=dl#${elementId} dd.actionMenuContent
+    Element Should Be Visible  css=#${elementId} span
+    Element Should Not Be Visible  css=#${elementId} .plone-toolbar-submenu-header
+    Click link  css=#${elementId} a
+    Wait Until Element Is Visible  css=#${elementId} .plone-toolbar-submenu-header
 
 Open User Menu
-    Element Should Be Visible  css=dl#portal-personaltools a
-    Element Should Not Be Visible  css=dl#portal-personaltools dd.actionMenuContent
-    Click link  css=dl#portal-personaltools dt.actionMenuHeader a
-    Wait until keyword succeeds  1  5  Element Should Be Visible  css=dl#portal-personaltools dd.actionMenuContent
+    Open Menu  portal-personaltools
 
 Open Add New Menu
     Open Menu  plone-contentmenu-factories
@@ -160,7 +157,6 @@ Click Action by id
     [arguments]  ${name}
 
     Open Action Menu
-    Element Should be visible  css=dl#plone-contentmenu-actions dd.actionMenuContent  #plone-contentmenu-actions-${name}
     Click Link  id=plone-contentmenu-actions-${name}
 
 Click Cut Action
@@ -246,20 +242,17 @@ Add news item
 
 Displayed content title should be
     [arguments]  ${title}
-    Page should contain element  xpath=//*[contains(., "${title}")][@id='parent-fieldname-title']
+    Page should contain element  xpath=//header/h1[contains(., "${title}")]
 
 Add content
+    # DEXTERITY content only
     [arguments]  ${content_type}  ${title}
     Open add new menu
-
-    ${status} =  Run Keyword And Return Status  Click Link
-    ...  css=#plone-contentmenu-factories a.contenttype-${content_type}
-    Run keyword if  ${status} != True  Click Link  ${content_type}
-
-    Page Should Contain Element  css=#archetypes-fieldname-title input
-    Input Text  title  ${title}
-    Click button  name=form.button.save
-    Page Should Contain  Changes saved.
+    Click Link  ${content_type}
+    Wait until page contains element  css=#form-widgets-IDublinCore-title
+    Input Text  form.widgets.IDublinCore.title  ${title}
+    Click button  name=form.buttons.save
+    Wait until page contains  Item created
     Page should contain  ${title}
     Displayed content title should be  ${title}
     ${location} =  Get Location

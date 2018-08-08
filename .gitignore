@@ -13,7 +13,13 @@ bin
 buildout-cache
 develop-eggs
 dist
+docs/make.bat
+docs/Makefile
 etc
+include
+lib
+local
 parts
+pip-selfcheck.json
 var
 

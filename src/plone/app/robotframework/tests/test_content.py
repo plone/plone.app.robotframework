@@ -1,8 +1,7 @@
-from Products.CMFCore.utils import getToolByName
+from plone.app.robotframework.testing import PLONE_ROBOT_INTEGRATION_TESTING
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
-from plone.app.robotframework.testing import \
-    PLONE_ROBOT_INTEGRATION_TESTING
+from Products.CMFCore.utils import getToolByName
 
 import unittest
 
