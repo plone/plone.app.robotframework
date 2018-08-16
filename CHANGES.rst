@@ -14,6 +14,9 @@ New features:
 
 Bug fixes:
 
+- Add support for Python 3.
+  [davisagli]
+
 - Support for Plone 5.x toolbar, i18n, ...
   [jensens]
 
