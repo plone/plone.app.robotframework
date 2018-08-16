@@ -18,31 +18,28 @@ Integrate with Sauce Labs
 
    .. code-block:: bash
 
-      $ travis encrypt SAUCE_USERNAME=... -r gh-user/myproduct --add
-      $ travis encrypt SAUCE_ACCESS_KEY=... -r hg-user/myproduct --add
+      $ travis encrypt SAUCE_USERNAME=... -r github-user-or-organization/myproduct --add
+      $ travis encrypt SAUCE_ACCESS_KEY=... -r github-user-or-organization/myproduct --add
 
 5. Update ``.travis.yml`` to set up the Sauce Labs connection before tests:
 
    .. code-block:: yaml
 
-      language: python
-      python: '2.7'
+      [...]
       addons:
         sauce_connect:
         - username: $SAUCE_USERNAME
         - access_key: $SAUCE_ACCESS_KEY
-      install:
-      - mkdir -p buildout-cache/downloads
-      - python bootstrap.py -c travis.cfg
-      - bin/buildout -N -t 3 -c travis.cfg
-      script: bin/test
+      [...]
       env:
+        [...]
         global:
         - secure: ...
         - secure: ...
         - ROBOT_BUILD_NUMBER=travis-$TRAVIS_BUILD_NUMBER
         - ROBOT_REMOTE_URL=http://$SAUCE_USERNAME:$SAUCE_ACCESS_KEY@ondemand.saucelabs.com:80/wd/hub
         - ROBOT_DESIRED_CAPABILITIES=tunnel-identifier:$TRAVIS_JOB_NUMBER
+      [...]
 
 .. note:: If you already have an ``env`` section, for instance to define
    different versions of Plone like this:
@@ -50,10 +47,9 @@ Integrate with Sauce Labs
    .. code-block:: yaml
 
       env:
-      - PLONE_VERSION=4.0
-      - PLONE_VERSION=4.1
-      - PLONE_VERSION=4.2
-      - PLONE_VERSION=4.3
+      - PLONE_VERSION=5.0
+      - PLONE_VERSION=5.1
+      - PLONE_VERSION=5.2
 
    you will need to declare those variables in a ``matrix`` section, like this:
 
@@ -61,10 +57,9 @@ Integrate with Sauce Labs
 
       env:
         matrix:
-        - PLONE_VERSION=4.0
-        - PLONE_VERSION=4.1
-        - PLONE_VERSION=4.2
-        - PLONE_VERSION=4.3
+        - PLONE_VERSION=5.0
+        - PLONE_VERSION=5.1
+        - PLONE_VERSION=5.2
         global:
         - secure: ...
         - secure: ...
