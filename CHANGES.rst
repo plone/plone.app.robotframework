@@ -6,6 +6,9 @@ Changelog
 
 Breaking changes:
 
+- Remove compatibility code for Plone 4.x.
+  [hvelarde]
+
 - Skip Support for Plone 4.x.
   [jensens]
 
