@@ -111,6 +111,7 @@ class Content(RemoteLibrary):
             # The title attribute for Dexterity types needs to be unicode
             if 'title' in kwargs and isinstance(kwargs['title'], six.binary_type):
                 kwargs['title'] = kwargs['title'].decode('utf-8')
+                create_kwargs['title'] = create_kwargs['title'].decode('utf-8')
             from plone.dexterity.interfaces import IDexterityFTI
             from plone.dexterity.utils import createContentInContainer
             try:
