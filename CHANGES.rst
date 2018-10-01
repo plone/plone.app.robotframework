@@ -6,7 +6,9 @@ Changelog
 
 Breaking changes:
 
-- *add item here*
+- Default to the new plone.testing default of picking the ZServer port
+  dynamically.
+  [Rotonen]
 
 New features:
 
