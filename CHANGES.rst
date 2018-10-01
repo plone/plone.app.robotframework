@@ -6,6 +6,10 @@ Changelog
 
 Breaking changes:
 
+- Default to the new plone.testing default of picking the ZServer port
+  dynamically.
+  [Rotonen]
+
 - Remove compatibility code for Plone 4.x.
   [hvelarde]
 
