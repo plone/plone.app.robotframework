@@ -16,8 +16,8 @@ New features:
 
 Bug fixes:
 
-- *add item here*
-
+- Test only on jenkins.plone.org, travis only works for master and 1.3.x branch seems.
+  [gforcada]
 
 1.2.1 (2018-06-22)
 ------------------
