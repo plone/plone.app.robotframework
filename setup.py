@@ -3,6 +3,7 @@ from setuptools import setup
 
 import sys
 
+
 version = '1.2.2.dev0'
 
 
