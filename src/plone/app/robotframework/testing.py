@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Test layers required to run plone.app.robotframework tests.
-
-This module is located below tests directory to avoid confusing it with any
-re-usable resources of plone.app.robotframework.
-"""
+"""Test layers required to run plone.app.robotframework tests."""
 from Acquisition import aq_base
 from plone.app.robotframework.autologin import AutoLogin
 from plone.app.robotframework.content import Content
