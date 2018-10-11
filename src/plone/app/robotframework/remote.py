@@ -5,6 +5,7 @@ from plone.app.testing import (
     ploneSite
 )
 from plone.testing import Layer
+from Products.CMFPlone.Portal import PloneSite
 
 
 class RemoteLibrary(SimpleItem):
@@ -68,13 +69,10 @@ class RemoteLibraryLayer(Layer):
     def setUp(self):
         id_ = self.__name__.split(':')[-1]
         assert id_ not in globals(), "Conflicting remote library id: %s" % id_
-        globals()[id_] = type(id_, self.libraryBases, {})
-        with ploneSite() as portal:
-            portal._setObject(id_, globals()[id_]())
+        globals()[id_] = Remote = type(id_, self.libraryBases, {})
+        setattr(PloneSite, id_, Remote())
 
     def tearDown(self):
         id_ = self.__name__.split(':')[-1]
-        with ploneSite() as portal:
-            if id_ in portal.objectIds():
-                portal._delObject(id_)
+        delattr(PloneSite, id_)
         del globals()[id_]

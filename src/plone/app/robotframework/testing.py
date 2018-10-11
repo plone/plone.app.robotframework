@@ -190,7 +190,6 @@ class PloneRobotFixture(PloneSandboxLayer):
     defaultBases = (
         SIMPLE_PUBLICATION_FIXTURE,
         MOCK_MAILHOST_FIXTURE,
-        REMOTE_LIBRARY_BUNDLE_FIXTURE,
     )
 
     def _get_robot_variable(self, name):
@@ -273,11 +272,18 @@ class PloneRobotFixture(PloneSandboxLayer):
 PLONE_ROBOT_FIXTURE = PloneRobotFixture()
 
 PLONE_ROBOT_INTEGRATION_TESTING = IntegrationTesting(
-    bases=(PLONE_ROBOT_FIXTURE,), name="PloneRobot:Integration"
+    bases=(
+        PLONE_ROBOT_FIXTURE,
+        REMOTE_LIBRARY_BUNDLE_FIXTURE,
+    ), name="PloneRobot:Integration"
 )
 
 PLONE_ROBOT_TESTING = FunctionalTesting(
-    bases=(PLONE_ROBOT_FIXTURE, z2.ZSERVER_FIXTURE), name="Plone:Robot"
+    bases=(
+        PLONE_ROBOT_FIXTURE,
+        REMOTE_LIBRARY_BUNDLE_FIXTURE,
+        z2.ZSERVER_FIXTURE,
+    ), name="Plone:Robot"
 )
 
 
