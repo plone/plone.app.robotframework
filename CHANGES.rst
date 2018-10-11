@@ -14,7 +14,8 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Read files as binary in Python 3.
+  [davisagli]
 
 
 1.3.0 (2018-10-01)

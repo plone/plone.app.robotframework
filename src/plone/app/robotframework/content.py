@@ -93,8 +93,10 @@ class Content(RemoteLibrary):
             if portal_type in ('File', ) and 'file' not in kwargs:
                 pdf_file = os.path.join(
                     os.path.dirname(__file__), 'content', u'file.pdf')
+                with open(pdf_file, 'rb') as f:
+                    file_data = f.read()
                 value = NamedBlobFile(
-                    data=open(pdf_file, 'r').read(),
+                    data=file_data,
                     contentType='application/pdf',
                     filename=u'file.pdf'
                 )
@@ -216,16 +218,20 @@ class Content(RemoteLibrary):
             if field_type == 'file':
                 pdf_file = os.path.join(
                     os.path.dirname(__file__), 'content', u'file.pdf')
+                with open(pdf_file, 'rb') as f:
+                    file_data = f.read()
                 value = NamedBlobFile(
-                    data=open(pdf_file, 'r').read(),
+                    data=file_data,
                     contentType='application/pdf',
                     filename=u'file.pdf'
                 )
             if field_type == 'image':
                 image_file = os.path.join(
                     os.path.dirname(__file__), u'image.jpg')
+                with open(image_file, 'rb') as f:
+                    image_data = f.read()
                 value = NamedBlobImage(
-                    data=open(image_file, 'r').read(),
+                    data=image_data,
                     contentType='image/jpg',
                     filename=u'image.jpg'
                 )
