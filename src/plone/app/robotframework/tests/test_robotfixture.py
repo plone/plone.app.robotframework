@@ -8,6 +8,7 @@ from plone.testing.z2 import FunctionalTesting
 from plone.testing import layered
 
 from plone.app.robotframework.testing import PloneRobotFixture
+from plone.app.robotframework.testing import REMOTE_LIBRARY_BUNDLE_FIXTURE
 
 
 class CustomPloneRobotFixture(PloneRobotFixture):
@@ -24,10 +25,15 @@ class CustomPloneRobotFixture(PloneRobotFixture):
         if 'APPLY_PROFILES' in os.environ:
             del os.environ['APPLY_PROFILES']
 
+
 PLONE_ROBOT_FIXTURE = CustomPloneRobotFixture()
 
 PLONE_ROBOT_TESTING = FunctionalTesting(
-    bases=(PLONE_ROBOT_FIXTURE, z2.ZSERVER_FIXTURE),
+    bases=(
+        PLONE_ROBOT_FIXTURE,
+        REMOTE_LIBRARY_BUNDLE_FIXTURE,
+        z2.ZSERVER_FIXTURE,
+    ),
     name="Plone:Robot"
 )
 
