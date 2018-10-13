@@ -17,6 +17,11 @@ Bug fixes:
 - Read files as binary in Python 3.
   [davisagli]
 
+- Avoid test layer isolation problems by setting the remote library
+  as an attribute of the PloneSite class instead of a particular
+  portal instance.
+  [davisagli]
+
 
 1.3.0 (2018-10-01)
 ------------------
