@@ -4,15 +4,7 @@ Changelog
 1.3.1 (unreleased)
 ------------------
 
-Breaking changes:
-
-- *add item here*
-
 New features:
-
-- *add item here*
-
-Bug fixes:
 
 - Read files as binary in Python 3.
   [davisagli]
@@ -23,7 +15,7 @@ Bug fixes:
   [davisagli]
 
 
-1.3.0 (2018-10-01)
+1.3.1 (2018-10-31)
 ------------------
 
 Breaking changes:
@@ -32,14 +24,17 @@ Breaking changes:
   dynamically.
   [Rotonen]
 
+
+1.3.0 (2018-10-01)
+------------------
+
+New features:
+
 - Remove compatibility code for Plone 4.x.
   [hvelarde]
 
 - Skip Support for Plone 4.x.
   [jensens]
-
-New features:
-
 
 Bug fixes:
 
