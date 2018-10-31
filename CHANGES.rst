@@ -10,14 +10,6 @@ Breaking changes:
   dynamically.
   [Rotonen]
 
-New features:
-
-- *add item here*
-
-Bug fixes:
-
-- *add item here*
-
 
 1.3.0 (2018-10-01)
 ------------------
