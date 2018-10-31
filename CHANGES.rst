@@ -10,10 +10,6 @@ Breaking changes:
   dynamically.
   [Rotonen]
 
-New features:
-
-- *add item here*
-
 Bug fixes:
 
 - Test only on jenkins.plone.org, travis only works for master and 1.3.x branch seems.
