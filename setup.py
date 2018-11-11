@@ -45,7 +45,6 @@ install_requires = [
     'Products.PlonePAS >= 5.0.1',
     'Products.PluggableAuthService',
     'babel',
-    'five.globalrequest',
     'plone.app.testing',
     'plone.testing',
     'plone.uuid',
