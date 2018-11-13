@@ -14,7 +14,9 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Remove five.globalrequest dependency.
+  It has been deprecated upstream (Zope 4).
+  [gforcada]
 
 
 1.4.0 (2018-10-31)
