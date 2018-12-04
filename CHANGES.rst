@@ -18,6 +18,8 @@ Bug fixes:
   It has been deprecated upstream (Zope 4).
   [gforcada]
 
+- Fix old links on remote.py
+  [gforcada]
 
 1.4.0 (2018-10-31)
 ------------------
