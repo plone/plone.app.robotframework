@@ -11,9 +11,8 @@ from Products.CMFPlone.Portal import PloneSite
 class RemoteLibrary(SimpleItem):
     """Robot Framework remote library base for Plone
 
-    http://robotframework.googlecode.com/hg/doc/userguide/RobotFrameworkUserGuide.html?r=2.7.7#remote-library-interface
-    http://robotframework.googlecode.com/hg/tools/remoteserver/robotremoteserver.py
-
+    http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#remote-library-interface
+    https://github.com/robotframework/PythonRemoteServer/blob/master/src/robotremoteserver.py
     """
     def get_keyword_names(self):
         """Return names of the implemented keywords
