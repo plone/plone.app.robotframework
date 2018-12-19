@@ -16,7 +16,7 @@ writing functional Selenium tests (including acceptance tests) for Plone CMS
 and its add-ons.
 
 Please read the full documentation at `Plone Developer Documentation
-<https://docs.plone.org/external/plone.app.robotframework/docs/source/index.html/>`_.
+<https://docs.plone.org/external/plone.app.robotframework/docs/source/index.html>`_.
 
 `The latest known good version`__ for **plone.app.robotframework** and
 packages related to it.
