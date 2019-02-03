@@ -14,6 +14,10 @@ New features:
 
 Bug fixes:
 
+- Use the standard library signal module instead of the ZServer Signal module
+  (Fixes #97)
+  [ale-rt]
+
 - Remove five.globalrequest dependency.
   It has been deprecated upstream (Zope 4).
   [gforcada]

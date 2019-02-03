@@ -1,20 +1,23 @@
 # -*- coding: utf-8 -*-
 
+from watchdog.events import FileSystemEventHandler
+from watchdog.observers import Observer
+
 import os
 import signal
 import time
 
-from Signals.SignalHandler import SignalHandler
-from watchdog.events import FileSystemEventHandler
-from watchdog.observers import Observer
+
+def TIME():
+    return time.strftime('%H:%M:%S')
 
 
-registerHandler = SignalHandler.registerHandler
+def WAIT(msg):
+    return '{0} [\033[33m wait \033[0m] {1}'.format(TIME(), msg)
 
 
-TIME = lambda: time.strftime('%H:%M:%S')
-WAIT = lambda msg:  '{0} [\033[33m wait \033[0m] {1}'.format(TIME(), msg)
-ERROR = lambda msg: '{0} [\033[31m ERROR \033[0m] {1}'.format(TIME(), msg)
+def ERROR(msg):
+    return '{0} [\033[31m ERROR \033[0m] {1}'.format(TIME(), msg)
 
 
 class Watcher(FileSystemEventHandler):
@@ -33,8 +36,8 @@ class Watcher(FileSystemEventHandler):
         """Start file monitoring thread
         """
 
-        registerHandler(signal.SIGINT, self._exitHandler)
-        registerHandler(signal.SIGTERM, self._exitHandler)
+        signal.signal(signal.SIGINT, self._exitHandler)
+        signal.signal(signal.SIGTERM, self._exitHandler)
 
         for path in self.paths:
             print(WAIT("Watchdog is watching for changes in %s" % path))
@@ -116,23 +119,24 @@ class ForkLoop(object):
         """
         # SIGCHLD tells us that child process has really died and we can spawn
         # new child
-        registerHandler(signal.SIGCHLD, self._waitChildToDieAndScheduleNew)
+        signal.signal(signal.SIGCHLD, self._waitChildToDieAndScheduleNew)
 
         # With SIGUSR1 child can tell that it dies by request, not by exception
         # etc.
-        registerHandler(signal.SIGUSR1, self._childIsGoingToDie)
+        signal.signal(signal.SIGUSR1, self._childIsGoingToDie)
 
         self.loop()
 
     def loop(self):
         """Magic happens
         """
-        registerHandler(signal.SIGINT, self._parentExitHandler)
-        registerHandler(signal.SIGTERM, self._parentExitHandler)
+        signal.signal(signal.SIGINT, self._parentExitHandler)
+        signal.signal(signal.SIGTERM, self._parentExitHandler)
 
         self.active = True
 
-        print(WAIT("Fork loop now starting on parent process %i" % os.getpid()))
+        msg = "Fork loop now starting on parent process %i" % os.getpid()
+        print(WAIT(msg))
         while True:
             self.forking = False
 
