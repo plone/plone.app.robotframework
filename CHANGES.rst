@@ -14,6 +14,10 @@ New features:
 
 Bug fixes:
 
+- Fix the travis build which is broken since we are picking a random port
+  (fixes #100)
+  [ale-rt]
+
 - Remove five.globalrequest dependency.
   It has been deprecated upstream (Zope 4).
   [gforcada]
