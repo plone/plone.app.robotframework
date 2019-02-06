@@ -17,6 +17,9 @@ Bug fixes:
 - Stabilize tests by defaulting to a browser window size of 4K x 4K.
   [Rotonen]
 
+- Fix the travis build which is broken since we are picking a random port
+  (fixes #100)
+  [ale-rt]
 
 1.3.1 (2018-10-31)
 ------------------

@@ -1,10 +1,9 @@
+dist: xenial
 language: python
 python: 2.7
 sudo: false
 addons:
-  sauce_connect:
-    username: $SAUCE_USERNAME
-    access_key: $SAUCE_ACCESS_KEY
+  sauce_connect: true
 cache:
   pip: true
   directories:
@@ -19,6 +18,7 @@ env:
     - ARTIFACTS_S3_BUCKET=plone.app.robotframework
     - ROBOT_BUILD_NUMBER=travis-$TRAVIS_BUILD_NUMBER
     - ROBOT_REMOTE_URL=http://$SAUCE_USERNAME:$SAUCE_ACCESS_KEY@ondemand.saucelabs.com:80/wd/hub
+    - ZSERVER_PORT=55001
   matrix:
     - ROBOT_BROWSER=firefox ROBOT_DESIRED_CAPABILITIES=tunnel-identifier:$TRAVIS_JOB_NUMBER
     - ROBOT_BROWSER=chrome ROBOT_DESIRED_CAPABILITIES=tunnel-identifier:$TRAVIS_JOB_NUMBER
