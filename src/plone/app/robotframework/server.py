@@ -30,20 +30,31 @@ ZSERVER_HOST = os.getenv("ZSERVER_HOST", "localhost")
 LISTENER_HOST = os.getenv("LISTENER_HOST", ZSERVER_HOST)
 LISTENER_PORT = int(os.getenv("LISTENER_PORT", 49999))
 
-TIME = lambda: time.strftime('%H:%M:%S')
-WAIT = lambda msg:  '{0} [\033[33m wait \033[0m] {1}'.format(TIME(), msg)
-ERROR = lambda msg: '{0} [\033[31m ERROR \033[0m] {1}'.format(TIME(), msg)
-READY = lambda msg: '{0} [\033[32m ready \033[0m] {1}'.format(TIME(), msg)
+
+def TIME():
+    return time.strftime('%H:%M:%S')
+
+
+def WAIT(msg):
+    return '{0} [\033[33m wait \033[0m] {1}'.format(TIME(), msg)
+
+
+def ERROR(msg):
+    return '{0} [\033[31m ERROR \033[0m] {1}'.format(TIME(), msg)
+
+
+def READY(msg):
+    return '{0} [\033[32m ready \033[0m] {1}'.format(TIME(), msg)
 
 
 def start(zope_layer_dotted_name):
 
-    print(WAIT("Starting Zope 2 server"))
+    print(WAIT("Starting Zope robot server"))
 
     zsl = Zope2Server()
     zsl.start_zope_server(zope_layer_dotted_name)
 
-    print(READY("Started Zope 2 server"))
+    print(READY("Started Zope robot server"))
 
     listener = SimpleXMLRPCServer((LISTENER_HOST, LISTENER_PORT),
                                   logRequests=False)
@@ -55,18 +66,18 @@ def start(zope_layer_dotted_name):
         listener.serve_forever()
     finally:
         print()
-        print(WAIT("Stopping Zope 2 server"))
+        print(WAIT("Stopping Zope robot server"))
 
         zsl.stop_zope_server()
 
-        print(READY("Zope 2 server stopped"))
+        print(READY("Zope robot server stopped"))
 
 
 def start_reload(zope_layer_dotted_name, reload_paths=('src',),
                  preload_layer_dotted_name='plone.app.testing.PLONE_FIXTURE',
                  extensions=None):
 
-    print(WAIT("Starting Zope 2 server"))
+    print(WAIT("Starting Zope robot server"))
 
     zsl = Zope2Server()
     zsl.start_zope_server(preload_layer_dotted_name)
@@ -81,9 +92,9 @@ def start_reload(zope_layer_dotted_name, reload_paths=('src',),
     forkloop.start()
 
     if forkloop.exit:
-        print(WAIT("Stopping Zope 2 server"))
+        print(WAIT("Stopping Zope robot server"))
         zsl.stop_zope_server()
-        print(READY("Zope 2 server stopped"))
+        print(READY("Zope robot server stopped"))
         return
 
     # XXX: For unknown reason call to socket.gethostbyaddr may cause malloc
@@ -111,14 +122,14 @@ def start_reload(zope_layer_dotted_name, reload_paths=('src',),
     if 'Darwin' in platform.uname():
         socket.gethostbyaddr = gethostbyaddr
 
-    print(READY("Zope 2 server started"))
+    print(READY("Zope robot server started"))
 
     try:
         listener = SimpleXMLRPCServer((LISTENER_HOST, LISTENER_PORT),
                                       logRequests=False)
     except socket.error as e:
         print(ERROR(str(e)))
-        print(WAIT("Pruning Zope 2 server"))
+        print(WAIT("Pruning Zope robot server"))
         zsl.prune_zope_server()
         return
 
@@ -133,7 +144,7 @@ def start_reload(zope_layer_dotted_name, reload_paths=('src',),
     except select.error:  # Interrupted system call
         pass
     finally:
-        print(WAIT("Pruning Zope 2 server"))
+        print(WAIT("Pruning Zope robot server"))
         zsl.prune_zope_server()
 
 

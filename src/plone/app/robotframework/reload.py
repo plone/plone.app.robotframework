@@ -217,7 +217,11 @@ class ForkLoop(object):
             # Kill itself
             os.kill(os.getpid(), signal.SIGINT)
         else:
-            os.kill(self.child_pid, signal.SIGINT)
+            try:
+                os.kill(self.child_pid, signal.SIGINT)
+            except OSError:
+                if not self.isChildAlive():
+                    pass  # The child process has already been killed
 
     def _parentExitHandler(self, signum=None, frame=None):
         if self.exit:
