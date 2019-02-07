@@ -14,6 +14,10 @@ New features:
 
 Bug fixes:
 
+- Do not raise an error if the child processes we want to kill
+  is not there anymore
+  [ale-rt]
+
 - Replace "Zope 2 server" with the more appropriate "Zope robot server"
   [ale-rt]
 
