@@ -14,6 +14,10 @@ New features:
 
 Bug fixes:
 
+- Use the standard library signal module instead of the ZServer Signal module
+  (Fixes #97)
+  [ale-rt]
+
 - Fix the travis build which is broken since we are picking a random port
   (fixes #100)
   [ale-rt]
