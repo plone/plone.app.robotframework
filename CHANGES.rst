@@ -14,6 +14,9 @@ New features:
 
 Bug fixes:
 
+- Replace "Zope 2 server" with the more appropriate "Zope robot server"
+  [ale-rt]
+
 - Use the standard library signal module instead of the ZServer Signal module
   (Fixes #97)
   [ale-rt]
