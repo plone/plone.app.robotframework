@@ -51,6 +51,8 @@ def start(zope_layer_dotted_name):
     listener.register_function(zsl.zodb_setup, 'zodb_setup')
     listener.register_function(zsl.zodb_teardown, 'zodb_teardown')
 
+    print_urls(zsl.zope_layer, listener)
+
     try:
         listener.serve_forever()
     finally:
@@ -60,6 +62,25 @@ def start(zope_layer_dotted_name):
         zsl.stop_zope_server()
 
         print(READY("Zope 2 server stopped"))
+
+
+def print_urls(zope_layer, xmlrpc_server):
+    """Prints the urls with the chosen ports.
+
+    When using a port 0, the operating system chooses an open port.
+    When doing that it is helpful that the URLs with the chosen ports are printed to stdout.
+    """
+
+    for layer in zope_layer.baseResolutionOrder:
+        # Walk up the testing layers and look for the first zserver in order to get the
+        # actual server name and server port.
+        zserver = getattr(layer, 'zserver', None)
+        if not zserver:
+            continue
+        print('ZSERVER: http://{}:{}'.format(zserver.server_name, zserver.server_port))
+        break
+
+    print('XMLRPC: http://{0}:{1}'.format(*xmlrpc_server.server_address))
 
 
 def start_reload(zope_layer_dotted_name, reload_paths=('src',),
