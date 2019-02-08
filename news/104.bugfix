@@ -1,4 +1,0 @@
-Do not raise an error if the child processes we want to kill
-is not there anymore.
-Replace "Zope 2 server" with the more appropriate "Zope robot server"
-[ale-rt]

@@ -8,6 +8,30 @@ Changelog
 
 .. towncrier release notes start
 
+1.5.0 (2019-02-08)
+------------------
+
+New features:
+
+
+- Print the ZServer and XMLRPC URLs when starting up the server. [jone] (#106)
+
+
+Bug fixes:
+
+
+- Remove five.globalrequest dependency. It has been deprecated upstream (Zope
+  4). [gforcada] (#95)
+- Fix old links on remote.py [gforcada] (#96)
+- Use the standard library signal module instead of the ZServer Signal module
+  [ale-rt] (#97)
+- Fix the travis build which is broken since we are picking a random port
+  (fixes #100) [ale-rt] (#100)
+- Do not raise an error if the child processes we want to kill is not there
+  anymore. Replace "Zope 2 server" with the more appropriate "Zope robot
+  server" [ale-rt] (#104)
+
+
 1.4.0 (2018-10-31)
 ------------------
 
