@@ -10,7 +10,8 @@ Breaking changes:
 
 New features:
 
-- *add item here*
+- Print the ZServer and XMLRPC URLs when starting up the server.
+  [jone]
 
 Bug fixes:
 
