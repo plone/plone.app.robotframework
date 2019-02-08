@@ -1,41 +1,12 @@
 Changelog
 =========
 
-1.4.1 (unreleased)
-------------------
+.. You should *NOT* be adding new change log entries to this file.
+   You should create a file in the news directory instead.
+   For helpful instructions, please see:
+   https://github.com/plone/plone.releaser/blob/master/ADD-A-NEWS-ITEM.rst
 
-Breaking changes:
-
-- *add item here*
-
-New features:
-
-- Print the ZServer and XMLRPC URLs when starting up the server.
-  [jone]
-
-Bug fixes:
-
-- Do not raise an error if the child processes we want to kill
-  is not there anymore
-  [ale-rt]
-
-- Replace "Zope 2 server" with the more appropriate "Zope robot server"
-  [ale-rt]
-
-- Use the standard library signal module instead of the ZServer Signal module
-  (Fixes #97)
-  [ale-rt]
-
-- Fix the travis build which is broken since we are picking a random port
-  (fixes #100)
-  [ale-rt]
-
-- Remove five.globalrequest dependency.
-  It has been deprecated upstream (Zope 4).
-  [gforcada]
-
-- Fix old links on remote.py
-  [gforcada]
+.. towncrier release notes start
 
 1.4.0 (2018-10-31)
 ------------------
