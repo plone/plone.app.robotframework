@@ -4,19 +4,10 @@ Changelog
 1.2.3 (unreleased)
 ------------------
 
-Breaking changes:
-
-- *add item here*
-
 New features:
 
 - Print the ZServer and XMLRPC URLs when starting up the server.
   [jone]
-
-Bug fixes:
-
-- *add item here*
-
 
 1.2.2 (2018-10-31)
 ------------------
