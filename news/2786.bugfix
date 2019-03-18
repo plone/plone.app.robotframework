@@ -1,0 +1,3 @@
+Patch selenium.is_connectable for Python 3 to retry on ConnectionResetError.
+See `issue 2786 <https://github.com/plone/Products.CMFPlone/issues/2786>`_.
+[maurits]

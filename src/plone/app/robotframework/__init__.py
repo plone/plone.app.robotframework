@@ -25,3 +25,6 @@ from plone.app.robotframework.server import RobotListener
 
 # Robot Plone fixture
 from plone.app.robotframework.testing import PLONE_ROBOT_TESTING
+
+# Load our patches.  Call it _patches to mark it as private.
+from plone.app.robotframework import patches as _patches
