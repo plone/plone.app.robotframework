@@ -8,6 +8,17 @@ Changelog
 
 .. towncrier release notes start
 
+1.5.1 (2019-05-01)
+------------------
+
+Bug fixes:
+
+
+- Patch selenium.is_connectable for Python 3 to retry on ConnectionResetError.
+  See `issue 2786 <https://github.com/plone/Products.CMFPlone/issues/2786>`_.
+  [maurits] (#2786)
+
+
 1.5.0 (2019-02-08)
 ------------------
 
