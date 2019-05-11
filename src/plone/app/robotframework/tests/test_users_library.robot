@@ -1,13 +1,13 @@
 *** Settings ***
 
+Resource  plone/app/robotframework/keywords.robot
 Resource  plone/app/robotframework/selenium.robot
 Resource  plone/app/robotframework/saucelabs.robot
-Resource  plone/app/robotframework/keywords.robot
 
 Library  Remote  ${PLONE_URL}/RobotRemote
 
-Test Setup  Open SauceLabs test browser
-Test Teardown  Run keywords  Report test status  Close all browsers
+Test Setup  Run keywords  Plone test setup
+Test Teardown  Run keywords  Plone test teardown
 
 *** Test Cases ***
 
@@ -26,7 +26,7 @@ Test user creation with roles as args
     Disable autologin
     Log in  siteadmin  siteadmin
     Go to homepage
-    
+
     Page should contain  siteadmin
     Page should contain  Manage portlets
 
@@ -36,6 +36,6 @@ Test user creation with roles as kwarg
     Create user  siteadmin  roles=@{roles}
     Log in  siteadmin  siteadmin
     Go to homepage
-    
+
     Page should contain  siteadmin
     Page should contain  Manage portlets

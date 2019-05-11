@@ -1,15 +1,15 @@
 *** Settings ***
 
-Resource  plone/app/robotframework/selenium.robot
 Resource  plone/app/robotframework/keywords.robot
 Resource  plone/app/robotframework/saucelabs.robot
+Resource  plone/app/robotframework/selenium.robot
 Resource  plone/app/robotframework/annotate.robot
 Resource  plone/app/robotframework/speak.robot
 
 Library  Remote  ${PLONE_URL}/RobotRemote
 
-Test Setup  Open SauceLabs test browser
-Test Teardown  Run keywords  Report test status  Close all browsers
+Test Setup  Run keywords  Plone test setup
+Test Teardown  Run keywords  Plone test teardown
 
 *** Keywords ***
 

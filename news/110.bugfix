@@ -3,3 +3,6 @@
 
 - Removed the legacy keyword ``Refresh JS/CSS resources``.
   [Rotonen]
+
+- Use the 'Plone test setup' and 'Plone test teardown' keywords in the Robot tests.
+  [Rotonen]
