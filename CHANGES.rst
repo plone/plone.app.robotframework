@@ -14,7 +14,8 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Stabilize tests by defaulting to a browser window size of 4K x 4K.
+  [Rotonen]
 
 
 1.3.1 (2018-10-31)
