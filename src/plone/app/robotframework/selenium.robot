@@ -44,7 +44,6 @@ Wait until location is
 Plone Test Setup
     Open SauceLabs test browser
     Run keyword and ignore error  Set window size  4096  4096
-    Refresh JS/CSS resources
 
 Plone Test Teardown
     Run Keyword If Test Failed  ${SELENIUM_RUN_ON_FAILURE}
