@@ -138,8 +138,8 @@ For example, a ``test_hello.robot`` :
     Force Tags  wip-not_in_docs
 
     Resource  plone/app/robotframework/selenium.robot
-    Test Setup  Open test browser
-    Test Teardown  Close all browsers
+    Test Setup  Plone test setup
+    Test Teardown  Plone test teardown
 
   *** Test Cases ***
 
@@ -167,12 +167,13 @@ Here is a more complicated example with some user keywords in action:
 
     Force Tags  wip-not_in_docs
 
+    Resource  plone/app/robotframework/saucelabs.robot
     Resource  plone/app/robotframework/selenium.robot
 
     Library  Remote  ${PLONE_URL}/RobotRemote
 
-    Test Setup  Open test browser
-    Test Teardown  Close all browsers
+    Test Setup  Plone test setup
+    Test Teardown  Plone test teardown
 
     *** Variables ***
 
@@ -378,8 +379,8 @@ what to do next:
 
     Library  Remote  ${PLONE_URL}/RobotRemote
 
-    Test Setup  Open test browser
-    Test Teardown  Close all browsers
+    Test Setup  Plone test setup
+    Test Teardown  Plone test teardown
 
     *** Test Cases ***
 

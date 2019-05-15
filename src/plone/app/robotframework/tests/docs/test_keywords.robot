@@ -2,12 +2,13 @@
 
 Force Tags  wip-not_in_docs
 
+Resource  plone/app/robotframework/saucelabs.robot
 Resource  plone/app/robotframework/selenium.robot
 
 Library  Remote  ${PLONE_URL}/RobotRemote
 
-Test Setup  Open test browser
-Test Teardown  Close all browsers
+Test Setup  Run keywords  Plone test setup
+Test Teardown  Run keywords  Plone test teardown
 
 *** Variables ***
 
