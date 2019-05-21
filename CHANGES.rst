@@ -8,6 +8,20 @@ Changelog
 
 .. towncrier release notes start
 
+1.5.2 (2019-05-21)
+------------------
+
+Bug fixes:
+
+
+- Removed the legacy keyword ``Refresh JS/CSS resources``.
+  [Rotonen] (#110)
+- Use the 'Plone test setup' and 'Plone test teardown' keywords in the Robot tests.
+  [Rotonen] (#110)
+- Stabilize tests by defaulting to a browser window size of 4K x 4K.
+  [Rotonen] (#110)
+
+
 1.5.1 (2019-05-01)
 ------------------
 
