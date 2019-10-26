@@ -14,7 +14,9 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Reverted change in 1.2.1 for 'Log in' keyword which failed in Plone 4.3.
+  Fixes `issue 107 <https://github.com/plone/plone.app.robotframework/issues/107>`_.
+  [maurits]
 
 
 1.2.3 (2019-02-11)
