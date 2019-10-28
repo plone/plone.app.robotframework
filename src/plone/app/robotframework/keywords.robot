@@ -67,10 +67,10 @@ Log in
     Go to  ${PLONE_URL}/login_form
     Page should contain element  __ac_name
     Page should contain element  __ac_password
-    Page should contain element  xpath: //input[contains(text(), "Log in")]
+    Page should contain element  css=#login-form .formControls input[name=submit]
     Input text for sure  __ac_name  ${userid}
     Input text for sure  __ac_password  ${password}
-    Click Button  xpath: //input[contains(text(), "Log in")]
+    Click Button  css=#login-form .formControls input[name=submit]
 
 Log in as test user
 
