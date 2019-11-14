@@ -32,11 +32,11 @@ Debug
     ${fallback} =  Run keyword and ignore error
     ...            Import library  plone.app.robotframework.keywords.Debugging
     ...            WITH NAME  DebuggingLibrary
-    Run keyword if  ${debug}[0] == 'PASS'
+    Run keyword if  '${debug}[0]' == 'PASS'
     ...             DebugLibrary.Debug
-    Run keyword if  ${debug}[0] == 'FAIL' and ${dialogs}[0] == 'PASS'
+    Run keyword if  '${debug}[0]' == 'FAIL' and '${dialogs}[0]' == 'PASS'
     ...             DialogsLibrary.Pause Execution
-    Run keyword if  ${debug}[0] == 'FAIL' and ${dialogs}[0] == 'FAIL'
+    Run keyword if  '${debug}[0]' == 'FAIL' and '${dialogs}[0]' == 'FAIL'
     ...             DebuggingLibrary.Stop
 
 Pause
