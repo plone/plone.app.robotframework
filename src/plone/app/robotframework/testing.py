@@ -17,7 +17,6 @@ from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import PloneSandboxLayer
 from plone.app.testing import ploneSite
 from plone.testing import Layer
-from plone.testing import z2
 from Products.MailHost.interfaces import IMailHost
 from robot.libraries.BuiltIn import BuiltIn
 from zope.component import getSiteManager
@@ -35,6 +34,19 @@ except pkg_resources.DistributionNotFound:
     HAS_SPEAKJS = False
 else:
     HAS_SPEAKJS = True
+
+try:
+    from plone.testing import zope as zope_testing
+except ImportError:
+    # Plone 5.1 compatibility, remove in Plone 6
+    from plone.testing import z2 as zope_testing
+
+
+try:
+    from plone.testing.zope import WSGI_SERVER_FIXTURE
+except ImportError:
+    # Plone 5.1 compatibility, remove in Plone 6
+    from plone.testing.z2 import ZSERVER_FIXTURE as WSGI_SERVER_FIXTURE
 
 
 class SimplePublicationLayer(Layer):
@@ -157,13 +169,13 @@ REMOTE_LIBRARY_ROBOT_TESTING = FunctionalTesting(
     bases=(
         SIMPLE_PUBLICATION_FIXTURE,
         REMOTE_LIBRARY_BUNDLE_FIXTURE,
-        z2.ZSERVER_FIXTURE,
+        WSGI_SERVER_FIXTURE,
     ),
     name="RemoteLibrary:Robot",
 )
 
 AUTOLOGIN_ROBOT_TESTING = FunctionalTesting(
-    bases=(AUTOLOGIN_LIBRARY_FIXTURE, z2.ZSERVER_FIXTURE),
+    bases=(AUTOLOGIN_LIBRARY_FIXTURE, WSGI_SERVER_FIXTURE),
     name="AutoLogin:Robot",
 )
 
@@ -171,7 +183,7 @@ SIMPLE_PUBLICATION_ROBOT_TESTING = FunctionalTesting(
     bases=(
         SIMPLE_PUBLICATION_FIXTURE,
         REMOTE_LIBRARY_BUNDLE_FIXTURE,
-        z2.ZSERVER_FIXTURE,
+        WSGI_SERVER_FIXTURE,
     ),
     name="SimplePublication:Robot",
 )
@@ -180,7 +192,7 @@ SIMPLE_PUBLICATION_WITH_TYPES_ROBOT_TESTING = FunctionalTesting(
     bases=(
         SIMPLE_PUBLICATION_WITH_TYPES_FIXTURE,
         REMOTE_LIBRARY_BUNDLE_FIXTURE,
-        z2.ZSERVER_FIXTURE,
+        WSGI_SERVER_FIXTURE,
     ),
     name="SimplePublicationWithTypes:Robot",
 )
@@ -243,7 +255,7 @@ class PloneRobotFixture(PloneSandboxLayer):
         for name in self._get_robot_variable('INSTALL_PRODUCTS'):
             if name not in sys.modules:
                 __import__(name)
-            z2.installProduct(app, name)
+            zope_testing.installProduct(app, name)
             self['state'].append(name)
 
     def setUpPloneSite(self, portal):
@@ -282,7 +294,7 @@ PLONE_ROBOT_TESTING = FunctionalTesting(
     bases=(
         PLONE_ROBOT_FIXTURE,
         REMOTE_LIBRARY_BUNDLE_FIXTURE,
-        z2.ZSERVER_FIXTURE,
+        WSGI_SERVER_FIXTURE,
     ), name="Plone:Robot"
 )
 
@@ -313,7 +325,7 @@ if HAS_SPEAKJS:
             MOCK_MAILHOST_FIXTURE,
             SIMPLE_PUBLICATION_FIXTURE,
             REMOTE_LIBRARY_BUNDLE_FIXTURE,
-            z2.ZSERVER_FIXTURE,
+            WSGI_SERVER_FIXTURE,
         ),
         name="SpeakJS:Robot",
     )
