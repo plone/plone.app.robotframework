@@ -2,12 +2,18 @@
 from plone.app.robotframework.remote import RemoteLibrary
 from plone.app.robotframework.utils import disableCSRFProtection
 from plone.registry.interfaces import IRegistry
-from Products.CMFPlone.interfaces import ILanguageSchema
 from zope.component import getUtility
 from zope.globalrequest import getRequest
 from zope.i18n import translate
 
 import os
+
+
+try:
+    from plone.i18n.interfaces import ILanguageSchema
+except ImportError:
+    # BBB for Plone 5.1, remove with Plone 6
+    from Products.CMFPlone.interfaces import ILanguageSchema
 
 
 class I18N(RemoteLibrary):

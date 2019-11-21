@@ -1,14 +1,24 @@
 # -*- coding: utf-8 -*-
-import os
-import unittest
-
-import robotsuite
-from plone.testing import z2
-from plone.testing.z2 import FunctionalTesting
-from plone.testing import layered
-
 from plone.app.robotframework.testing import PloneRobotFixture
 from plone.app.robotframework.testing import REMOTE_LIBRARY_BUNDLE_FIXTURE
+from plone.testing import layered
+
+import os
+import robotsuite
+import unittest
+
+
+try:
+    from plone.testing.zope import FunctionalTesting
+except ImportError:
+    # Plone 5.1 compatibility, remove in Plone 6
+    from plone.testing.z2 import FunctionalTesting
+
+try:
+    from plone.testing.zope import WSGI_SERVER_FIXTURE
+except ImportError:
+    # Plone 5.1 compatibility, remove in Plone 6
+    from plone.testing.z2 import ZSERVER_FIXTURE as WSGI_SERVER_FIXTURE
 
 
 class CustomPloneRobotFixture(PloneRobotFixture):
@@ -32,7 +42,7 @@ PLONE_ROBOT_TESTING = FunctionalTesting(
     bases=(
         PLONE_ROBOT_FIXTURE,
         REMOTE_LIBRARY_BUNDLE_FIXTURE,
-        z2.ZSERVER_FIXTURE,
+        WSGI_SERVER_FIXTURE,
     ),
     name="Plone:Robot"
 )

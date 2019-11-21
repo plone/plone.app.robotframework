@@ -22,6 +22,12 @@ else:
     from plone.app.robotframework.reload import Watcher
     HAS_RELOAD = True
 
+try:
+    from plone.testing.zope import WSGIServer
+except ImportError:
+    # Plone 5.1 compatibility, remove in Plone 6
+    from plone.testing.z2 import ZServer as WSGIServer
+
 
 HAS_DEBUG_MODE = False
 HAS_VERBOSE_CONSOLE = False
@@ -129,8 +135,7 @@ def start_reload(zope_layer_dotted_name, reload_paths=('src',),
         socket.gethostbyaddr = lambda x: time.sleep(0.5) or (ZSERVER_HOST,)
 
     # Setting smaller asyncore poll timeout will speed up restart a bit
-    import plone.testing.z2
-    plone.testing.z2.ZServer.timeout = 0.5
+    WSGIServer.timeout = 0.5
 
     zsl.amend_zope_server(zope_layer_dotted_name)
 
