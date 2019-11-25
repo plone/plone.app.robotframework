@@ -4,14 +4,6 @@ Changelog
 1.2.4 (unreleased)
 ------------------
 
-Breaking changes:
-
-- *add item here*
-
-New features:
-
-- *add item here*
-
 Bug fixes:
 
 - Reverted change in 1.2.1 for 'Log in' keyword which failed in Plone 4.3.
