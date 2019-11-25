@@ -8,6 +8,16 @@ Changelog
 
 .. towncrier release notes start
 
+1.5.3 (2019-11-25)
+------------------
+
+Bug fixes:
+
+
+- Fix the Debug keyword (#114)
+- Remove deprecation warnings [ale-rt] (#116)
+
+
 1.5.2 (2019-05-21)
 ------------------
 
