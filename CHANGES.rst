@@ -8,6 +8,17 @@ Changelog
 
 .. towncrier release notes start
 
+1.5.4 (2020-03-13)
+------------------
+
+Bug fixes:
+
+
+- Fixed package install error with Python 3.6 without locale.
+  See `coredev issue 642 <https://github.com/plone/buildout.coredev/issues/642#issuecomment-597008272>`_.
+  [maurits] (#642)
+
+
 1.5.3 (2019-11-25)
 ------------------
 
