@@ -14,7 +14,7 @@ except ImportError:
     import simplejson as json
 
 
-USERNAME_ACCESS_KEY = re.compile('^(http|https):\/\/([^:]+):([^@]+)@')
+USERNAME_ACCESS_KEY = re.compile(r'^(http|https)://([^:]+):([^@]+)@')
 
 
 class SauceLabs:
