@@ -1,0 +1,2 @@
+Fixed error ``Variable '${CMFPLONE_SELECTORS}' not found`` on Plone 6.
+[maurits]
