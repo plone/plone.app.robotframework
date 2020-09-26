@@ -8,6 +8,18 @@ Changelog
 
 .. towncrier release notes start
 
+1.5.5 (2020-09-26)
+------------------
+
+Bug fixes:
+
+
+- Fixed error ``Variable '${CMFPLONE_SELECTORS}' not found`` on Plone 6.
+  [maurits] (#680)
+- Fixed DeprecationWarning: invalid escape sequence.
+  [maurits] (#3130)
+
+
 1.5.4 (2020-03-13)
 ------------------
 
