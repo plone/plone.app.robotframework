@@ -11,32 +11,32 @@ Test Teardown  Run keywords  Plone test teardown
 
 *** Test Cases ***
 
-# Site Administrator can access control panel
-#     Given I'm logged in as a 'Site Administrator'
-#      When I open the personal menu
-#      Then I see the Site Setup -link
+Site Administrator can access control panel
+    Given I'm logged in as a 'Site Administrator'
+     When I open the personal menu
+     Then I see the Site Setup -link
 
-# Contributor cannot access control panel
-#     Given I'm logged in as a 'Contributor'
-#      When I open the personal menu
-#      Then I cannot see the Site Setup -link
+Contributor cannot access control panel
+    Given I'm logged in as a 'Contributor'
+     When I open the personal menu
+     Then I cannot see the Site Setup -link
 
-# Contributor can create a folder
-#     Given I'm logged in as a 'Contributor'
-#      When I go to the front page
-#      Then I can add a new folder
+Contributor can create a folder
+    Given I'm logged in as a 'Contributor'
+     When I go to the front page
+     Then I can add a new folder
 
-# Owner can add a sub-folder under her own folder
-#     Given I've created a test folder
-#       And I'm logged in again as an 'Authenticated'
-#      When I go to my test folder
-#      Then I can add a sub-folder
+Owner can add a sub-folder under her own folder
+    Given I've created a test folder
+      And I'm logged in again as an 'Authenticated'
+     When I go to my test folder
+     Then I can add a sub-folder
 
-# Authenticated cannot add a sub-folder under a folder by someone else
-#     Given Someone else has created a test folder
-#       And I'm logged in as an 'Authenticated'
-#      When I go to the test folder
-#      Then I get insufficient privileges error
+Authenticated cannot add a sub-folder under a folder by someone else
+    Given Someone else has created a test folder
+      And I'm logged in as an 'Authenticated'
+     When I go to the test folder
+     Then I get insufficient privileges error
 
 Contributors cannot edit each other's pages
     Given Contributor A has created a new page
