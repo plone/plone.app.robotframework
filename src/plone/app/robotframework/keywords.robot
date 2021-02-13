@@ -67,10 +67,10 @@ Log in
     Go to  ${PLONE_URL}/login_form
     Page should contain element  __ac_name
     Page should contain element  __ac_password
-    Page should contain element  css=input[value="Log in"]
+    Page should contain element  ${BUTTON_LOGIN_SELECTOR}
     Input text for sure  __ac_name  ${userid}
     Input text for sure  __ac_password  ${password}
-    Click Element  css=input[value="Log in"]
+    Click Element  ${BUTTON_LOGIN_SELECTOR}
 
 Log in as test user
 
@@ -251,7 +251,8 @@ Add content
     Click Link  ${content_type}
     Wait until page contains element  css=#form-widgets-IDublinCore-title
     Input Text  form.widgets.IDublinCore.title  ${title}
-    Click button  name=form.buttons.save
+    Wait until page contains element  ${BUTTON_SAVE_SELECTOR}
+    Click button  ${BUTTON_SAVE_SELECTOR}
     Wait until page contains  Item created
     Page should contain  ${title}
     Displayed content title should be  ${title}
