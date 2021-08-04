@@ -8,6 +8,16 @@ Changelog
 
 .. towncrier release notes start
 
+2.0.0a1 (2021-08-04)
+--------------------
+
+Breaking changes:
+
+
+- Update to Barceloneta-LTS selectors
+  [petschki] (#123)
+
+
 1.5.6 (2020-10-12)
 ------------------
 
