@@ -3,7 +3,7 @@ from setuptools import setup
 
 import sys
 
-version = '1.5.7.dev0'
+version = '2.0.0a1.dev0'
 
 
 def indented(filename):
