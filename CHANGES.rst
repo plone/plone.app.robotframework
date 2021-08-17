@@ -10,7 +10,7 @@ Breaking changes:
 
 New features:
 
-- Added genericsettup `apply_profile_step` method
+- Added genericsetup `apply_profile_step` method
   [sgeulette]
 
 Bug fixes:
