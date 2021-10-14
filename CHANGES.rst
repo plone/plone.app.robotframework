@@ -10,7 +10,8 @@ Breaking changes:
 
 New features:
 
-- *add item here*
+- Added genericsetup `apply_profile_step` method
+  [sgeulette]
 
 Bug fixes:
 
