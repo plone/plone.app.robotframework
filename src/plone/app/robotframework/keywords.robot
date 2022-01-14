@@ -129,9 +129,9 @@ Open Menu
     [Arguments]  ${elementId}
 
     Element Should Be Visible  css=#${elementId} span
-    Element Should Not Be Visible  css=#${elementId} .plone-toolbar-submenu-header
+    Element Should Not Be Visible  css=#${elementId} > div > ul
     Click link  css=#${elementId} a
-    Wait Until Element Is Visible  css=#${elementId} .plone-toolbar-submenu-header
+    Wait Until Element Is Visible  css=#${elementId} > div > ul
 
 Open User Menu
     Open Menu  portal-personaltools
