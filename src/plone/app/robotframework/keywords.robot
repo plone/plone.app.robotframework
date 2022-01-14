@@ -103,15 +103,15 @@ Log out
 Click Overlay Link
     [Arguments]  ${element}
     Click Link  ${element}
-    Wait until keyword succeeds  10  1  Page Should Contain Element  css=.pb-ajax > div,.plone-modal
-    Element Should Be Visible  css=.pb-ajax > div,.plone-modal
+    Wait until keyword succeeds  10  1  Page Should Contain Element  css=.pb-ajax > div,.modal
+    Element Should Be Visible  css=.pb-ajax > div,.modal
 
 Click Overlay Button
     [Arguments]  ${element}
     Click Button  ${element}
-    Wait until page contains element  css=.pb-ajax > div,.plone-modal
-    Page Should Contain Element  css=.pb-ajax > div,.plone-modal
-    Element Should Be Visible  css=.pb-ajax > div,.plone-modal
+    Wait until page contains element  css=.pb-ajax > div,.modal
+    Page Should Contain Element  css=.pb-ajax > div,.modal
+    Element Should Be Visible  css=.pb-ajax > div,.modal
 
 Should be above
     [Arguments]  ${locator1}  ${locator2}
