@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Test layers required to run plone.app.robotframework tests."""
 from Acquisition import aq_base
+from OFS.Application import AppInitializer
 from plone.app.robotframework.autologin import AutoLogin
 from plone.app.robotframework.content import Content
 from plone.app.robotframework.genericsetup import GenericSetup
@@ -219,6 +220,9 @@ class PloneRobotFixture(PloneSandboxLayer):
             return filter(bool, [s.strip() for s in candidates])
 
     def setUpZope(self, app, configurationContext):
+
+        # This installs the VHM in the Zope root, so we can have VHM support too
+        AppInitializer(app).install_virtual_hosting()
 
         for locales in self._get_robot_variable('REGISTER_TRANSLATIONS'):
             if locales and os.path.isdir(locales):
