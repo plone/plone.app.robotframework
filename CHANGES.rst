@@ -8,6 +8,16 @@ Changelog
 
 .. towncrier release notes start
 
+2.0.0a2 (2022-03-09)
+--------------------
+
+New features:
+
+
+- Add VHM support in the PloneRobotFixture
+  [sneridagh] (#127)
+
+
 2.0.0a1 (2021-08-04)
 --------------------
 
