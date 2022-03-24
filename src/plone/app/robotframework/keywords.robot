@@ -103,15 +103,15 @@ Log out
 Click Overlay Link
     [Arguments]  ${element}
     Click Link  ${element}
-    Wait until keyword succeeds  10  1  Page Should Contain Element  css=.pb-ajax > div,.plone-modal
-    Element Should Be Visible  css=.pb-ajax > div,.plone-modal
+    Wait until keyword succeeds  10  1  Page Should Contain Element  css=.pb-ajax > div,.modal
+    Element Should Be Visible  css=.pb-ajax > div,.modal
 
 Click Overlay Button
     [Arguments]  ${element}
     Click Button  ${element}
-    Wait until page contains element  css=.pb-ajax > div,.plone-modal
-    Page Should Contain Element  css=.pb-ajax > div,.plone-modal
-    Element Should Be Visible  css=.pb-ajax > div,.plone-modal
+    Wait until page contains element  css=.pb-ajax > div,.modal
+    Page Should Contain Element  css=.pb-ajax > div,.modal
+    Element Should Be Visible  css=.pb-ajax > div,.modal
 
 Should be above
     [Arguments]  ${locator1}  ${locator2}
@@ -129,9 +129,9 @@ Open Menu
     [Arguments]  ${elementId}
 
     Element Should Be Visible  css=#${elementId} span
-    Element Should Not Be Visible  css=#${elementId} .plone-toolbar-submenu-header
+    Element Should Not Be Visible  css=#${elementId} > div > ul
     Click link  css=#${elementId} a
-    Wait Until Element Is Visible  css=#${elementId} .plone-toolbar-submenu-header
+    Wait Until Element Is Visible  css=#${elementId} > div > ul
 
 Open User Menu
     Open Menu  portal-personaltools
