@@ -8,6 +8,16 @@ Changelog
 
 .. towncrier release notes start
 
+2.0.0a3 (2022-04-04)
+--------------------
+
+Bug fixes:
+
+
+- Update modal and toolbar selectors for ES6.
+  [agitator] (#126)
+
+
 2.0.0a2 (2022-03-09)
 --------------------
 
