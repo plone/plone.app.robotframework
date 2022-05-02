@@ -1,4 +1,5 @@
 from plone.app.robotframework.remote import RemoteLibrary
+from plone.testing.zope import WSGIServer
 from xmlrpc.client import ServerProxy
 from xmlrpc.server import SimpleXMLRPCServer
 
@@ -20,12 +21,6 @@ else:
     from plone.app.robotframework.reload import Watcher
 
     HAS_RELOAD = True
-
-try:
-    from plone.testing.zope import WSGIServer
-except ImportError:
-    # Plone 5.1 compatibility, remove in Plone 6
-    from plone.testing.z2 import ZServer as WSGIServer
 
 
 HAS_DEBUG_MODE = False

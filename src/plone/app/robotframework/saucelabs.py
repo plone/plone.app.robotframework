@@ -1,17 +1,10 @@
-from robot.libraries.BuiltIn import BuiltIn
 from http.client import HTTPConnection
+from robot.libraries.BuiltIn import BuiltIn
 
 import base64
+import json
 import os
 import re
-
-
-try:
-    import json
-
-    json  # pyflakes
-except ImportError:
-    import simplejson as json
 
 
 USERNAME_ACCESS_KEY = re.compile(r"^(http|https)://([^:]+):([^@]+)@")

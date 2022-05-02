@@ -1,43 +1,40 @@
 from datetime import datetime
-from plone.app.robotframework.config import HAS_BLOBS
-from plone.app.robotframework.config import HAS_DEXTERITY
-from plone.app.robotframework.config import HAS_DEXTERITY_RELATIONS
 from plone.app.robotframework.remote import RemoteLibrary
 from plone.app.robotframework.utils import disableCSRFProtection
+from plone.app.textfield.value import RichTextValue
+from plone.dexterity.fti import DexterityFTI
+from plone.dexterity.utils import getAdditionalSchemata
 from plone.i18n.normalizer.interfaces import IURLNormalizer
+from plone.namedfile.file import NamedBlobFile
+from plone.namedfile.file import NamedBlobImage
 from plone.uuid.interfaces import IUUID
 from Products.CMFCore.utils import getToolByName
+from z3c.form.interfaces import IDataConverter
+from z3c.form.interfaces import IDataManager
+from z3c.form.interfaces import IFieldWidget
 from zope.component import ComponentLookupError
 from zope.component import getUtility
+from zope.component import queryMultiAdapter
 from zope.component import queryUtility
 from zope.component.hooks import getSite
 from zope.event import notify
 from zope.globalrequest import getRequest
 from zope.lifecycleevent import ObjectModifiedEvent
+from zope.schema.interfaces import IFromUnicode
 
 import os
+import pkg_resources
 
 
-if HAS_DEXTERITY:
-    from plone.app.textfield.value import RichTextValue
-    from plone.dexterity.fti import DexterityFTI
-    from plone.dexterity.utils import getAdditionalSchemata
-    from z3c.form.interfaces import IDataConverter
-    from z3c.form.interfaces import IDataManager
-    from z3c.form.interfaces import IFieldWidget
-    from zope.component import queryMultiAdapter
-    from zope.schema.interfaces import IFromUnicode
-
-    if HAS_BLOBS:
-        from plone.namedfile.file import NamedBlobFile
-        from plone.namedfile.file import NamedBlobImage
-    else:
-        from plone.namedfile.file import NamedFile as NamedBlobFile
-        from plone.namedfile.file import NamedImage as NamedBlobImage
-
-if HAS_DEXTERITY_RELATIONS:
+try:
+    pkg_resources.get_distribution("z3c.relationfield")
+except pkg_resources.DistributionNotFound:
+    HAS_DEXTERITY_RELATIONS = False
+else:
     from z3c.relationfield import RelationValue
     from zope.intid.interfaces import IIntIds
+
+    HAS_DEXTERITY_RELATIONS = True
 
 
 class Content(RemoteLibrary):
@@ -81,17 +78,14 @@ class Content(RemoteLibrary):
         create_kwargs = {}
         create_kwargs.update(kwargs)
 
-        if HAS_DEXTERITY:
-            if portal_type in ("File",) and "file" not in kwargs:
-                pdf_file = os.path.join(
-                    os.path.dirname(__file__), "content", "file.pdf"
-                )
-                with open(pdf_file, "rb") as f:
-                    file_data = f.read()
-                value = NamedBlobFile(
-                    data=file_data, contentType="application/pdf", filename="file.pdf"
-                )
-                kwargs["file"] = value
+        if portal_type in ("File",) and "file" not in kwargs:
+            pdf_file = os.path.join(os.path.dirname(__file__), "content", "file.pdf")
+            with open(pdf_file, "rb") as f:
+                file_data = f.read()
+            value = NamedBlobFile(
+                data=file_data, contentType="application/pdf", filename="file.pdf"
+            )
+            kwargs["file"] = value
 
         if portal_type in ("Image", "News Item") and "image" not in kwargs:
             prefill_image_types(portal, kwargs)
@@ -100,26 +94,24 @@ class Content(RemoteLibrary):
         type_ = kwargs.pop("type")
 
         content = None
-        if HAS_DEXTERITY:
-            # The title attribute for Dexterity types needs to be unicode
-            if "title" in kwargs and isinstance(kwargs["title"], bytes):
-                kwargs["title"] = kwargs["title"].decode("utf-8")
-                create_kwargs["title"] = create_kwargs["title"].decode("utf-8")
-            from plone.dexterity.interfaces import IDexterityFTI
-            from plone.dexterity.utils import createContentInContainer
+        # The title attribute needs to be unicode.
+        if "title" in kwargs and isinstance(kwargs["title"], bytes):
+            kwargs["title"] = kwargs["title"].decode("utf-8")
+            create_kwargs["title"] = create_kwargs["title"].decode("utf-8")
+        from plone.dexterity.interfaces import IDexterityFTI
+        from plone.dexterity.utils import createContentInContainer
 
-            try:
-                getUtility(IDexterityFTI, name=type_)
-                content = createContentInContainer(container, type_, **create_kwargs)
-                if id_ is not None and content.id != id_:
-                    container.manage_renameObject(content.id, id_)
-            except ComponentLookupError:
-                pass
+        try:
+            getUtility(IDexterityFTI, name=type_)
+            content = createContentInContainer(container, type_, **create_kwargs)
+            if id_ is not None and content.id != id_:
+                container.manage_renameObject(content.id, id_)
+        except ComponentLookupError:
+            pass
 
-        if HAS_DEXTERITY and content:
-            # For dexterity-types, we need a second pass to fill all fields
-            # using their widgets to get e.g. RichText-values created
-            # correctly.
+        if content:
+            # We need a second pass to fill all fields using their widgets to
+            # get e.g. RichText-values created correctly.
             fti = getUtility(IDexterityFTI, name=type_)
             schema = fti.lookupSchema()
             fields = {}
@@ -153,74 +145,70 @@ class Content(RemoteLibrary):
 
         return IUUID(content)
 
-    if HAS_DEXTERITY:
+    def set_field_value(self, uid, field, value, field_type):
+        """Set field value with a specific type
 
-        def set_field_value(self, uid, field, value, field_type):
-            """Set field value with a specific type
-
-            XXX: Only dexterity fields are supported
-            """
-            pc = getToolByName(self, "portal_catalog")
-            results = pc.unrestrictedSearchResults(UID=uid)
-            obj = results[0]._unrestrictedGetObject()
-            if field_type == "float":
-                value = float(value)
-            if field_type == "int":
-                value = int(value)
-            if field_type == "list":
-                value = eval(value)
-            if field_type.startswith("datetime"):
-                # field_type must begin with 'datetime'
-                # followed by optional format 'datetime%Y%m%d%H%M'
-                # without format: %Y%m%d%H%M is used
-                field_type = field_type[8:]
-                fmt = field_type and field_type or "%Y%m%d%H%M"
-                value = datetime.strptime(value, fmt)
-            if field_type.startswith("date"):
-                # field_type must begin with 'date'
-                # followed by optional format 'date%Y%m%d'
-                # without format: %Y%m%d is used
-                field_type = field_type[4:]
-                fmt = field_type and field_type or "%Y%m%d"
-                value = datetime.strptime(value, fmt).date()
-            if field_type == "reference" and HAS_DEXTERITY_RELATIONS:
-                results_referenced = pc.unrestrictedSearchResults(UID=value)
+        XXX: Only dexterity fields are supported
+        """
+        pc = getToolByName(self, "portal_catalog")
+        results = pc.unrestrictedSearchResults(UID=uid)
+        obj = results[0]._unrestrictedGetObject()
+        if field_type == "float":
+            value = float(value)
+        if field_type == "int":
+            value = int(value)
+        if field_type == "list":
+            value = eval(value)
+        if field_type.startswith("datetime"):
+            # field_type must begin with 'datetime'
+            # followed by optional format 'datetime%Y%m%d%H%M'
+            # without format: %Y%m%d%H%M is used
+            field_type = field_type[8:]
+            fmt = field_type and field_type or "%Y%m%d%H%M"
+            value = datetime.strptime(value, fmt)
+        if field_type.startswith("date"):
+            # field_type must begin with 'date'
+            # followed by optional format 'date%Y%m%d'
+            # without format: %Y%m%d is used
+            field_type = field_type[4:]
+            fmt = field_type and field_type or "%Y%m%d"
+            value = datetime.strptime(value, fmt).date()
+        if field_type == "reference" and HAS_DEXTERITY_RELATIONS:
+            results_referenced = pc.unrestrictedSearchResults(UID=value)
+            referenced_obj = results_referenced[0]._unrestrictedGetObject()
+            intids = getUtility(IIntIds)
+            referenced_obj_intid = intids.getId(referenced_obj)
+            value = RelationValue(referenced_obj_intid)
+        if field_type == "references" and HAS_DEXTERITY_RELATIONS:
+            values = eval(value)
+            intids = getUtility(IIntIds)
+            value = []
+            for uid in values:
+                results_referenced = pc.unrestrictedSearchResults(UID=uid)
                 referenced_obj = results_referenced[0]._unrestrictedGetObject()
-                intids = getUtility(IIntIds)
                 referenced_obj_intid = intids.getId(referenced_obj)
-                value = RelationValue(referenced_obj_intid)
-            if field_type == "references" and HAS_DEXTERITY_RELATIONS:
-                values = eval(value)
-                intids = getUtility(IIntIds)
-                value = []
-                for uid in values:
-                    results_referenced = pc.unrestrictedSearchResults(UID=uid)
-                    referenced_obj = results_referenced[0]._unrestrictedGetObject()
-                    referenced_obj_intid = intids.getId(referenced_obj)
-                    value.append(RelationValue(referenced_obj_intid))
-            if field_type == "text/html":
-                value = RichTextValue(value, "text/html", "text/html")
-                obj.text = value
-            if field_type == "file":
-                pdf_file = os.path.join(
-                    os.path.dirname(__file__), "content", "file.pdf"
-                )
-                with open(pdf_file, "rb") as f:
-                    file_data = f.read()
-                value = NamedBlobFile(
-                    data=file_data, contentType="application/pdf", filename="file.pdf"
-                )
-            if field_type == "image":
-                image_file = os.path.join(os.path.dirname(__file__), "image.jpg")
-                with open(image_file, "rb") as f:
-                    image_data = f.read()
-                value = NamedBlobImage(
-                    data=image_data, contentType="image/jpg", filename="image.jpg"
-                )
+                value.append(RelationValue(referenced_obj_intid))
+        if field_type == "text/html":
+            value = RichTextValue(value, "text/html", "text/html")
+            obj.text = value
+        if field_type == "file":
+            pdf_file = os.path.join(os.path.dirname(__file__), "content", "file.pdf")
+            with open(pdf_file, "rb") as f:
+                file_data = f.read()
+            value = NamedBlobFile(
+                data=file_data, contentType="application/pdf", filename="file.pdf"
+            )
+        if field_type == "image":
+            image_file = os.path.join(os.path.dirname(__file__), "image.jpg")
+            with open(image_file, "rb") as f:
+                image_data = f.read()
+            value = NamedBlobImage(
+                data=image_data, contentType="image/jpg", filename="image.jpg"
+            )
 
-            setattr(obj, field, value)
-            obj.reindexObject()
-            notify(ObjectModifiedEvent(obj))
+        setattr(obj, field, value)
+        obj.reindexObject()
+        notify(ObjectModifiedEvent(obj))
 
     def uid_to_url(self, uid):
         """Return absolute path for an UID"""
@@ -267,16 +255,14 @@ def prefill_image_types(portal, kwargs):
     portal_type = kwargs.get("type")
     portal_types = getToolByName(portal, "portal_types")
     fti = portal_types[portal_type]
-    if HAS_DEXTERITY and isinstance(fti, DexterityFTI):
+    if isinstance(fti, DexterityFTI):
         prefill_image_types_dexterity(kwargs)
-    else:
-        prefill_image_types_archetypes(kwargs)
 
 
 def random_image():
+    from io import BytesIO
     from PIL import Image
     from PIL import ImageDraw
-    from io import BytesIO
 
     import random
 
