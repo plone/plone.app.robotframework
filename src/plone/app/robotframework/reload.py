@@ -9,20 +9,20 @@ import time
 
 
 def TIME():
-    return time.strftime('%H:%M:%S')
+    return time.strftime("%H:%M:%S")
 
 
 def WAIT(msg):
-    return '{0} [\033[33m wait \033[0m] {1}'.format(TIME(), msg)
+    return "{0} [\033[33m wait \033[0m] {1}".format(TIME(), msg)
 
 
 def ERROR(msg):
-    return '{0} [\033[31m ERROR \033[0m] {1}'.format(TIME(), msg)
+    return "{0} [\033[31m ERROR \033[0m] {1}".format(TIME(), msg)
 
 
 class Watcher(FileSystemEventHandler):
 
-    allowed_extensions = set(('po', 'pt', 'py', 'xml', 'csv', 'zcml'))
+    allowed_extensions = set(("po", "pt", "py", "xml", "csv", "zcml"))
 
     def __init__(self, paths, forkloop, minimum_wait=2.0):
         FileSystemEventHandler.__init__(self)
@@ -33,8 +33,7 @@ class Watcher(FileSystemEventHandler):
         self.last_event = time.time()
 
     def start(self):
-        """Start file monitoring thread
-        """
+        """Start file monitoring thread"""
 
         signal.signal(signal.SIGINT, self._exitHandler)
         signal.signal(signal.SIGTERM, self._exitHandler)
@@ -51,7 +50,7 @@ class Watcher(FileSystemEventHandler):
             observer.stop()
 
     def on_any_event(self, event):
-        extension = event.src_path.split('.')[-1].lower()
+        extension = event.src_path.split(".")[-1].lower()
 
         if extension in self.allowed_extensions:
             event_type = event.event_type
@@ -65,20 +64,21 @@ class Watcher(FileSystemEventHandler):
                     break
 
             if self.last_event + self.minimum_wait < time.time():
-                print(WAIT("Watchdog got %s event on %s"
-                           % (event_type, event_relpath)))
+                print(WAIT("Watchdog got %s event on %s" % (event_type, event_relpath)))
                 try:
                     self.forkloop.forkNewChild()
                     self.last_event = time.time()
                 except Exception as e:
                     print(ERROR(str(e)))
             else:
-                print(WAIT("Watchdog skipped %s event on %s"
-                           % (event_type, event_relpath)))
+                print(
+                    WAIT(
+                        "Watchdog skipped %s event on %s" % (event_type, event_relpath)
+                    )
+                )
 
 
 class ForkLoop(object):
-
     def __init__(self):
 
         self.fork = True  # Must be 'True' to create new child on start
@@ -97,8 +97,8 @@ class ForkLoop(object):
     def isChildAlive(self):
         if self.isChild():
             return True
-        elif self.child_pid is not None and os.path.exists('/proc'):
-            return os.path.exists('/proc/%i' % self.child_pid)
+        elif self.child_pid is not None and os.path.exists("/proc"):
+            return os.path.exists("/proc/%i" % self.child_pid)
         elif self.child_pid is not None:
             try:
                 os.kill(self.child_pid, 0)
@@ -115,8 +115,7 @@ class ForkLoop(object):
         self.killed_child = True
 
     def start(self):
-        """Start fork loop
-        """
+        """Start fork loop"""
         # SIGCHLD tells us that child process has really died and we can spawn
         # new child
         signal.signal(signal.SIGCHLD, self._waitChildToDieAndScheduleNew)
@@ -128,8 +127,7 @@ class ForkLoop(object):
         self.loop()
 
     def loop(self):
-        """Magic happens
-        """
+        """Magic happens"""
         signal.signal(signal.SIGINT, self._parentExitHandler)
         signal.signal(signal.SIGTERM, self._parentExitHandler)
 
@@ -151,12 +149,14 @@ class ForkLoop(object):
                     continue
 
                 if not self.killed_child:
-                    print(ERROR(
-                        "Forked child process died on bootup. "
-                        "Fix possible errors and save edits. "
-                        "We are now paused until we detect the next file "
-                        "change..."
-                    ))
+                    print(
+                        ERROR(
+                            "Forked child process died on bootup. "
+                            "Fix possible errors and save edits. "
+                            "We are now paused until we detect the next file "
+                            "change..."
+                        )
+                    )
 
                     # Child died because of unknown reason. Mark it as killed
                     # and go into pause mode.
@@ -187,16 +187,21 @@ class ForkLoop(object):
 
         """
         if not self.active:
-            raise Exception("Cannot fork the process, because the fork loop "
-                            "has not been started yet")
+            raise Exception(
+                "Cannot fork the process, because the fork loop "
+                "has not been started yet"
+            )
 
         if self.forking:
-            raise Exception("Cannot fork the process, because there should be "
-                            "serious forking action already going on")
+            raise Exception(
+                "Cannot fork the process, because there should be "
+                "serious forking action already going on"
+            )
 
         if self.child_pid is None:
-            raise Exception("Cannot kill a process fork, because there should "
-                            "not be one yet")
+            raise Exception(
+                "Cannot kill a process fork, because there should " "not be one yet"
+            )
 
         self.pause = False
 
@@ -234,8 +239,9 @@ class ForkLoop(object):
 
         while self.isChildAlive():
             # XXX: Somehow this may get stuck if we don't print before kill
-            print(WAIT("Fork loop is terminating its child process %s" %
-                       self.child_pid))
+            print(
+                WAIT("Fork loop is terminating its child process %s" % self.child_pid)
+            )
             self._killChild()
             time.sleep(2)
 
@@ -270,11 +276,16 @@ class ForkLoop(object):
                 print(WAIT("Fork loop terminated child process %d" % pid))
 
             elif exit_flags:
-                print(ERROR("Forked child process %d %s"
-                            % (pid, ", ".join(exit_flags))))
+                print(
+                    ERROR("Forked child process %d %s" % (pid, ", ".join(exit_flags)))
+                )
             else:
-                print(ERROR("Forked child process %d exited with code %s"
-                            % (pid, exit_status)))
+                print(
+                    ERROR(
+                        "Forked child process %d exited with code %s"
+                        % (pid, exit_status)
+                    )
+                )
 
         except OSError:
             # OSError: [Errno 10] No child processes

@@ -6,6 +6,7 @@ try:
     from plone.protect.interfaces import IDisableCSRFProtection
 except ImportError:
     from zope.interface import Interface
+
     class IDisableCSRFProtection(Interface):
         pass
 

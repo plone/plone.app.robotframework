@@ -4,7 +4,7 @@ import pkg_resources
 
 
 try:
-    pkg_resources.get_distribution('plone.dexterity')
+    pkg_resources.get_distribution("plone.dexterity")
 except pkg_resources.DistributionNotFound:
     HAS_DEXTERITY = False
 else:
@@ -12,7 +12,7 @@ else:
 
 
 try:
-    pkg_resources.get_distribution('z3c.relationfield')
+    pkg_resources.get_distribution("z3c.relationfield")
 except pkg_resources.DistributionNotFound:
     HAS_DEXTERITY_RELATIONS = False
 else:
@@ -20,7 +20,7 @@ else:
 
 
 try:
-    pkg_resources.get_distribution('z3c.blobfile')
+    pkg_resources.get_distribution("z3c.blobfile")
 except pkg_resources.DistributionNotFound:
     HAS_BLOBS = False
 else:

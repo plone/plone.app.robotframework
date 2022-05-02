@@ -30,7 +30,7 @@ import sys
 
 
 try:
-    pkg_resources.get_distribution('collective.js.speakjs')
+    pkg_resources.get_distribution("collective.js.speakjs")
 except pkg_resources.DistributionNotFound:
     HAS_SPEAKJS = False
 else:
@@ -55,14 +55,12 @@ class SimplePublicationLayer(Layer):
 
     def setUp(self):
         with ploneSite() as portal:
-            applyProfile(portal, 'plone.app.contenttypes:default')
-            portal.portal_workflow.setDefaultChain(
-                'simple_publication_workflow'
-            )
+            applyProfile(portal, "plone.app.contenttypes:default")
+            portal.portal_workflow.setDefaultChain("simple_publication_workflow")
 
     def tearDown(self):
         with ploneSite() as portal:
-            portal.portal_workflow.setDefaultChain('')
+            portal.portal_workflow.setDefaultChain("")
 
 
 SIMPLE_PUBLICATION_FIXTURE = SimplePublicationLayer()
@@ -74,7 +72,7 @@ class SimplePublicationWithTypesLayer(Layer):
 
     def setUp(self):
         with ploneSite() as portal:
-            applyProfile(portal, 'plone.app.contenttypes:default')
+            applyProfile(portal, "plone.app.contenttypes:default")
 
 
 SIMPLE_PUBLICATION_WITH_TYPES_FIXTURE = SimplePublicationLayer()
@@ -93,18 +91,18 @@ class MockMailHostLayer(Layer):
         from Products.CMFPlone.tests import utils
 
         with ploneSite() as portal:
-            portal.email_from_address = 'noreply@example.com'
-            portal.email_from_name = 'Plone Site'
+            portal.email_from_address = "noreply@example.com"
+            portal.email_from_name = "Plone Site"
             portal._original_MailHost = portal.MailHost
-            portal.MailHost = mailhost = utils.MockMailHost('MailHost')
-            portal.MailHost.smtp_host = 'localhost'
+            portal.MailHost = mailhost = utils.MockMailHost("MailHost")
+            portal.MailHost.smtp_host = "localhost"
             sm = getSiteManager(context=portal)
             sm.unregisterUtility(provided=IMailHost)
             sm.registerUtility(mailhost, provided=IMailHost)
 
     def tearDown(self):
         with ploneSite() as portal:
-            _o_mailhost = getattr(portal, '_original_MailHost', None)
+            _o_mailhost = getattr(portal, "_original_MailHost", None)
             if _o_mailhost:
                 portal.MailHost = portal._original_MailHost
                 sm = getSiteManager(context=portal)
@@ -152,7 +150,7 @@ REMOTE_LIBRARY_BUNDLE_FIXTURE = RemoteLibraryLayer(
 #
 
 RobotRemote = type(
-    'RobotRemote',
+    "RobotRemote",
     (
         AutoLogin,
         QuickInstaller,
@@ -163,7 +161,7 @@ RobotRemote = type(
         MockMailHost,
         Zope2ServerRemote,
     ),
-    {'__doc__': 'Robot Framework remote library', 'id': 'RobotRemote'},
+    {"__doc__": "Robot Framework remote library", "id": "RobotRemote"},
 )()
 
 REMOTE_LIBRARY_ROBOT_TESTING = FunctionalTesting(
@@ -209,14 +207,14 @@ class PloneRobotFixture(PloneSandboxLayer):
         """Return robot list variable either from robot instance or
         from ROBOT_-prefixed environment variable
         """
-        if getattr(BuiltIn(), '_context', None) is not None:
-            value = BuiltIn().get_variable_value('${%s}' % name, [])
+        if getattr(BuiltIn(), "_context", None) is not None:
+            value = BuiltIn().get_variable_value("${%s}" % name, [])
             if isinstance(value, str) or isinstance(value, six.text_type):
-                return value.split(',')
+                return value.split(",")
             else:
                 return value
         else:
-            candidates = os.environ.get(name, '').split(',')
+            candidates = os.environ.get(name, "").split(",")
             return filter(bool, [s.strip() for s in candidates])
 
     def setUpZope(self, app, configurationContext):
@@ -224,65 +222,63 @@ class PloneRobotFixture(PloneSandboxLayer):
         # This installs the VHM in the Zope root, so we can have VHM support too
         AppInitializer(app).install_virtual_hosting()
 
-        for locales in self._get_robot_variable('REGISTER_TRANSLATIONS'):
+        for locales in self._get_robot_variable("REGISTER_TRANSLATIONS"):
             if locales and os.path.isdir(locales):
                 from zope.i18n.zcml import registerTranslations
 
                 registerTranslations(configurationContext, locales)
-                self['state'].append(locales)
+                self["state"].append(locales)
 
-        for name in self._get_robot_variable('META_PACKAGES'):
+        for name in self._get_robot_variable("META_PACKAGES"):
             if name not in sys.modules:
                 __import__(name)
             package = sys.modules[name]
-            xmlconfig.file('meta.zcml', package, context=configurationContext)
-            self['state'].append(name)
+            xmlconfig.file("meta.zcml", package, context=configurationContext)
+            self["state"].append(name)
 
-        for name in self._get_robot_variable('CONFIGURE_PACKAGES'):
+        for name in self._get_robot_variable("CONFIGURE_PACKAGES"):
             if name not in sys.modules:
                 __import__(name)
             package = sys.modules[name]
-            xmlconfig.file(
-                'configure.zcml', package, context=configurationContext
-            )
-            self['state'].append(name)
+            xmlconfig.file("configure.zcml", package, context=configurationContext)
+            self["state"].append(name)
 
-        for name in self._get_robot_variable('OVERRIDE_PACKAGES'):
+        for name in self._get_robot_variable("OVERRIDE_PACKAGES"):
             if name not in sys.modules:
                 __import__(name)
             package = sys.modules[name]
             xmlconfig.includeOverrides(
-                configurationContext, 'overrides.zcml', package=package
+                configurationContext, "overrides.zcml", package=package
             )
-            self['state'].append(name)
+            self["state"].append(name)
 
-        for name in self._get_robot_variable('INSTALL_PRODUCTS'):
+        for name in self._get_robot_variable("INSTALL_PRODUCTS"):
             if name not in sys.modules:
                 __import__(name)
             zope_testing.installProduct(app, name)
-            self['state'].append(name)
+            self["state"].append(name)
 
     def setUpPloneSite(self, portal):
-        for name in self._get_robot_variable('APPLY_PROFILES'):
+        for name in self._get_robot_variable("APPLY_PROFILES"):
             self.applyProfile(portal, name)
-            self['state'].append(name)
+            self["state"].append(name)
 
     def setUp(self):
-        self['state'] = []
+        self["state"] = []
         super(PloneRobotFixture, self).setUp()
 
         class Value:
             __repr__ = lambda x: str(bool(x))
-            __nonzero__ = lambda x: self.get('state', []) != (
-                self._get_robot_variable('REGISTER_TRANSLATIONS')
-                + self._get_robot_variable('META_PACKAGES')
-                + self._get_robot_variable('CONFIGURE_PACKAGES')
-                + self._get_robot_variable('OVERRIDE_PACKAGES')
-                + self._get_robot_variable('INSTALL_PRODUCTS')
-                + self._get_robot_variable('APPLY_PROFILES')
+            __nonzero__ = lambda x: self.get("state", []) != (
+                self._get_robot_variable("REGISTER_TRANSLATIONS")
+                + self._get_robot_variable("META_PACKAGES")
+                + self._get_robot_variable("CONFIGURE_PACKAGES")
+                + self._get_robot_variable("OVERRIDE_PACKAGES")
+                + self._get_robot_variable("INSTALL_PRODUCTS")
+                + self._get_robot_variable("APPLY_PROFILES")
             )
 
-        self['dirty'] = Value()
+        self["dirty"] = Value()
 
 
 PLONE_ROBOT_FIXTURE = PloneRobotFixture()
@@ -291,7 +287,8 @@ PLONE_ROBOT_INTEGRATION_TESTING = IntegrationTesting(
     bases=(
         PLONE_ROBOT_FIXTURE,
         REMOTE_LIBRARY_BUNDLE_FIXTURE,
-    ), name="PloneRobot:Integration"
+    ),
+    name="PloneRobot:Integration",
 )
 
 PLONE_ROBOT_TESTING = FunctionalTesting(
@@ -299,7 +296,8 @@ PLONE_ROBOT_TESTING = FunctionalTesting(
         PLONE_ROBOT_FIXTURE,
         REMOTE_LIBRARY_BUNDLE_FIXTURE,
         WSGI_SERVER_FIXTURE,
-    ), name="Plone:Robot"
+    ),
+    name="Plone:Robot",
 )
 
 
@@ -313,13 +311,13 @@ if HAS_SPEAKJS:
             import collective.js.speakjs
 
             xmlconfig.file(
-                'configure.zcml',
+                "configure.zcml",
                 collective.js.speakjs,
-                context=self['configurationContext'],
+                context=self["configurationContext"],
             )
 
             with ploneSite() as portal:
-                applyProfile(portal, 'collective.js.speakjs:default')
+                applyProfile(portal, "collective.js.speakjs:default")
 
     SPEAKJS_FIXTURE = SpeakJSLayer()
 
