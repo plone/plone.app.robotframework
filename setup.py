@@ -1,8 +1,6 @@
 from setuptools import find_packages
 from setuptools import setup
 
-import sys
-
 
 version = "2.0.0a4.dev0"
 
@@ -72,15 +70,6 @@ install_requires = [
     "zope.schema",
     "zope.testrunner",
 ]
-
-if sys.version_info < (2, 7):
-    install_requires.extend(
-        [
-            "argparse",
-            "decorator",  # required by r.selenium2library on Python 2.6.x
-            "simplejson",  # required for SauceLabs-keywords on Python 2.6.x
-        ]
-    )
 
 test_requires = [
     "plone.app.dexterity",
