@@ -16,7 +16,7 @@ class SauceLabs:
         job_id = (
             BuiltIn()
             .get_library_instance("Selenium2Library")
-            ._current_browser()
+            .driver
             .session_id
         )
 
