@@ -1,10 +1,11 @@
 from datetime import datetime
+from io import BytesIO
+from PIL import Image
+from PIL import ImageDraw
 from plone.app.robotframework.remote import RemoteLibrary
 from plone.app.robotframework.utils import disableCSRFProtection
 from plone.app.textfield.value import RichTextValue
-from plone.dexterity.fti import DexterityFTI
 from plone.dexterity.utils import getAdditionalSchemata
-from plone.i18n.normalizer.interfaces import IURLNormalizer
 from plone.namedfile.file import NamedBlobFile
 from plone.namedfile.file import NamedBlobImage
 from plone.uuid.interfaces import IUUID
@@ -15,7 +16,6 @@ from z3c.form.interfaces import IFieldWidget
 from zope.component import ComponentLookupError
 from zope.component import getUtility
 from zope.component import queryMultiAdapter
-from zope.component import queryUtility
 from zope.component.hooks import getSite
 from zope.event import notify
 from zope.globalrequest import getRequest
@@ -24,6 +24,8 @@ from zope.schema.interfaces import IFromUnicode
 
 import os
 import pkg_resources
+import random
+import string
 
 
 try:
@@ -88,7 +90,7 @@ class Content(RemoteLibrary):
             kwargs["file"] = value
 
         if portal_type in ("Image", "News Item") and "image" not in kwargs:
-            prefill_image_types(portal, kwargs)
+            prefill_image_types(kwargs)
 
         id_ = kwargs.pop("id", None)
         type_ = kwargs.pop("type")
@@ -134,22 +136,10 @@ class Content(RemoteLibrary):
                     if dm:
                         dm.set(converter.toFieldValue(value))
 
-        if content is None:
-            if id_ is None:
-                normalizer = queryUtility(IURLNormalizer)
-                id_ = normalizer.normalize(kwargs["title"])
-
-            # It must be Archetypes based content:
-            content = container[container.invokeFactory(type_, id_, **kwargs)]
-            content.processForm()
-
         return IUUID(content)
 
     def set_field_value(self, uid, field, value, field_type):
-        """Set field value with a specific type
-
-        XXX: Only dexterity fields are supported
-        """
+        """Set field value with a specific type"""
         pc = getToolByName(self, "portal_catalog")
         results = pc.unrestrictedSearchResults(UID=uid)
         obj = results[0]._unrestrictedGetObject()
@@ -251,21 +241,15 @@ class Content(RemoteLibrary):
         types_tool[type_].global_allow = value
 
 
-def prefill_image_types(portal, kwargs):
-    portal_type = kwargs.get("type")
-    portal_types = getToolByName(portal, "portal_types")
-    fti = portal_types[portal_type]
-    if isinstance(fti, DexterityFTI):
-        prefill_image_types_dexterity(kwargs)
+def prefill_image_types(kwargs):
+    image = random_image()
+    filename = "{}.png".format(
+        "".join(random.choice(string.ascii_lowercase) for _ in range(6))
+    )
+    kwargs["image"] = NamedBlobImage(data=image, filename=filename)
 
 
 def random_image():
-    from io import BytesIO
-    from PIL import Image
-    from PIL import ImageDraw
-
-    import random
-
     img = Image.new("RGB", (random.randint(320, 640), random.randint(320, 640)))
     draw = ImageDraw.Draw(img)
     draw.rectangle(
@@ -278,18 +262,3 @@ def random_image():
     img.save(result, "PNG")
     result.seek(0)
     return result
-
-
-def prefill_image_types_dexterity(kwargs):
-    import random
-    import string
-
-    image = random_image()
-    filename = "{}.png".format(
-        "".join(random.choice(string.ascii_lowercase) for _ in range(6))
-    )
-    kwargs["image"] = NamedBlobImage(data=image, filename=filename)
-
-
-def prefill_image_types_archetypes(kwargs):
-    kwargs["image"] = random_image()
