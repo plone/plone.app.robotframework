@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Test layers required to run plone.app.robotframework tests."""
 from Acquisition import aq_base
 from OFS.Application import AppInitializer
@@ -209,7 +208,7 @@ class PloneRobotFixture(PloneSandboxLayer):
         """
         if getattr(BuiltIn(), "_context", None) is not None:
             value = BuiltIn().get_variable_value("${%s}" % name, [])
-            if isinstance(value, str) or isinstance(value, six.text_type):
+            if isinstance(value, str) or isinstance(value, str):
                 return value.split(",")
             else:
                 return value
@@ -265,7 +264,7 @@ class PloneRobotFixture(PloneSandboxLayer):
 
     def setUp(self):
         self["state"] = []
-        super(PloneRobotFixture, self).setUp()
+        super().setUp()
 
         class Value:
             __repr__ = lambda x: str(bool(x))

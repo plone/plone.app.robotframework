@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from plone.app.robotframework.testing import PloneRobotFixture
 from plone.app.robotframework.testing import REMOTE_LIBRARY_BUNDLE_FIXTURE
 from plone.testing import layered
@@ -25,10 +24,10 @@ class CustomPloneRobotFixture(PloneRobotFixture):
     def setUp(self):
         os.environ["CONFIGURE_PACKAGES"] = "plone.session"
         os.environ["APPLY_PROFILES"] = "plone.session:default"
-        super(CustomPloneRobotFixture, self).setUp()
+        super().setUp()
 
     def tearDown(self):
-        super(CustomPloneRobotFixture, self).tearDown()
+        super().tearDown()
         if "CONFIGURE_PACKAGES" in os.environ:
             del os.environ["CONFIGURE_PACKAGES"]
         if "APPLY_PROFILES" in os.environ:

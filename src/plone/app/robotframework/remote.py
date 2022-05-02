@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from OFS.SimpleItem import SimpleItem
 from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import ploneSite
@@ -60,7 +59,7 @@ class RemoteLibraryLayer(Layer):
     def __init__(self, *args, **kwargs):
         kwargs["name"] = kwargs.get("name", "RobotRemote")
         self.libraryBases = (RemoteLibrary,) + kwargs.pop("libraries", ())
-        super(RemoteLibraryLayer, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def setUp(self):
         id_ = self.__name__.split(":")[-1]

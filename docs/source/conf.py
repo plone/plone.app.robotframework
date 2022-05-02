@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # plone.app.robotframework documentation build configuration file, created by
 # sphinx-quickstart on Wed Sep 12 14:43:02 2012.

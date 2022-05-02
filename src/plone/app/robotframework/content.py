@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from datetime import datetime
 from plone.app.robotframework.config import HAS_BLOBS
 from plone.app.robotframework.config import HAS_DEXTERITY
@@ -104,7 +103,7 @@ class Content(RemoteLibrary):
         content = None
         if HAS_DEXTERITY:
             # The title attribute for Dexterity types needs to be unicode
-            if "title" in kwargs and isinstance(kwargs["title"], six.binary_type):
+            if "title" in kwargs and isinstance(kwargs["title"], bytes):
                 kwargs["title"] = kwargs["title"].decode("utf-8")
                 create_kwargs["title"] = create_kwargs["title"].decode("utf-8")
             from plone.dexterity.interfaces import IDexterityFTI
@@ -135,10 +134,10 @@ class Content(RemoteLibrary):
                 if widget and name in kwargs:
                     if not IFromUnicode.providedBy(field):
                         value = kwargs[name]
-                    elif isinstance(kwargs[name], six.text_type):
+                    elif isinstance(kwargs[name], str):
                         value = kwargs[name]
                     else:
-                        value = six.text_type(
+                        value = str(
                             str(kwargs[name]), "utf-8", errors="ignore"
                         )
                     converter = IDataConverter(widget)

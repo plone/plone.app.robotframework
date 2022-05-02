@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from plone.testing.zope import WSGI_SERVER_FIXTURE
 
 import pkg_resources

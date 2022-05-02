@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from watchdog.events import FileSystemEventHandler
 from watchdog.observers import Observer
 
@@ -13,16 +11,16 @@ def TIME():
 
 
 def WAIT(msg):
-    return "{0} [\033[33m wait \033[0m] {1}".format(TIME(), msg)
+    return f"{TIME()} [\033[33m wait \033[0m] {msg}"
 
 
 def ERROR(msg):
-    return "{0} [\033[31m ERROR \033[0m] {1}".format(TIME(), msg)
+    return f"{TIME()} [\033[31m ERROR \033[0m] {msg}"
 
 
 class Watcher(FileSystemEventHandler):
 
-    allowed_extensions = set(("po", "pt", "py", "xml", "csv", "zcml"))
+    allowed_extensions = {"po", "pt", "py", "xml", "csv", "zcml"}
 
     def __init__(self, paths, forkloop, minimum_wait=2.0):
         FileSystemEventHandler.__init__(self)
@@ -64,7 +62,7 @@ class Watcher(FileSystemEventHandler):
                     break
 
             if self.last_event + self.minimum_wait < time.time():
-                print(WAIT("Watchdog got %s event on %s" % (event_type, event_relpath)))
+                print(WAIT(f"Watchdog got {event_type} event on {event_relpath}"))
                 try:
                     self.forkloop.forkNewChild()
                     self.last_event = time.time()
@@ -73,12 +71,12 @@ class Watcher(FileSystemEventHandler):
             else:
                 print(
                     WAIT(
-                        "Watchdog skipped %s event on %s" % (event_type, event_relpath)
+                        f"Watchdog skipped {event_type} event on {event_relpath}"
                     )
                 )
 
 
-class ForkLoop(object):
+class ForkLoop:
     def __init__(self):
 
         self.fork = True  # Must be 'True' to create new child on start

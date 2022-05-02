@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 from robot import libdoc as ld
 from robot import run_cli
 
@@ -25,7 +23,7 @@ def pybot():
     dummy_role = lambda *args: ([], [])
     options = ("maxdepth", "creates", "numbered", "hidden")
     setattr(dummy_directive, "content", True)
-    setattr(dummy_directive, "options", dict([(opt, str) for opt in options]))
+    setattr(dummy_directive, "options", {opt: str for opt in options})
     register_directive("toctree", dummy_directive)
     register_directive("robotframework", dummy_directive)
     register_local_role("ref", dummy_role)
@@ -99,7 +97,7 @@ def pybabel():
     dummy_role = lambda *args: ([], [])
     options = ("maxdepth", "creates", "numbered", "hidden")
     setattr(dummy_directive, "content", True)
-    setattr(dummy_directive, "options", dict([(opt, str) for opt in options]))
+    setattr(dummy_directive, "options", {opt: str for opt in options})
     register_directive("toctree", dummy_directive)
     register_directive("robotframework", dummy_directive)
     register_local_role("ref", dummy_role)

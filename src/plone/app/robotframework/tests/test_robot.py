@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # from plone.app.robotframework.testing import REMOTE_LIBRARY_ROBOT_TESTING
 from plone.app.robotframework.testing import PLONE_ROBOT_TESTING
 from plone.app.robotframework.testing import SIMPLE_PUBLICATION_ROBOT_TESTING

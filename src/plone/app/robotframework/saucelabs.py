@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from robot.libraries.BuiltIn import BuiltIn
 from six.moves.http_client import HTTPConnection
 
@@ -39,13 +38,13 @@ class SauceLabs:
         elif not username or not access_key:
             return "No Sauce environment variables found. Skipping..."
 
-        token = base64.encodestring("%s:%s" % (username, access_key))[:-1]
+        token = base64.encodestring(f"{username}:{access_key}")[:-1]
         body = json.dumps({"name": name, "passed": status == "PASS", "tags": tags})
 
         connection = HTTPConnection("saucelabs.com")
         connection.request(
             "PUT",
-            "/rest/v1/%s/jobs/%s" % (username, job_id),
+            f"/rest/v1/{username}/jobs/{job_id}",
             body,
             headers={"Authorization": "Basic %s" % token},
         )

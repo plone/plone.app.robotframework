@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # Stand-alone Python keyword libraries
 # Load our patches.  Call it _patches to mark it as private.
 from plone.app.robotframework import patches as _patches

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from plone.app.robotframework.remote import RemoteLibrary
 
 
