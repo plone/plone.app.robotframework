@@ -21,7 +21,6 @@ def populate(self):
 
 import robot
 import robot.parsing.tablepopulators
-import six
 
 
 robot.parsing.tablepopulators.StepPopulator.populate = populate

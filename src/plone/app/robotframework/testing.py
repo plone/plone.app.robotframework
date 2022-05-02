@@ -24,7 +24,6 @@ from zope.configuration import xmlconfig
 
 import os
 import pkg_resources
-import six
 import sys
 
 

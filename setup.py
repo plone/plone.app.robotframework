@@ -63,7 +63,6 @@ install_requires = [
     "robotsuite",  # not a direct dependency, but required for convenience
     "selenium",
     "setuptools",
-    "six",
     "zope.component",
     "zope.configuration",
     "zope.i18n",

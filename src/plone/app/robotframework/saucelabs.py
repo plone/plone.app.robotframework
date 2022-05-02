@@ -1,5 +1,5 @@
 from robot.libraries.BuiltIn import BuiltIn
-from six.moves.http_client import HTTPConnection
+from http.client import HTTPConnection
 
 import base64
 import os

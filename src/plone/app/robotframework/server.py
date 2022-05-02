@@ -1,6 +1,6 @@
 from plone.app.robotframework.remote import RemoteLibrary
-from six.moves.xmlrpc_client import ServerProxy
-from six.moves.xmlrpc_server import SimpleXMLRPCServer
+from xmlrpc.client import ServerProxy
+from xmlrpc.server import SimpleXMLRPCServer
 
 import argparse
 import logging

@@ -16,7 +16,6 @@ from zope.globalrequest import getRequest
 from zope.lifecycleevent import ObjectModifiedEvent
 
 import os
-import six
 
 
 if HAS_DEXTERITY:
@@ -277,7 +276,7 @@ def prefill_image_types(portal, kwargs):
 def random_image():
     from PIL import Image
     from PIL import ImageDraw
-    from six import BytesIO
+    from io import BytesIO
 
     import random
 
