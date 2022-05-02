@@ -1,9 +1,11 @@
 from __future__ import print_function
-from robot import run_cli
+
 from robot import libdoc as ld
+from robot import run_cli
 
 import pkg_resources
 import sys
+
 
 try:
     pkg_resources.get_distribution('robotframework-ride')

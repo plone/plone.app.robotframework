@@ -1,5 +1,6 @@
-from zope.interface import alsoProvides
 from zope.globalrequest import getRequest
+from zope.interface import alsoProvides
+
 
 try:
     from plone.protect.interfaces import IDisableCSRFProtection

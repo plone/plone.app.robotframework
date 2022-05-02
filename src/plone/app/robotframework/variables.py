@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
+from plone.testing.zope import WSGI_SERVER_FIXTURE
+
 import pkg_resources
 
-from plone.testing.zope import WSGI_SERVER_FIXTURE
 
 ZOPE_HOST = WSGI_SERVER_FIXTURE.host
 ZOPE_PORT = WSGI_SERVER_FIXTURE.port

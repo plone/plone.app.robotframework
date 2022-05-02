@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 from OFS.SimpleItem import SimpleItem
-from plone.app.testing import (
-    PLONE_FIXTURE,
-    ploneSite
-)
+from plone.app.testing import PLONE_FIXTURE
+from plone.app.testing import ploneSite
 from plone.testing import Layer
 from Products.CMFPlone.Portal import PloneSite
 

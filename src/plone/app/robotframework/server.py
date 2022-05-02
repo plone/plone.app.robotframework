@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
+
 from plone.app.robotframework.remote import RemoteLibrary
 from six.moves.xmlrpc_client import ServerProxy
 from six.moves.xmlrpc_server import SimpleXMLRPCServer
@@ -127,9 +128,9 @@ def start_reload(zope_layer_dotted_name, reload_paths=('src',),
     # XXX: For unknown reason call to socket.gethostbyaddr may cause malloc
     # errors on OSX in forked child when called from medusa http_server, but
     # proper sleep seem to fix it:
-    import time
-    import socket
     import platform
+    import socket
+    import time
     if 'Darwin' in platform.uname():
         gethostbyaddr = socket.gethostbyaddr
         socket.gethostbyaddr = lambda x: time.sleep(0.5) or (ZSERVER_HOST,)
@@ -367,6 +368,7 @@ def setup_layer(layer, setup_layers=setup_layers):
 
 def tear_down(setup_layers=setup_layers):
     from zope.testrunner.runner import order_by_bases
+
     # Tear down any layers not needed for these tests. The unneeded layers
     # might interfere.
     unneeded = [l for l in setup_layers]

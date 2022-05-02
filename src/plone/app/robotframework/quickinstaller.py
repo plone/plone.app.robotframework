@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-from zope.component.hooks import getSite
-from Products.CMFCore.utils import getToolByName
 from plone.app.robotframework.remote import RemoteLibrary
+from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import get_installer
+from zope.component.hooks import getSite
 
 
 class QuickInstaller(RemoteLibrary):

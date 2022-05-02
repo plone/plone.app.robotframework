@@ -22,9 +22,8 @@ import six
 
 if HAS_DEXTERITY:
     from plone.app.textfield.value import RichTextValue
-
-    from plone.dexterity.utils import getAdditionalSchemata
     from plone.dexterity.fti import DexterityFTI
+    from plone.dexterity.utils import getAdditionalSchemata
     from z3c.form.interfaces import IDataConverter
     from z3c.form.interfaces import IDataManager
     from z3c.form.interfaces import IFieldWidget
@@ -39,8 +38,8 @@ if HAS_DEXTERITY:
         from plone.namedfile.file import NamedImage as NamedBlobImage
 
 if HAS_DEXTERITY_RELATIONS:
-    from zope.intid.interfaces import IIntIds
     from z3c.relationfield import RelationValue
+    from zope.intid.interfaces import IIntIds
 
 
 class Content(RemoteLibrary):
@@ -291,10 +290,11 @@ def prefill_image_types(portal, kwargs):
 
 
 def random_image():
-    import random
-    from six import BytesIO
     from PIL import Image
     from PIL import ImageDraw
+    from six import BytesIO
+
+    import random
 
     img = Image.new('RGB', (random.randint(320, 640),
                             random.randint(320, 640)))
