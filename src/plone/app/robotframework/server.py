@@ -327,9 +327,7 @@ class Zope2Server:
                 if HAS_VERBOSE_CONSOLE:
                     print(
                         WAIT(
-                            "Test set up {}.{}".format(
-                                layer.__module__, layer.__name__
-                            )
+                            "Test set up {}.{}".format(layer.__module__, layer.__name__)
                         )
                     )
                 layer.testSetUp()
@@ -403,9 +401,7 @@ def tear_down(setup_layers=setup_layers):
             try:
                 if hasattr(l, "tearDown"):
                     if HAS_VERBOSE_CONSOLE:
-                        print(
-                            WAIT(f"Tear down {l.__module__}.{l.__name__}")
-                        )
+                        print(WAIT(f"Tear down {l.__module__}.{l.__name__}"))
                     l.tearDown()
             except NotImplementedError:
                 pass

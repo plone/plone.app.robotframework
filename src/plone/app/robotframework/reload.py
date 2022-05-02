@@ -69,11 +69,7 @@ class Watcher(FileSystemEventHandler):
                 except Exception as e:
                     print(ERROR(str(e)))
             else:
-                print(
-                    WAIT(
-                        f"Watchdog skipped {event_type} event on {event_relpath}"
-                    )
-                )
+                print(WAIT(f"Watchdog skipped {event_type} event on {event_relpath}"))
 
 
 class ForkLoop:

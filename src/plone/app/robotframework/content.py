@@ -137,9 +137,7 @@ class Content(RemoteLibrary):
                     elif isinstance(kwargs[name], str):
                         value = kwargs[name]
                     else:
-                        value = str(
-                            str(kwargs[name]), "utf-8", errors="ignore"
-                        )
+                        value = str(str(kwargs[name]), "utf-8", errors="ignore")
                     converter = IDataConverter(widget)
                     dm = queryMultiAdapter((content, field), IDataManager)
                     if dm:

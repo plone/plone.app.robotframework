@@ -1,9 +1,7 @@
 # from plone.app.robotframework.testing import REMOTE_LIBRARY_ROBOT_TESTING
-from plone.app.robotframework.testing import PLONE_ROBOT_TESTING
+from plone.app.robotframework.testing import PLONE_ROBOT_TESTING  # noqa: E501
 from plone.app.robotframework.testing import SIMPLE_PUBLICATION_ROBOT_TESTING
-from plone.app.robotframework.testing import (  # noqa: E501
-    SIMPLE_PUBLICATION_WITH_TYPES_ROBOT_TESTING,
-)
+from plone.app.robotframework.testing import SIMPLE_PUBLICATION_WITH_TYPES_ROBOT_TESTING
 from plone.testing import layered
 
 import pkg_resources

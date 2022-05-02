@@ -13,9 +13,7 @@ class QuickInstaller(RemoteLibrary):
         qi = get_installer(portal)
         installed = qi.is_product_installed(product_name)
         portal_setup = getToolByName(portal, "portal_setup")
-        imported = portal_setup.getProfileImportDate(
-            f"profile-{product_name}:default"
-        )
+        imported = portal_setup.getProfileImportDate(f"profile-{product_name}:default")
         assert installed or imported, "Product '{}' was not activated.".format(
             product_name
         )
