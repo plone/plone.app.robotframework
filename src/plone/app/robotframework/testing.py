@@ -255,15 +255,18 @@ class PloneRobotFixture(PloneSandboxLayer):
         super().setUp()
 
         class Value:
-            __repr__ = lambda x: str(bool(x))
-            __nonzero__ = lambda x: self.get("state", []) != (
-                self._get_robot_variable("REGISTER_TRANSLATIONS")
-                + self._get_robot_variable("META_PACKAGES")
-                + self._get_robot_variable("CONFIGURE_PACKAGES")
-                + self._get_robot_variable("OVERRIDE_PACKAGES")
-                + self._get_robot_variable("INSTALL_PRODUCTS")
-                + self._get_robot_variable("APPLY_PROFILES")
-            )
+            def __repr__(self, x):
+                return str(bool(x))
+
+            def __nonzero__(x):
+                return self.get("state", []) != (
+                    self._get_robot_variable("REGISTER_TRANSLATIONS")
+                    + self._get_robot_variable("META_PACKAGES")
+                    + self._get_robot_variable("CONFIGURE_PACKAGES")
+                    + self._get_robot_variable("OVERRIDE_PACKAGES")
+                    + self._get_robot_variable("INSTALL_PRODUCTS")
+                    + self._get_robot_variable("APPLY_PROFILES")
+                )
 
         self["dirty"] = Value()
 

@@ -1,4 +1,7 @@
 # WARNING: This module must not be imported outside running babel
+import robot
+import robot.parsing.tablepopulators
+
 
 MESSAGES = []
 
@@ -17,10 +20,6 @@ def populate(self):
         pass
     except IndexError:
         pass
-
-
-import robot
-import robot.parsing.tablepopulators
 
 
 robot.parsing.tablepopulators.StepPopulator.populate = populate

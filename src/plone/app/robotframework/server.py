@@ -7,7 +7,6 @@ import argparse
 import logging
 import os
 import pkg_resources
-import select
 import sys
 import time
 
@@ -388,20 +387,20 @@ def tear_down(setup_layers=setup_layers):
 
     # Tear down any layers not needed for these tests. The unneeded layers
     # might interfere.
-    unneeded = [l for l in setup_layers]
+    unneeded = [layer for layer in setup_layers]
     unneeded = order_by_bases(unneeded)
     unneeded.reverse()
-    for l in unneeded:
+    for layer in unneeded:
         try:
             try:
-                if hasattr(l, "tearDown"):
+                if hasattr(layer, "tearDown"):
                     if HAS_VERBOSE_CONSOLE:
-                        print(WAIT(f"Tear down {l.__module__}.{l.__name__}"))
-                    l.tearDown()
+                        print(WAIT(f"Tear down {layer.__module__}.{layer.__name__}"))
+                    layer.tearDown()
             except NotImplementedError:
                 pass
         finally:
-            del setup_layers[l]
+            del setup_layers[layer]
 
 
 class Zope2ServerRemote(RemoteLibrary):

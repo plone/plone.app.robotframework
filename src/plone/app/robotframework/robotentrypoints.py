@@ -19,8 +19,12 @@ def pybot():
     from docutils.parsers.rst.directives import register_directive
     from docutils.parsers.rst.roles import register_local_role
 
-    dummy_directive = lambda *args: []
-    dummy_role = lambda *args: ([], [])
+    def dummy_directive(*args):
+        return []
+
+    def dummy_role(*args):
+        return ([], [])
+
     options = ("maxdepth", "creates", "numbered", "hidden")
     setattr(dummy_directive, "content", True)
     setattr(dummy_directive, "options", {opt: str for opt in options})
@@ -93,8 +97,12 @@ def pybabel():
     from docutils.parsers.rst.directives import register_directive
     from docutils.parsers.rst.roles import register_local_role
 
-    dummy_directive = lambda *args: []
-    dummy_role = lambda *args: ([], [])
+    def dummy_directive(*args):
+        return []
+
+    def dummy_role(*args):
+        return ([], [])
+
     options = ("maxdepth", "creates", "numbered", "hidden")
     setattr(dummy_directive, "content", True)
     setattr(dummy_directive, "options", {opt: str for opt in options})
