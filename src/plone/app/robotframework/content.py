@@ -261,4 +261,4 @@ def random_image():
     result = BytesIO()
     img.save(result, "PNG")
     result.seek(0)
-    return result
+    return result.read()
