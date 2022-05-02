@@ -164,4 +164,3 @@ Old tutorials
    plone-keywords/history
    plone-keywords/index
    plone-keywords/login
-   plone-keywords/reference-browser-widget

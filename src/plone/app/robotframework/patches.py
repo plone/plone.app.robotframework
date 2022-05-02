@@ -1,8 +1,8 @@
-# -*- coding: utf-8 -*-
 # Patch selenium.is_connectable for Python 3.
 # See https://github.com/SeleniumHQ/selenium/pull/6480
 # and for Plone: https://github.com/plone/Products.CMFPlone/issues/2786
 from selenium.webdriver.common import utils
+
 
 try:
     # Python 3

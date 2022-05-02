@@ -1,16 +1,17 @@
-# -*- coding: utf-8 -*-
-from plone.app.robotframework.testing import PLONE_ROBOT_TESTING
 # from plone.app.robotframework.testing import REMOTE_LIBRARY_ROBOT_TESTING
+from plone.app.robotframework.testing import PLONE_ROBOT_TESTING
 from plone.app.robotframework.testing import SIMPLE_PUBLICATION_ROBOT_TESTING
-from plone.app.robotframework.testing import SIMPLE_PUBLICATION_WITH_TYPES_ROBOT_TESTING  # noqa: E501
+
+# from plone.app.robotframework.testing import SIMPLE_PUBLICATION_WITH_TYPES_ROBOT_TESTING
 from plone.testing import layered
 
 import pkg_resources
 import robotsuite
 import unittest
 
+
 try:
-    pkg_resources.get_distribution('collective.js.speakjs')
+    pkg_resources.get_distribution("collective.js.speakjs")
 except pkg_resources.DistributionNotFound:
     HAS_SPEAKJS = False
 else:
@@ -41,9 +42,7 @@ def test_suite():
                 robotsuite.RobotTestSuite("test_users_library.robot"),
                 layer=PLONE_ROBOT_TESTING,
             ),
-            layered(
-                robotsuite.RobotTestSuite("docs"), layer=PLONE_ROBOT_TESTING
-            ),
+            layered(robotsuite.RobotTestSuite("docs"), layer=PLONE_ROBOT_TESTING),
         ]
     )
 
@@ -55,7 +54,7 @@ def test_suite():
                 layered(
                     robotsuite.RobotTestSuite(
                         "test_speakjs_library.robot",
-                        noncritical=['non-critical'],
+                        noncritical=["non-critical"],
                     ),
                     layer=SPEAKJS_ROBOT_TESTING,
                 )

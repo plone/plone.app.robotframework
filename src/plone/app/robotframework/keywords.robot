@@ -304,19 +304,6 @@ Open wizard tab
 # Widgets
 # ----------------------------------------------------------------------------
 
-Set Reference Browser Field Value
-    [arguments]  ${fieldName}  @{path}
-    Click Overlay Button  css=#archetypes-fieldname-${fieldName} input[type=button]
-    ${len}=  Get Length  ${path}
-    :FOR  ${i}  IN RANGE  ${len}
-    \   Run Keyword If  ${i}!=${len}-1  Click Link  xpath=//table[contains(@class, 'group')]//a[contains(., "@{path}[${i}]")]
-    \   Run Keyword If  ${i}==${len}-1  Checkbox Select  @{path}[${i}]
-
-Checkbox Select
-    [arguments]  ${title}
-    ${for}=  Get Element Attribute  xpath=//table[contains(@class, 'group')]//label[contains(., "${title}")]@for
-    Select Checkbox  id=${for}
-
 Remove line from textarea
     [arguments]  ${fieldName}  ${value}
     ${lines}=  Get value  name=${fieldName}
