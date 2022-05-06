@@ -1,0 +1,2 @@
+Fix test layer used for Volto Cypress test to not accept requests between tests.
+[datakurre]
