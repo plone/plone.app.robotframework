@@ -18,6 +18,7 @@ from plone.app.testing import PloneSandboxLayer
 from plone.app.testing import ploneSite
 from plone.testing import Layer
 from plone.testing import zope as zope_testing
+from plone.testing.zope import WSGIServer
 from plone.testing.zope import WSGI_SERVER_FIXTURE
 from Products.MailHost.interfaces import IMailHost
 from robot.libraries.BuiltIn import BuiltIn
@@ -135,6 +136,30 @@ REMOTE_LIBRARY_BUNDLE_FIXTURE = RemoteLibraryLayer(
 #     ignoreOriginal="true"
 #     />
 #
+
+class TestScopeWSGIServer(WSGIServer):
+
+    # Layer where WSGI server is shutdown on testTearDown to prevent requests
+    # being processed between tests (which could lead to unexpected database
+    # state).
+
+    # Still starts with WSGI server being started at first on suite setUp
+    # for convenience and similar "RobotServer" experience to the default
+    # layer.
+
+    def testSetUp(self):
+        if hasattr(self, "server") and self.server.was_shutdown:
+            super(TestScopeWSGIServer, self).setUp()
+
+    def tearDown(self):
+        pass
+
+    def testTearDown(self):
+        super(TestScopeWSGIServer, self).tearDown()
+
+
+TEST_SCOPE_WSGI_SERVER_FIXTURE = TestScopeWSGIServer()
+
 
 RobotRemote = type(
     "RobotRemote",
@@ -285,7 +310,7 @@ PLONE_ROBOT_TESTING = FunctionalTesting(
     bases=(
         PLONE_ROBOT_FIXTURE,
         REMOTE_LIBRARY_BUNDLE_FIXTURE,
-        WSGI_SERVER_FIXTURE,
+        TEST_SCOPE_WSGI_SERVER_FIXTURE,
     ),
     name="Plone:Robot",
 )
