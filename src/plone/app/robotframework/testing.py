@@ -10,6 +10,7 @@ from plone.app.robotframework.quickinstaller import QuickInstaller
 from plone.app.robotframework.remote import RemoteLibraryLayer
 from plone.app.robotframework.server import Zope2ServerRemote
 from plone.app.robotframework.users import Users
+from plone.app.robotframework.server import WAIT
 from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
@@ -136,7 +137,6 @@ REMOTE_LIBRARY_BUNDLE_FIXTURE = RemoteLibraryLayer(
 #     ignoreOriginal="true"
 #     />
 #
-
 
 RobotRemote = type(
     "RobotRemote",
@@ -296,14 +296,21 @@ class WSGIServerTestScope(WSGIServer):
 
     bases = (PLONE_FIXTURE,)
 
+    def setUp(self):
+        print(WAIT("WSGIServerTestScope:setUp"))
+        super(WSGIServerTestScope, self).setUp()
+
     def testSetUp(self):
+        print(WAIT("WSGIServerTestScope:testSetUp"))
         if hasattr(self, "server") and self.server.was_shutdown:
             super(WSGIServerTestScope, self).setUp()
 
     def tearDown(self):
+        print(WAIT("WSGIServerTestScope:tearDown"))
         pass
 
     def testTearDown(self):
+        print(WAIT("WSGIServerTestScope:testTearDown"))
         super(WSGIServerTestScope, self).tearDown()
         # Try to wait until server no longer responds.
         if hasattr(self, "server"):
