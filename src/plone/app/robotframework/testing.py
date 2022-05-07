@@ -156,6 +156,12 @@ class TestScopeWSGIServer(WSGIServer):
 
     def testTearDown(self):
         super(TestScopeWSGIServer, self).tearDown()
+        # Try to wait until server no longer responds.
+        if hasattr(self, "server"):
+            for i in range(10):
+                # There is implicit 0.3 second sleep per try.
+                if not self.server.wait(0):
+                    return
 
 
 TEST_SCOPE_WSGI_SERVER_FIXTURE = TestScopeWSGIServer()
