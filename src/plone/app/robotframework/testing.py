@@ -310,9 +310,18 @@ PLONE_ROBOT_TESTING = FunctionalTesting(
     bases=(
         PLONE_ROBOT_FIXTURE,
         REMOTE_LIBRARY_BUNDLE_FIXTURE,
-        TEST_SCOPE_WSGI_SERVER_FIXTURE,
+        WSGI_SERVER_FIXTURE,
     ),
     name="Plone:Robot",
+)
+
+VOLTO_ROBOT_TESTING = FunctionalTesting(
+    bases=(
+        PLONE_ROBOT_FIXTURE,
+        REMOTE_LIBRARY_BUNDLE_FIXTURE,
+        TEST_SCOPE_WSGI_SERVER_FIXTURE,
+    ),
+    name="Volto:Robot",
 )
 
 
