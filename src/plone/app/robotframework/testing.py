@@ -137,7 +137,7 @@ REMOTE_LIBRARY_BUNDLE_FIXTURE = RemoteLibraryLayer(
 #     />
 #
 
-class TestScopeWSGIServer(WSGIServer):
+class WSGIServerTestScope(WSGIServer):
 
     # Layer where WSGI server is shutdown on testTearDown to prevent requests
     # being processed between tests (which could lead to unexpected database
@@ -147,15 +147,17 @@ class TestScopeWSGIServer(WSGIServer):
     # for convenience and similar "RobotServer" experience to the default
     # layer.
 
+    bases = (PLONE_FIXTURE,)
+
     def testSetUp(self):
         if hasattr(self, "server") and self.server.was_shutdown:
-            super(TestScopeWSGIServer, self).setUp()
+            super(WSGIServerTestScope, self).setUp()
 
     def tearDown(self):
         pass
 
     def testTearDown(self):
-        super(TestScopeWSGIServer, self).tearDown()
+        super(WSGIServerTestScope, self).tearDown()
         # Try to wait until server no longer responds.
         if hasattr(self, "server"):
             for i in range(10):
@@ -164,7 +166,7 @@ class TestScopeWSGIServer(WSGIServer):
                     return
 
 
-TEST_SCOPE_WSGI_SERVER_FIXTURE = TestScopeWSGIServer()
+WSGI_SERVER_TEST_SCOPE_FIXTURE = WSGIServerTestScope()
 
 
 RobotRemote = type(
@@ -316,7 +318,7 @@ PLONE_ROBOT_TESTING = FunctionalTesting(
     bases=(
         PLONE_ROBOT_FIXTURE,
         REMOTE_LIBRARY_BUNDLE_FIXTURE,
-        TEST_SCOPE_WSGI_SERVER_FIXTURE,
+        WSGI_SERVER_TEST_SCOPE_FIXTURE,
     ),
     name="Plone:Robot",
 )
