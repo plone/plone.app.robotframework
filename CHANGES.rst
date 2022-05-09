@@ -8,6 +8,25 @@ Changelog
 
 .. towncrier release notes start
 
+2.0.0a4 (2022-05-09)
+--------------------
+
+Breaking changes:
+
+
+- Cleanup: Python 3 only, Dexterity only, isort, black.
+  [maurits] (#129)
+
+
+Bug fixes:
+
+
+- Make compatible with robotframework 3-5.
+  [maurits] (#5)
+- Fix Volto Cypress tests by adding a new functional test layer plone.app.robotframework.testing.VOLTO_ROBOT_TESTING layer, which does not not accept requests between tests cases.
+  [datakurre] (#131)
+
+
 2.0.0a3 (2022-04-04)
 --------------------
 
