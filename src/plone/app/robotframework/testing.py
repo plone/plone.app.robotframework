@@ -10,6 +10,7 @@ from plone.app.robotframework.quickinstaller import QuickInstaller
 from plone.app.robotframework.remote import RemoteLibraryLayer
 from plone.app.robotframework.server import Zope2ServerRemote
 from plone.app.robotframework.users import Users
+from plone.app.robotframework.server import WAIT
 from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
@@ -18,6 +19,7 @@ from plone.app.testing import PloneSandboxLayer
 from plone.app.testing import ploneSite
 from plone.testing import Layer
 from plone.testing import zope as zope_testing
+from plone.testing.zope import WSGIServer
 from plone.testing.zope import WSGI_SERVER_FIXTURE
 from Products.MailHost.interfaces import IMailHost
 from robot.libraries.BuiltIn import BuiltIn
@@ -281,6 +283,45 @@ PLONE_ROBOT_INTEGRATION_TESTING = IntegrationTesting(
     name="PloneRobot:Integration",
 )
 
+
+class WSGIServerTestScope(WSGIServer):
+
+    # Layer where WSGI server is shutdown on testTearDown to prevent requests
+    # being processed between tests (which could lead to unexpected database
+    # state).
+
+    # Still starts with WSGI server being started at first on suite setUp
+    # for convenience and similar "RobotServer" experience to the default
+    # layer.
+
+    bases = (PLONE_FIXTURE,)
+
+    def setUp(self):
+        print(WAIT("WSGIServerTestScope:setUp"))
+        super(WSGIServerTestScope, self).setUp()
+
+    def testSetUp(self):
+        print(WAIT("WSGIServerTestScope:testSetUp"))
+        if hasattr(self, "server") and self.server.was_shutdown:
+            super(WSGIServerTestScope, self).setUp()
+
+    def tearDown(self):
+        print(WAIT("WSGIServerTestScope:tearDown"))
+        pass
+
+    def testTearDown(self):
+        print(WAIT("WSGIServerTestScope:testTearDown"))
+        super(WSGIServerTestScope, self).tearDown()
+        # Try to wait until server no longer responds.
+        if hasattr(self, "server"):
+            for i in range(10):
+                # There is implicit 0.3 second sleep per try.
+                if not self.server.wait(0):
+                    return
+
+
+WSGI_SERVER_TEST_SCOPE_FIXTURE = WSGIServerTestScope()
+
 PLONE_ROBOT_TESTING = FunctionalTesting(
     bases=(
         PLONE_ROBOT_FIXTURE,
@@ -288,6 +329,15 @@ PLONE_ROBOT_TESTING = FunctionalTesting(
         WSGI_SERVER_FIXTURE,
     ),
     name="Plone:Robot",
+)
+
+VOLTO_ROBOT_TESTING = FunctionalTesting(
+    bases=(
+        PLONE_ROBOT_FIXTURE,
+        REMOTE_LIBRARY_BUNDLE_FIXTURE,
+        TEST_SCOPE_WSGI_SERVER_FIXTURE,
+    ),
+    name="Volto:Robot",
 )
 
 
