@@ -10,7 +10,6 @@ from plone.app.robotframework.quickinstaller import QuickInstaller
 from plone.app.robotframework.remote import RemoteLibraryLayer
 from plone.app.robotframework.server import Zope2ServerRemote
 from plone.app.robotframework.users import Users
-from plone.app.robotframework.server import WAIT
 from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
@@ -23,6 +22,7 @@ from plone.testing.zope import WSGIServer
 from plone.testing.zope import WSGI_SERVER_FIXTURE
 from Products.MailHost.interfaces import IMailHost
 from robot.libraries.BuiltIn import BuiltIn
+from webtest.http import StopableWSGIServer
 from zope.component import getSiteManager
 from zope.configuration import xmlconfig
 
@@ -283,45 +283,6 @@ PLONE_ROBOT_INTEGRATION_TESTING = IntegrationTesting(
     name="PloneRobot:Integration",
 )
 
-
-class WSGIServerTestScope(WSGIServer):
-
-    # Layer where WSGI server is shutdown on testTearDown to prevent requests
-    # being processed between tests (which could lead to unexpected database
-    # state).
-
-    # Still starts with WSGI server being started at first on suite setUp
-    # for convenience and similar "RobotServer" experience to the default
-    # layer.
-
-    bases = (PLONE_FIXTURE,)
-
-    def setUp(self):
-        print(WAIT("WSGIServerTestScope:setUp"))
-        super(WSGIServerTestScope, self).setUp()
-
-    def testSetUp(self):
-        print(WAIT("WSGIServerTestScope:testSetUp"))
-        if hasattr(self, "server") and self.server.was_shutdown:
-            super(WSGIServerTestScope, self).setUp()
-
-    def tearDown(self):
-        print(WAIT("WSGIServerTestScope:tearDown"))
-        pass
-
-    def testTearDown(self):
-        print(WAIT("WSGIServerTestScope:testTearDown"))
-        super(WSGIServerTestScope, self).tearDown()
-        # Try to wait until server no longer responds.
-        if hasattr(self, "server"):
-            for i in range(10):
-                # There is implicit 0.3 second sleep per try.
-                if not self.server.wait(0):
-                    return
-
-
-WSGI_SERVER_TEST_SCOPE_FIXTURE = WSGIServerTestScope()
-
 PLONE_ROBOT_TESTING = FunctionalTesting(
     bases=(
         PLONE_ROBOT_FIXTURE,
@@ -331,11 +292,38 @@ PLONE_ROBOT_TESTING = FunctionalTesting(
     name="Plone:Robot",
 )
 
+
+class WSGIServerSingleThreaded(WSGIServer):
+
+    def setUpServer(self):
+        """Create a single threaded WSGI server instance and save it in self.server.
+        """
+        app = self.make_wsgi_app()
+        kwargs = {'clear_untrusted_proxy_headers': False,
+                  'threads': 1}
+        if self.host is not None:
+            kwargs['host'] = self.host
+        if self.port is not None:
+            kwargs['port'] = int(self.port)
+        self.server = StopableWSGIServer.create(app, **kwargs)
+        # If we dynamically set the host/port, we want to reset it to localhost
+        # Otherwise this will depend on, for example, the local network setup
+        if self.host in (None, '0.0.0.0', '127.0.0.1', 'localhost'):
+            self.server.effective_host = 'localhost'
+        # Refresh the hostname and port in case we dynamically picked them
+        self['host'] = self.host = self.server.effective_host
+        self['port'] = self.port = int(self.server.effective_port)
+
+
+
+WSGI_SERVER_SINGLE_THREADED_FIXTURE = WSGIServerSingleThreaded()
+
+
 VOLTO_ROBOT_TESTING = FunctionalTesting(
     bases=(
         PLONE_ROBOT_FIXTURE,
         REMOTE_LIBRARY_BUNDLE_FIXTURE,
-        WSGI_SERVER_TEST_SCOPE_FIXTURE,
+        WSGI_SERVER_SINGLE_THREADED_FIXTURE,
     ),
     name="Volto:Robot",
 )
