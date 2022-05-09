@@ -1,2 +1,2 @@
-Fix test layer used for Volto Cypress test to not accept requests between tests.
+Fix Volto Cypress tests by adding a new functional test layer plone.app.robotframework.testing.VOLTO_ROBOT_TESTING layer, which does not not accept requests between tests cases.
 [datakurre]
