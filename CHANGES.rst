@@ -8,6 +8,15 @@ Changelog
 
 .. towncrier release notes start
 
+2.0.0a5 (2022-05-09)
+--------------------
+
+Bug fixes:
+
+
+- Fixed undefined name, should have been ``WSGI_SERVER_TEST_SCOPE_FIXTURE``.  [maurits] (#131)
+
+
 2.0.0a4 (2022-05-09)
 --------------------
 

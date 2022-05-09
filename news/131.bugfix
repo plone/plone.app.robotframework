@@ -1,1 +1,0 @@
-Fixed undefined name, should have been ``WSGI_SERVER_TEST_SCOPE_FIXTURE``.  [maurits]
