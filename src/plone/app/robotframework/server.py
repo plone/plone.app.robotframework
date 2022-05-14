@@ -316,7 +316,6 @@ class Zope2Server:
         from zope.testrunner.runner import order_by_bases
 
         layers = order_by_bases([self.zope_layer])
-        print(WAIT(layers))
         for layer in layers:
             if hasattr(layer, "testSetUp"):
                 if HAS_VERBOSE_CONSOLE:
