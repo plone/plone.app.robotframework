@@ -8,6 +8,16 @@ Changelog
 
 .. towncrier release notes start
 
+2.0.0a6 (2022-05-14)
+--------------------
+
+Bug fixes:
+
+
+- Replace WSGI_SERVER_TEST_SCOPE_FIXTURE used in VOLTO_ROBOT_TESTING with WSGI_SERVER_SINGLE_THREADED_FIXTUREOLTO_ROBOT_TESTING.
+  [datakurre] (#133)
+
+
 2.0.0a5 (2022-05-09)
 --------------------
 
