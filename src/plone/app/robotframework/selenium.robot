@@ -94,6 +94,26 @@ Element should become visible
     ...                          Possibly stale element should become visible
     ...                          ${locator}
 
+Wait For Element
+    [Documentation]  Can contain css=, jquery=, or any other element selector.
+    [Arguments]  ${element}
+    Wait Until Page Contains Element  ${element}
+    Set Focus To Element  ${element}
+    Wait Until Element Is Visible  ${element}
+
+Wait For Then Click Element
+    [Documentation]  Can contain css=, jquery=, or any other element selector.
+    [Arguments]  ${element}
+    Wait For Element  ${element}
+    Click Element  ${element}
+
+Wait For Then Click Hidden Element
+    [Documentation]  Meant for invisible elements.  Can contain css=, jquery=, or any other element selector.
+    [Arguments]  ${element}
+    Wait Until Page Contains Element  ${element}
+    Set Focus To Element  ${element}
+    Click Element  ${element}
+
 # ----------------------------------------------------------------------------
 # Forms
 # ----------------------------------------------------------------------------
