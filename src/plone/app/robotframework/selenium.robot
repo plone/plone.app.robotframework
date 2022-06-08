@@ -107,8 +107,9 @@ Wait For Then Click Element
     Wait For Element  ${element}
     Click Element  ${element}
 
-Wait For Then Click Hidden Element
-    [Documentation]  Meant for invisible elements.  Can contain css=, jquery=, or any other element selector.
+Wait For Then Click Invisible Element
+    [Documentation]  Meant for elements that are invisible, likely because they are empty.
+    ...              Can contain css=, jquery=, or any other element selector.
     [Arguments]  ${element}
     Wait Until Page Contains Element  ${element}
     Set Focus To Element  ${element}
