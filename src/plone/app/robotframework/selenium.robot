@@ -13,7 +13,7 @@ Resource  ${CMFPLONE_SELECTORS}
 *** Variables ***
 
 ${SELENIUM_IMPLICIT_WAIT}  0.5
-${SELENIUM_TIMEOUT}  30
+${SELENIUM_TIMEOUT}  7
 ${SELENIUM_RUN_ON_FAILURE}  Capture Page Screenshot
 ${SELENIUM2LIBRARY_RUN_ON_FAILURE}  No operation
 
@@ -93,6 +93,27 @@ Element should become visible
     Wait until keyword succeeds  ${TIMEOUT}  ${IMPLICIT_WAIT}
     ...                          Possibly stale element should become visible
     ...                          ${locator}
+
+Wait For Element
+    [Documentation]  Can contain css=, jquery=, or any other element selector.
+    [Arguments]  ${element}
+    Wait Until Page Contains Element  ${element}
+    Set Focus To Element  ${element}
+    Wait Until Element Is Visible  ${element}
+
+Wait For Then Click Element
+    [Documentation]  Can contain css=, jquery=, or any other element selector.
+    [Arguments]  ${element}
+    Wait For Element  ${element}
+    Click Element  ${element}
+
+Wait For Then Click Invisible Element
+    [Documentation]  Meant for elements that are invisible, likely because they are empty.
+    ...              Can contain css=, jquery=, or any other element selector.
+    [Arguments]  ${element}
+    Wait Until Page Contains Element  ${element}
+    Set Focus To Element  ${element}
+    Click Element  ${element}
 
 # ----------------------------------------------------------------------------
 # Forms
