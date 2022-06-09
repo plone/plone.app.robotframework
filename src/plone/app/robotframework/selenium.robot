@@ -6,6 +6,7 @@
 Library  Selenium2Library  timeout=${SELENIUM_TIMEOUT}
 ...                        implicit_wait=${SELENIUM_IMPLICIT_WAIT}
 ...                        run_on_failure=${SELENIUM2LIBRARY_RUN_ON_FAILURE}
+...                        plugins=${SELENIUM2LIBRARY_PLUGINS}
 
 Resource  variables.robot
 Resource  ${CMFPLONE_SELECTORS}
@@ -16,6 +17,7 @@ ${SELENIUM_IMPLICIT_WAIT}  0.5
 ${SELENIUM_TIMEOUT}  7
 ${SELENIUM_RUN_ON_FAILURE}  Capture Page Screenshot
 ${SELENIUM2LIBRARY_RUN_ON_FAILURE}  No operation
+${SELENIUM2LIBRARY_PLUGINS}  ${None}
 
 ${BROWSER}  Firefox
 ${REMOTE_URL}
