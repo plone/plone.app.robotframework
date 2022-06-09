@@ -17,7 +17,9 @@ ${SELENIUM_IMPLICIT_WAIT}  0.5
 ${SELENIUM_TIMEOUT}  7
 ${SELENIUM_RUN_ON_FAILURE}  Capture Page Screenshot
 ${SELENIUM2LIBRARY_RUN_ON_FAILURE}  No operation
-${SELENIUM2LIBRARY_PLUGINS}  ${None}
+# ${SELENIUM2LIBRARY_PLUGINS}  ${None}
+# Enable on all robot tests to see how it performs
+${SELENIUM2LIBRARY_PLUGINS}  SeleniumTestability;True;7 Seconds;True
 
 ${BROWSER}  Firefox
 ${REMOTE_URL}
