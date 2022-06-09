@@ -60,6 +60,7 @@ install_requires = [
     "plone.uuid",
     "robotframework",
     "robotframework-selenium2library",
+    "robotframework-seleniumtestability",
     "robotsuite",  # not a direct dependency, but required for convenience
     "selenium",
     "setuptools",
