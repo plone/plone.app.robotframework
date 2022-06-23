@@ -8,6 +8,23 @@ Changelog
 
 .. towncrier release notes start
 
+2.0.0b1 (2022-06-23)
+--------------------
+
+New features:
+
+
+- Add keywords for making sure an element is visible before clicking.
+  Keywords are: ``Wait For Element``, ``Wait For Then Click Element``, ``Wait For Then Click Invisible Element``.
+  [maurits] (#134)
+
+
+Bug fixes:
+
+
+- Change the Selenium timeout from 30 seconds to 7.  [maurits] (#135)
+
+
 2.0.0a6 (2022-05-14)
 --------------------
 
