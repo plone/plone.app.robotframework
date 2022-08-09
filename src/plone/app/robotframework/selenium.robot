@@ -98,6 +98,7 @@ Element should become visible
 
 Wait For Element
     [Documentation]  Can contain css=, jquery=, or any other element selector.
+    ...              Element must match exactly one time.
     [Arguments]  ${element}
     Wait Until Page Contains Element  ${element}
     Set Focus To Element  ${element}
@@ -106,14 +107,24 @@ Wait For Element
     ${count} =  Get Element Count  ${element}
     Should Be Equal as Numbers  ${count}  1
 
+Wait For Elements
+    [Documentation]  Can contain css=, jquery=, or any other element selector.
+    ...              Element may match more than once.
+    [Arguments]  ${element}
+    Wait Until Page Contains Element  ${element}
+    Set Focus To Element  ${element}
+    Wait Until Element Is Visible  ${element}
+
 Wait For Then Click Element
     [Documentation]  Can contain css=, jquery=, or any other element selector.
+    ...              Element must match exactly one time.
     [Arguments]  ${element}
     Wait For Element  ${element}
     Click Element  ${element}
 
 Wait For Then Click Invisible Element
     [Documentation]  Meant for elements that are invisible, likely because they are empty.
+    ...              Element must match exactly one time.
     ...              Can contain css=, jquery=, or any other element selector.
     [Arguments]  ${element}
     Wait Until Page Contains Element  ${element}
