@@ -102,6 +102,9 @@ Wait For Element
     Wait Until Page Contains Element  ${element}
     Set Focus To Element  ${element}
     Wait Until Element Is Visible  ${element}
+    Sleep  0.1
+    ${count} =  Get Element Count  ${element}
+    Should Be Equal as Numbers  ${count}  1
 
 Wait For Then Click Element
     [Documentation]  Can contain css=, jquery=, or any other element selector.
@@ -115,6 +118,9 @@ Wait For Then Click Invisible Element
     [Arguments]  ${element}
     Wait Until Page Contains Element  ${element}
     Set Focus To Element  ${element}
+    Sleep  0.1
+    ${count} =  Get Element Count  ${element}
+    Should Be Equal as Numbers  ${count}  1
     Click Element  ${element}
 
 # ----------------------------------------------------------------------------
