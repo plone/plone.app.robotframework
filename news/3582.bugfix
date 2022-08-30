@@ -1,4 +1,0 @@
-Sleep in 'Wait For Element' and 'Wait For Then Click Element'.
-After this sleep, check that the element in question is there only once.
-Hopefully this will stabilize the Plone core robot tests.
-[maurits]

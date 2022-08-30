@@ -8,6 +8,26 @@ Changelog
 
 .. towncrier release notes start
 
+2.0.0b2 (2022-08-30)
+--------------------
+
+New features:
+
+
+- Add keyword 'Wait For Elements'.
+  Here the requested element is allowed to match multiple times.
+  [maurits] (#3582)
+
+
+Bug fixes:
+
+
+- Sleep in 'Wait For Element' and 'Wait For Then Click Element'.
+  After this sleep, check that the element in question is there only once.
+  Hopefully this will stabilize the Plone core robot tests.
+  [maurits] (#3582)
+
+
 2.0.0b1 (2022-06-23)
 --------------------
 
