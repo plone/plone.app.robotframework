@@ -130,6 +130,7 @@ setup(
     namespace_packages=["plone", "plone.app"],
     include_package_data=True,
     zip_safe=False,
+    python_requires=">=3.8",
     install_requires=install_requires,
     extras_require={
         "ride": ride_requires,
