@@ -1,8 +1,8 @@
 from plone.app.robotframework.remote import RemoteLibrary
 from plone.app.robotframework.utils import disableCSRFProtection
+from plone.base.interfaces import ISecuritySchema
 from plone.registry.interfaces import IRegistry
 from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone.interfaces import ISecuritySchema
 from zope.component import getUtility
 from zope.component.hooks import getSite
 
