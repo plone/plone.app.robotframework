@@ -1,6 +1,6 @@
 from plone.app.robotframework.remote import RemoteLibrary
+from plone.base.utils import get_installer
 from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone.utils import get_installer
 from zope.component.hooks import getSite
 
 

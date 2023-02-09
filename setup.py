@@ -56,6 +56,7 @@ install_requires = [
     "Products.PluggableAuthService",
     "babel",
     "plone.app.testing",
+    "plone.base",
     "plone.testing",
     "plone.uuid",
     "robotframework",
