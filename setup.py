@@ -49,14 +49,20 @@ console_scripts = [
 entry_points = dict(console_scripts=console_scripts)
 
 install_requires = [
-    "Products.CMFCore",
+    "Pillow",
     "Products.CMFPlone",
-    "Products.MailHost",
     "Products.PlonePAS >= 5.0.1",
     "Products.PluggableAuthService",
     "babel",
+    "docutils",
     "plone.app.testing",
+    "plone.app.textfield",
     "plone.base",
+    "plone.dexterity",
+    "plone.i18n",
+    "plone.namedfile",
+    "plone.protect",
+    "plone.registry",
     "plone.testing",
     "plone.uuid",
     "robotframework",
@@ -66,19 +72,23 @@ install_requires = [
     "robotsuite",  # not a direct dependency, but required for convenience
     "selenium",
     "setuptools",
+    "z3c.form",
+    "z3c.relationfield",
     "zope.component",
-    "zope.configuration",
     "zope.i18n",
+    "zope.intid",
     "zope.schema",
     "zope.testrunner",
 ]
 
 test_requires = [
-    "plone.app.dexterity",
+    "Products.MailHost",
     "plone.app.textfield",
     "plone.dexterity",
     "robotsuite",
+    "webtest",
     "z3c.form",
+    "zope.configuration",
 ]
 
 debug_requires = [
