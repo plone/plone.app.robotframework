@@ -18,8 +18,8 @@ from plone.app.testing import PloneSandboxLayer
 from plone.app.testing import ploneSite
 from plone.testing import Layer
 from plone.testing import zope as zope_testing
-from plone.testing.zope import WSGIServer
 from plone.testing.zope import WSGI_SERVER_FIXTURE
+from plone.testing.zope import WSGIServer
 from Products.MailHost.interfaces import IMailHost
 from robot.libraries.BuiltIn import BuiltIn
 from webtest.http import StopableWSGIServer
