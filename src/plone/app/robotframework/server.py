@@ -300,7 +300,7 @@ class Zope2Server:
         if not self.stop_zope_server_lazy or force:
             tear_down()
         else:
-            # With lazy stop, the layer is saved to enable Zope2Server re-use
+            # With lazy stop, the layer is saved to enable Zope2Server reuse
             # within the same process, until tear_down is called explicitly.
             Zope2Server.stop_zope_server_layer = self.zope_layer
         self.zope_layer = None

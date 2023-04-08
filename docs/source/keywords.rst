@@ -10,7 +10,7 @@ Selenium2Library Keywords
 
 Selenium2Library is a web testing library for Robot Framework. It provides you
 with several low-level keywords to access certain elements of a web page, to
-conduct actions on a web page and to test if a page met certain acceptance critera.
+conduct actions on a web page and to test if a page met certain acceptance criteria.
 
 
 First Example

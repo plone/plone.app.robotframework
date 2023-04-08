@@ -398,7 +398,7 @@ execution* keyword, you can pause the test at any point to make it possible to
 figure out what to do next.
 (Dialogs depend on `TkInter-library <http://wiki.python.org/moin/TkInter>`_.)
 
-.. note:: Be sure to remove *Import libary* and *Pause execution*
+.. note:: Be sure to remove *Import library* and *Pause execution*
    keyword calls before committing your tests to avoid pausing your
    tests on CI.
 

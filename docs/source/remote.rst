@@ -6,7 +6,7 @@ test environment for the actual tests-clauses (*When* and *Then*).
 
 Because Given-clauses are not really part of the actual test, it is not
 necessary to run them through Selenium (using Selenium2Library), but it would
-be faster to write custon Python keywords for them.
+be faster to write custom Python keywords for them.
 
 **plone.act** includes an example, how to a robot
 `remote library <http://robotframework.googlecode.com/hg/doc/userguide/RobotFrameworkUserGuide.html?r=2.7.6#remote-library-interface>`_,
