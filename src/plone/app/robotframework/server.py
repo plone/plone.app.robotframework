@@ -321,7 +321,7 @@ class Zope2Server:
                 if HAS_VERBOSE_CONSOLE:
                     print(
                         WAIT(
-                            "Test set up {}.{}".format(layer.__module__, layer.__name__)
+                            f"Test set up {layer.__module__}.{layer.__name__}"
                         )
                     )
                 layer.testSetUp()
