@@ -13,12 +13,7 @@ USERNAME_ACCESS_KEY = re.compile(r"^(http|https)://([^:]+):([^@]+)@")
 class SauceLabs:
     def report_sauce_status(self, name, status, tags=[], remote_url=""):
         """Report test status and tags to SauceLabs"""
-        job_id = (
-            BuiltIn()
-            .get_library_instance("Selenium2Library")
-            .driver
-            .session_id
-        )
+        job_id = BuiltIn().get_library_instance("Selenium2Library").driver.session_id
 
         if USERNAME_ACCESS_KEY.match(remote_url):
             username, access_key = USERNAME_ACCESS_KEY.findall(remote_url)[0][1:]

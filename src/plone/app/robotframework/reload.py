@@ -19,7 +19,6 @@ def ERROR(msg):
 
 
 class Watcher(FileSystemEventHandler):
-
     allowed_extensions = {"po", "pt", "py", "xml", "csv", "zcml"}
 
     def __init__(self, paths, forkloop, minimum_wait=2.0):
@@ -74,7 +73,6 @@ class Watcher(FileSystemEventHandler):
 
 class ForkLoop:
     def __init__(self):
-
         self.fork = True  # Must be 'True' to create new child on start
         self.active = False
         self.pause = False

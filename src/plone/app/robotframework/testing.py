@@ -56,7 +56,6 @@ SIMPLE_PUBLICATION_FIXTURE = SimplePublicationLayer()
 
 
 class SimplePublicationWithTypesLayer(Layer):
-
     defaultBases = (SIMPLE_PUBLICATION_FIXTURE,)
 
     def setUp(self):
@@ -207,7 +206,6 @@ class PloneRobotFixture(PloneSandboxLayer):
             return filter(bool, [s.strip() for s in candidates])
 
     def setUpZope(self, app, configurationContext):
-
         # This installs the VHM in the Zope root, so we can have VHM support too
         AppInitializer(app).install_virtual_hosting()
 
@@ -294,26 +292,22 @@ PLONE_ROBOT_TESTING = FunctionalTesting(
 
 
 class WSGIServerSingleThreaded(WSGIServer):
-
     def setUpServer(self):
-        """Create a single threaded WSGI server instance and save it in self.server.
-        """
+        """Create a single threaded WSGI server instance and save it in self.server."""
         app = self.make_wsgi_app()
-        kwargs = {'clear_untrusted_proxy_headers': False,
-                  'threads': 1}
+        kwargs = {"clear_untrusted_proxy_headers": False, "threads": 1}
         if self.host is not None:
-            kwargs['host'] = self.host
+            kwargs["host"] = self.host
         if self.port is not None:
-            kwargs['port'] = int(self.port)
+            kwargs["port"] = int(self.port)
         self.server = StopableWSGIServer.create(app, **kwargs)
         # If we dynamically set the host/port, we want to reset it to localhost
         # Otherwise this will depend on, for example, the local network setup
-        if self.host in (None, '0.0.0.0', '127.0.0.1', 'localhost'):
-            self.server.effective_host = 'localhost'
+        if self.host in (None, "0.0.0.0", "127.0.0.1", "localhost"):
+            self.server.effective_host = "localhost"
         # Refresh the hostname and port in case we dynamically picked them
-        self['host'] = self.host = self.server.effective_host
-        self['port'] = self.port = int(self.server.effective_port)
-
+        self["host"] = self.host = self.server.effective_host
+        self["port"] = self.port = int(self.server.effective_port)
 
 
 WSGI_SERVER_SINGLE_THREADED_FIXTURE = WSGIServerSingleThreaded()
@@ -332,7 +326,6 @@ VOLTO_ROBOT_TESTING = FunctionalTesting(
 if HAS_SPEAKJS:
 
     class SpeakJSLayer(Layer):
-
         defaultBases = (PLONE_FIXTURE,)
 
         def setUp(self):
