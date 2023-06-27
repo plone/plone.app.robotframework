@@ -7,7 +7,8 @@
 #
 # $ bin/rfbrowser init
 #
-# Creates video and trace with ROBOT_DEBUG=true
+# Pauses execution on error with ROBOT_DEBUG=true
+# Creates video and trace with ROBOT_TRACE=true
 # 
 # Traces can be viewed with
 #
@@ -27,7 +28,8 @@ ${BROWSER_RUN_ON_FAILURE}  Take Screenshot
 
 ${BROWSER}  chromium
 
-${ÐEBUG}
+${TRACE}
+${DEBUG}
 ${TRACING}  ${OUTPUT_DIR}/tracing
 
 *** Keywords ***
@@ -41,6 +43,10 @@ ${TRACING}  ${OUTPUT_DIR}/tracing
 Open Test Browser
     ${record_video}  Create dictionary   dir  ${OUTPUT_DIR}/video
     Run Keyword If  "${DEBUG}".lower() == "true"
+    ...    Open browser
+    ...        url=${START_URL}
+    ...        browser=${BROWSER}
+    ...    ELSE IF  "${TRACE}".lower() == "true"
     ...    New persistent context
     ...        url=${START_URL}
     ...        browser=${BROWSER}
@@ -56,7 +62,7 @@ Plone Test Setup
 
 Plone Test Teardown
     Run Keyword If Test Failed  ${BROWSER_RUN_ON_FAILURE}
-    Run Keyword If  "${DEBUG}".lower() == "true"  Sleep  1s
+    Run Keyword If  "${TRACE}".lower() == "true"  Sleep  1s
     Close browser
 
 Capture page screenshot
