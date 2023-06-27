@@ -3,6 +3,17 @@
 # This browser.robot setups Robot tests with Playwright via robotframework-browser.
 # This browser.robot cannot be used with selenium.robot, saucelabs.robot or keywords.robot.
 
+# Requires initialization::
+#
+# $ bin/rfbrowser init
+#
+# Creates video and trace with ROBOT_DEBUG=true
+# 
+# Traces can be viewed with
+#
+# $ bin/rfbrowser -F parts/test/*/*/tracing show-trace
+#
+
 # https://marketsquare.github.io/robotframework-browser/Browser.html#Importing
 
 Library  Browser  run_on_failure=${BROWSER_RUN_ON_FAILURE}
