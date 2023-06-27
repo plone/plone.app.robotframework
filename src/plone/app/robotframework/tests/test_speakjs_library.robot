@@ -1,7 +1,6 @@
 *** Settings ***
 
 Resource  plone/app/robotframework/keywords.robot
-Resource  plone/app/robotframework/saucelabs.robot
 Resource  plone/app/robotframework/selenium.robot
 Resource  plone/app/robotframework/annotate.robot
 Resource  plone/app/robotframework/speak.robot

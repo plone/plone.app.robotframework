@@ -167,7 +167,6 @@ Here is a more complicated example with some user keywords in action:
 
     Force Tags  wip-not_in_docs
 
-    Resource  plone/app/robotframework/saucelabs.robot
     Resource  plone/app/robotframework/selenium.robot
 
     Library  Remote  ${PLONE_URL}/RobotRemote

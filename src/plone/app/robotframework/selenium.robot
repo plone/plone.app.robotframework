@@ -44,7 +44,7 @@ Wait until location is
     ...                          Location should be  ${expected_url}
 
 Plone Test Setup
-    Open SauceLabs test browser
+    Open test browser
     Run keyword and ignore error  Set window size  4096  4096
 
 Plone Test Teardown

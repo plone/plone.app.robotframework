@@ -13,7 +13,6 @@ from plone.app.robotframework.quickinstaller import QuickInstaller
 
 # Generic remote Python library layer
 from plone.app.robotframework.remote import RemoteLibraryLayer
-from plone.app.robotframework.saucelabs import SauceLabs
 
 # Pybot listener for calling Robot Server from pybot
 # Remote Python libraries
