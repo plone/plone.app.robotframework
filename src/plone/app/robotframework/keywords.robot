@@ -81,16 +81,6 @@ Log in as site owner
     ...              with all the rights and privileges of that user.
     Log in  ${SITE_OWNER_NAME}  ${SITE_OWNER_PASSWORD}
 
-Log in as test user with role
-    [Arguments]  ${usrid}  ${role}
-
-    # We need a generic way to login with a user that has one or more roles.
-
-    # Do we need to be able to assign multiple roles at once?
-
-    # Do we need to assign roles to arbitray users or is it sufficient if we
-    # always assign those roles to the test user?
-
 Log out
     Go to  ${PLONE_URL}/logout
     Page Should Contain Element  css=#login-form
