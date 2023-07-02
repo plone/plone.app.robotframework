@@ -50,6 +50,7 @@ Configure Test Browser
     ${HEADLESS}=  Set Variable If     ${TRACE}  ${FALSE}  ${HEADLESS}
     ${HEADLESS}=  Set Variable If     ${DEBUG}  ${FALSE}  ${HEADLESS}
     ${BROWSER}=   Set Variable if     "${BROWSER}".startswith("headless")  ${BROWSER[len("headless"):]}  ${BROWSER}
+    ${BROWSER}=   Set Variable if     "${BROWSER}" == "chrome"  chromium  ${BROWSER}
     ${VIDEO}=     Create dictionary   dir  ${OUTPUT_DIR}/video
 
     Set Suite Variable  ${BROWSER}    ${BROWSER}
