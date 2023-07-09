@@ -62,6 +62,7 @@ install_requires = [
     "robotframework",
     "robotframework-selenium2library",
     "robotframework-seleniumtestability",
+    "robotframework-browser",
     "robotsuite",  # not a direct dependency, but required for convenience
     "selenium",
     "setuptools",

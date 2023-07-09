@@ -23,6 +23,10 @@ def test_suite():
     suite.addTests(
         [
             layered(
+                robotsuite.RobotTestSuite("test_browser_library.robot"),
+                layer=SIMPLE_PUBLICATION_ROBOT_TESTING,
+            ),
+            layered(
                 robotsuite.RobotTestSuite("test_autologin_library.robot"),
                 layer=SIMPLE_PUBLICATION_ROBOT_TESTING,
             ),
