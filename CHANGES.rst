@@ -8,6 +8,23 @@ Changelog
 
 .. towncrier release notes start
 
+2.1.0 (2023-07-14)
+------------------
+
+New features:
+
+
+- Add support for `playwright`-based tests via `robotframework-browser`.
+  [datakurre] (#3813)
+
+
+Bug fixes:
+
+
+- Remove unused and empty keyword that was displaying an error.
+  [gforcada] (#147)
+
+
 2.0.1 (2023-02-22)
 ------------------
 
