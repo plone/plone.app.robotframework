@@ -62,7 +62,6 @@ Advanced topics
 
    debugging
    travis-ci
-   saucelabs
    reload
    ride
 
@@ -74,7 +73,6 @@ User keywords
 as resource files:
 
 - :download:`libdoc/user_keywords.html`
-- :download:`libdoc/user_saucelabs.html`
 - :download:`libdoc/user_selenium.html`
 - :download:`libdoc/user_server.html`
 
@@ -118,7 +116,6 @@ dependent on Plone code base).
 
 - :download:`libdoc/python_debugging.html`
 - :download:`libdoc/python_layoutmath.html`
-- :download:`libdoc/python_saucelabs.html`
 - :download:`libdoc/python_zope2server.html`
 
 Each Python keyword library can be included as with ``Library

@@ -148,7 +148,6 @@ in a test suite with *Resource*-command in ```*** Settings ***``:
 
    Resource  plone/app/robotframework/keywords.robot
    Resource  plone/app/robotframework/selenium.robot
-   Resource  plone/app/robotframework/saucelabs.robot
 
 
 BDD-style tests
