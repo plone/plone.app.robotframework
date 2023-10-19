@@ -69,7 +69,7 @@ or
 
     plone.app.robotframework[ride,reload]
 
-Remember that ride must be lauched with system python with
+Remember that ride must be launched with system python with
 wxPython installed, like:
 
     /usr/bin/python bin/ride

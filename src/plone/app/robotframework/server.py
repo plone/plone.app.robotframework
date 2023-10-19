@@ -47,7 +47,6 @@ def READY(msg):
 
 
 def start(zope_layer_dotted_name):
-
     print(WAIT("Starting Zope robot server"))
 
     zsl = Zope2Server()
@@ -98,7 +97,6 @@ def start_reload(
     preload_layer_dotted_name="plone.app.testing.PLONE_FIXTURE",
     extensions=None,
 ):
-
     print(WAIT("Starting Zope robot server"))
 
     zsl = Zope2Server()
@@ -231,7 +229,6 @@ def server():
 
 
 class RobotListener:
-
     ROBOT_LISTENER_API_VERSION = 2
 
     def __init__(self):
@@ -249,7 +246,6 @@ ZODB = RobotListener  # BBB
 
 
 class Zope2Server:
-
     stop_zope_server_lazy = False  # trigger lazy Zope2Server shutdown
     stop_zope_server_layer = None  # sticky layer for lazy shutdown
 
@@ -304,7 +300,7 @@ class Zope2Server:
         if not self.stop_zope_server_lazy or force:
             tear_down()
         else:
-            # With lazy stop, the layer is saved to enable Zope2Server re-use
+            # With lazy stop, the layer is saved to enable Zope2Server reuse
             # within the same process, until tear_down is called explicitly.
             Zope2Server.stop_zope_server_layer = self.zope_layer
         self.zope_layer = None
@@ -319,11 +315,7 @@ class Zope2Server:
         for layer in layers:
             if hasattr(layer, "testSetUp"):
                 if HAS_VERBOSE_CONSOLE:
-                    print(
-                        WAIT(
-                            "Test set up {}.{}".format(layer.__module__, layer.__name__)
-                        )
-                    )
+                    print(WAIT(f"Test set up {layer.__module__}.{layer.__name__}"))
                 layer.testSetUp()
         if HAS_VERBOSE_CONSOLE:
             print(READY("Test set up"))

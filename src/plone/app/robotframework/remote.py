@@ -51,7 +51,6 @@ class RemoteLibrary(SimpleItem):
 
 
 class RemoteLibraryLayer(Layer):
-
     defaultBases = (PLONE_FIXTURE,)
     libraryBases = ()
 

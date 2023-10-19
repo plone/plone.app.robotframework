@@ -7,7 +7,6 @@ import unittest
 
 
 class TestCreateContent(unittest.TestCase):
-
     layer = PLONE_ROBOT_INTEGRATION_TESTING
 
     def setUp(self):
@@ -50,7 +49,6 @@ class TestCreateContent(unittest.TestCase):
 
 
 class TestGlobalAllow(unittest.TestCase):
-
     layer = PLONE_ROBOT_INTEGRATION_TESTING
 
     def setUp(self):

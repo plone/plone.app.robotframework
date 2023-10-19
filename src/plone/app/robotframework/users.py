@@ -11,7 +11,7 @@ class Users(RemoteLibrary):
     def create_user(self, *args, **kwargs):
         """Create user with given details and return its id"""
         disableCSRFProtection()
-        # FIXME: we are alrady using robotframework = 3.0
+        # FIXME: we are already using robotframework = 3.0
         # XXX: Because kwargs are only supported with robotframework >= 2.8.3,
         # we must parse them here to support robotframework < 2.8.3.
         for arg in [x for x in args if "=" in x]:

@@ -585,7 +585,7 @@ Fixes:
 ------------------
 
 - Add a new command-line option for robot-server to start Zope in debug-mode
-  (useage: bin/robot-server -d or bin/robot-server --debug-mode)
+  (usage: bin/robot-server -d or bin/robot-server --debug-mode)
   [datakurre]
 - Change robot LISTENER_PORT (used in communication between bin/robot-server
   and bin/robot via robotframework) to default port 49999 instead of 10001
@@ -676,7 +676,7 @@ Fixes:
 0.7.1 (2014-02-08)
 ------------------
 
-- Add ignored Sphinx-directives to pybot to make it easier to run pybot agains
+- Add ignored Sphinx-directives to pybot to make it easier to run pybot against
   Sphinx documentation
   [datakurre]
 - Update libdoc-generated documentations
@@ -825,7 +825,7 @@ This is Arnhem Sprint preview release of 0.7.0.
 0.6.0 (2013-04-30)
 ------------------
 
-- Add verbose console outout for robot-server for test setup and teardown
+- Add verbose console output for robot-server for test setup and teardown
   [datakurre]
 - Documentation update
   [datakurre, Silvio Tomatis]
@@ -892,7 +892,7 @@ This is Arnhem Sprint preview release of 0.7.0.
 ------------------
 
 - PLOG2013 development release.
-- Define dedicated re-usable AUTOLOGIN_ROBOT_FIXTURE
+- Define dedicated reusable AUTOLOGIN_ROBOT_FIXTURE
 - Drop BBB for plone.act
 - Drop entrypoints for pure pybot and rebot to make it easier to use them pure
   without extra dependencies by installing robotentrypoints-package

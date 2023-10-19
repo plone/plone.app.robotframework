@@ -49,7 +49,7 @@ Each test suite may contain one to four different parts:
     calling test keywords.
 
 **Keywords**
-    Is used to define new user keywords, which may re-use existing keywords
+    Is used to define new user keywords, which may reuse existing keywords
     from imported libraries or resource files.
 
 
@@ -132,14 +132,14 @@ Remote-library approach provides the following benefits when testing Plone:
 Resource files
 --------------
 
-Resource files provide a re-usable way to abstract your test suites. To put
+Resource files provide a reusable way to abstract your test suites. To put
 it simply, resources files are just like all the other ``.robot``-files, but
 they should not contain ``*** Test Cases ***`` certain ``*** Settings ***``
 commands (*Suite Setup*, *Suite Teardown*, *Test Setup* or *Test Teardown*).
 
 Resource files are the perfect way to import common libraries (with *Library*
 command in ```*** Settings ***``), define global ``*** Variables ***`` and
-define re-usable common ```*** Keywords ***```. Resource files are included
+define reusable common ```*** Keywords ***```. Resource files are included
 in a test suite with *Resource*-command in ```*** Settings ***``:
 
 .. code-block:: robotframework

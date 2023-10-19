@@ -224,7 +224,7 @@ class Content(RemoteLibrary):
         """Fire workflow action for content"""
         disableCSRFProtection()
         # It should be ok to use unrestricted-methods, because workflow
-        # transition guard should proctect unprivileged transition:
+        # transition guard should protect unprivileged transition:
         pc = getToolByName(self, "portal_catalog")
         results = pc.unrestrictedSearchResults(UID=content)
         obj = results[0]._unrestrictedGetObject()
