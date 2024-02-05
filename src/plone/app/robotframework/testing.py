@@ -1,4 +1,5 @@
 """Test layers required to run plone.app.robotframework tests."""
+
 from Acquisition import aq_base
 from OFS.Application import AppInitializer
 from plone.app.robotframework.autologin import AutoLogin
