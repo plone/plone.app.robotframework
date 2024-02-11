@@ -86,7 +86,9 @@ def print_urls(zope_layer, xmlrpc_server):
         # actual server name and server port.
         zserver = getattr(layer, "zserver", None)
         if zserver:
-            print(f"Zope is running at: http://{zserver.server_name}:{zserver.server_port}/")
+            print(
+                f"Zope is running at: http://{zserver.server_name}:{zserver.server_port}/"
+            )
             break
         server = getattr(layer, "server", None)
         if server:
