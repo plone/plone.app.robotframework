@@ -45,7 +45,6 @@ class SimplePublicationLayer(Layer):
 
     def setUp(self):
         with ploneSite() as portal:
-            applyProfile(portal, "plone.app.contenttypes:default")
             portal.portal_workflow.setDefaultChain("simple_publication_workflow")
 
     def tearDown(self):
@@ -56,15 +55,8 @@ class SimplePublicationLayer(Layer):
 SIMPLE_PUBLICATION_FIXTURE = SimplePublicationLayer()
 
 
-class SimplePublicationWithTypesLayer(Layer):
-    defaultBases = (SIMPLE_PUBLICATION_FIXTURE,)
-
-    def setUp(self):
-        with ploneSite() as portal:
-            applyProfile(portal, "plone.app.contenttypes:default")
-
-
-SIMPLE_PUBLICATION_WITH_TYPES_FIXTURE = SimplePublicationLayer()
+SimplePublicationWithTypesLayer = SimplePublicationLayer
+SIMPLE_PUBLICATION_WITH_TYPES_FIXTURE = SIMPLE_PUBLICATION_FIXTURE
 
 
 class MockMailHostLayer(Layer):
