@@ -79,16 +79,19 @@ def print_urls(zope_layer, xmlrpc_server):
     When doing that it is helpful that the URLs with the chosen ports are printed to stdout.
     """
 
+    print("Robot XMLRPC: http://{}:{}".format(*xmlrpc_server.server_address))
+
     for layer in zope_layer.baseResolutionOrder:
         # Walk up the testing layers and look for the first zserver in order to get the
         # actual server name and server port.
         zserver = getattr(layer, "zserver", None)
-        if not zserver:
-            continue
-        print(f"ZSERVER: http://{zserver.server_name}:{zserver.server_port}")
-        break
-
-    print("XMLRPC: http://{}:{}".format(*xmlrpc_server.server_address))
+        if zserver:
+            print(f"Zope is running at: http://{zserver.server_name}:{zserver.server_port}/")
+            break
+        server = getattr(layer, "server", None)
+        if server:
+            print(f"Zope is running at: {server.application_url}")
+            break
 
 
 def start_reload(
