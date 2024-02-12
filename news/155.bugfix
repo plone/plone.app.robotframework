@@ -1,1 +1,0 @@
-Fix printing the server URL when robot-server is run without reloading enabled. @davisagli

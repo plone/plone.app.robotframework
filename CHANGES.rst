@@ -8,6 +8,16 @@ Changelog
 
 .. towncrier release notes start
 
+2.1.2 (2024-02-12)
+------------------
+
+Bug fixes:
+
+
+- Fix duplicate installation of plone.app.contenttypes:default profile. @davisagli (#154)
+- Fix printing the server URL when robot-server is run without reloading enabled. @davisagli (#155)
+
+
 2.1.1 (2023-10-25)
 ------------------
 
