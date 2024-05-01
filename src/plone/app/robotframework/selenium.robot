@@ -101,8 +101,9 @@ Wait For Element
     ...              Element must match exactly one time.
     [Arguments]  ${element}
     Wait Until Page Contains Element  ${element}
-    Set Focus To Element  ${element}
     Wait Until Element Is Visible  ${element}
+    Wait Until Element Is Enabled  ${element}
+    Set Focus To Element  ${element}
     Sleep  0.1
     ${count} =  Get Element Count  ${element}
     Should Be Equal as Numbers  ${count}  1
@@ -112,8 +113,9 @@ Wait For Elements
     ...              Element may match more than once.
     [Arguments]  ${element}
     Wait Until Page Contains Element  ${element}
-    Set Focus To Element  ${element}
     Wait Until Element Is Visible  ${element}
+    Wait Until Element Is Enabled  ${element}
+    Set Focus To Element  ${element}
 
 Wait For Then Click Element
     [Documentation]  Can contain css=, jquery=, or any other element selector.
