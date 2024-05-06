@@ -8,6 +8,15 @@ Changelog
 
 .. towncrier release notes start
 
+2.1.3 (2024-05-06)
+------------------
+
+Bug fixes:
+
+
+- Makes ``Wait For Then Click Element`` keyword more robust. @wesleybl (#157)
+
+
 2.1.2 (2024-02-12)
 ------------------
 
