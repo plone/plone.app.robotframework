@@ -140,7 +140,7 @@ __ http://robotframework.org/#libraries
 Old tutorials
 -------------
 
-.. note:: While these tutorials are still useful for gettings started with
+.. note:: While these tutorials are still useful for getting started with
    Robot Framework testing for Plone, these may contain outdated instructions!
 
 .. toctree::

@@ -143,7 +143,7 @@ class ForkLoop:
                 if not self.killed_child:
                     print(
                         ERROR(
-                            "Forked child process died on bootup. "
+                            "Forked child process died on boot-up. "
                             "Fix possible errors and save edits. "
                             "We are now paused until we detect the next file "
                             "change..."

@@ -2,7 +2,7 @@
 Plone Keywords
 ==============================================================================
 
-plone.act provides high-level keywords to test Plone. Idealy it should provide
+plone.act provides high-level keywords to test Plone. Ideally it should provide
 all the keywords that are necessary to write acceptance test in Plone.
 
 
