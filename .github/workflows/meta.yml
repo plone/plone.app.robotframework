@@ -1,5 +1,5 @@
 # Generated from:
-# https://github.com/plone/meta/tree/master/config/default
+# https://github.com/plone/meta/tree/main/config/default
 # See the inline comments on how to expand/tweak this configuration file
 name: Meta
 on:
@@ -31,10 +31,6 @@ jobs:
   release_ready:
     uses: plone/meta/.github/workflows/release_ready.yml@main
 
-#TODO: remove the tests and coverage, as they fail on GHA for now.
-# Removed the circular dependency check as well,
-# due to plone.app.multilingual and Products.CMFPlone having a circular dependency.
-
 ##
 # To modify the list of default jobs being created add in .meta.toml:
 # [github]
@@ -53,6 +49,13 @@ jobs:
 # when running tests/coverage jobs, add in .meta.toml:
 # [github]
 # os_dependencies = "git libxml2 libxslt"
+##
+
+##
+# To test against a specific matrix of python versions
+# when running tests jobs, add in .meta.toml:
+# [github]
+# py_versions = "['3.12', '3.11']"
 ##
 
 

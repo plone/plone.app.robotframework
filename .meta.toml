@@ -1,9 +1,9 @@
 # Generated from:
-# https://github.com/plone/meta/tree/master/config/default
+# https://github.com/plone/meta/tree/main/config/default
 # See the inline comments on how to expand/tweak this configuration file
 [meta]
 template = "default"
-commit-id = "68cda6e4"
+commit-id = "a89af8f2"
 
 [flake8]
 extra_lines = """
