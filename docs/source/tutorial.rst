@@ -64,7 +64,7 @@ installed.
 After the base fixture has been created (by following
 `plone.app.testing <http://pypi.python.org/pypi/plone.app.testing/>`_
 documentation) we only need to define a functional testing fixture, which adds
-a fully functional ZServer to serve a Plone sandbox with our add-on.
+a fully functional WSGIServer to serve a Plone sandbox with our add-on.
 
 Update ``my.product/src/my/product/testing.py`` with::
 
@@ -72,7 +72,7 @@ Update ``my.product/src/my/product/testing.py`` with::
 
 
     MY_PRODUCT_FUNCTIONAL_TESTING = FunctionalTesting(
-        bases=(MY_PRODUCT_FIXTURE, z2.ZSERVER_FIXTURE),
+        bases=(MY_PRODUCT_FIXTURE, zope.ZSERVER_FIXTURE),
         name="MyproductLayer:Functional"
     )
 
@@ -194,10 +194,10 @@ The run will fail, because the test describes an unimplemented feature::
 
     Running my.product.testing.MyproductLayer:Functional tests:
       Set up plone.testing.zca.LayerCleanup in 0.000 seconds.
-      Set up plone.testing.z2.Startup in 0.217 seconds.
+      Set up plone.testing.zope.Startup in 0.217 seconds.
       Set up plone.app.testing.layers.PloneFixture in 7.643 seconds.
       Set up my.product.testing.MyproductLayer in 0.026 seconds.
-      Set up plone.testing.z2.ZServer in 0.503 seconds.
+      Set up plone.testing.zope.WSGIServer in 0.503 seconds.
       Set up my.product.testing.MyproductLayer:Functional in 0.000 seconds.
       Running:
         1/1 (100.0%)
@@ -229,10 +229,10 @@ The run will fail, because the test describes an unimplemented feature::
       Ran 1 tests with 1 failures and 0 errors in 3.632 seconds.
     Tearing down left over layers:
       Tear down my.product.testing.MyproductLayer:Functional in 0.000 seconds.
-      Tear down plone.testing.z2.ZServer in 5.282 seconds.
+      Tear down plone.testing.zope.WSGIServer in 5.282 seconds.
       Tear down my.product.testing.MyproductLayer in 0.003 seconds.
       Tear down plone.app.testing.layers.PloneFixture in 0.084 seconds.
-      Tear down plone.testing.z2.Startup in 0.006 seconds.
+      Tear down plone.testing.zope.Startup in 0.006 seconds.
       Tear down plone.testing.zca.LayerCleanup in 0.004 seconds.
 
 
@@ -292,20 +292,20 @@ Re-run the test to see it passing::
     $ bin/test -t robot_
     Running my.product.testing.MyproductLayer:Functional tests:
       Set up plone.testing.zca.LayerCleanup in 0.000 seconds.
-      Set up plone.testing.z2.Startup in 0.220 seconds.
+      Set up plone.testing.zope.Startup in 0.220 seconds.
       Set up plone.app.testing.layers.PloneFixture in 7.810 seconds.
       Set up my.product.testing.MyproductLayer in 0.027 seconds.
-      Set up plone.testing.z2.ZServer in 0.503 seconds.
+      Set up plone.testing.zope.WSGIServer in 0.503 seconds.
       Set up my.product.testing.MyproductLayer:Functional in 0.000 seconds.
       Running:
 
       Ran 1 tests with 0 failures and 0 errors in 2.604 seconds.
     Tearing down left over layers:
       Tear down my.product.testing.MyproductLayer:Functional in 0.000 seconds.
-      Tear down plone.testing.z2.ZServer in 5.253 seconds.
+      Tear down plone.testing.zope.WSGIServer in 5.253 seconds.
       Tear down my.product.testing.MyproductLayer in 0.004 seconds.
       Tear down plone.app.testing.layers.PloneFixture in 0.085 seconds.
-      Tear down plone.testing.z2.Startup in 0.006 seconds.
+      Tear down plone.testing.zope.Startup in 0.006 seconds.
       Tear down plone.testing.zca.LayerCleanup in 0.004 seconds.
 
 
