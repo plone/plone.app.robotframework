@@ -50,13 +50,13 @@ Update your ``src/my/product/testing.py`` to include:
 
 .. code-block:: python
 
-   from plone.testing import z2
+   from plone.testing import zope
    from plone.app.testing import FunctionalTesting
    from plone.app.robotframework.testing import AUTOLOGIN_LIBRARY_FIXTURE
 
    MY_PRODUCT_ROBOT_TESTING = FunctionalTesting(
       bases=(MY_PRODUCT_FIXTURE, AUTOLOGIN_LIBRARY_FIXTURE,
-             z2.ZSERVER_FIXTURE),
+             zope.ZSERVER_FIXTURE),
        name="MyProduct:Robot")
 
 .. note:: AUTOLOGIN_LIBRARY_FIXTURE is optional, but it will allow you to

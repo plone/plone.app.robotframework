@@ -359,7 +359,7 @@ def setup_layer(layer, setup_layers=setup_layers):
                 setup_layer(base, setup_layers)
         if hasattr(layer, "setUp"):
             name = f"{layer.__module__}.{layer.__name__}"
-            if HAS_VERBOSE_CONSOLE and name == "plone.testing.z2.Startup":
+            if HAS_VERBOSE_CONSOLE and name == "plone.testing.zope.Startup":
                 print(
                     WAIT(
                         "Set up {}.{} (debug-mode={})".format(
@@ -370,7 +370,7 @@ def setup_layer(layer, setup_layers=setup_layers):
             elif HAS_VERBOSE_CONSOLE:
                 print(WAIT(f"Set up {layer.__module__}.{layer.__name__}"))
             layer.setUp()
-            if HAS_DEBUG_MODE and name == "plone.testing.z2.Startup":
+            if HAS_DEBUG_MODE and name == "plone.testing.zope.Startup":
                 import App.config
 
                 config = App.config.getConfiguration()
