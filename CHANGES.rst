@@ -8,6 +8,17 @@ Changelog
 
 .. towncrier release notes start
 
+2.1.4 (2025-01-24)
+------------------
+
+Bug fixes:
+
+
+- Added missing Zope dependency.
+  [maurits] (#159)
+- Fix DeprecationWarnings. [maurits] (#4090)
+
+
 2.1.3 (2024-05-06)
 ------------------
 

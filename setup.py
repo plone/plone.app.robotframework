@@ -2,7 +2,7 @@ from setuptools import find_packages
 from setuptools import setup
 
 
-version = "2.1.4.dev0"
+version = "2.1.4"
 
 
 def indented(filename):
