@@ -1,6 +1,8 @@
 """Test layers required to run plone.app.robotframework tests."""
 
 from Acquisition import aq_base
+from importlib.metadata import distribution
+from importlib.metadata import PackageNotFoundError
 from OFS.Application import AppInitializer
 from plone.app.robotframework.autologin import AutoLogin
 from plone.app.robotframework.content import Content
@@ -28,16 +30,14 @@ from zope.component import getSiteManager
 from zope.configuration import xmlconfig
 
 import os
-import pkg_resources
 import sys
 
 
 try:
-    pkg_resources.get_distribution("collective.js.speakjs")
-except pkg_resources.DistributionNotFound:
-    HAS_SPEAKJS = False
-else:
+    distribution("collective.js.speakjs")
     HAS_SPEAKJS = True
+except PackageNotFoundError:
+    HAS_SPEAKJS = False
 
 
 class SimplePublicationLayer(Layer):
