@@ -1,3 +1,5 @@
+from importlib.metadata import distribution
+from importlib.metadata import PackageNotFoundError
 from plone.app.robotframework.remote import RemoteLibrary
 from plone.testing.zope import WSGIServer
 from xmlrpc.client import ServerProxy
@@ -6,14 +8,13 @@ from xmlrpc.server import SimpleXMLRPCServer
 import argparse
 import logging
 import os
-import pkg_resources
 import sys
 import time
 
 
 try:
-    pkg_resources.get_distribution("watchdog")
-except pkg_resources.DistributionNotFound:
+    distribution("watchdog")
+except PackageNotFoundError:
     HAS_RELOAD = False
 else:
     from plone.app.robotframework.reload import ForkLoop

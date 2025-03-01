@@ -1,4 +1,6 @@
 from datetime import datetime
+from importlib.metadata import distribution
+from importlib.metadata import PackageNotFoundError
 from io import BytesIO
 from PIL import Image
 from PIL import ImageDraw
@@ -23,14 +25,13 @@ from zope.lifecycleevent import ObjectModifiedEvent
 from zope.schema.interfaces import IFromUnicode
 
 import os
-import pkg_resources
 import random
 import string
 
 
 try:
-    pkg_resources.get_distribution("z3c.relationfield")
-except pkg_resources.DistributionNotFound:
+    distribution("z3c.relationfield")
+except PackageNotFoundError:
     HAS_DEXTERITY_RELATIONS = False
 else:
     from z3c.relationfield import RelationValue
