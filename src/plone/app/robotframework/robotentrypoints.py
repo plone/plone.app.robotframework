@@ -1,16 +1,16 @@
+from importlib.metadata import distribution
+from importlib.metadata import PackageNotFoundError
 from robot import libdoc as ld
 from robot import run_cli
 
-import pkg_resources
 import sys
 
 
 try:
-    pkg_resources.get_distribution("robotframework-ride")
-except pkg_resources.DistributionNotFound:
-    HAS_RIDE = False
-else:
+    distribution("robotframework-ride")
     HAS_RIDE = True
+except PackageNotFoundError:
+    HAS_RIDE = False
 
 
 def pybot():
