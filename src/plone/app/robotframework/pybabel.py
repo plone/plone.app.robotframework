@@ -26,7 +26,6 @@ robot.parsing.tablepopulators.StepPopulator.populate = populate
 
 
 def extract_robot(fileobj, keywords, comment_tags, options):
-    global MESSAGES
     try:
         robot.parsing.TestData(source=fileobj.name)
     except robot.errors.DataError:
