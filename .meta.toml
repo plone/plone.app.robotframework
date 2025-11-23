@@ -3,7 +3,10 @@
 # See the inline comments on how to expand/tweak this configuration file
 [meta]
 template = "default"
-commit-id = "dcdc915a"
+commit-id = "2.2.2"
+
+[tox]
+test_matrix = {"6.2" = ["*"]}
 
 [flake8]
 extra_lines = """

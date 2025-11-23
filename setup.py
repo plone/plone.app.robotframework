@@ -1,8 +1,7 @@
-from setuptools import find_packages
 from setuptools import setup
 
 
-version = "2.1.6.dev0"
+version = "3.0.0.dev0"
 
 
 def indented(filename):
@@ -72,14 +71,13 @@ install_requires = [
     "robotframework-browser",
     "robotsuite",  # not a direct dependency, but required for convenience
     "selenium",
-    "setuptools",
     "z3c.form",
     "z3c.relationfield",
     "zope.component",
     "zope.i18n",
     "zope.intid",
     "zope.schema",
-    "zope.testrunner",
+    "zope.testrunner >= 6.4",
 ]
 
 test_requires = [
@@ -125,12 +123,9 @@ setup(
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Framework :: Plone",
-        "Framework :: Plone :: 6.0",
-        "Framework :: Plone :: 6.1",
+        "Framework :: Plone :: 6.2",
         "License :: OSI Approved :: GNU General Public License (GPL)",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: 3.12",
@@ -140,12 +135,9 @@ setup(
     author_email="asko.soukka@iki.fi",
     url="https://github.com/plone/plone.app.robotframework/",
     license="GPL",
-    packages=find_packages("src"),
-    package_dir={"": "src"},
-    namespace_packages=["plone", "plone.app"],
     include_package_data=True,
     zip_safe=False,
-    python_requires=">=3.8",
+    python_requires=">=3.10",
     install_requires=install_requires,
     extras_require={
         "ride": ride_requires,
