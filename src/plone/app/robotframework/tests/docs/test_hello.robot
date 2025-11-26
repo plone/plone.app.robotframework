@@ -1,15 +1,16 @@
 *** Settings ***
 
-Force Tags  wip-not_in_docs
+Test Tags  wip-not_in_docs
 
-Resource  plone/app/robotframework/saucelabs.robot
-Resource  plone/app/robotframework/selenium.robot
+Resource    plone/app/robotframework/browser.robot
 
-Test Setup  Run keywords  Plone test setup
-Test Teardown  Run keywords  Plone test teardown
+Library    Remote    ${PLONE_URL}/RobotRemote
+
+Test Setup    Run Keywords    Plone test setup
+Test Teardown    Run keywords     Plone test teardown
 
 *** Test Cases ***
 
 Plone is installed
     Go to  ${PLONE_URL}
-    Page should contain  Powered by Plone
+    Get Element count    :text("Powered by Plone"):visible    >    0
