@@ -6,6 +6,9 @@
 # Start the test
 # WSGI_SERVER_HOST=localhost WSGI_SERVER_PORT=50003 robot src/plone/app/robotframework/tests/test_quickinstaller_library.robot
 #
+# or run: ROBOT_BROWSER=headlesschrome zope-testrunner --test-path=src --all -t test_quickinstaller_library.robot
+#
+
 *** Settings ***
 
 Resource    plone/app/robotframework/browser.robot
@@ -29,7 +32,7 @@ Some default product is activated
 *** Keywords ***
 
 '${product}' is activated
-    Product is activated  ${product}
+    Product is activated    ${product}
 
 '${product}' is not activated
-    Run keyword and expect error  *  Product is activated  ${product}
+    Run keyword and expect error    *    Product is activated    ${product}

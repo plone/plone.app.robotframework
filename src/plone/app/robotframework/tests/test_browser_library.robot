@@ -6,6 +6,8 @@
 # Start the test
 # WSGI_SERVER_HOST=localhost WSGI_SERVER_PORT=50003 robot src/plone/app/robotframework/tests/test_browser_library.robot
 #
+# or run: ROBOT_BROWSER=headlesschrome zope-testrunner --test-path=src --all -t test_browser_library.robot
+#
 *** Settings ***
 
 Resource    plone/app/robotframework/browser.robot
@@ -23,7 +25,7 @@ Test Teardown    Run keywords     Plone test teardown
 *** Test Cases ***
 
 Test create content
-    Enable autologin as  Contributor
-    Create content  type=Document  id=example-document  title=Example document
-    Go to  ${PLONE_URL}/example-document
-    Get text  h1  Should be  Example document
+    Enable autologin as    Contributor
+    Create content    type=Document    id=example-document    title=Example document
+    Go to    ${PLONE_URL}/example-document
+    Get text    h1    Should be    Example document
