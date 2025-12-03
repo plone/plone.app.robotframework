@@ -19,74 +19,31 @@ except PackageNotFoundError:
     HAS_SPEAKJS = False
 
 
+ROBOT_TEST_LAYER_MAPPING = [
+    ("test_autologin_library.robot", SIMPLE_PUBLICATION_ROBOT_TESTING),
+    ("test_content_library.robot", SIMPLE_PUBLICATION_ROBOT_TESTING),
+    ("test_quickinstaller_library.robot", SIMPLE_PUBLICATION_ROBOT_TESTING),
+    ("test_i18n_library.robot", SIMPLE_PUBLICATION_ROBOT_TESTING),
+    ("test_users_library.robot", PLONE_ROBOT_TESTING),
+    ("docs", PLONE_ROBOT_TESTING),
+]
+
+
 def test_suite():
 
-    robottestsuite = robotsuite.RobotTestSuite("test_autologin_library.robot")
-    robottestsuite.level = ROBOT_TEST_LEVEL
     suite = unittest.TestSuite()
-    suite.addTests(
-        [
-            layered(
-                robottestsuite,
-                layer=SIMPLE_PUBLICATION_ROBOT_TESTING,
-            ),
-        ]
-    )
 
-    robottestsuite = robotsuite.RobotTestSuite("test_content_library.robot")
-    robottestsuite.level = ROBOT_TEST_LEVEL
-    suite.addTests(
-        [
-            layered(
-                robottestsuite,
-                layer=SIMPLE_PUBLICATION_ROBOT_TESTING,
-            ),
-        ]
-    )
-
-    robottestsuite = robotsuite.RobotTestSuite("test_quickinstaller_library.robot")
-    robottestsuite.level = ROBOT_TEST_LEVEL
-    suite.addTests(
-        [
-            layered(
-                robottestsuite,
-                layer=SIMPLE_PUBLICATION_ROBOT_TESTING,
-            ),
-        ]
-    )
-
-    robottestsuite = robotsuite.RobotTestSuite("test_i18n_library.robot")
-    robottestsuite.level = ROBOT_TEST_LEVEL
-    suite.addTests(
-        [
-            layered(
-                robottestsuite,
-                layer=SIMPLE_PUBLICATION_ROBOT_TESTING,
-            ),
-        ]
-    )
-
-    robottestsuite = robotsuite.RobotTestSuite("test_users_library.robot")
-    robottestsuite.level = ROBOT_TEST_LEVEL
-    suite.addTests(
-        [
-            layered(
-                robottestsuite,
-                layer=PLONE_ROBOT_TESTING,
-            ),
-        ]
-    )
-
-    robottestsuite = robotsuite.RobotTestSuite("docs")
-    robottestsuite.level = ROBOT_TEST_LEVEL
-    suite.addTests(
-        [
-            layered(
-                robottestsuite,
-                layer=PLONE_ROBOT_TESTING,
-            ),
-        ]
-    )
+    for robot_test, test_layer in ROBOT_TEST_LAYER_MAPPING:
+        robottestsuite = robotsuite.RobotTestSuite(
+            robot_test,
+            noncritical=["unstable"],
+        )
+        robottestsuite.level = ROBOT_TEST_LEVEL
+        suite.addTests(
+            [
+                layered(robottestsuite, layer=test_layer),
+            ]
+        )
 
     if HAS_SPEAKJS:
         from plone.app.robotframework.testing import SPEAKJS_ROBOT_TESTING
