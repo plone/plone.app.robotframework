@@ -1,0 +1,1 @@
+fix suite setup to respect `bin/test -s plone.app.robotframework` vs `bin/test -s plone.app.robotframework --all` in coredev @1letter
