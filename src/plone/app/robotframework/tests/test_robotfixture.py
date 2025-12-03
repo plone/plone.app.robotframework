@@ -1,5 +1,6 @@
 from plone.app.robotframework.testing import PloneRobotFixture
 from plone.app.robotframework.testing import REMOTE_LIBRARY_BUNDLE_FIXTURE
+from plone.app.testing import ROBOT_TEST_LEVEL
 from plone.testing import layered
 from plone.testing.zope import FunctionalTesting
 from plone.testing.zope import WSGI_SERVER_FIXTURE
@@ -37,10 +38,13 @@ PLONE_ROBOT_TESTING = FunctionalTesting(
 
 def test_suite():
     suite = unittest.TestSuite()
+
+    robottestsuite = robotsuite.RobotTestSuite("test_robotfixture.robot")
+    robottestsuite.level = ROBOT_TEST_LEVEL
     suite.addTests(
         [
             layered(
-                robotsuite.RobotTestSuite("test_robotfixture.robot"),
+                robottestsuite,
                 layer=PLONE_ROBOT_TESTING,
             ),
         ]
