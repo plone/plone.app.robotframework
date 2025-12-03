@@ -35,7 +35,6 @@ def test_suite():
 
     robottestsuite = robotsuite.RobotTestSuite("test_content_library.robot")
     robottestsuite.level = ROBOT_TEST_LEVEL
-    suite = unittest.TestSuite()
     suite.addTests(
         [
             layered(
@@ -47,7 +46,6 @@ def test_suite():
 
     robottestsuite = robotsuite.RobotTestSuite("test_quickinstaller_library.robot")
     robottestsuite.level = ROBOT_TEST_LEVEL
-    suite = unittest.TestSuite()
     suite.addTests(
         [
             layered(
@@ -59,7 +57,6 @@ def test_suite():
 
     robottestsuite = robotsuite.RobotTestSuite("test_i18n_library.robot")
     robottestsuite.level = ROBOT_TEST_LEVEL
-    suite = unittest.TestSuite()
     suite.addTests(
         [
             layered(
@@ -71,7 +68,6 @@ def test_suite():
 
     robottestsuite = robotsuite.RobotTestSuite("test_users_library.robot")
     robottestsuite.level = ROBOT_TEST_LEVEL
-    suite = unittest.TestSuite()
     suite.addTests(
         [
             layered(
@@ -83,7 +79,6 @@ def test_suite():
 
     robottestsuite = robotsuite.RobotTestSuite("docs")
     robottestsuite.level = ROBOT_TEST_LEVEL
-    suite = unittest.TestSuite()
     suite.addTests(
         [
             layered(
@@ -101,7 +96,6 @@ def test_suite():
             noncritical=["non-critical"],
         )
         robottestsuite.level = ROBOT_TEST_LEVEL
-        suite = unittest.TestSuite()
         suite.addTests(
             [
                 layered(
