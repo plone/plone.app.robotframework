@@ -8,6 +8,15 @@ Changelog
 
 .. towncrier release notes start
 
+3.0.0a2 (2025-12-04)
+--------------------
+
+Bug fixes:
+
+
+- fix suite setup to respect `bin/test -s plone.app.robotframework` vs `bin/test -s plone.app.robotframework --all` in coredev @1letter (#182)
+
+
 3.0.0a1 (2025-11-26)
 --------------------
 
