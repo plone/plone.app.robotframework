@@ -1,32 +1,29 @@
 *** Settings ***
+Resource            plone/app/robotframework/browser.robot
+Library             Remote    ${PLONE_URL}/RobotRemote
 
-Test Tags  wip-not_in_docs
+Test Setup          Run Keywords    Plone test setup
+Test Teardown       Run keywords    Plone test teardown
 
-Resource    plone/app/robotframework/browser.robot
-
-Library    Remote    ${PLONE_URL}/RobotRemote
-
-Test Setup    Run Keywords    Plone test setup
-Test Teardown    Run keywords     Plone test teardown
-
+Test Tags           wip-not_in_docs
 # disable headless mode for browser
 # set the variable BROWSER to chrome or firefox
 # *** Variables ***
 # ${BROWSER}    chrome
 
-*** Variables ***
 
-${ADMIN_ROLE}    Site Administrator
+*** Variables ***
+${ADMIN_ROLE}       Site Administrator
+
 
 *** Test Cases ***
-
 Site Administrator can access control panel
     Given I'm logged in as a '${ADMIN_ROLE}'
-     When I open the personal menu
-     Then I see the Site Setup -link
+    When I open the personal menu
+    Then I see the Site Setup -link
+
 
 *** Keywords ***
-
 I'm logged in as a '${ROLE}'
     Enable autologin as    ${ROLE}
     Go to    ${PLONE_URL}

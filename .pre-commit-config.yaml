@@ -84,6 +84,11 @@ repos:
 #  """
 ##
 
+-   repo: https://github.com/MarketSquare/robotframework-robocop
+    rev: v7.2.0
+    hooks:
+        # - id: robocop  # Needs work to be uncommented
+        - id: robocop-format
 
 ##
 # Add extra configuration options in .meta.toml:
