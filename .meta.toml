@@ -25,3 +25,12 @@ jobs = [
     "dependencies",
     "release_ready",
     ]
+
+[pre_commit]
+extra_lines = """
+-   repo: https://github.com/MarketSquare/robotframework-robocop
+    rev: v7.2.0
+    hooks:
+        # - id: robocop  # Needs work to be uncommented
+        - id: robocop-format
+"""
