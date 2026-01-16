@@ -38,7 +38,6 @@ parts/
 pyvenv.cfg
 var/
 local.cfg
-.venv
 
 # mxdev
 /instance/

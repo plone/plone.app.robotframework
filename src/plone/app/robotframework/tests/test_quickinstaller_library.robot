@@ -1,3 +1,4 @@
+*** Comments ***
 # Start a single robot test
 #
 # Start the server
@@ -9,28 +10,26 @@
 # or run: ROBOT_BROWSER=headlesschrome zope-testrunner --test-path=src --all -t test_quickinstaller_library.robot
 #
 
+
 *** Settings ***
+Resource            plone/app/robotframework/browser.robot
+Library             Remote    ${PLONE_URL}/RobotRemote
 
-Resource    plone/app/robotframework/browser.robot
-
-Library    Remote    ${PLONE_URL}/RobotRemote
-
-Test Setup    Run Keywords    Plone test setup
-Test Teardown    Run keywords     Plone test teardown
-
+Test Setup          Run Keywords    Plone test setup
+Test Teardown       Run keywords    Plone test teardown
 # disable headless mode for browser
 # set the variable BROWSER to chrome or firefox
 # *** Variables ***
 # ${BROWSER}    chrome
 
-*** Test Cases ***
 
+*** Test Cases ***
 Some default product is activated
     Given 'plone.app.users' is activated
-      and 'plone.session' is not activated
+    and 'plone.session' is not activated
+
 
 *** Keywords ***
-
 '${product}' is activated
     Product is activated    ${product}
 
