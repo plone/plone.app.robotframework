@@ -2,7 +2,6 @@
 import robot
 import robot.parsing.tablepopulators
 
-
 MESSAGES = []
 
 

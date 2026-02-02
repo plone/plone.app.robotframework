@@ -6,7 +6,6 @@ import json
 import os
 import re
 
-
 USERNAME_ACCESS_KEY = re.compile(r"^(http|https)://([^:]+):([^@]+)@")
 
 

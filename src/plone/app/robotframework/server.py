@@ -11,7 +11,6 @@ import os
 import sys
 import time
 
-
 try:
     distribution("watchdog")
 except PackageNotFoundError:

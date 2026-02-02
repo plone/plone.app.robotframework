@@ -11,7 +11,6 @@ from plone.testing import layered
 import robotsuite
 import unittest
 
-
 try:
     distribution("collective.js.speakjs")
     HAS_SPEAKJS = True

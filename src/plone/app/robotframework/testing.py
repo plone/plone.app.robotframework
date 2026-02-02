@@ -32,7 +32,6 @@ from zope.configuration import xmlconfig
 import os
 import sys
 
-
 try:
     distribution("collective.js.speakjs")
     HAS_SPEAKJS = True
