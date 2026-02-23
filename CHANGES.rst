@@ -8,6 +8,16 @@ Changelog
 
 .. towncrier release notes start
 
+3.0.0a3 (2026-02-23)
+--------------------
+
+Internal:
+
+
+- Add the robocop pre-commit check. Update configuration files with plone.meta.
+  [plone devs]
+
+
 3.0.0a2 (2025-12-04)
 --------------------
 
