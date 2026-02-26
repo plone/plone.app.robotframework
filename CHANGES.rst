@@ -8,6 +8,16 @@ Changelog
 
 .. towncrier release notes start
 
+2.1.6 (2026-02-26)
+------------------
+
+Internal:
+
+
+- Add the robocop pre-commit check.
+  [ale-rt]
+
+
 2.1.5 (2025-03-07)
 ------------------
 
