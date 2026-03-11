@@ -3,7 +3,6 @@
 # and for Plone: https://github.com/plone/Products.CMFPlone/issues/2786
 from selenium.webdriver.common import utils
 
-
 try:
     # Python 3
     ConnectionResetError

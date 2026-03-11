@@ -5,7 +5,6 @@ from robot import run_cli
 
 import sys
 
-
 try:
     distribution("robotframework-ride")
     HAS_RIDE = True
