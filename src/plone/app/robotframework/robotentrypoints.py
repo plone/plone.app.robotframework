@@ -57,8 +57,7 @@ def ride():
 
         main(*sys.argv[1:])
     else:
-        print(
-            """\
+        print("""\
 Package robotframework-ride was not found. Please, install
 plone.app.robotframework with proper extras, like:
 
@@ -72,8 +71,7 @@ Remember that ride must be launched with system python with
 wxPython installed, like:
 
     /usr/bin/python bin/ride
-"""
-        )
+""")
 
 
 def libdoc():
