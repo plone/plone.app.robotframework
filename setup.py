@@ -1,6 +1,6 @@
 from setuptools import setup
 
-version = "3.0.0a4"
+version = "3.0.0a5.dev0"
 
 
 def indented(filename):
