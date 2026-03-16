@@ -28,7 +28,6 @@ import os
 import random
 import string
 
-
 try:
     distribution("z3c.relationfield")
 except PackageNotFoundError:
