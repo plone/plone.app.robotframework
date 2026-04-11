@@ -1,9 +1,9 @@
 # Generated from:
-# https://github.com/plone/meta/tree/main/src/plone/meta/default
+# https://github.com/plone/meta/tree/2.x/src/plone/meta/default
 # See the inline comments on how to expand/tweak this configuration file
 [meta]
 template = "default"
-commit-id = "2.5.1"
+commit-id = "2.8.0"
 
 [tox]
 test_matrix = {"6.2" = ["*"]}
@@ -32,7 +32,7 @@ jobs = [
 [pre_commit]
 extra_lines = """
 -   repo: https://github.com/MarketSquare/robotframework-robocop
-    rev: v7.2.0
+    rev: v8.2.4
     hooks:
         # - id: robocop  # Needs work to be uncommented
         - id: robocop-format
