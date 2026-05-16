@@ -8,6 +8,15 @@ Changelog
 
 .. towncrier release notes start
 
+3.0.0 (2026-05-16)
+------------------
+
+Internal:
+
+
+- Make final release, no further changes.
+
+
 3.0.0a4 (2026-03-16)
 --------------------
 
