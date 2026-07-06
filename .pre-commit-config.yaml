@@ -20,7 +20,7 @@ repos:
     hooks:
     -   id: black
 -   repo: https://github.com/collective/zpretty
-    rev: 4.0.0
+    rev: 4.0.3
     hooks:
     -   id: zpretty
 
@@ -62,7 +62,7 @@ repos:
     hooks:
     -   id: check-manifest
 -   repo: https://github.com/regebro/pyroma
-    rev: "5.0.1"
+    rev: "5.1b1"
     hooks:
     -   id: pyroma
 -   repo: https://github.com/mgedmin/check-python-versions
@@ -85,7 +85,7 @@ repos:
 ##
 
 -   repo: https://github.com/MarketSquare/robotframework-robocop
-    rev: v8.2.9
+    rev: v8.3.2
     hooks:
         # - id: robocop  # Needs work to be uncommented
         - id: robocop-format
