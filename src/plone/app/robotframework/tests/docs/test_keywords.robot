@@ -1,11 +1,11 @@
 *** Settings ***
-Resource            plone/app/robotframework/browser.robot
-Library             Remote    ${PLONE_URL}/RobotRemote
+Resource         plone/app/robotframework/browser.robot
+Library          Remote    ${PLONE_URL}/RobotRemote
 
-Test Setup          Run Keywords    Plone test setup
-Test Teardown       Run keywords    Plone test teardown
+Test Setup       Run Keywords    Plone test setup
+Test Teardown    Run keywords    Plone test teardown
 
-Test Tags           wip-not_in_docs
+Test Tags        wip-not_in_docs
 # disable headless mode for browser
 # set the variable BROWSER to chrome or firefox
 # *** Variables ***
@@ -13,7 +13,7 @@ Test Tags           wip-not_in_docs
 
 
 *** Variables ***
-${ADMIN_ROLE}       Site Administrator
+${ADMIN_ROLE}    Site Administrator
 
 
 *** Test Cases ***

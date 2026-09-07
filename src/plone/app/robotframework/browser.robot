@@ -21,14 +21,14 @@ Resource    ${CMFPLONE_SELECTORS}
 
 
 *** Variables ***
-${BROWSER_RUN_ON_FAILURE}       Take Screenshot
+${BROWSER_RUN_ON_FAILURE}    Take Screenshot
 
-${BROWSER}                      headlesschromium
+${BROWSER}                   headlesschromium
 
-${DEBUG}                        false
-${HEADLESS}                     false
-${TRACE}                        false
-${TRACING}                      ${OUTPUT_DIR}/tracing
+${DEBUG}                     false
+${HEADLESS}                  false
+${TRACE}                     false
+${TRACING}                   ${OUTPUT_DIR}/tracing
 
 
 *** Keywords ***

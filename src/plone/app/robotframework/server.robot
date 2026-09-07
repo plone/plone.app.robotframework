@@ -5,7 +5,7 @@ Resource    selenium.robot
 
 
 *** Variables ***
-${OPEN_BROWSER_KEYWORD}     Open test browser
+${OPEN_BROWSER_KEYWORD}    Open test browser
 
 
 *** Keywords ***

@@ -1,8 +1,8 @@
 *** Settings ***
-Documentation       This library requires
-...                 plone.app.robotframework.testing.SPEAKJS_FIXTURE
+Documentation    This library requires
+...              plone.app.robotframework.testing.SPEAKJS_FIXTURE
 
-Library             String
+Library          String
 
 
 *** Keywords ***
