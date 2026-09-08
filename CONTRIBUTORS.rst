@@ -1,3 +1,6 @@
+Contributors
+============
+
 - Anatoly Bubenkov
 - Asko Soukka
 - Benoît Suttor

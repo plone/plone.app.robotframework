@@ -4,7 +4,107 @@
 [build-system]
 requires = ["setuptools>=68.2,<83", "wheel"]
 
+# START-MARKER-MANUAL-CONFIG
+# Anything from here until END-MARKER-MANUAL-CONFIG
+# will be kept by plone.meta
 
+[project]
+name = "plone.app.robotframework"
+version = "3.0.1.dev0"
+description = "Robot Framework testing resources for Plone"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Framework :: Plone",
+    "Framework :: Plone :: 6.2",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
+license = "GPL-2.0-only"
+dynamic = ["readme"]
+requires-python = ">=3.10"
+authors = [
+    {name = "Asko Soukka",email = "asko.soukka@iki.fi"},
+]
+maintainers = [
+    {name = "Plone Foundation and contributors",email = "plone-developers@lists.sourceforge.net"},
+]
+dependencies = [
+    "Pillow",
+    "Products.CMFPlone",
+    "Products.PlonePAS >= 5.0.1",
+    "Products.PluggableAuthService",
+    "Zope",
+    "babel",
+    "docutils",
+    "plone.app.testing",
+    "plone.app.textfield",
+    "plone.base",
+    "plone.dexterity",
+    "plone.i18n",
+    "plone.namedfile",
+    "plone.protect",
+    "plone.registry",
+    "plone.testing",
+    "plone.uuid",
+    "robotframework",
+    "robotframework-browser",
+    "robotframework-selenium2library",
+    "robotframework-seleniumtestability",
+    "robotsuite",
+    "selenium",
+    "z3c.form",
+    "z3c.relationfield",
+    "zope.component",
+    "zope.i18n",
+    "zope.intid",
+    "zope.schema",
+    "zope.testrunner >= 6.4",
+]
+keywords = [
+    "robot",
+    "automatic",
+    "browser",
+    "testing",
+    "Plone",
+]
+
+[project.scripts]
+robot-server = "plone.app.robotframework.server:server"
+robot = "plone.app.robotframework.robotentrypoints:robot"
+robot-debug = "plone.app.robotframework.robotentrypoints:robot_debug"
+pybot = "plone.app.robotframework.robotentrypoints:pybot"
+ride = "plone.app.robotframework.robotentrypoints:ride"
+libdoc = "plone.app.robotframework.robotentrypoints:libdoc"
+pybabel = "plone.app.robotframework.robotentrypoints:pybabel"
+
+[project.optional-dependencies]
+ride = ["robotframework-ride"]
+speak = ["collective.js.speakjs"]
+test = [
+    "Products.MailHost",
+    "plone.app.textfield",
+    "plone.dexterity",
+    "robotsuite",
+    "webtest",
+    "z3c.form",
+    "zope.configuration",
+]
+reload = ["watchdog"]
+docs = ["sphinxcontrib-robotdoc"]
+debug = ["robotframework-debuglibrary"]
+
+[project.urls]
+Source = "https://github.com/plone/plone.app.robotframework/"
+Issues = "https://github.com/plone/Products.CMFPlone/issues"
+Changelog = "https://github.com/plone/plone.app.robotframework/blob/master/CHANGES.rst"
+
+[tool.setuptools.dynamic]
+readme = {file = ["README.rst", "CONTRIBUTORS.rst", "CHANGES.rst"]}
+# END-MARKER-MANUAL-CONFIG
 
 [tool.towncrier]
 directory = "news/"
