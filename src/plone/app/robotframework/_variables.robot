@@ -1,9 +1,9 @@
 *** Settings ***
-Documentation       This file should be required only using
-...                 ``Resource    plone/app/robotframework/variables.robot``.
+Documentation    This file should be required only using
+...              ``Resource    plone/app/robotframework/variables.robot``.
 ...
-...                 The fancy import order is required for backwards
-...                 compatibility with robotframework 2.7.7.
+...              The fancy import order is required for backwards
+...              compatibility with robotframework 2.7.7.
 
 
 *** Variables ***

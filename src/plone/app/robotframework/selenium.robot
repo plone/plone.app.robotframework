@@ -11,16 +11,16 @@ Resource    ${CMFPLONE_SELECTORS}
 
 
 *** Variables ***
-${SELENIUM_IMPLICIT_WAIT}               0.5
-${SELENIUM_TIMEOUT}                     7
-${SELENIUM_RUN_ON_FAILURE}              Capture Page Screenshot
-${SELENIUM2LIBRARY_RUN_ON_FAILURE}      No operation
-${SELENIUM2LIBRARY_PLUGINS}             ${None}
+${SELENIUM_IMPLICIT_WAIT}             0.5
+${SELENIUM_TIMEOUT}                   7
+${SELENIUM_RUN_ON_FAILURE}            Capture Page Screenshot
+${SELENIUM2LIBRARY_RUN_ON_FAILURE}    No operation
+${SELENIUM2LIBRARY_PLUGINS}           ${None}
 
-${BROWSER}                              Firefox
-${REMOTE_URL}                           ${EMPTY}
-${FF_PROFILE_DIR}                       ${EMPTY}
-${DESIRED_CAPABILITIES}                 ${EMPTY}
+${BROWSER}                            Firefox
+${REMOTE_URL}                         ${EMPTY}
+${FF_PROFILE_DIR}                     ${EMPTY}
+${DESIRED_CAPABILITIES}               ${EMPTY}
 
 
 *** Keywords ***

@@ -1,10 +1,10 @@
 *** Settings ***
-Documentation       *DEPRECATED* Use ``Selenium2Screenshots/keywords.robot`` from
-...                 ``robotframework-selenium2screenshots``-package instead.
+Documentation    *DEPRECATED* Use ``Selenium2Screenshots/keywords.robot`` from
+...              ``robotframework-selenium2screenshots``-package instead.
 
-Library             String
-Library             Collections
-Library             plone.app.robotframework.Annotate
+Library          String
+Library          Collections
+Library          plone.app.robotframework.Annotate
 
 
 *** Variables ***

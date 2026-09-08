@@ -1,9 +1,9 @@
 *** Settings ***
-Documentation       *WARNING* This resource is not stable yet and keywords may be
-...                 renamed, removed or relocated without notice.
+Documentation    *WARNING* This resource is not stable yet and keywords may be
+...              renamed, removed or relocated without notice.
 
-Resource            selenium.robot
-Resource            user.robot
+Resource         selenium.robot
+Resource         user.robot
 
 
 *** Keywords ***
