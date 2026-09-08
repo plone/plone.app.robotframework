@@ -35,7 +35,7 @@ maintainers = [
 dependencies = [
     "Pillow",
     "Products.CMFPlone",
-    "Products.PlonePAS >= 5.0.1",
+    "Products.PlonePAS",
     "Products.PluggableAuthService",
     "Zope",
     "babel",
@@ -62,7 +62,7 @@ dependencies = [
     "zope.i18n",
     "zope.intid",
     "zope.schema",
-    "zope.testrunner >= 6.4",
+    "zope.testrunner",
 ]
 keywords = [
     "robot",
@@ -86,11 +86,8 @@ ride = ["robotframework-ride"]
 speak = ["collective.js.speakjs"]
 test = [
     "Products.MailHost",
-    "plone.app.textfield",
-    "plone.dexterity",
     "robotsuite",
     "webtest",
-    "z3c.form",
     "zope.configuration",
 ]
 reload = ["watchdog"]
