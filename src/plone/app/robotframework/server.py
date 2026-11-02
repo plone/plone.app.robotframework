@@ -384,7 +384,7 @@ def tear_down(setup_layers=setup_layers):
 
     # Tear down any layers not needed for these tests. The unneeded layers
     # might interfere.
-    unneeded = [layer for layer in setup_layers]
+    unneeded = [*setup_layers]
     unneeded = order_by_bases(unneeded)
     unneeded.reverse()
     for layer in unneeded:
