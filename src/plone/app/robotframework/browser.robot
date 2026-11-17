@@ -58,7 +58,11 @@ Configure Test Browser
 Open Test Browser
     Configure Test Browser
     IF    ${DEBUG}
-        Open browser    url=${START_URL}    browser=${BROWSER}
+        # 'Open Browser' is deprecated in robotframework-browser >= 20.6, but it is
+        # the only keyword that pauses on failure. Robot Framework warns about
+        # deprecated keywords even in branches that do not run, so resolve it
+        # at runtime to keep the warning out of normal test runs.
+        Run Keyword    Open browser    url=${START_URL}    browser=${BROWSER}
     ELSE IF    ${TRACE}
         New persistent context
         ...    url=${START_URL}
