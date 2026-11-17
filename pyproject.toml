@@ -10,7 +10,7 @@ requires = ["setuptools>=68.2,<83", "wheel"]
 
 [project]
 name = "plone.app.robotframework"
-version = "3.0.1.dev0"
+version = "3.0.1"
 description = "Robot Framework testing resources for Plone"
 classifiers = [
     "Development Status :: 5 - Production/Stable",

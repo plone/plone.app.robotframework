@@ -8,6 +8,24 @@ Changelog
 
 .. towncrier release notes start
 
+3.0.1 (2026-11-17)
+------------------
+
+Bug fixes:
+
+
+- Do not log a deprecation warning for ``Open Browser`` in every test with robotframework-browser 20.6 and newer.
+  The keyword is only used in debug mode and is now resolved at runtime.
+  [petschki]
+
+
+Internal:
+
+
+- Move package metadata from ``setup.py`` to ``pyproject.toml``.
+  [plone devs]
+
+
 3.0.0 (2026-05-16)
 ------------------
 
