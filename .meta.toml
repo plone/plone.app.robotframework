@@ -3,10 +3,10 @@
 # See the inline comments on how to expand/tweak this configuration file
 [meta]
 template = "default"
-commit-id = "2.8.0"
+commit-id = "2.13.1"
 
 [tox]
-test_matrix = {"6.2" = ["*"]}
+test_matrix = {"6.3" = ["*"], "6.2" = ["*"]}
 
 [flake8]
 extra_lines = """
@@ -32,7 +32,7 @@ jobs = [
 [pre_commit]
 extra_lines = """
 -   repo: https://github.com/MarketSquare/robotframework-robocop
-    rev: v8.2.4
+    rev: v9.1.2
     hooks:
         # - id: robocop  # Needs work to be uncommented
         - id: robocop-format
